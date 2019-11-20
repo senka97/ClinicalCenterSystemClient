@@ -7,3 +7,8 @@ form{
     margin-right:auto;
     margin-top: 5%;
 }
+
+button{
+    display:inline-block;
+    margin-right: 3%;
+}
