@@ -42,4 +42,17 @@ export class AuthService{
         console.log("Access token:" + this._access_token);
     }
 
+    
+    signup(user) {
+      const signupHeaders = new HttpHeaders({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      });
+      return this._apiService.post(this._config.signup_url, JSON.stringify(user), signupHeaders)
+        .pipe(map((res) => {
+          console.log(res);
+          console.log('Sign up success');
+        }));
+    }
+
 }

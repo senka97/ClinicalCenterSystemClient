@@ -11,23 +11,28 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
    pageTitle = "Login"
-   loginUser : LoginUser;
+   _loginUser : LoginUser;
 
 
   constructor(private _route: ActivatedRoute, 
     private _router: Router, private _authService: AuthService) {
-    this.loginUser = new LoginUser();
+    this._loginUser = new LoginUser();
    }
 
   onClickedLogin() {
-    console.log("Email:" + this.loginUser.email + " and password: " + this.loginUser.password);
-    this._authService.login(this.loginUser).subscribe(data => {
+    console.log("Email:" + this._loginUser.email + " and password: " + this._loginUser.password);
+    this._authService.login(this._loginUser).subscribe(data => {
       this._router.navigate(['/patientHP']);
     },
     error => {
       alert("Incorrect email or password");
     })
           
+  }
+
+  onRegisterClicked() {
+
+    this._router.navigate(['/signup']);
   }
 
   

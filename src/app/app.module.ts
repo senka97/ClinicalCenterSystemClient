@@ -11,13 +11,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomepagePatientComponent } from './homepage-patient/homepage-patient.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomepagePatientComponent
+    HomepagePatientComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
@@ -27,6 +29,7 @@ import { HomepagePatientComponent } from './homepage-patient/homepage-patient.co
     RouterModule.forRoot([
       {path: 'login', component: LoginComponent},
       {path: 'patientHP', component: HomepagePatientComponent},
+      {path: 'signup', component: SignUpComponent},
       {path: '', redirectTo : 'login', pathMatch: 'full'}
     ])
   ],
