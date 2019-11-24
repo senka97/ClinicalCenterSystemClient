@@ -47,14 +47,14 @@
                             </div>
                             <div class="row">
                                     <div class="input-field col">
-                                            <input type="password" class="validate" name="password" 
+                                            <input type="password" class="validate" name="password" (change)="onPasswordChange()"
                                                     #password="ngModel" [(ngModel)]="_signUpUser.password" required autocomplete="off" minlength="6" />
                                             <label [attr.data-error] = "password.errors != null?(password.errors.required? 'Required Field!':'Minimum 6 Characters Needed'):'' "> Password</label>
                                     </div>
                                     <div class="input-field col">
-                                            <input type="password" class="validate" name="confirmPassword" required autocomplete="off"  minlength="6"
-                                             [pattern] = "_signUpUser.password" />
-                                            <label data-error = "Invalid Password!" > Re-entry password</label>
+                                            <input type="password" (change)="onConfirnChange()" id="confPassword" class="validate" [(ngModel)]="confirmPassword" name="confirmPassword" required autocomplete="off"  minlength="6"
+                                             [pattern] = "_signUpUser.password" [style.border-color]="message=== 'changed' ? 'red' : ''" />
+                                            <label data-error = "Invalid password"  > Re-entry password  {{message}}</label>
                                            
                                     </div>
 
@@ -87,8 +87,6 @@
 
 
                     </form>
-                   
-
             </div>
            
 

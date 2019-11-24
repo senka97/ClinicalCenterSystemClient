@@ -12,10 +12,6 @@ button.btn-submit{
 button.btn-submit:focus, button-btn-submit:hover{
     background-color:green
 }
-div.validation-error{
-    color:Red;
-    
-}
 .row {
     margin-bottom: 10px;
 }
