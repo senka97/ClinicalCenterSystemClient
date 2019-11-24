@@ -13,6 +13,6 @@
     </div>
     <button type="submit" class="btn btn-primary" [disabled]="!userForm.form.valid">Log in</button>
     <button type="button" (click) = 'onRegisterClicked()' class="btn btn-primary">Register</button>
+    <p id="pError" *ngIf="_showError">Incorrect email or password.</p>
   </form>
-    
 </div>
