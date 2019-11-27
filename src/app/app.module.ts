@@ -1,3 +1,4 @@
+import { UserService } from './service/user.service';
 import { TokenInterceptor } from './interceptor/TokenInterceptor';
 import { ApiService } from './service/api.service';
 import { ConfigService } from './service/config.service';
@@ -11,16 +12,16 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { HomepagePatientComponent } from './homepage-patient/homepage-patient.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { HpDoctorComponent } from './hp-doctor/hp-doctor.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomepagePatientComponent,
-    SignUpComponent
+    SignUpComponent,
+    HpDoctorComponent
   ],
   imports: [
     BrowserModule,
@@ -29,8 +30,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     HttpClientModule,
     RouterModule.forRoot([
       {path: 'login', component: LoginComponent},
-      {path: 'patientHP', component: HomepagePatientComponent},
       {path: 'signup', component: SignUpComponent},
+      {path: 'doctorHP', component: HpDoctorComponent},
       {path: '', redirectTo : 'login', pathMatch: 'full'}
     ])
   ],
@@ -42,7 +43,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     },
     AuthService,
     ApiService,
-    ConfigService
+    ConfigService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

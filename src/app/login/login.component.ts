@@ -1,3 +1,4 @@
+import { UserService } from './../service/user.service';
 import { element } from 'protractor';
 import { AuthService } from './../service/auth.service';
 import { LoginUser } from './LoginUser';
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
 
 
   constructor(private _route: ActivatedRoute, 
-    private _router: Router, private _authService: AuthService) {
+    private _router: Router, private _authService: AuthService, private _userService: UserService) {
     this._loginUser = new LoginUser();
     this._showError = false;
   }
@@ -26,15 +27,25 @@ export class LoginComponent implements OnInit {
    
   onClickedLogin() {
     console.log("Email:" + this._loginUser.email + " and password: " + this._loginUser.password);
-    this._authService.login(this._loginUser).subscribe(data => {
-      this._router.navigate(['/patientHP']);
+    this._authService.login(this._loginUser).subscribe(
+      data => {
+          this._userService.getMyInfo().subscribe(user =>{
+             console.log("Role of user : " + user.authorities[0]['authority']);
+             let role = user.authorities[0]['authority'];
+              if(role === 'ROLE_DOCTOR'){
+                this._router.navigate(['/doctorHP']);
+              }else{
+                alert("Nije doktor. Nema jos homepage.");
+        }
+      
+          });
+        
     },
-    error => {
-      //alert("Incorrect email or password");
-      this._showError = true;
-      setTimeout(() => {
-        this._showError = false;
-     }, 5000)
+      error => {
+        this._showError = true;
+        setTimeout(() => {
+          this._showError = false;
+        }, 5000)
       
     })
           

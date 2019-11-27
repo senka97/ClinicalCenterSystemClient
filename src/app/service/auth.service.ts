@@ -13,6 +13,7 @@ export class AuthService implements OnInit{
 
   ngOnInit(): void {
     localStorage.setItem('access_token', null);
+    localStorage.setItem('role', null);
   }
 
     constructor(
@@ -22,7 +23,6 @@ export class AuthService implements OnInit{
       ) {
       }
 
-      //private _access_token = null;
 
       login(user) {
         const loginHeaders = new HttpHeaders({
@@ -34,19 +34,20 @@ export class AuthService implements OnInit{
           'password' : user.password
         };
         return this._apiService.post(this._config.login_url, JSON.stringify(body), loginHeaders)
-          .pipe(map((res) => {
-            console.log('Login success');
-            //this._access_token = res.accessToken;
-            localStorage.setItem('access_token', res.accessToken);
-            console.log("Access token:" +  localStorage.getItem('access_token'));
+          .pipe(
+            map(res => {
+                console.log('Login success');
+                localStorage.setItem('access_token', res.accessToken);
+                console.log("Access token:" +  localStorage.getItem('access_token'));
           }));
       }
 
       logout() {
-        //this._access_token = null; 
         localStorage.setItem('access_token', null);
+        localStorage.setItem('currentUser', null);
         this._router.navigate(['/login']);
         console.log("Access token:" + localStorage.getItem('access_token'));
+        console.log("Current user: " + localStorage.getItem('currentUser'));
     }
 
     
@@ -63,13 +64,11 @@ export class AuthService implements OnInit{
     }
 
     tokenIsPresent() {
-      //return this._access_token != undefined && this._access_token != null;
       let token = localStorage.getItem('access_token'); //localstorage cuva stringove
       return token != 'null' && token != undefined;
     }
   
     getToken() {
-      //return this._access_token;
       return localStorage.getItem('access_token');
     }
 
