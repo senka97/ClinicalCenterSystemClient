@@ -34,6 +34,9 @@ export class LoginComponent implements OnInit {
              let role = user.authorities[0]['authority'];
               if(role === 'ROLE_DOCTOR'){
                 this._router.navigate(['/doctorHP']);
+              }
+              else if(role=== 'ROLE_CLINICAL_CENTER_ADMIN'){
+                this._router.navigate(['/clinicalCenterAdminProfile']);
               }else{
                 alert("Nije doktor. Nema jos homepage.");
         }
