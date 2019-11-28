@@ -1,3 +1,4 @@
+import { PatientService } from './service/patient.service';
 import { UserService } from './service/user.service';
 import { TokenInterceptor } from './interceptor/TokenInterceptor';
 import { ApiService } from './service/api.service';
@@ -14,6 +15,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HpDoctorComponent } from './hp-doctor/hp-doctor.component';
+import { ListPatientsComponent } from './hp-doctor/list-patients/list-patients.component';
+import { PatientDetailsComponent } from './hp-doctor/patient-details/patient-details.component';
 
 
 @NgModule({
@@ -21,7 +24,9 @@ import { HpDoctorComponent } from './hp-doctor/hp-doctor.component';
     AppComponent,
     LoginComponent,
     SignUpComponent,
-    HpDoctorComponent
+    HpDoctorComponent,
+    ListPatientsComponent,
+    PatientDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -31,8 +36,24 @@ import { HpDoctorComponent } from './hp-doctor/hp-doctor.component';
     RouterModule.forRoot([
       {path: 'login', component: LoginComponent},
       {path: 'signup', component: SignUpComponent},
-      {path: 'doctorHP', component: HpDoctorComponent},
-      {path: '', redirectTo : 'login', pathMatch: 'full'}
+      {path: 'doctorHP', component: HpDoctorComponent,
+       children:[
+        {
+           path: 'listOfPatients',
+           component: ListPatientsComponent,
+           outlet: 'hpDoctor',
+           children:[
+            {
+              path: 'patientDetails/:id',
+              component: PatientDetailsComponent,
+              outlet: 'hpDoctor'
+            }
+           ]
+        },
+        
+      ]},
+      {path: '', redirectTo : 'login', pathMatch: 'full'},
+      //{path: '**', redirectTo: 'login'},
     ])
   ],
   providers: [
@@ -44,7 +65,8 @@ import { HpDoctorComponent } from './hp-doctor/hp-doctor.component';
     AuthService,
     ApiService,
     ConfigService,
-    UserService
+    UserService,
+    PatientService
   ],
   bootstrap: [AppComponent]
 })
