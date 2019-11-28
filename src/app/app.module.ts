@@ -1,3 +1,4 @@
+import { PatientService } from './service/patient.service';
 import { UserService } from './service/user.service';
 import { TokenInterceptor } from './interceptor/TokenInterceptor';
 import { ApiService } from './service/api.service';
@@ -17,6 +18,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { HpDoctorComponent } from './hp-doctor/hp-doctor.component';
 import { ProfileClinicalCenterAdminComponent } from './profile-clinical-center-admin/profile-clinical-center-admin.component';
 import { RegisterClinicalCenterAdminComponent } from './profile-clinical-center-admin/register-clinical-center-admin.component';
+import { ListPatientsComponent } from './hp-doctor/list-patients/list-patients.component';
+import { PatientDetailsComponent } from './hp-doctor/patient-details/patient-details.component';
 
 
 @NgModule({
@@ -26,7 +29,9 @@ import { RegisterClinicalCenterAdminComponent } from './profile-clinical-center-
     SignUpComponent,
     HpDoctorComponent,
     ProfileClinicalCenterAdminComponent,
-    RegisterClinicalCenterAdminComponent
+    RegisterClinicalCenterAdminComponent,
+    ListPatientsComponent,
+    PatientDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -36,10 +41,27 @@ import { RegisterClinicalCenterAdminComponent } from './profile-clinical-center-
     RouterModule.forRoot([
       {path: 'login', component: LoginComponent},
       {path: 'signup', component: SignUpComponent},
-      {path: 'doctorHP', component: HpDoctorComponent},
+      {path: 'doctorHP', component: HpDoctorComponent,
+       children:[
+        {
+           path: 'listOfPatients',
+           component: ListPatientsComponent,
+           outlet: 'hpDoctor',
+           children:[
+            {
+              path: 'patientDetails/:id',
+              component: PatientDetailsComponent,
+              outlet: 'hpDoctor'
+            }
+           ]
+        },
+        
+      ]},
       {path: 'clinicalCenterAdminProfile', component: ProfileClinicalCenterAdminComponent },
       {path: 'registerClinicalCenterAdmin', component: RegisterClinicalCenterAdminComponent},
       {path: '', redirectTo : 'login', pathMatch: 'full'}
+      //{path: '**', redirectTo: 'login'},
+
     ])
   ],
   providers: [
@@ -52,7 +74,8 @@ import { RegisterClinicalCenterAdminComponent } from './profile-clinical-center-
     ApiService,
     ConfigService,
     UserService,
-    ClinicalCenterAdminService
+    ClinicalCenterAdminService,
+    PatientService
   ],
   bootstrap: [AppComponent]
 })
