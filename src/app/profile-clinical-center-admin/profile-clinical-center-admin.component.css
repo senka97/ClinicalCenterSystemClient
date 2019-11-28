@@ -1,0 +1,19 @@
+th {
+    background-color: lightgreen;
+}
+td{
+    background-color: lightgray;
+}
+td.b{
+    background-color: white;
+}
+.table-responsive{
+    margin: auto;
+    height: 40%;
+    width: 60%;
+}
+.panel-body{
+    margin: auto;
+    height: 40%;
+    width: 60%;
+}

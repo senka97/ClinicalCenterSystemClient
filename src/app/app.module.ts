@@ -4,6 +4,7 @@ import { TokenInterceptor } from './interceptor/TokenInterceptor';
 import { ApiService } from './service/api.service';
 import { ConfigService } from './service/config.service';
 import { AuthService } from './service/auth.service';
+import { ClinicalCenterAdminService } from './service/clinical-center-admin.service';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -15,6 +16,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HpDoctorComponent } from './hp-doctor/hp-doctor.component';
+import { ProfileClinicalCenterAdminComponent } from './profile-clinical-center-admin/profile-clinical-center-admin.component';
+import { RegisterClinicalCenterAdminComponent } from './profile-clinical-center-admin/register-clinical-center-admin.component';
 import { ListPatientsComponent } from './hp-doctor/list-patients/list-patients.component';
 import { PatientDetailsComponent } from './hp-doctor/patient-details/patient-details.component';
 
@@ -25,6 +28,8 @@ import { PatientDetailsComponent } from './hp-doctor/patient-details/patient-det
     LoginComponent,
     SignUpComponent,
     HpDoctorComponent,
+    ProfileClinicalCenterAdminComponent,
+    RegisterClinicalCenterAdminComponent,
     ListPatientsComponent,
     PatientDetailsComponent
   ],
@@ -52,8 +57,11 @@ import { PatientDetailsComponent } from './hp-doctor/patient-details/patient-det
         },
         
       ]},
-      {path: '', redirectTo : 'login', pathMatch: 'full'},
+      {path: 'clinicalCenterAdminProfile', component: ProfileClinicalCenterAdminComponent },
+      {path: 'registerClinicalCenterAdmin', component: RegisterClinicalCenterAdminComponent},
+      {path: '', redirectTo : 'login', pathMatch: 'full'}
       //{path: '**', redirectTo: 'login'},
+
     ])
   ],
   providers: [
@@ -66,6 +74,7 @@ import { PatientDetailsComponent } from './hp-doctor/patient-details/patient-det
     ApiService,
     ConfigService,
     UserService,
+    ClinicalCenterAdminService,
     PatientService
   ],
   bootstrap: [AppComponent]

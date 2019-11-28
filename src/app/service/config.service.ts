@@ -9,6 +9,7 @@ export class ConfigService{
     private _login_url = this._auth_url + '/login';
     private _signup_url = this._auth_url + '/signup';
     private _whoami_url = 'http://localhost:9000/users/currentUser';
+    private _clcadmin_url = 'http://localhost:9000/api/clinicalCenterAdmin';
 
  
     get login_url(): string {
@@ -21,6 +22,10 @@ export class ConfigService{
     
     get whoami_url(): string {
       return this._whoami_url;
+    }
+
+    get clcadmin_url(): string {
+      return this._clcadmin_url;
     }
 
 }
