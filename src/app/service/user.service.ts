@@ -11,7 +11,6 @@ export class UserService{
 
     }
 
-  
 
     getMyInfo() {
         return this._apiService.get(this._config.whoami_url)

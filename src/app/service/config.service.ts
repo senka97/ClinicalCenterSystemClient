@@ -12,6 +12,7 @@ export class ConfigService{
     private _whoami_url = this._server_url + '/users/currentUser';
     private _editpatient_url =this._server_url + '/users/editPatient';
     private _passchange_url = this._server_url + '/users/changePassword'
+    private _clcadmin_url = 'http://localhost:9000/api/clinicalCenterAdmin';
 
  
     get login_url(): string {
@@ -33,6 +34,10 @@ export class ConfigService{
     }
     get passchange_url():string{
       return this._passchange_url;
+    }
+
+    get clcadmin_url(): string {
+      return this._clcadmin_url;
     }
 
 }

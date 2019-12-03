@@ -13,14 +13,14 @@
                     <a class="nav-link" href="#">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Log out</a>
+                    <a class="nav-link" [routerLink]="" (click)="clickedLogout()">Log out</a>
                 </li>
             </ul>
         </div>
     </nav>
     <ul class="nav flex-column bg-dark" style="width: 20%;color: azure;float:left;">
         <li class="nav-item">
-          <a class="nav-link" href="#">List of all patients</a>
+          <a class="nav-link" [routerLink]="[{ outlets: { hpDoctor: ['listOfPatients'] } }]">List of all patients</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Start a medical exam</a>
@@ -35,7 +35,6 @@
             <a class="nav-link" href="#">Medical exams and surgeries</a>
           </li>
       </ul>
-      <div style="float:left;background-color: cadetblue;margin:2em;">
-          <h3>Please select an option...</h3>
-      </div>
+      <router-outlet name="hpDoctor"></router-outlet>
+      
   </div>

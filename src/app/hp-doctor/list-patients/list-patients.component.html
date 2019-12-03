@@ -1,0 +1,36 @@
+<div *ngIf="_showList" style="float:left;margin-top:2em;margin-left:5em;">
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Serial number</th>
+            <th scope="col">Email</th>
+            <th scope="col">Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let patient of _patients;let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{patient.name}}</td>
+            <td>{{patient.surname}}</td>
+            <td>{{patient.serialNumber}}</td>
+            <td>{{patient.email}}</td>
+            <!--<td><a [routerLink]="[{ outlets: { hpDoctor: ['patientDetails' , patient.id] } }]">See details...</a></td>-->
+            <td><a [routerLink]="" (click)="showDetails(patient.id)">See details...</a></td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  <div *ngIf="_showPatient" style="float:left;margin-top:2em;margin-left:5em;background-color: rgb(248, 248, 248);">
+    <h3>Patient: {{_currentPatient.name}}  {{_currentPatient.surname}}</h3>
+    <p>Serial number: {{_currentPatient.serialNumber}}</p>
+    <p>Email: {{_currentPatient.email}}</p>
+    <p>Address: {{_currentPatient.address}}</p>
+    <p>City: {{_currentPatient.city}}</p>
+    <p>Country: {{_currentPatient.country}}</p>
+    <p>Phone number: {{_currentPatient.phoneNumber}}</p>
+    <button style="float: right;" type="button" class="btn btn-primary btn-sm" (click)="goBack()">Back</button>
+  </div>
+  

@@ -1,8 +1,10 @@
+import { PatientService } from './service/patient.service';
 import { UserService } from './service/user.service';
 import { TokenInterceptor } from './interceptor/TokenInterceptor';
 import { ApiService } from './service/api.service';
 import { ConfigService } from './service/config.service';
 import { AuthService } from './service/auth.service';
+import { ClinicalCenterAdminService } from './service/clinical-center-admin.service';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -15,6 +17,10 @@ import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HpDoctorComponent } from './hp-doctor/hp-doctor.component';
 import { HpPatientComponent } from './hp-patient/hp-patient.component';
+import { ProfileClinicalCenterAdminComponent } from './profile-clinical-center-admin/profile-clinical-center-admin.component';
+import { RegisterClinicalCenterAdminComponent } from './profile-clinical-center-admin/register-clinical-center-admin.component';
+import { ListPatientsComponent } from './hp-doctor/list-patients/list-patients.component';
+import { PatientDetailsComponent } from './hp-doctor/patient-details/patient-details.component';
 
 
 @NgModule({
@@ -23,7 +29,11 @@ import { HpPatientComponent } from './hp-patient/hp-patient.component';
     LoginComponent,
     SignUpComponent,
     HpDoctorComponent,
-    HpPatientComponent
+    HpPatientComponent,
+    ProfileClinicalCenterAdminComponent,
+    RegisterClinicalCenterAdminComponent,
+    ListPatientsComponent,
+    PatientDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -34,8 +44,27 @@ import { HpPatientComponent } from './hp-patient/hp-patient.component';
       {path: 'login', component: LoginComponent},
       {path: 'signup', component: SignUpComponent},
       {path: 'patientHP', component: HpPatientComponent},
-      {path: 'doctorHP', component: HpDoctorComponent},
+      {path: 'doctorHP', component: HpDoctorComponent,
+       children:[
+        {
+           path: 'listOfPatients',
+           component: ListPatientsComponent,
+           outlet: 'hpDoctor',
+           children:[
+            {
+              path: 'patientDetails/:id',
+              component: PatientDetailsComponent,
+              outlet: 'hpDoctor'
+            }
+           ]
+        },
+        
+      ]},
+      {path: 'clinicalCenterAdminProfile', component: ProfileClinicalCenterAdminComponent },
+      {path: 'registerClinicalCenterAdmin', component: RegisterClinicalCenterAdminComponent},
       {path: '', redirectTo : 'login', pathMatch: 'full'}
+      //{path: '**', redirectTo: 'login'},
+
     ])
   ],
   providers: [
@@ -47,7 +76,9 @@ import { HpPatientComponent } from './hp-patient/hp-patient.component';
     AuthService,
     ApiService,
     ConfigService,
-    UserService
+    UserService,
+    ClinicalCenterAdminService,
+    PatientService
   ],
   bootstrap: [AppComponent]
 })
