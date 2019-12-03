@@ -34,7 +34,11 @@ export class LoginComponent implements OnInit {
              let role = user.authorities[0]['authority'];
               if(role === 'ROLE_DOCTOR'){
                 this._router.navigate(['/doctorHP']);
-              }else{
+              }else if(role === 'ROLE_PATIENT'){
+                this._router.navigate(['/patientHP']);
+              }
+              
+              else{
                 alert("Nije doktor. Nema jos homepage.");
         }
       
@@ -53,12 +57,11 @@ export class LoginComponent implements OnInit {
 
   onRegisterClicked() {
 
-    this._router.navigate(['/signup']);
+  
+     this._router.navigate(['/signup']);
   }
 
-  
-  
   ngOnInit() {
   }
-
+ 
 }

@@ -14,11 +14,13 @@ export class SignUpComponent implements OnInit {
   _signUpUser: SignUpUser;
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
   confirmPassword: String;
+  show :  boolean;
  
   message: String;
   constructor(private _route: ActivatedRoute, 
     private _router: Router,
      private _authService: AuthService) {
+       this.show = false
        this._signUpUser = new SignUpUser();
       }
 
@@ -31,6 +33,7 @@ export class SignUpComponent implements OnInit {
     if (form != null) {
       form.reset();
     }
+    
     this.confirmPassword = "";
     this.message = "";
   }

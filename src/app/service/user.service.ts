@@ -2,6 +2,7 @@ import { ConfigService } from './config.service';
 import { ApiService } from './api.service';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
+import {HttpHeaders} from '@angular/common/http';
 
 @Injectable()
 export class UserService{
@@ -21,5 +22,26 @@ export class UserService{
             return user;
           }));
       }
+      editInfo(user) {
+        const editHeaders = new HttpHeaders({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        });
+        return this._apiService.post(this._config.editpatient_url, JSON.stringify(user), editHeaders)
+          .pipe(map((res) => {
+            console.log(res);
+          }));
+      }
+      changePassword(user) {
+        const editHeaders = new HttpHeaders({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        });
+        return this._apiService.post(this._config.passchange_url, JSON.stringify(user), editHeaders)
+          .pipe(map((res) => {
+            console.log(res);
+          }));
+      }
+  
 
 }

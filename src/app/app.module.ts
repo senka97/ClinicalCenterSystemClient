@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HpDoctorComponent } from './hp-doctor/hp-doctor.component';
+import { HpPatientComponent } from './hp-patient/hp-patient.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { HpDoctorComponent } from './hp-doctor/hp-doctor.component';
     AppComponent,
     LoginComponent,
     SignUpComponent,
-    HpDoctorComponent
+    HpDoctorComponent,
+    HpPatientComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +33,7 @@ import { HpDoctorComponent } from './hp-doctor/hp-doctor.component';
     RouterModule.forRoot([
       {path: 'login', component: LoginComponent},
       {path: 'signup', component: SignUpComponent},
+      {path: 'patientHP', component: HpPatientComponent},
       {path: 'doctorHP', component: HpDoctorComponent},
       {path: '', redirectTo : 'login', pathMatch: 'full'}
     ])
