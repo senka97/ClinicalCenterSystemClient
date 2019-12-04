@@ -11,7 +11,6 @@ export class UserService{
 
     }
 
-
     getMyInfo() {
         return this._apiService.get(this._config.whoami_url)
           .pipe(map(user => {
@@ -26,7 +25,7 @@ export class UserService{
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         });
-        return this._apiService.post(this._config.editpatient_url, JSON.stringify(user), editHeaders)
+        return this._apiService.put(this._config.edituser_url, JSON.stringify(user), editHeaders)
           .pipe(map((res) => {
             console.log(res);
           }));
@@ -36,7 +35,7 @@ export class UserService{
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         });
-        return this._apiService.post(this._config.passchange_url, JSON.stringify(user), editHeaders)
+        return this._apiService.put(this._config.passchange_url, JSON.stringify(user), editHeaders)
           .pipe(map((res) => {
             console.log(res);
           }));
