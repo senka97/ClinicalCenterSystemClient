@@ -6,9 +6,12 @@ import { Injectable } from '@angular/core';
 export class ConfigService{
 
     private _auth_url = 'http://localhost:9000/auth';
+    private _server_url = 'http://localhost:9000';
     private _login_url = this._auth_url + '/login';
     private _signup_url = this._auth_url + '/signup';
-    private _whoami_url = 'http://localhost:9000/users/currentUser';
+    private _whoami_url = this._server_url + '/users/currentUser';
+    private _edituser_url =this._server_url + '/users/editUser';
+    private _passchange_url = this._server_url + '/users/changePassword'
     private _clcadmin_url = 'http://localhost:9000/api/clinicalCenterAdmin';
 
  
@@ -22,6 +25,15 @@ export class ConfigService{
     
     get whoami_url(): string {
       return this._whoami_url;
+    }
+    get edituser_url():string{
+      return this._edituser_url;
+    }
+    get server_url():string{
+      return this._server_url;
+    }
+    get passchange_url():string{
+      return this._passchange_url;
     }
 
     get clcadmin_url(): string {

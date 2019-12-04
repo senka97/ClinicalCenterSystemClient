@@ -16,6 +16,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HpDoctorComponent } from './hp-doctor/hp-doctor.component';
+import { HpPatientComponent } from './hp-patient/hp-patient.component';
 import { ProfileClinicalCenterAdminComponent } from './profile-clinical-center-admin/profile-clinical-center-admin.component';
 import { RegisterClinicalCenterAdminComponent } from './profile-clinical-center-admin/register-clinical-center-admin.component';
 import { ListPatientsComponent } from './hp-doctor/list-patients/list-patients.component';
@@ -28,6 +29,7 @@ import { PatientDetailsComponent } from './hp-doctor/patient-details/patient-det
     LoginComponent,
     SignUpComponent,
     HpDoctorComponent,
+    HpPatientComponent,
     ProfileClinicalCenterAdminComponent,
     RegisterClinicalCenterAdminComponent,
     ListPatientsComponent,
@@ -41,6 +43,7 @@ import { PatientDetailsComponent } from './hp-doctor/patient-details/patient-det
     RouterModule.forRoot([
       {path: 'login', component: LoginComponent},
       {path: 'signup', component: SignUpComponent},
+      {path: 'patientHP', component: HpPatientComponent},
       {path: 'doctorHP', component: HpDoctorComponent,
        children:[
         {
