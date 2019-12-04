@@ -9,9 +9,9 @@ export class ConfigService{
     private _server_url = 'http://localhost:9000';
     private _login_url = this._auth_url + '/login';
     private _signup_url = this._auth_url + '/signup';
+    private _passchange_url = this._auth_url + '/changePassword'
     private _whoami_url = this._server_url + '/users/currentUser';
     private _edituser_url =this._server_url + '/users/editUser';
-    private _passchange_url = this._server_url + '/users/changePassword'
     private _clcadmin_url = 'http://localhost:9000/api/clinicalCenterAdmin';
 
  
