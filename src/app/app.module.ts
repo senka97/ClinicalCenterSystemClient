@@ -21,7 +21,7 @@ import { HpPatientComponent } from './hp-patient/hp-patient.component';
 import { ProfileClinicalCenterAdminComponent } from './profile-clinical-center-admin/profile-clinical-center-admin.component';
 import { RegisterClinicalCenterAdminComponent } from './profile-clinical-center-admin/register-clinical-center-admin.component';
 import { ListPatientsComponent } from './hp-doctor/list-patients/list-patients.component';
-import { PatientDetailsComponent } from './hp-doctor/patient-details/patient-details.component';
+import { ProfileMedicalStaffComponent } from './profile-medical-staff/profile-medical-staff.component';
 import { RegisterClinicAdminComponent } from './profile-clinical-center-admin/register-clinic-admin.component';
 
 
@@ -35,7 +35,7 @@ import { RegisterClinicAdminComponent } from './profile-clinical-center-admin/re
     ProfileClinicalCenterAdminComponent,
     RegisterClinicalCenterAdminComponent,
     ListPatientsComponent,
-    PatientDetailsComponent,
+    ProfileMedicalStaffComponent,   
     RegisterClinicAdminComponent
   ],
   imports: [
@@ -54,19 +54,13 @@ import { RegisterClinicAdminComponent } from './profile-clinical-center-admin/re
            path: 'listOfPatients',
            component: ListPatientsComponent,
            outlet: 'hpDoctor',
-           children:[
-            {
-              path: 'patientDetails/:id',
-              component: PatientDetailsComponent,
-              outlet: 'hpDoctor'
-            }
-           ]
         },
         
       ]},
       {path: 'clinicalCenterAdminProfile', component: ProfileClinicalCenterAdminComponent },
       {path: 'registerClinicalCenterAdmin', component: RegisterClinicalCenterAdminComponent},
       {path: 'registerClinicAdmin', component: RegisterClinicAdminComponent},
+      {path: 'medicalStaffProfile', component: ProfileMedicalStaffComponent},
       {path: '', redirectTo : 'login', pathMatch: 'full'}
       //{path: '**', redirectTo: 'login'},
 

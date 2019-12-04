@@ -30,6 +30,7 @@ export class UserService{
             console.log(res);
           }));
       }
+      
       changePassword(user) {
         const editHeaders = new HttpHeaders({
           'Accept': 'application/json',
