@@ -28,7 +28,7 @@
           <a class="nav-link" [routerLink]="" (click)="clickRegisterClCAdmin()" >Register clinical center administrator</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Register clinic administrator</a>
+          <a class="nav-link"  [routerLink]="" (click)="clickRegisterClinicAdmin()" >Register clinic administrator</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Register clinic</a>
@@ -59,13 +59,32 @@
                     <tr><th>Country:</th> <td *ngIf='editInformation'> {{_currentAdmin.country}} </td> <td *ngIf='!editInformation'> <input type="text" [(ngModel)]='_currentAdmin.country'> </td> </tr> 
                     <tr><th>Phone Number:</th> <td *ngIf='editInformation'> {{_currentAdmin.phoneNumber}} </td> <td *ngIf='!editInformation'> <input type="text" [(ngModel)]='_currentAdmin.phoneNumber'> </td> </tr>
                     <tr><th>Serial Number:</th> <td> {{_currentAdmin.serialNumber}} </td>  </tr> 
-                    <tr> <td style="text-align: center;" class="b" colspan="2"> <button  (click)='editInformationF()'> {{ editInformation ? 'Edit Information' : 'Save changes' }}</button></td> </tr>
+                    <tr> 
+                        <td style="text-align: center;" class="b" > <button  (click)='openModal("custom-modal-1")'> Edit Password </button> </td>
+                        <td style="text-align: center;" class="b" > <button  (click)='editInformationF()'> {{ editInformation ? 'Edit Information' : 'Save changes' }}</button></td>    
+                    </tr>
                 </table>
             </div>
         </div>
     </div>
 
 </div>
+
+<jw-modal id="custom-modal-1">
+    <div class="card" style="background: lightgreen;">
+        <div class="card-content">
+            <span class="card-title">Change your current password</span>
+        </div>
+        <form class="col white" (ngSubmit)="closeModalWithSave('custom-modal-1')" #pasForm="ngForm">
+            <input type="password" placeholder="Enter your old password here" name="password"  required [(ngModel)]="_oldPassword" />
+            <small id="oldPswHelp" class="form-text text-muted">Your old password is required.</small>
+            <input type="password" placeholder="Enter your new password here" name="password" minlength="6" required [(ngModel)]="_currentAdmin.password" />
+            <small id="newPswHelp" class="form-text text-muted">New password is required.</small>
+            <button type="button" class="btn btn-primary" (click)="closeModal('custom-modal-1');">Back</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!pasForm.form.valid" >Save</button>
+        </form>
+    </div>
+</jw-modal>
 
 
 

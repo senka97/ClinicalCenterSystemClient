@@ -11,6 +11,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { ModalModule } from './_modal';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -42,6 +43,7 @@ import { RegisterClinicAdminComponent } from './profile-clinical-center-admin/re
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ModalModule,
     RouterModule.forRoot([
       {path: 'login', component: LoginComponent},
       {path: 'signup', component: SignUpComponent},
@@ -64,6 +66,7 @@ import { RegisterClinicAdminComponent } from './profile-clinical-center-admin/re
       ]},
       {path: 'clinicalCenterAdminProfile', component: ProfileClinicalCenterAdminComponent },
       {path: 'registerClinicalCenterAdmin', component: RegisterClinicalCenterAdminComponent},
+      {path: 'registerClinicAdmin', component: RegisterClinicAdminComponent},
       {path: '', redirectTo : 'login', pathMatch: 'full'}
       //{path: '**', redirectTo: 'login'},
 

@@ -51,12 +51,13 @@
                     <input class="validate" [(ngModel)]='_newAdmin.serialNumber' type="text" name="serialNumber"  placeholder="Enter serial number" required #serialNumber="ngModel">
                     <small id="serialNumberHelp" class="form-text text-muted">Serial number is required.</small>
                 </div>
-                <select id="clinic" required>
-                        <option disabled selected value=""> -- select a clinic -- </option>
-                        <option [ngValue]="clinic" *ngFor="let clinic of clinics">{{clinic.name}}</option>   
+                <div class="select-field col">
+                <select class="form-control" [(ngModel)]="_selectedClinic" name="clinic" required>
+                        <option [ngValue]="null" disabled>Choose a clinic</option>
+                        <option *ngFor="let clinic of _clinics" [ngValue]="clinic.id"> {{clinic.name}}</option>  
                 </select>
                 <small id="serialNumberHelp" class="form-text text-muted">Clinic is required.</small>
-                
+               </div>
             </div>
                 <button type="button" (click) = 'onBackClicked()' class="btn btn-primary">Back</button>
                 <button type="submit" class="btn btn-primary" [disabled]="!adminForm.form.valid" >Confirm</button>

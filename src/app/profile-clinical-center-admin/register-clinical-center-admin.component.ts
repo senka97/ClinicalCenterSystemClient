@@ -25,7 +25,7 @@ export class RegisterClinicalCenterAdminComponent implements OnInit {
   }
 
   clickRegisterClCAdmin() {
-    this._clcadminService.createClCAdmnin(this._newAdmin).subscribe(data => {
+    this._clcadminService.createClCAdmin(this._newAdmin).subscribe(data => {
       this._router.navigate(['/clinicalCenterAdminProfile']);
    },
    error => {
