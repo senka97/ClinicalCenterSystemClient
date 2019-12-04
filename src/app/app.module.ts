@@ -20,6 +20,7 @@ import { ProfileClinicalCenterAdminComponent } from './profile-clinical-center-a
 import { RegisterClinicalCenterAdminComponent } from './profile-clinical-center-admin/register-clinical-center-admin.component';
 import { ListPatientsComponent } from './hp-doctor/list-patients/list-patients.component';
 import { PatientDetailsComponent } from './hp-doctor/patient-details/patient-details.component';
+import { RegisterClinicAdminComponent } from './profile-clinical-center-admin/register-clinic-admin.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { PatientDetailsComponent } from './hp-doctor/patient-details/patient-det
     ProfileClinicalCenterAdminComponent,
     RegisterClinicalCenterAdminComponent,
     ListPatientsComponent,
-    PatientDetailsComponent
+    PatientDetailsComponent,
+    RegisterClinicAdminComponent
   ],
   imports: [
     BrowserModule,
