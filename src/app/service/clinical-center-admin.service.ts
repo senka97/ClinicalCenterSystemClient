@@ -14,7 +14,7 @@ export class ClinicalCenterAdminService {
 
    }
 
-   createClCAdmnin(admin)
+   createClCAdmin(admin: ClinicalCenterAdministrator)
    {
     const registrationHeaders = new HttpHeaders({
       'Accept': 'application/json',
@@ -23,7 +23,44 @@ export class ClinicalCenterAdminService {
     return this._apiService.post(this._config.clcadmin_url+'/saveClinicalCenterAdmin', JSON.stringify(admin), registrationHeaders)
         .pipe(map((res) => {
           console.log(res);
-          console.log('Registration success');
+          console.log('Registration of admin successful');
         }));
    }
+
+   createClinicAdmin(admin, clinic)
+   {
+    const registrationHeaders = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    });
+    return this._apiService.post(this._config.clcadmin_url+'/saveClinicAdmin/'+clinic, JSON.stringify(admin), registrationHeaders)
+        .pipe(map((res) => {
+          console.log(res);
+          console.log('Registration of admin successful');
+        }));
+   }
+
+   getClinics()
+   {
+    return this._apiService.get("http://localhost:9000/api/clinics/getClinics").pipe(
+      map(clinics => {
+          console.log("All clinics retrieved.");
+          return clinics;
+      })
+    )
+   }
+   
+
+   /*changeInformation(admin: ClinicalCenterAdministrator)
+   {
+      const registrationHeaders = new HttpHeaders({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      });
+      return this._apiService.post(this._config.clcadmin_url+'/changeInformation', JSON.stringify(admin), registrationHeaders)
+        .pipe(map((res) => {
+          console.log(res);
+          console.log('Information saved');
+        }));
+   }*/
 }

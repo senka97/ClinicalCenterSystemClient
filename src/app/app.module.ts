@@ -11,6 +11,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { ModalModule } from './_modal';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -21,6 +22,7 @@ import { ProfileClinicalCenterAdminComponent } from './profile-clinical-center-a
 import { RegisterClinicalCenterAdminComponent } from './profile-clinical-center-admin/register-clinical-center-admin.component';
 import { ListPatientsComponent } from './hp-doctor/list-patients/list-patients.component';
 import { ProfileMedicalStaffComponent } from './profile-medical-staff/profile-medical-staff.component';
+import { RegisterClinicAdminComponent } from './profile-clinical-center-admin/register-clinic-admin.component';
 
 
 @NgModule({
@@ -34,12 +36,14 @@ import { ProfileMedicalStaffComponent } from './profile-medical-staff/profile-me
     RegisterClinicalCenterAdminComponent,
     ListPatientsComponent,
     ProfileMedicalStaffComponent,   
+    RegisterClinicAdminComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ModalModule,
     RouterModule.forRoot([
       {path: 'login', component: LoginComponent},
       {path: 'signup', component: SignUpComponent},
@@ -55,6 +59,7 @@ import { ProfileMedicalStaffComponent } from './profile-medical-staff/profile-me
       ]},
       {path: 'clinicalCenterAdminProfile', component: ProfileClinicalCenterAdminComponent },
       {path: 'registerClinicalCenterAdmin', component: RegisterClinicalCenterAdminComponent},
+      {path: 'registerClinicAdmin', component: RegisterClinicAdminComponent},
       {path: 'medicalStaffProfile', component: ProfileMedicalStaffComponent},
       {path: '', redirectTo : 'login', pathMatch: 'full'}
       //{path: '**', redirectTo: 'login'},
