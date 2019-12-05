@@ -1,0 +1,90 @@
+
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto disabled" href="#">Profile for {{_role}}: {{_currentUser.name}} {{_currentUser.surname}}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="" (click)="backToHomepage()">Back to homepage</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="" (click)="clickedLogout()">Log out</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div *ngIf="_showInfo" style="width: 50%;margin-left: auto;margin-right: auto;">
+        <h2>Personal information</h2>
+        <table class="table" style="margin-left:auto;margin-right:auto;">
+            <tbody>
+                <tr>
+                    <th>Name:</th>
+                    <td>{{_currentUser.name}}</td>
+                </tr>
+                <tr>
+                    <th>Surname:</th>
+                    <td>{{_currentUser.surname}}</td>
+                </tr>
+                <tr>
+                    <th>Email:</th>
+                    <td>{{_currentUser.email}}</td>
+                </tr>
+                <tr>
+                    <th>Serial number:</th>
+                    <td>{{_currentUser.serialNumber}}</td>
+                </tr>
+                <tr>
+                    <th>Address:</th>
+                    <td>{{_currentUser.address}}</td>
+                </tr>
+                <tr>
+                    <th>City:</th>
+                    <td>{{_currentUser.city}}</td>
+                </tr>
+                <tr>
+                    <th>Country:</th>
+                    <td>{{_currentUser.country}}</td>
+                </tr>
+                <tr>
+                    <th>Phone number:</th>
+                    <td>{{_currentUser.phoneNumber}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button style="margin-right: 15%;margin-left:15%;" class="btn btn-primary" (click)="clickedEdit()">Edit information</button> <button style="margin-right: auto;margin-left: auto;" class="btn btn-primary" (click)="clickedChangePassword()">Change password</button>      
+  </div>
+  <div *ngIf="_showEditInfo">
+      <h2>Editing personal information</h2>
+      <form #userForm="ngForm" (ngSubmit)="saveChanges()">
+          <table style="background-color: rgb(250, 250, 250);">
+              <tr><td><b>Name:</b></td><td><input [(ngModel)]="_changedUser.name" type="text" required name="name" #name="ngModel"></td></tr>
+              <tr><td><b>Surname:</b></td><td><input  [(ngModel)]="_changedUser.surname" type="text" required name="surname" #surname="ngModel"/></td></tr>
+              <tr><td><b>Address:</b></td><td><input  [(ngModel)]="_changedUser.address" type="text" required name="address" #address="ngModel"/></td></tr>
+              <tr><td><b>City:</b></td><td><input  [(ngModel)]="_changedUser.city" type="text" required name="city" #city="ngModel"/></td></tr>
+              <tr><td><b>Country:</b></td><td><input  [(ngModel)]="_changedUser.country" type="text" required name="country" #country="ngModel"/></td></tr>
+              <tr><td><b>Phone number:</b></td><td><input  [(ngModel)]="_changedUser.phoneNumber" type="text" required name="phoneNumber" #phoneNumber="ngModel"/></td></tr>
+          </table>
+          <button style="margin-right: 13%;margin-left:13%;background-color: green;width:9em;" type="submit" class="btn btn-primary" [disabled]="!userForm.form.valid">Save changes</button>
+          <button style="margin-right: 13%;margin-left:13%;width:9em;" type="button" (click) = 'cancelEditInfo()' class="btn btn-danger">Cancel</button>
+      </form>
+  </div>
+  <div *ngIf="_showChangePassword">
+     <h2>Changing password</h2>
+     <form #passwordForm="ngForm" (ngSubmit)="changePassword()">
+         <table style="background-color: rgb(250, 250, 250);">
+            <tr><td><b>Please enter your old password:</b><td><input [(ngModel)]="_passwordChanger.oldPassword" type="password" required name="oldPassword" #oldPassword="ngModel"/></td></tr>
+            <tr><td><b>Please enter your new password:</b><td><input [(ngModel)]="_passwordChanger.newPassword" type="password" required name="newPassword" #newPassword="ngModel" minlength="6"/></td></tr>
+            <tr><td><b>Please confirm your new password:</b><td><input [(ngModel)]="_confirmPassword" type="password" required name="confirmPassword" [pattern] = "_passwordChanger.newPassword" #confirmPassword="ngModel" minlength="6"/></td></tr>
+        </table>
+        <button style="margin-right: 10%;margin-left:10%;background-color: green;width:12em;" type="submit" class="btn btn-primary" [disabled]="!passwordForm.form.valid">Change password</button>
+        <button style="margin-right: 10%;margin-left:10%;width:12em;" type="button" (click) = 'cancelChangePassword()' class="btn btn-danger">Cancel</button>
+        <p id="pError" *ngIf="_showError">The old password is incorrect.</p>
+     </form>
+  </div>
+  </div>

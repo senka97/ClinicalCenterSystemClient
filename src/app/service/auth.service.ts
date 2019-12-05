@@ -72,5 +72,16 @@ export class AuthService implements OnInit{
       return localStorage.getItem('access_token');
     }
 
+    changePassoword(passwordChanger) {
+      const passwordChangerHeaders = new HttpHeaders({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      });
+      return this._apiService.put(this._config.passchange_url, JSON.stringify(passwordChanger), passwordChangerHeaders)
+      .pipe(map(() => {
+        console.log('Password changer success');
+      }));
+    }
+
 
 }

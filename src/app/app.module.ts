@@ -11,6 +11,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { ModalModule } from './_modal';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -20,9 +21,10 @@ import { HpPatientComponent } from './hp-patient/hp-patient.component';
 import { ProfileClinicalCenterAdminComponent } from './profile-clinical-center-admin/profile-clinical-center-admin.component';
 import { RegisterClinicalCenterAdminComponent } from './profile-clinical-center-admin/register-clinical-center-admin.component';
 import { ListPatientsComponent } from './hp-doctor/list-patients/list-patients.component';
-import { PatientDetailsComponent } from './hp-doctor/patient-details/patient-details.component';
 import { FormComponentComponent } from './form-component/form-component.component';
 import { MedicalRecordComponent } from './hp-patient/medical-record/medical-record.component';
+import { ProfileMedicalStaffComponent } from './profile-medical-staff/profile-medical-staff.component';
+import { RegisterClinicAdminComponent } from './profile-clinical-center-admin/register-clinic-admin.component';
 
 
 @NgModule({
@@ -35,15 +37,17 @@ import { MedicalRecordComponent } from './hp-patient/medical-record/medical-reco
     ProfileClinicalCenterAdminComponent,
     RegisterClinicalCenterAdminComponent,
     ListPatientsComponent,
-    PatientDetailsComponent,
     FormComponentComponent,
-    MedicalRecordComponent
+    MedicalRecordComponent,
+    ProfileMedicalStaffComponent,   
+    RegisterClinicAdminComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ModalModule,
     RouterModule.forRoot([
       {path: 'login', component: LoginComponent},
       {path: 'signup', component: SignUpComponent},
@@ -54,18 +58,13 @@ import { MedicalRecordComponent } from './hp-patient/medical-record/medical-reco
            path: 'listOfPatients',
            component: ListPatientsComponent,
            outlet: 'hpDoctor',
-           children:[
-            {
-              path: 'patientDetails/:id',
-              component: PatientDetailsComponent,
-              outlet: 'hpDoctor'
-            }
-           ]
         },
         
       ]},
       {path: 'clinicalCenterAdminProfile', component: ProfileClinicalCenterAdminComponent },
       {path: 'registerClinicalCenterAdmin', component: RegisterClinicalCenterAdminComponent},
+      {path: 'registerClinicAdmin', component: RegisterClinicAdminComponent},
+      {path: 'medicalStaffProfile', component: ProfileMedicalStaffComponent},
       {path: '', redirectTo : 'login', pathMatch: 'full'}
       //{path: '**', redirectTo: 'login'},
 
