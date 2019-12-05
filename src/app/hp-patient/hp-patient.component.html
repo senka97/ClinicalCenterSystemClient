@@ -2,8 +2,7 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
 
         <div class="mx-auto order-0">
-            <a class="navbar-brand mx-auto disabled" href="#">Home page for patient: {{_signUpUser.name}} {{show}}
-                {{message}}
+            <a class="navbar-brand mx-auto disabled" href="#">Home page for patient: {{_signUpUser.name}}
                 {{_signUpUser.surname}} </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
                 <span class="navbar-toggler-icon"></span>
@@ -16,155 +15,34 @@
                     <a class="nav-link" (click)="showProfileInfo()">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" (click) = "onClickedLogout()">Log out</a>
+                    <a class="nav-link" (click)="onClickedLogout()">Log out</a>
                 </li>
             </ul>
         </div>
     </nav>
     <ul class="nav flex-column bg-dark" style="width: 20%;color: azure;float:left;">
         <li class="nav-item">
-            <a class="nav-link" href="#">Medical record</a>
+            <button class="link" (click)="showMedicalRecordInfo()"> Medical record </button>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">List of medical exams</a>
+            <button class="link"> List of medical exams </button>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">List of surgeries</a>
+            <button class="link"> List of surgeries </button>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Scheduled medical exams</a>
+            <button class="link">Scheduled medical exams</button>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Scheduled surgeries</a>
+            <button class="link">Scheduled surgeries</button>
         </li>
     </ul>
     <div style="float:left;background-color: cadetblue;margin:2em;">
 
 
     </div>
-    <div id="patientForm" *ngIf="showHome">
-        <div class="row">
-            <div class="col center-align">
 
-
-                <div class="card-content black-text">
-                    <h3 class="titleMessage"> {{changePasswordMessage}}</h3>
-
-                </div>
-                <form class="col white" (ngSubmit)="onChangeClicked()" #userRegistrationForm="ngForm">
-                    <div class="row" *ngIf = "!show">
-
-
-                        <div class="input-field col">
-
-                            <input type="text" id="Ip"  class="validate" name="name"
-                                #userName="ngModel" [(ngModel)]="_signUpUser.name"
-                                required autocomplete="off" />
-                            <label class="form-label" data-error="Required Field!">Name:</label>
-                        </div>
-                        <div class="input-field col">
-                            <input type="text"  class="validate" name="surname" #surname="ngModel"
-                                [(ngModel)]="_signUpUser.surname" required autocomplete="off" />
-                            <label class="form-label" data-error="Required Field!">Surname:</label>
-                        </div>
-
-                    </div>
-                    <div class="row" *ngIf = "!show">
-                        <div class="input-field col">
-                            <input type="text" class="validate" name="city" #city="ngModel"
-                                [(ngModel)]="_signUpUser.city" required autocomplete="off" />
-                            <label class="form-label"  data-error="Required Field!">City:</label>
-                        </div>
-                        <div class="input-field col">
-                            <input type="text" class="validate"  name="address" #adress="ngModel"
-                                [(ngModel)]="_signUpUser.address" required autocomplete="off" />
-                            <label class="form-label"  data-error="Required Field!"> Address:</label>
-                        </div>
-
-                    </div>
-                    <div class="row" *ngIf = "!show">
-                        <div class="input-field col">
-                            <input type="text" class="validate"  name="country" #country="ngModel"
-                                [(ngModel)]="_signUpUser.country" required autocomplete="off" />
-                            <label  class="form-label"data-error="Required Field!"> Country</label>
-                        </div>
-                        <div class="input-field col">
-                            <input type="email" class="validate"  disabled name="email" #email="ngModel"
-                                [(ngModel)]="_signUpUser.email" />
-                            <label class="form-label"></label>
-                        </div>
-
-                    </div>
-                    <div class="row" *ngIf="show">
-                        <div class="input-field col">
-                            <input type="password" class="validate"  name="password" (change)="onPasswordChange()"
-                                #password="ngModel" [(ngModel)]="_signUpUser.password" required autocomplete="off"
-                                minlength="6" />
-                            <label class="form-label"
-                                [attr.data-error]="password.errors != null?(password.errors.required? 'Required Field!':'Minimum 6 Characters Needed'):'' ">
-                                Password</label>
-                        </div>
-                        <div class="input-field col">
-                            <input type="password"   (change)="onConfirnChange()" id="confPassword" class="validate"
-                                [(ngModel)]="confirmPassword" name="confirmPassword" required autocomplete="off"
-                                minlength="6" [pattern]="_signUpUser.password"
-                                [style.border-color]="message=== 'changed' ? 'red' : ''" />
-                            <label class="form-label" data-error="Invalid password"> Re-entry password {{message}}</label>
-
-                        </div>
-
-                    </div>
-                    <div class="row" *ngIf = "!show">
-                        <div class="input-field col">
-                            <input type="number"  class="validate" name="phoneNumber" #phoneNumber="ngModel"
-                                [(ngModel)]="_signUpUser.phoneNumber" required autocomplete="off" />
-                            <label class="form-label"data-error="Required Field!"> Phone number</label>
-                        </div>
-                      
-                        <div class="input-field col">
-                          
-                            <input type="text" class="validate"  name="serialNumber" #serialNumber="ngModel"
-                                [(ngModel)]="_signUpUser.serialNumber" disabled
-                                autocomplete="off" />
-                            <label class="form-label" data-error="You must insert 13 numbers"></label>
-
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="input-field col">
-                              
-                            <button class="btn-large btn-submit" [disabled]="!userRegistrationForm.valid" type="submit">
-                                Submit</button>
-                                <div class="col" *ngIf="!show" >
-                                        <button class="link" (click)="showPasswordInput()" >Change your password?"</button>
-                 
-                            </div>
-
-                        </div>
-                       
-
-                    </div>
-
-
-
-
-
-
-                </form>
-
-            </div>
-
-
-            <div class="col">
-
-
-            </div>
-
-        </div>
-
-
-
-
-    </div>
+    <app-form-component *ngIf="show" [showHome]="showHome" [show]="show" [_signUpUser]="_signUpUser">
+    </app-form-component>
+    <app-medical-record *ngIf="showMedicalRecord"></app-medical-record>
 </div>
