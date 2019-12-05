@@ -5,6 +5,8 @@ import { Router} from '@angular/router';
 import { ClinicalCenterAdministrator } from './ClinicalCenterAdministrator';
 import { ClinicalCenterAdminService } from '../service/clinical-center-admin.service';
 import { ModalService } from '../_modal';
+import { PasswordChanger } from '../shared/model/PasswordChanger';
+import { timingSafeEqual } from 'crypto';
 
 @Component({
   selector: 'app-profile-clinical-center-admin',
@@ -16,29 +18,57 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
   constructor(private _userService:UserService, 
     private _authService:AuthService,
     private _router: Router,
-    private _modalService: ModalService) { }
+    private _modalService: ModalService) {
+      this._passwordChanger = new PasswordChanger("","");
+    }
 
   private _currentAdmin: ClinicalCenterAdministrator;
-  private _oldPassword: String;
+  private _changedAdmin: ClinicalCenterAdministrator;
+  private _passwordChanger: PasswordChanger;
   editInformation: boolean= true;
 
   ngOnInit() {
     this._currentAdmin = JSON.parse(localStorage.getItem('currentUser'));
+    this._changedAdmin = JSON.parse(JSON.stringify(this._currentAdmin)); 
     console.log(JSON.parse(localStorage.getItem('currentUser')));
   }
 
   editInformationF(): void {
     if(!this.editInformation) //ako je false onda treba da se sacuvaju podaci
     {
-        this._userService.editInfo(this._currentAdmin).subscribe(data=>{
-           console.log("Information changed");
-        },
-        error=>{
-          alert("Change of information failed!");
-        })
+      //ako je neko polje ostavljeno prazno treba da ostane na ovoj formi i izbaci upozorenje
+      if(this._changedAdmin.name.length == 0 || this._changedAdmin.surname.length == 0 || this._changedAdmin.address.length== 0 ||
+      this._changedAdmin.city.length == 0 || this._changedAdmin.country.length == 0 || this._changedAdmin.phoneNumber.length == 0)
+      {
+        alert("You must fill all the fields");
+        return;
+      }
+      //ako nije promenjena nijedna informacija nece se slati zahtev
+      if(this._currentAdmin.name != this._changedAdmin.name || this._currentAdmin.surname != this._changedAdmin.surname
+        || this._currentAdmin.address != this._changedAdmin.address || this._currentAdmin.city != this._changedAdmin.city 
+        || this._currentAdmin.country != this._changedAdmin.country || this._currentAdmin.phoneNumber != this._changedAdmin.phoneNumber)
+        {
+          this._userService.editInfo(this._changedAdmin).subscribe(data=>{
+            console.log("Information changed");
+            localStorage.setItem('currentUser',JSON.stringify(this._changedAdmin)); 
+            this._currentAdmin = JSON.parse(JSON.stringify(this._changedAdmin));
+            alert("Information successfully changed!");
+         },
+          error=>{
+            this.editInformation=!this.editInformation;
+           alert("Change of information failed!");
+          })
+          
+        }
+
+        this.editInformation=!this.editInformation;
           
     }
-    this.editInformation=!this.editInformation;
+    else
+    {
+      this.editInformation=!this.editInformation;
+    }
+    
     
   }
 
@@ -55,6 +85,7 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
   }
 
   openModal(id: string) {
+    this._passwordChanger = new PasswordChanger("","");
     this._modalService.open(id);
   }
 
@@ -63,11 +94,16 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
   }
   closeModalWithSave(id: string)
   {
-    this._userService.changePassword(this._currentAdmin).subscribe(data => {
-    },
-    error => {
-      alert("Error in password change.");
-    })
+    this._authService.changePassoword(this._passwordChanger).subscribe(
+      res => {
+        console.log("Password successfully changed");
+        //this._passwordChanger=null;
+        alert("Password successfully changed");
+      },
+      error => {
+        alert("Password changing failed");
+      }
+    )
     this._modalService.close(id); 
   }
 

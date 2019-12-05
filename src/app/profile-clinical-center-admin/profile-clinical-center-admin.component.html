@@ -34,10 +34,7 @@
             <a class="nav-link" href="#">Register clinic</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Delete clinical center administrator</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Delete clinic administrator</a>
+            <a class="nav-link" href="#">Delete administrator</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Delete clinic</a>
@@ -51,13 +48,13 @@
             <div class='table-responsive'>
                 <table class='table'>
                     <tr><th style="text-align: center;" colspan="2"> {{ editInformation ? 'Personal Information' : 'Change your current information' }} </th> </tr>
-                    <tr><th>Name:</th> <td *ngIf='editInformation'> {{_currentAdmin.name}} </td> <td *ngIf='!editInformation'> <input type="text" [(ngModel)]='_currentAdmin.name'> </td> </tr> 
-                    <tr><th>Surname:</th> <td *ngIf='editInformation'> {{_currentAdmin.surname}} </td> <td *ngIf='!editInformation'> <input type="text" [(ngModel)]='_currentAdmin.surname'> </td> </tr> 
+                    <tr><th>Name:</th> <td *ngIf='editInformation'> {{_currentAdmin.name}} </td> <td *ngIf='!editInformation'> <input type="text" [(ngModel)]='_changedAdmin.name'> </td> </tr> 
+                    <tr><th>Surname:</th> <td *ngIf='editInformation'> {{_currentAdmin.surname}} </td> <td *ngIf='!editInformation'> <input type="text" [(ngModel)]='_changedAdmin.surname'> </td> </tr> 
                     <tr><th>Email:</th> <td> {{_currentAdmin.email}} </td> </tr>
-                    <tr><th>Address:</th> <td *ngIf='editInformation'> {{_currentAdmin.address}} </td> <td *ngIf='!editInformation'> <input type="text" [(ngModel)]='_currentAdmin.address'> </td> </tr>  
-                    <tr><th>City:</th> <td *ngIf='editInformation'> {{_currentAdmin.city}} </td> <td *ngIf='!editInformation'> <input type="text" [(ngModel)]='_currentAdmin.city'> </td> </tr>   
-                    <tr><th>Country:</th> <td *ngIf='editInformation'> {{_currentAdmin.country}} </td> <td *ngIf='!editInformation'> <input type="text" [(ngModel)]='_currentAdmin.country'> </td> </tr> 
-                    <tr><th>Phone Number:</th> <td *ngIf='editInformation'> {{_currentAdmin.phoneNumber}} </td> <td *ngIf='!editInformation'> <input type="text" [(ngModel)]='_currentAdmin.phoneNumber'> </td> </tr>
+                    <tr><th>Address:</th> <td *ngIf='editInformation'> {{_currentAdmin.address}} </td> <td *ngIf='!editInformation'> <input type="text" [(ngModel)]='_changedAdmin.address'> </td> </tr>  
+                    <tr><th>City:</th> <td *ngIf='editInformation'> {{_currentAdmin.city}} </td> <td *ngIf='!editInformation'> <input type="text" [(ngModel)]='_changedAdmin.city'> </td> </tr>   
+                    <tr><th>Country:</th> <td *ngIf='editInformation'> {{_currentAdmin.country}} </td> <td *ngIf='!editInformation'> <input type="text" [(ngModel)]='_changedAdmin.country'> </td> </tr> 
+                    <tr><th>Phone Number:</th> <td *ngIf='editInformation'> {{_currentAdmin.phoneNumber}} </td> <td *ngIf='!editInformation'> <input type="text" [(ngModel)]='_changedAdmin.phoneNumber'> </td> </tr>
                     <tr><th>Serial Number:</th> <td> {{_currentAdmin.serialNumber}} </td>  </tr> 
                     <tr> 
                         <td style="text-align: center;" class="b" > <button  (click)='openModal("custom-modal-1")'> Edit Password </button> </td>
@@ -76,9 +73,9 @@
             <span class="card-title">Change your current password</span>
         </div>
         <form class="col white" (ngSubmit)="closeModalWithSave('custom-modal-1')" #pasForm="ngForm">
-            <input type="password" placeholder="Enter your old password here" name="password"  required [(ngModel)]="_oldPassword" />
+            <input class="validate"  type="password" placeholder="Enter your old password here" name="oldPassword"  required [(ngModel)]="_passwordChanger.oldPassword" #oldPassword="ngModel" />
             <small id="oldPswHelp" class="form-text text-muted">Your old password is required.</small>
-            <input type="password" placeholder="Enter your new password here" name="password" minlength="6" required [(ngModel)]="_currentAdmin.password" />
+            <input class="validate"  type="password" placeholder="Enter your new password here" name="newPassword" required minlength="6" [(ngModel)]="_passwordChanger.newPassword" #newPassword="ngModel" />
             <small id="newPswHelp" class="form-text text-muted">New password is required.</small>
             <button type="button" class="btn btn-primary" (click)="closeModal('custom-modal-1');">Back</button>
             <button type="submit" class="btn btn-primary" [disabled]="!pasForm.form.valid" >Save</button>
