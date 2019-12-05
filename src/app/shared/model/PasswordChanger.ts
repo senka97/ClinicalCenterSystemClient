@@ -4,7 +4,7 @@ export class PasswordChanger{
     private newPassword: String;
 
     constructor(oldPassword:String,newPassword:String){
-        this.oldPassword = this.oldPassword;
-        this.newPassword = this.newPassword;
+        this.oldPassword = oldPassword;
+        this.newPassword = newPassword;
     }
 }

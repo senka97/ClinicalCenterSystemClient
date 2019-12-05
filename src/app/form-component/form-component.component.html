@@ -54,7 +54,7 @@
                         </div>
                         <div class="row" *ngIf="show">
                             <div class="input-field col">
-                                <input type="password" class="validate" required autocomplete="off"
+                                <input type="password" class="validate"  [(ngModel)]="oldPassword" name="oldPassword" required autocomplete="off"
                                     minlength="6"  />
                                 <label class="form-label" data-error="Invalid password"> Old password {{message}}</label>
     
