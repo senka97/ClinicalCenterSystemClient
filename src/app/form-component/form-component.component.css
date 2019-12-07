@@ -7,12 +7,7 @@ span {
 transform: translateY(-20px);
 font-size: 12px;
 }
-button.link { background:none;border:none;
-    color:rgb(43, 123, 202);
-    margin-left: 10px;
-    margin-block-start: 4px;
-    margin-block-end:2px;
- }
+button.link { background:none;border:none; }
 button.link:focus{
     color:rgb(88, 153, 190);
 }

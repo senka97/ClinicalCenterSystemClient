@@ -21,6 +21,8 @@ import { HpPatientComponent } from './hp-patient/hp-patient.component';
 import { ProfileClinicalCenterAdminComponent } from './profile-clinical-center-admin/profile-clinical-center-admin.component';
 import { RegisterClinicalCenterAdminComponent } from './profile-clinical-center-admin/register-clinical-center-admin.component';
 import { ListPatientsComponent } from './hp-doctor/list-patients/list-patients.component';
+import { FormComponentComponent } from './form-component/form-component.component';
+import { MedicalRecordComponent } from './hp-patient/medical-record/medical-record.component';
 import { ProfileMedicalStaffComponent } from './profile-medical-staff/profile-medical-staff.component';
 import { RegisterClinicAdminComponent } from './profile-clinical-center-admin/register-clinic-admin.component';
 
@@ -35,6 +37,8 @@ import { RegisterClinicAdminComponent } from './profile-clinical-center-admin/re
     ProfileClinicalCenterAdminComponent,
     RegisterClinicalCenterAdminComponent,
     ListPatientsComponent,
+    FormComponentComponent,
+    MedicalRecordComponent,
     ProfileMedicalStaffComponent,   
     RegisterClinicAdminComponent
   ],

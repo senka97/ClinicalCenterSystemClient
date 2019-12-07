@@ -11,11 +11,10 @@ import { AuthService } from '../service/auth.service';
 })
 export class HpPatientComponent implements OnInit {
   private _signUpUser: any =JSON.parse(localStorage.getItem('currentUser'));
-  confirmPassword: String;
-  message: String;
   show :  boolean;
+  showMedicalRecord : boolean;
   showHome : boolean;
-  changePasswordMessage : String;
+ 
 
    constructor(private _route: ActivatedRoute, 
     private _router: Router,
@@ -26,68 +25,40 @@ export class HpPatientComponent implements OnInit {
 
   ngOnInit() {
    
-    this.show = true;
+    this.show = false;
+    this.showMedicalRecord = false;
     this.resetForm();
     
   }
 
   resetForm(form?: NgForm) {
-    this.confirmPassword = "";
-    this.message = "";
-  }
-  showProfileInfo(){
-    this.changePasswordMessage = "Patient profile informations:";
-    this.show = false;
-    this.showHome = true;
-  }
-  showPasswordInput(){
-    if(this.show == true){
-      this.changePasswordMessage = "Patient profile informations:"
-      this.show = false;
-    }else{
-     
-      this.changePasswordMessage = "Password change:"
-      this.show = true;
-    }
-  }
-  onChangeClicked(){
-    console.log(this._signUpUser);
-    if(this.show == false){
-      this._userService.editInfo(this._signUpUser).subscribe(data => {
-      },
-      error => {
-        alert("Patient info change error.");
-      })
-    }else{
-      this._userService.changePassword(this._signUpUser).subscribe(data => {
-      },
-      error => {
-        alert("Error in password change.");
-      })
-    }
-    
-
-    
-  }
-  onPasswordChange(){
-    if(this._signUpUser.password != this.confirmPassword){
-      this.message = "changed";
-    }else {
-      this.message = ""
-    }
-    
-  }
-  onConfirnChange(){
-    if(this._signUpUser.password == this.confirmPassword){
-      this.message = ""
-    }else{
-      this.message = "changed";
-    }
   }
   onClickedLogout(){
     this._authService.logout();
     
-}
+  }
+  showProfileInfo(){
+    this.show = this.check(this.show);
+    this.showHome = false;
+    this.showMedicalRecord = false;
+   
+  }
+  showMedicalRecordInfo(){
+    this.show = false;
+    this.showHome = false;
+    this.showMedicalRecord = this.check(this.showMedicalRecord);
+
+  }
+
+  check(check : boolean) : boolean{
+    if(check == true){
+      check = false;
+    }else{
+      check = true;
+    }
+    return check;
+
+  }
 
  
 }
