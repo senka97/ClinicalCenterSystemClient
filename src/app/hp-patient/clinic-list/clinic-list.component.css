@@ -1,0 +1,13 @@
+.container-fluid{
+    margin-top: 20px;
+    width: 250px;
+    height: 300px;
+    border:5px solid #cecece;
+}
+.container-board {
+    border:3px solid #5645a1;
+    width: auto;
+    height: auto;
+    margin-left: 290px;
+    margin-top: 15px;
+}

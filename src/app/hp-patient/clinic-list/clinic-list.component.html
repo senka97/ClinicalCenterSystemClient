@@ -1,0 +1,34 @@
+<div class="container-board">
+    Start index = {{startIndex}} 
+    Numberof Clinics  = {{numberOfClinics}}
+    <div class="row"> 
+
+        
+
+        <div class="col" *ngFor="let clinic of _clinics;">
+            <div class="container-fluid">
+                <img src="https://sb-content-file.s3-ap-northeast-1.amazonaws.com/smallbridge_favicon.png"
+                    height="80px">
+                <h2>{{clinic.name}}</h2>
+                <h5>{{clinic.address}}</h5>
+                <p>{{clinic.description}}  <br>
+                    Rating:{{_clinic.rating}} Reviews: {{clinic.numberOfReviews}}
+                    </p>
+
+                
+                <button>Read More</button>
+                <button>favorite</button>
+                <button>share</button>
+            </div>
+        </div>
+
+      
+    </div>
+    <div class="row">
+        <button *ngIf ="startIndex > 3 " (click) = "previousClinics()"> V-- </button>
+        <div class="col"></div>
+        <div class="col"></div>
+        <button *ngIf ="numberOfClinics>startIndex"  (click) = "nextClinics()"> --V </button>
+       
+        </div>
+</div>

@@ -25,10 +25,13 @@
             <button class="link" (click)="showMedicalRecordInfo()"> Medical record </button>
         </li>
         <li class="nav-item">
+            <button class="link" (click)="showListOfClinics()"> List of clinics </button>
+        </li>
+        <li class="nav-item">
             <button class="link"> List of medical exams </button>
         </li>
         <li class="nav-item">
-            <button class="link"> List of surgeries </button>
+            <button class="link" > List of surgeries </button>
         </li>
         <li class="nav-item">
             <button class="link">Scheduled medical exams</button>
@@ -45,4 +48,5 @@
     <app-form-component *ngIf="show" [showHome]="showHome" [show]="show" [_signUpUser]="_signUpUser">
     </app-form-component>
     <app-medical-record *ngIf="showMedicalRecord"></app-medical-record>
+    <app-clinic-list *ngIf="showClinics"> </app-clinic-list>
 </div>

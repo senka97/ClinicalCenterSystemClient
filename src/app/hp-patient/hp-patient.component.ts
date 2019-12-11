@@ -10,55 +10,63 @@ import { AuthService } from '../service/auth.service';
   styleUrls: ['./hp-patient.component.css']
 })
 export class HpPatientComponent implements OnInit {
-  private _signUpUser: any =JSON.parse(localStorage.getItem('currentUser'));
-  show :  boolean;
-  showMedicalRecord : boolean;
-  showHome : boolean;
- 
+  private _signUpUser: any = JSON.parse(localStorage.getItem('currentUser'));
+  show: boolean;
+  showMedicalRecord: boolean;
+  showHome: boolean;
+  showClinics: boolean;
 
-   constructor(private _route: ActivatedRoute, 
+
+  constructor(private _route: ActivatedRoute,
     private _router: Router,
-     private _authService: AuthService,private _userService:UserService) {
+    private _authService: AuthService, private _userService: UserService) {
 
-  
-      }
+
+  }
 
   ngOnInit() {
-   
-    this.show = false;
-    this.showMedicalRecord = false;
+    this.uncheckAll(false);
     this.resetForm();
-    
+
   }
 
   resetForm(form?: NgForm) {
   }
-  onClickedLogout(){
+  onClickedLogout() {
     this._authService.logout();
-    
+
   }
-  showProfileInfo(){
+  showProfileInfo() {
+    this.show = this.uncheckAll(this.show);
     this.show = this.check(this.show);
-    this.showHome = false;
-    this.showMedicalRecord = false;
-   
   }
-  showMedicalRecordInfo(){
-    this.show = false;
-    this.showHome = false;
+  showMedicalRecordInfo() {
+    this.showMedicalRecord = this.uncheckAll(this.showMedicalRecord);
     this.showMedicalRecord = this.check(this.showMedicalRecord);
 
   }
+  showListOfClinics() {
+    this.showClinics = this.uncheckAll(this.showClinics);
+    this.showClinics = this.check(this.showClinics);
 
-  check(check : boolean) : boolean{
-    if(check == true){
+  }
+
+  check(check: boolean): boolean {
+    if (check == true) {
       check = false;
-    }else{
+    } else {
       check = true;
     }
     return check;
 
   }
+  uncheckAll(check): boolean {
+    this.show = false;
+    this.showHome = false;
+    this.showMedicalRecord = false;
+    this.showClinics = false;
+    return check;
+  }
 
- 
+
 }

@@ -25,6 +25,8 @@ import { FormComponentComponent } from './form-component/form-component.componen
 import { MedicalRecordComponent } from './hp-patient/medical-record/medical-record.component';
 import { ProfileMedicalStaffComponent } from './profile-medical-staff/profile-medical-staff.component';
 import { RegisterClinicAdminComponent } from './profile-clinical-center-admin/register-clinic-admin.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ClinicListComponent } from './hp-patient/clinic-list/clinic-list.component';
 
 
 @NgModule({
@@ -40,7 +42,7 @@ import { RegisterClinicAdminComponent } from './profile-clinical-center-admin/re
     FormComponentComponent,
     MedicalRecordComponent,
     ProfileMedicalStaffComponent,   
-    RegisterClinicAdminComponent
+    RegisterClinicAdminComponent, ClinicListComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +70,8 @@ import { RegisterClinicAdminComponent } from './profile-clinical-center-admin/re
       {path: '', redirectTo : 'login', pathMatch: 'full'}
       //{path: '**', redirectTo: 'login'},
 
-    ])
+    ]),
+    BrowserAnimationsModule
   ],
   providers: [
     {
