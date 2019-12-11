@@ -70,8 +70,8 @@
               <tr><td><b>Country:</b></td><td><input  [(ngModel)]="_changedUser.country" type="text" required name="country" #country="ngModel"/></td></tr>
               <tr><td><b>Phone number:</b></td><td><input  [(ngModel)]="_changedUser.phoneNumber" type="text" required name="phoneNumber" #phoneNumber="ngModel"/></td></tr>
           </table>
-          <button style="margin-right: 13%;margin-left:13%;background-color: green;width:9em;" type="submit" class="btn btn-primary" [disabled]="!userForm.form.valid">Save changes</button>
-          <button style="margin-right: 13%;margin-left:13%;width:9em;" type="button" (click) = 'cancelEditInfo()' class="btn btn-danger">Cancel</button>
+          <button style="margin-right: 13%;margin-left:13%;background-color: green;width:10em;" type="submit" class="btn btn-primary" [disabled]="!userForm.form.valid">Save changes</button>
+          <button style="margin-right: 13%;margin-left:13%;width:10em;" type="button" (click) = 'cancelEditInfo()' class="btn btn-danger">Cancel</button>
       </form>
   </div>
   <div *ngIf="_showChangePassword">

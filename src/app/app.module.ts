@@ -25,6 +25,16 @@ import { FormComponentComponent } from './form-component/form-component.componen
 import { MedicalRecordComponent } from './hp-patient/medical-record/medical-record.component';
 import { ProfileMedicalStaffComponent } from './profile-medical-staff/profile-medical-staff.component';
 import { RegisterClinicAdminComponent } from './profile-clinical-center-admin/register-clinic-admin.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog'; //mora se instalirati ng @angular/material
+import { PasswordChangedDialogComponent } from './shared/dialogs/password-changed-dialog/password-changed-dialog.component';
+import { ProfileClinicAdminComponent } from './profile-clinic-admin/profile-clinic-admin.component';
+import { EditInfoDialogComponent } from './shared/dialogs/edit-info-dialog/edit-info-dialog.component';
+import { EditPasswordDialogComponent } from './shared/dialogs/edit-password-dialog/edit-password-dialog.component';
+import { MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule } from '@angular/material';
+import { PasswordWrongDialogComponent } from './shared/dialogs/password-wrong-dialog/password-wrong-dialog.component';
+import { FirstLoginDialogComponent } from './shared/dialogs/first-login-dialog/first-login-dialog.component';
+
 
 
 @NgModule({
@@ -40,7 +50,13 @@ import { RegisterClinicAdminComponent } from './profile-clinical-center-admin/re
     FormComponentComponent,
     MedicalRecordComponent,
     ProfileMedicalStaffComponent,   
-    RegisterClinicAdminComponent
+    RegisterClinicAdminComponent,
+    PasswordChangedDialogComponent, 
+    ProfileClinicAdminComponent, 
+    EditInfoDialogComponent, 
+    EditPasswordDialogComponent, 
+    PasswordWrongDialogComponent, 
+    FirstLoginDialogComponent, 
   ],
   imports: [
     BrowserModule,
@@ -65,10 +81,17 @@ import { RegisterClinicAdminComponent } from './profile-clinical-center-admin/re
       {path: 'registerClinicalCenterAdmin', component: RegisterClinicalCenterAdminComponent},
       {path: 'registerClinicAdmin', component: RegisterClinicAdminComponent},
       {path: 'medicalStaffProfile', component: ProfileMedicalStaffComponent},
+      {path: 'clinicAdminProfile', component: ProfileClinicAdminComponent},
       {path: '', redirectTo : 'login', pathMatch: 'full'}
       //{path: '**', redirectTo: 'login'},
 
-    ])
+    ]),
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule
   ],
   providers: [
     {
@@ -83,6 +106,13 @@ import { RegisterClinicAdminComponent } from './profile-clinical-center-admin/re
     ClinicalCenterAdminService,
     PatientService
   ],
+  entryComponents: [ //ovo mora da se doda za dijalog
+    PasswordChangedDialogComponent,
+    EditInfoDialogComponent,
+    PasswordWrongDialogComponent,
+    EditPasswordDialogComponent,
+    FirstLoginDialogComponent
+  ], 
   bootstrap: [AppComponent]
 })
 export class AppModule { }
