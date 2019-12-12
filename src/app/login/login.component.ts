@@ -36,10 +36,13 @@ export class LoginComponent implements OnInit {
                 this._router.navigate(['/doctorHP']);
               }else if(role === 'ROLE_PATIENT'){
                 this._router.navigate(['/patientHP']);
-              }else if(role=== 'ROLE_CLINICAL_CENTER_ADMIN'){
+              }else if(role === 'ROLE_CLINICAL_CENTER_ADMIN'){
                 this._router.navigate(['/clinicalCenterAdminProfile']);
+              }else if(role === 'ROLE_CLINIC_ADMIN'){
+                this._router.navigate(['/clinicAdminProfile']);
               }else{
-                alert("Nije doktor. Nema jos homepage.");
+                alert("Medicinska sestra jos uvek nema homepage");
+          
         }
           });
         

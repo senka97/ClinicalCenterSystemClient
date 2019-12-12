@@ -1,9 +1,12 @@
+import { PasswordChangedDialogComponent } from '../shared/dialogs/password-changed-dialog/password-changed-dialog.component';
 import { PasswordChanger } from './../shared/model/PasswordChanger';
 import { UserEdit } from './../shared/model/UserEdit';
 import { UserService } from './../service/user.service';
 import { Router } from '@angular/router';
 import { AuthService } from './../service/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'; 
+import { FirstLoginDialogComponent } from '../shared/dialogs/first-login-dialog/first-login-dialog.component';
 
 @Component({
   selector: 'app-profile-medical-staff',
@@ -12,7 +15,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileMedicalStaffComponent implements OnInit {
 
-  constructor(private _authService: AuthService, private _router: Router, private _userService:UserService) { }
+  constructor(private _authService: AuthService, private _router: Router, private _userService:UserService, private _dialog:MatDialog) { }
 
   private _currentUser: any;
   private _changedUser: any;
@@ -108,6 +111,15 @@ export class ProfileMedicalStaffComponent implements OnInit {
            console.log("Password successfully changed");
            this._showChangePassword = false;
            this._showInfo = true;
+           let dialogRef = this._dialog.open(PasswordChangedDialogComponent, {
+             width: '50%'
+           });
+
+           dialogRef.afterClosed().subscribe(result => {
+            this._authService.logout(); 
+            this._router.navigate(['\login']);
+          });
+           
          },
          error => {
           this._showError = true;
@@ -117,8 +129,6 @@ export class ProfileMedicalStaffComponent implements OnInit {
          }
        )
   }
-
-  
 
  
 }
