@@ -19,7 +19,7 @@
 
     <ul class="nav flex-column nav-pills" style="width: 20%; color: blue; background-color: lightgreen; float:left;">   
         <li class="nav-item">
-          <a class="nav-link" href="#">Clinic's profile</a>
+            <a class="nav-link" [routerLink] = "" (click) = "clickedClinicProfile()" >Clinic's profile</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">List of doctors</a>
@@ -37,7 +37,7 @@
           <a class="nav-link" href="#" >Business report</a>
         </li>
     </ul>
-    <div style="width: 50%;margin-left: 15%;float:left;">
+    <div *ngIf="_showInfo" style="width: 50%;margin-left: 15%;float:left;">
         <h2>Personal information</h2>
         <table class="table" style="margin-left:auto;margin-right:auto;">
             <tbody>
@@ -77,6 +77,28 @@
         </table>
         <button style="margin-right: 15%;margin-left:15%;" class="btn btn-primary" (click)="clickedEdit()">Edit information</button> <button style="margin-right: auto;margin-left: auto;" class="btn btn-primary" (click)="clickedChangePassword()">Change password</button>      
   </div>
+  <div *ngIf="_showClinic" style="width: 50%;margin-left: 15%;float:left;">
+    <h2>General information about the clinic</h2>
+    <table class="table" style="margin-left:auto;margin-right:auto;">
+        <tbody>
+            <tr>
+                <th>Name:</th>
+                <td>{{_clinic.name}}</td>
+            </tr>
+            <tr>
+                <th>Description:</th>
+                <td>{{_clinic.description}}</td>
+            </tr>
+            <tr>
+                <th>Address:</th>
+                <td>{{_clinic.address}}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <button style="margin-right: 15%;margin-left:15%;" class="btn btn-primary" (click)="clickedEditClinic()">Edit</button> <button style="margin-right: auto;margin-left: auto;" class="btn btn-primary" (click)="clickedBack()">Back</button>      
+</div>
+
 
 </div>
 

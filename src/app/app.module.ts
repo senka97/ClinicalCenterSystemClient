@@ -1,3 +1,5 @@
+import { ClinicService } from './service/clinic.service';
+import { ClinicAdminService } from './service/clinic-admin.service';
 import { PatientService } from './service/patient.service';
 import { UserService } from './service/user.service';
 import { TokenInterceptor } from './interceptor/TokenInterceptor';
@@ -34,6 +36,7 @@ import { EditPasswordDialogComponent } from './shared/dialogs/edit-password-dial
 import { MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule } from '@angular/material';
 import { PasswordWrongDialogComponent } from './shared/dialogs/password-wrong-dialog/password-wrong-dialog.component';
 import { FirstLoginDialogComponent } from './shared/dialogs/first-login-dialog/first-login-dialog.component';
+import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-dialog/edit-clinic-dialog.component';
 
 
 
@@ -56,7 +59,7 @@ import { FirstLoginDialogComponent } from './shared/dialogs/first-login-dialog/f
     EditInfoDialogComponent, 
     EditPasswordDialogComponent, 
     PasswordWrongDialogComponent, 
-    FirstLoginDialogComponent, 
+    FirstLoginDialogComponent, EditClinicDialogComponent, 
   ],
   imports: [
     BrowserModule,
@@ -104,14 +107,17 @@ import { FirstLoginDialogComponent } from './shared/dialogs/first-login-dialog/f
     ConfigService,
     UserService,
     ClinicalCenterAdminService,
-    PatientService
+    PatientService,
+    ClinicAdminService,
+    ClinicService
   ],
   entryComponents: [ //ovo mora da se doda za dijalog
     PasswordChangedDialogComponent,
     EditInfoDialogComponent,
     PasswordWrongDialogComponent,
     EditPasswordDialogComponent,
-    FirstLoginDialogComponent
+    FirstLoginDialogComponent,
+    EditClinicDialogComponent
   ], 
   bootstrap: [AppComponent]
 })
