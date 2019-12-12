@@ -7,6 +7,8 @@ import { ClinicalCenterAdminService } from '../service/clinical-center-admin.ser
 import { ModalService } from '../_modal';
 import { PasswordChanger } from '../shared/model/PasswordChanger';
 import { timingSafeEqual } from 'crypto';
+import { FirstLoginDialogComponent } from './../shared/dialogs/first-login-dialog/first-login-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-profile-clinical-center-admin',
@@ -16,15 +18,16 @@ import { timingSafeEqual } from 'crypto';
 export class ProfileClinicalCenterAdminComponent implements OnInit {
 
   constructor(private _userService:UserService, 
+    private _dialog: MatDialog,
     private _clinicalCenterAdminService: ClinicalCenterAdminService,
     private _authService:AuthService,
     private _router: Router,
     private _modalService: ModalService) {
-      this._passwordChanger = new PasswordChanger("","");
+     
     }
 
-  private _currentAdmin: ClinicalCenterAdministrator;
-  private _changedAdmin: ClinicalCenterAdministrator;
+  private _currentAdmin: any;
+  private _changedAdmin: any;
   private _passwordChanger: PasswordChanger;
   private userRequests: any[];
   editInformation: boolean= true;
@@ -34,6 +37,7 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
   ngOnInit() {
     this._currentAdmin = JSON.parse(localStorage.getItem('currentUser'));
     this._changedAdmin = JSON.parse(JSON.stringify(this._currentAdmin)); 
+    this._passwordChanger = new PasswordChanger("","");
     this._clinicalCenterAdminService.getNewRequests().subscribe( users => {
       this.userRequests = users;
       if(users.length==0)
@@ -44,6 +48,13 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
         this.newRequests=true;
       }
     })
+    if(this._currentAdmin.passwordChanged == false){
+      let ref1 = this._dialog.open(FirstLoginDialogComponent,{
+          disableClose: true,
+          width: '50%',
+          data: this._passwordChanger
+      });
+    }
     console.log(JSON.parse(localStorage.getItem('currentUser')));
   }
 
@@ -148,9 +159,9 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
   {
     this._authService.changePassoword(this._passwordChanger).subscribe(
       res => {
-        console.log("Password successfully changed");
-        //this._passwordChanger=null;
-        alert("Password successfully changed");
+        alert("Password successfully changed. Please log in to confirm your changes.");
+        this._authService.logout(); 
+        this._router.navigate(['\login']);
       },
       error => {
         alert("Password changing failed");
