@@ -120,7 +120,6 @@ import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-di
     EditPasswordDialogComponent,
     FirstLoginDialogComponent,
     EditClinicDialogComponent
-    FirstLoginDialogComponent
   ], 
   bootstrap: [AppComponent]
 })
