@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Clinic } from './clinic'
-
+import { ClinicService } from 'src/app/service/clinic.service'
 @Component({
   selector: 'app-clinic-list',
   templateUrl: './clinic-list.component.html',
@@ -13,21 +13,39 @@ export class ClinicListComponent implements OnInit {
   imagePath : any;
   startIndex : any;
   numberOfClinics : any;
-  constructor() { }
+  leftArrow : String;
+  rightArrow : String;
+  showSpinner : boolean;
+  constructor(private _clinicService :ClinicService) { }
 
   ngOnInit() {
     this.startIndex = 0;
-    this._clinic = new Clinic();
-    this._clinic.name = " Neurologija";
-    this._clinic.address = "Narodnog Fronta 76";
-    this._clinic.description = "Klinika za neurologiju";
-    this._clinic.numberOfReviews = 0;
-    this._clinic.rating = 0;
+    this.leftArrow = "<--";
+    this.rightArrow = "-->";
+    this.numberOfClinics = 0;
+    this.showSpinner = true;
+   // this._clinic = new Clinic();
+    // this._clinic.name = " Neurologija";
+    // this._clinic.address = "Narodnog Fronta 76";
+    // this._clinic.description = "Klinika za neurologiju";
+    // this._clinic.numberOfReviews = 0;
+    // this._clinic.rating = 2.34;
     this.imagePath = "https://smaller-pictures.appspot.com/images/dreamstime_xxl_65780868_small.jpg";
-    this._allClinics = [this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic];
+    //this._allClinics = [this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic];
 
-    this.numberOfClinics = this._allClinics.length ;
-    this.nextClinics();
+   
+    this._clinicService.getClinics().subscribe(clinics => {
+     
+      this._allClinics = clinics;
+      this.numberOfClinics = this._allClinics.length;
+      this.nextClinics();
+      this.showSpinner = false;
+
+     
+    }); 
+  
+  
+    
   }
 
  

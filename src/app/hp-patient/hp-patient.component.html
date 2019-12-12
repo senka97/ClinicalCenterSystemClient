@@ -47,6 +47,6 @@
 
     <app-form-component *ngIf="show" [showHome]="showHome" [show]="show" [_signUpUser]="_signUpUser">
     </app-form-component>
-    <app-medical-record *ngIf="showMedicalRecord"></app-medical-record>
+    <app-medical-record *ngIf="showMedicalRecord" [_medicalRecord] = "_medicalRecord"></app-medical-record>
     <app-clinic-list *ngIf="showClinics"> </app-clinic-list>
 </div>

@@ -11,3 +11,22 @@
     margin-left: 290px;
     margin-top: 15px;
 }
+.stars {
+  position: relative;
+  display: inline-block;
+  font-size: 1.5rem;
+  color: #d3d3d3;
+}
+.full {
+  color: red;
+}
+.half {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  color: red;
+}
+.spinner{
+  margin-left : 20px;
+  margin-top : 20px;
+}

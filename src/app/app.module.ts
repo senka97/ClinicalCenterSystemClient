@@ -12,7 +12,9 @@ import { FormsModule} from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { ModalModule } from './_modal';
-
+import {MatDatepickerModule,MatNativeDateModule,MatProgressSpinnerModule} from '@angular/material' //Date picker
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; //bootstrap
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -27,6 +29,7 @@ import { ProfileMedicalStaffComponent } from './profile-medical-staff/profile-me
 import { RegisterClinicAdminComponent } from './profile-clinical-center-admin/register-clinic-admin.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClinicListComponent } from './hp-patient/clinic-list/clinic-list.component';
+import { ClinicService } from './service/clinic.service';
 
 
 @NgModule({
@@ -71,7 +74,13 @@ import { ClinicListComponent } from './hp-patient/clinic-list/clinic-list.compon
       //{path: '**', redirectTo: 'login'},
 
     ]),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    //DatePicker
+    MatDatepickerModule,
+    MatNativeDateModule,
+    NgbModule,
+    MatProgressSpinnerModule,
+    MatFormFieldModule
   ],
   providers: [
     {
@@ -84,7 +93,9 @@ import { ClinicListComponent } from './hp-patient/clinic-list/clinic-list.compon
     ConfigService,
     UserService,
     ClinicalCenterAdminService,
-    PatientService
+    PatientService,
+    ClinicService
+
   ],
   bootstrap: [AppComponent]
 })
