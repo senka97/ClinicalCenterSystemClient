@@ -1,3 +1,5 @@
+import { ClinicService } from './service/clinic.service';
+import { ClinicAdminService } from './service/clinic-admin.service';
 import { PatientService } from './service/patient.service';
 import { UserService } from './service/user.service';
 import { TokenInterceptor } from './interceptor/TokenInterceptor';
@@ -8,12 +10,11 @@ import { ClinicalCenterAdminService } from './service/clinical-center-admin.serv
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule} from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { ModalModule } from './_modal';
-import {MatDatepickerModule,MatNativeDateModule,MatProgressSpinnerModule} from '@angular/material' //Date picker
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatDatepickerModule, MatNativeDateModule, MatProgressSpinnerModule } from '@angular/material' //Date picker
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; //bootstrap
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -29,7 +30,16 @@ import { ProfileMedicalStaffComponent } from './profile-medical-staff/profile-me
 import { RegisterClinicAdminComponent } from './profile-clinical-center-admin/register-clinic-admin.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClinicListComponent } from './hp-patient/clinic-list/clinic-list.component';
-import { ClinicService } from './service/clinic.service';
+import { MatDialogModule } from '@angular/material/dialog'; //mora se instalirati ng @angular/material
+import { PasswordChangedDialogComponent } from './shared/dialogs/password-changed-dialog/password-changed-dialog.component';
+import { ProfileClinicAdminComponent } from './profile-clinic-admin/profile-clinic-admin.component';
+import { EditInfoDialogComponent } from './shared/dialogs/edit-info-dialog/edit-info-dialog.component';
+import { EditPasswordDialogComponent } from './shared/dialogs/edit-password-dialog/edit-password-dialog.component';
+import { MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule } from '@angular/material';
+import { PasswordWrongDialogComponent } from './shared/dialogs/password-wrong-dialog/password-wrong-dialog.component';
+import { FirstLoginDialogComponent } from './shared/dialogs/first-login-dialog/first-login-dialog.component';
+import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-dialog/edit-clinic-dialog.component';
+
 
 
 @NgModule({
@@ -44,8 +54,17 @@ import { ClinicService } from './service/clinic.service';
     ListPatientsComponent,
     FormComponentComponent,
     MedicalRecordComponent,
-    ProfileMedicalStaffComponent,   
-    RegisterClinicAdminComponent, ClinicListComponent
+    ProfileMedicalStaffComponent,
+    RegisterClinicAdminComponent,
+    ClinicListComponent,
+    PasswordChangedDialogComponent,
+    ProfileClinicAdminComponent,
+    EditInfoDialogComponent,
+    EditPasswordDialogComponent,
+    PasswordWrongDialogComponent,
+    FirstLoginDialogComponent,
+    EditClinicDialogComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -54,23 +73,26 @@ import { ClinicService } from './service/clinic.service';
     HttpClientModule,
     ModalModule,
     RouterModule.forRoot([
-      {path: 'login', component: LoginComponent},
-      {path: 'signup', component: SignUpComponent},
-      {path: 'patientHP', component: HpPatientComponent},
-      {path: 'doctorHP', component: HpDoctorComponent,
-       children:[
-        {
-           path: 'listOfPatients',
-           component: ListPatientsComponent,
-           outlet: 'hpDoctor',
-        },
-        
-      ]},
-      {path: 'clinicalCenterAdminProfile', component: ProfileClinicalCenterAdminComponent },
-      {path: 'registerClinicalCenterAdmin', component: RegisterClinicalCenterAdminComponent},
-      {path: 'registerClinicAdmin', component: RegisterClinicAdminComponent},
-      {path: 'medicalStaffProfile', component: ProfileMedicalStaffComponent},
-      {path: '', redirectTo : 'login', pathMatch: 'full'}
+      { path: 'login', component: LoginComponent },
+      { path: 'signup', component: SignUpComponent },
+      { path: 'patientHP', component: HpPatientComponent },
+      {
+        path: 'doctorHP', component: HpDoctorComponent,
+        children: [
+          {
+            path: 'listOfPatients',
+            component: ListPatientsComponent,
+            outlet: 'hpDoctor',
+          },
+
+        ]
+      },
+      { path: 'clinicalCenterAdminProfile', component: ProfileClinicalCenterAdminComponent },
+      { path: 'registerClinicalCenterAdmin', component: RegisterClinicalCenterAdminComponent },
+      { path: 'registerClinicAdmin', component: RegisterClinicAdminComponent },
+      { path: 'medicalStaffProfile', component: ProfileMedicalStaffComponent },
+      { path: 'clinicAdminProfile', component: ProfileClinicAdminComponent },
+      { path: '', redirectTo: 'login', pathMatch: 'full' }
       //{path: '**', redirectTo: 'login'},
 
     ]),
@@ -80,7 +102,12 @@ import { ClinicService } from './service/clinic.service';
     MatNativeDateModule,
     NgbModule,
     MatProgressSpinnerModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule
   ],
   providers: [
     {
@@ -94,8 +121,18 @@ import { ClinicService } from './service/clinic.service';
     UserService,
     ClinicalCenterAdminService,
     PatientService,
-    ClinicService
+    ClinicService,
 
+    ClinicAdminService,
+    ClinicService
+  ],
+  entryComponents: [ //ovo mora da se doda za dijalog
+    PasswordChangedDialogComponent,
+    EditInfoDialogComponent,
+    PasswordWrongDialogComponent,
+    EditPasswordDialogComponent,
+    FirstLoginDialogComponent,
+    EditClinicDialogComponent
   ],
   bootstrap: [AppComponent]
 })

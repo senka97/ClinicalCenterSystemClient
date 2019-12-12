@@ -60,7 +60,7 @@
         <button style="margin-right: 15%;margin-left:15%;" class="btn btn-primary" (click)="clickedEdit()">Edit information</button> <button style="margin-right: auto;margin-left: auto;" class="btn btn-primary" (click)="clickedChangePassword()">Change password</button>      
   </div>
   <div *ngIf="_showEditInfo">
-      <h2>Editing personal information</h2>
+      <h2>Updating personal information</h2>
       <form #userForm="ngForm" (ngSubmit)="saveChanges()">
           <table style="background-color: rgb(250, 250, 250);">
               <tr><td><b>Name:</b></td><td><input [(ngModel)]="_changedUser.name" type="text" required name="name" #name="ngModel"></td></tr>
@@ -70,12 +70,12 @@
               <tr><td><b>Country:</b></td><td><input  [(ngModel)]="_changedUser.country" type="text" required name="country" #country="ngModel"/></td></tr>
               <tr><td><b>Phone number:</b></td><td><input  [(ngModel)]="_changedUser.phoneNumber" type="text" required name="phoneNumber" #phoneNumber="ngModel"/></td></tr>
           </table>
-          <button style="margin-right: 13%;margin-left:13%;background-color: green;width:9em;" type="submit" class="btn btn-primary" [disabled]="!userForm.form.valid">Save changes</button>
-          <button style="margin-right: 13%;margin-left:13%;width:9em;" type="button" (click) = 'cancelEditInfo()' class="btn btn-danger">Cancel</button>
+          <button style="margin-right: 13%;margin-left:13%;background-color: green;width:10em;" type="submit" class="btn btn-primary" [disabled]="!userForm.form.valid">Save changes</button>
+          <button style="margin-right: 13%;margin-left:13%;width:10em;" type="button" (click) = 'cancelEditInfo()' class="btn btn-danger">Cancel</button>
       </form>
   </div>
   <div *ngIf="_showChangePassword">
-     <h2>Changing password</h2>
+     <h2>Password change</h2>
      <form #passwordForm="ngForm" (ngSubmit)="changePassword()">
          <table style="background-color: rgb(250, 250, 250);">
             <tr><td><b>Please enter your old password:</b><td><input [(ngModel)]="_passwordChanger.oldPassword" type="password" required name="oldPassword" #oldPassword="ngModel"/></td></tr>

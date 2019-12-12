@@ -8,11 +8,11 @@ import { PatientService } from './../../service/patient.service';
   styleUrls: ['./medical-record.component.css']
 })
 export class MedicalRecordComponent implements OnInit {
-  @Input("_medicalRecord") _medicalRecord : MedicalRecord;
-  disabled : boolean;
-  allergicMedication : boolean;
-  chronicCondition : boolean;
-  constructor(private _patientService:PatientService) { }
+  @Input("_medicalRecord") _medicalRecord: MedicalRecord;
+  disabled: boolean;
+  allergicMedication: boolean;
+  chronicCondition: boolean;
+  constructor(private _patientService: PatientService) { }
 
   ngOnInit() {
     // this._medicalRecord = new MedicalRecord();
@@ -23,26 +23,26 @@ export class MedicalRecordComponent implements OnInit {
     // this._medicalRecord.bloodType = "AB+";
     this.allergicMedication = true;
     this.chronicCondition = true;
-    
+
     this.disabled = false;
   }
   //for doctors
-  onChangeMedicalRecord(){
-    
+  onChangeMedicalRecord() {
+
 
   }
 
-  onShowAllergicMedication(){
-    this.allergicMedication  = this.check(this.allergicMedication);
+  onShowAllergicMedication() {
+    this.allergicMedication = this.check(this.allergicMedication);
 
   }
-  onShowChronicCondition(){
-    this.chronicCondition  = this.check(this.chronicCondition);
+  onShowChronicCondition() {
+    this.chronicCondition = this.check(this.chronicCondition);
   }
-  check(check : boolean) : boolean{
-    if(check == true){
+  check(check: boolean): boolean {
+    if (check == true) {
       check = false;
-    }else{
+    } else {
       check = true;
     }
     return check;

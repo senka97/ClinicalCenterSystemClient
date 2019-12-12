@@ -40,7 +40,7 @@ export class ClinicalCenterAdminService {
         }));
    }
 
-   getClinics()
+   getClinics() //ovo ne treba ovde
    {
     return this._apiService.get("http://localhost:9000/api/clinics/getClinics").pipe(
       map(clinics => {
@@ -49,18 +49,39 @@ export class ClinicalCenterAdminService {
       })
     )
    }
-   
 
-   /*changeInformation(admin: ClinicalCenterAdministrator)
+   getNewRequests()
    {
-      const registrationHeaders = new HttpHeaders({
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      });
-      return this._apiService.post(this._config.clcadmin_url+'/changeInformation', JSON.stringify(admin), registrationHeaders)
-        .pipe(map((res) => {
-          console.log(res);
-          console.log('Information saved');
-        }));
-   }*/
+    return this._apiService.get("http://localhost:9000/api/clinicalCenterAdmin/getNewRequests").pipe(
+      map(users => {
+          console.log("All patients retrieved.");
+          return users;
+      })
+    )
+   }
+   
+   acceptRequest(id)
+   {
+    const editHeaders = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    });
+    return this._apiService.put("http://localhost:9000/api/clinicalCenterAdmin/acceptRequest/"+id, editHeaders)
+      .pipe(map((res) => {
+        console.log(res);
+      }));
+   }
+
+   rejectRequest(id)
+   {
+    const editHeaders = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    });
+    return this._apiService.put("http://localhost:9000/api/clinicalCenterAdmin/rejectRequest/"+id, editHeaders)
+      .pipe(map((res) => {
+        console.log(res);
+      }));
+   }
+
 }
