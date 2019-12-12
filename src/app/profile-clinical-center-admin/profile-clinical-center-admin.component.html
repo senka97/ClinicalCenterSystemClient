@@ -10,6 +10,9 @@
         </div>
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item" *ngIf='newRequests'>
+                    <a class="nav-link" [routerLink]="" (click)="clickNewRequest('custom-modal-2')" style="color: red;">New requests for registration</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" [routerLink]="" (click)="clickedLogout()">Log out</a>
                 </li>
@@ -18,9 +21,6 @@
     </nav>
 
     <ul class="nav flex-column nav-pills" style="width: 20%; color: blue; background-color: lightgreen; float:left;">   
-        <li class="nav-item">
-          <a class="nav-link" href="#">Requests for registration</a>
-        </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Codebook</a>
         </li>
@@ -43,7 +43,7 @@
     </ul>
     
 
-    <div class='panel panel-primary'>
+    <div class='panel panel-primary' *ngIf = '!showNewRequests'>
         <div class='panel-body'>
             <div class='table-responsive'>
                 <table class='table'>
@@ -57,17 +57,39 @@
                     <tr><th>Phone Number:</th> <td *ngIf='editInformation'> {{_currentAdmin.phoneNumber}} </td> <td *ngIf='!editInformation'> <input type="text" [(ngModel)]='_changedAdmin.phoneNumber'> </td> </tr>
                     <tr><th>Serial Number:</th> <td> {{_currentAdmin.serialNumber}} </td>  </tr> 
                     <tr> 
-                        <td style="text-align: center;" class="b" > <button  (click)='openModal("custom-modal-1")'> Edit Password </button> </td>
-                        <td style="text-align: center;" class="b" > <button  (click)='editInformationF()'> {{ editInformation ? 'Edit Information' : 'Save changes' }}</button></td>    
+                        <td style="text-align: center;" class="b" > <button style="width:10em;margin-right: 5%;margin-left:5%;"  (click)='openModal("custom-modal-1")'> Edit Password </button> </td>
+                        <td style="text-align: center;" class="b" > <button style="width:10em;margin-right: 5%;margin-left:5%;" (click)='editInformationF()'> {{ editInformation ? 'Edit Information' : 'Save changes' }}</button></td>    
                     </tr>
                 </table>
             </div>
         </div>
     </div>
 
+    <div class='panel panel-primary' *ngIf = 'showNewRequests' >
+            <div class="card" style="background: lightgreen;">
+                <div class="card-content">
+                    <span class="card-title">New requests for registration: </span>
+                </div>
+                <table class='table'>
+                  <tr> <th>Name</th> <th>Surname</th> <th>Email</th> <th>Address</th> <th>City</th> <th>Country</th> <th style="text-align: center;">Accept</th> <th style="text-align: center;">Reject</th> </tr> 
+                  <tr *ngFor="let user of userRequests"> <td>{{user.name}}</td> <td>{{user.surname}}</td> <td>{{user.email}}</td> <td>{{user.address}}</td> <td>{{user.city}}</td> <td>{{user.country}}</td>
+                    <td><button style="margin-right: 5%;margin-left:5%;background-color: green;width:8em;" type="button" class="btn btn-primary" (click)='clickAcceptRequest(user.id)' >Accept</button></td>
+                    <td><button style="margin-right: 5%;margin-left:5%;width:8em;" type="button"  class="btn btn-danger" (click)='clickRejectRequest(user.id)'>Reject</button></td>
+                 </tr>
+                  <tr> 
+                      <td style="text-align: center; background-color: lightgreen;" > <button style="width:8em;margin-right: 5%;margin-left:5%;" type="button"  class="btn btn-primary" (click)="clickNewRequest()">Back</button></td> 
+                
+                  </tr>
+                </table>
+                
+            </div>
+    </div>
+    
+
 </div>
 
-<jw-modal id="custom-modal-1">
+
+<jw-modal id="custom-modal-1" style="right: 30%; left: 30%;">
     <div class="card" style="background: lightgreen;">
         <div class="card-content">
             <span class="card-title">Change your current password</span>
@@ -82,6 +104,9 @@
         </form>
     </div>
 </jw-modal>
+
+
+    
 
 
 

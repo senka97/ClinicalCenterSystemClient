@@ -16,6 +16,7 @@ import { timingSafeEqual } from 'crypto';
 export class ProfileClinicalCenterAdminComponent implements OnInit {
 
   constructor(private _userService:UserService, 
+    private _clinicalCenterAdminService: ClinicalCenterAdminService,
     private _authService:AuthService,
     private _router: Router,
     private _modalService: ModalService) {
@@ -25,11 +26,24 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
   private _currentAdmin: ClinicalCenterAdministrator;
   private _changedAdmin: ClinicalCenterAdministrator;
   private _passwordChanger: PasswordChanger;
+  private userRequests: any[];
   editInformation: boolean= true;
+  newRequests: boolean;
+  showNewRequests: boolean=false;
 
   ngOnInit() {
     this._currentAdmin = JSON.parse(localStorage.getItem('currentUser'));
     this._changedAdmin = JSON.parse(JSON.stringify(this._currentAdmin)); 
+    this._clinicalCenterAdminService.getNewRequests().subscribe( users => {
+      this.userRequests = users;
+      if(users.length==0)
+      {
+        this.newRequests=false;
+      }
+      else{
+        this.newRequests=true;
+      }
+    })
     console.log(JSON.parse(localStorage.getItem('currentUser')));
   }
 
@@ -82,6 +96,44 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
 
   clickRegisterClinicAdmin(): void {
     this._router.navigate(['/registerClinicAdmin']);
+  }
+
+  clickNewRequest() {
+    this.showNewRequests=!this.showNewRequests;
+  }
+
+  clickAcceptRequest(id)
+  {
+    this._clinicalCenterAdminService.acceptRequest(id).subscribe(data=>{
+      this._clinicalCenterAdminService.getNewRequests().subscribe( users => {
+        this.userRequests = users;
+        if(users.length==0)
+        {
+          this.newRequests=false;
+          this.showNewRequests=false;
+        }
+      })
+    },
+    error=>{
+      console.log("Error accepting request");
+    })
+  }
+
+  clickRejectRequest(id)
+  {
+    this._clinicalCenterAdminService.rejectRequest(id).subscribe(data=>{
+      this._clinicalCenterAdminService.getNewRequests().subscribe( users => {
+        this.userRequests = users;
+        if(users.length==0)
+        {
+          this.newRequests=false;
+          this.showNewRequests=false;
+        }
+      })
+    },
+    error=>{
+      console.log("Error rejecting request");
+    })
   }
 
   openModal(id: string) {
