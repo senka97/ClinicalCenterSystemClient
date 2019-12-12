@@ -98,6 +98,7 @@ export class ProfileMedicalStaffComponent implements OnInit {
     this._showInfo = false;
     this._showChangePassword = true;
     this._passwordChanger = new PasswordChanger("","");
+    this._confirmPassword = "";
   }
 
   cancelChangePassword(){

@@ -58,10 +58,7 @@ export class LoginComponent implements OnInit {
   }
 
   onRegisterClicked() {
-
-  
-     this._router.navigate(['/signup']);
-    // this._router.navigate(['/patientHP']);
+     this._router.navigate(['/signup']);  
   }
 
   ngOnInit() {

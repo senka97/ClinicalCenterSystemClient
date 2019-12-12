@@ -10,6 +10,11 @@ import { EditInfoDialogComponent } from '../shared/dialogs/edit-info-dialog/edit
 import { UserEdit } from '../shared/model/UserEdit';
 import { PasswordChangedDialogComponent } from '../shared/dialogs/password-changed-dialog/password-changed-dialog.component';
 import { Router } from '@angular/router';
+import { ClinicService } from './../service/clinic.service';
+import { EditClinicDialogComponent } from './edit-clinic-dialog/edit-clinic-dialog.component';
+import { ClinicAdminService } from './../service/clinic-admin.service';
+import { Clinic } from '../shared/model/Clinic';
+
 
 @Component({
   selector: 'app-profile-clinic-admin',
@@ -18,13 +23,15 @@ import { Router } from '@angular/router';
 })
 export class ProfileClinicAdminComponent implements OnInit {
 
-  constructor(private _authService: AuthService, private _dialog: MatDialog, private _userService: UserService, private _router: Router) { }
+  constructor(private _authService: AuthService, private _dialog: MatDialog, private _userService: UserService, private _router: Router, private _clinicAdminService: ClinicAdminService, private _clinicService: ClinicService) { }
 
   private _currentAdmin: any;
   private _changedAdmin: any;
   private _showInfo: boolean;
-  private _showEditInfo: boolean;
-  private _showChangePassword: boolean;
+
+  private _showClinic: boolean;
+  private _clinic: Clinic;
+  private _changedClinic: Clinic;
   private _passwordChanger: PasswordChanger;
   private _confirmPassword: String;
   private _showError: boolean;
@@ -34,6 +41,11 @@ export class ProfileClinicAdminComponent implements OnInit {
     this._currentAdmin = JSON.parse(localStorage.getItem('currentUser'));
     this._changedAdmin = JSON.parse(JSON.stringify(this._currentAdmin));
     this._passwordChanger = new PasswordChanger("","");
+    this._clinic = new Clinic();
+    this._changedClinic = new Clinic();
+    this._showInfo = true;
+    this._showClinic = false;
+
     if(this._currentAdmin.passwordChanged == false){
     let ref1 = this._dialog.open(FirstLoginDialogComponent,{
         disableClose: true,
@@ -102,6 +114,43 @@ export class ProfileClinicAdminComponent implements OnInit {
 
   clickedLogout(){
        this._authService.logout();
+  }
+
+  clickedClinicProfile(){
+     
+    this._clinicAdminService.getMyClinic().subscribe(clinic => {       
+           this._clinic = clinic;
+           this._showInfo = false;
+           this._showClinic = true;
+    });
+  }
+
+  clickedEditClinic(){
+    let dialogRef = this._dialog.open(EditClinicDialogComponent, {
+      width: '50%',
+      data: JSON.parse(JSON.stringify(this._clinic))
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != undefined){
+         this._changedClinic = result;
+         if(this._clinic.name != this._changedClinic.name || this._clinic.description != this._changedClinic.description
+            || this._clinic.address != this._changedClinic.address){
+            this._clinic = JSON.parse(JSON.stringify(this._changedClinic));
+            this._clinicService.editClinicInfo(this._changedClinic).subscribe(res => {
+                 console.log("clinic updated");
+    });
+      }
+    }
+    });
+
+
+
+  }
+
+  clickedBack(){
+    this._showClinic = false;
+    this._showInfo = true;
   }
 
 }
