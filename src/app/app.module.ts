@@ -10,11 +10,12 @@ import { ClinicalCenterAdminService } from './service/clinical-center-admin.serv
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule} from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { ModalModule } from './_modal';
-
+import { MatDatepickerModule, MatNativeDateModule, MatProgressSpinnerModule } from '@angular/material' //Date picker
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; //bootstrap
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -28,6 +29,7 @@ import { MedicalRecordComponent } from './hp-patient/medical-record/medical-reco
 import { ProfileMedicalStaffComponent } from './profile-medical-staff/profile-medical-staff.component';
 import { RegisterClinicAdminComponent } from './profile-clinical-center-admin/register-clinic-admin.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ClinicListComponent } from './hp-patient/clinic-list/clinic-list.component';
 import { MatDialogModule } from '@angular/material/dialog'; //mora se instalirati ng @angular/material
 import { PasswordChangedDialogComponent } from './shared/dialogs/password-changed-dialog/password-changed-dialog.component';
 import { ProfileClinicAdminComponent } from './profile-clinic-admin/profile-clinic-admin.component';
@@ -52,15 +54,16 @@ import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-di
     ListPatientsComponent,
     FormComponentComponent,
     MedicalRecordComponent,
-    ProfileMedicalStaffComponent,   
+    ProfileMedicalStaffComponent,
     RegisterClinicAdminComponent,
-    PasswordChangedDialogComponent, 
-    ProfileClinicAdminComponent, 
-    EditInfoDialogComponent, 
-    EditPasswordDialogComponent, 
-    PasswordWrongDialogComponent, 
+    ClinicListComponent,
+    PasswordChangedDialogComponent,
+    ProfileClinicAdminComponent,
+    EditInfoDialogComponent,
+    EditPasswordDialogComponent,
+    PasswordWrongDialogComponent,
     FirstLoginDialogComponent,
-    EditClinicDialogComponent, 
+    EditClinicDialogComponent,
 
   ],
   imports: [
@@ -70,28 +73,36 @@ import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-di
     HttpClientModule,
     ModalModule,
     RouterModule.forRoot([
-      {path: 'login', component: LoginComponent},
-      {path: 'signup', component: SignUpComponent},
-      {path: 'patientHP', component: HpPatientComponent},
-      {path: 'doctorHP', component: HpDoctorComponent,
-       children:[
-        {
-           path: 'listOfPatients',
-           component: ListPatientsComponent,
-           outlet: 'hpDoctor',
-        },
-        
-      ]},
-      {path: 'clinicalCenterAdminProfile', component: ProfileClinicalCenterAdminComponent },
-      {path: 'registerClinicalCenterAdmin', component: RegisterClinicalCenterAdminComponent},
-      {path: 'registerClinicAdmin', component: RegisterClinicAdminComponent},
-      {path: 'medicalStaffProfile', component: ProfileMedicalStaffComponent},
-      {path: 'clinicAdminProfile', component: ProfileClinicAdminComponent},
-      {path: '', redirectTo : 'login', pathMatch: 'full'}
+      { path: 'login', component: LoginComponent },
+      { path: 'signup', component: SignUpComponent },
+      { path: 'patientHP', component: HpPatientComponent },
+      {
+        path: 'doctorHP', component: HpDoctorComponent,
+        children: [
+          {
+            path: 'listOfPatients',
+            component: ListPatientsComponent,
+            outlet: 'hpDoctor',
+          },
+
+        ]
+      },
+      { path: 'clinicalCenterAdminProfile', component: ProfileClinicalCenterAdminComponent },
+      { path: 'registerClinicalCenterAdmin', component: RegisterClinicalCenterAdminComponent },
+      { path: 'registerClinicAdmin', component: RegisterClinicAdminComponent },
+      { path: 'medicalStaffProfile', component: ProfileMedicalStaffComponent },
+      { path: 'clinicAdminProfile', component: ProfileClinicAdminComponent },
+      { path: '', redirectTo: 'login', pathMatch: 'full' }
       //{path: '**', redirectTo: 'login'},
 
     ]),
     BrowserAnimationsModule,
+    //DatePicker
+    MatDatepickerModule,
+    MatNativeDateModule,
+    NgbModule,
+    MatProgressSpinnerModule,
+    MatFormFieldModule,
     MatDialogModule,
     MatButtonModule,
     MatFormFieldModule,
@@ -110,6 +121,8 @@ import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-di
     UserService,
     ClinicalCenterAdminService,
     PatientService,
+    ClinicService,
+
     ClinicAdminService,
     ClinicService
   ],
@@ -120,7 +133,7 @@ import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-di
     EditPasswordDialogComponent,
     FirstLoginDialogComponent,
     EditClinicDialogComponent
-  ], 
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

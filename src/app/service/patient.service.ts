@@ -3,6 +3,7 @@ import { ApiService } from './api.service';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 
+
 @Injectable()
 export class PatientService{
 
@@ -27,6 +28,15 @@ export class PatientService{
                 console.log("Patient retrieved:");
                 console.log(patient);
                 return patient;
+            })
+          )
+    }
+    getPatientMedicalRecord(id:string){
+        return this._apiService.get("http://localhost:9000/api/patients/patientMedicalRecord/" + id).pipe(
+            map(medRecord => {
+                console.log("Patient retrieved:");
+                console.log(medRecord);
+                return medRecord;
             })
           )
     }

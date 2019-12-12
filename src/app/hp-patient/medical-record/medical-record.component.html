@@ -1,1 +1,149 @@
-<p>medical-record works!</p>
+<div class="row" style="width: 70%;margin-left: auto;margin-right: auto;">
+    <div class="col center-align">
+        <div class="card custom">
+            <div class="card-content white-text">
+                <span class="card-title">Medical record of Name Surname</span>
+            </div>
+            <form class="col white" (ngSubmit)="onChangeMedicalRecord()" #medicalRecordForm="ngForm">
+                <div class="row">
+                    <div class="input-field col">
+                        <input type="text" class="validate" name="height" [disabled]="disabled"
+                            [(ngModel)]="_medicalRecord.height" required autocomplete="off" />
+                        <label class="form-label" data-error="Required Field!"> Height</label>
+                    </div>
+                    <div class="input-field col">
+                        <input type="text" class="validate" name="weight" [disabled]="disabled"
+                            [(ngModel)]="_medicalRecord.weight" required autocomplete="off" />
+                        <label class="form-label" data-error="Required Field!"> Weight</label>
+                    </div>
+                    <div class="input-field col">
+                        <input type="text" class="validate" name="diopter" [disabled]="disabled"
+                            [(ngModel)]="_medicalRecord.diopter" required autocomplete="off" />
+                        <label class="form-label" data-error="Required Field!"> Diopter</label>
+                    </div>
+                    <div class="input-field col">
+                        <input type="text" class="validate" name="organDonor" [disabled]="disabled"
+                            [(ngModel)]="_medicalRecord.organDonor" required autocomplete="off" />
+                        <label class="form-label" data-error="Required Field!"> Organ Donor</label>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col">
+                        Blood type: {{_medicalRecord.bloodType}}
+                    </div>
+
+
+
+
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="A+" name="inline" mdbInput
+                            [(ngModel)]="_medicalRecord.bloodType" value="A+">
+                        <label class="form-check-label" for="A+">A+</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="A-" name="inline" mdbInput
+                            [(ngModel)]="_medicalRecord.bloodType" value="A-">
+                        <label class="form-check-label" for="A-">A-</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="B+" name="inline" mdbInput
+                            [(ngModel)]="_medicalRecord.bloodType" value="B+">
+                        <label class="form-check-label" for="B+">B+</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="B-" name="inline" mdbInput
+                            [(ngModel)]="_medicalRecord.bloodType" value="B-">
+                        <label class="form-check-label" for="B-">B-</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="AB+" name="inline" mdbInput
+                            [(ngModel)]="_medicalRecord.bloodType" value="AB+">
+                        <label class="form-check-label" for="AB+">AB+</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="AB-" name="inline" mdbInput
+                            [(ngModel)]="_medicalRecord.bloodType" value="AB-">
+                        <label class="form-check-label" for="AB-">AB-</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="O+" name="inline" mdbInput
+                            [(ngModel)]="_medicalRecord.bloodType" value="O+">
+                        <label class="form-check-label" for="O+">O+</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="O-" name="inline" mdbInput
+                            [(ngModel)]="_medicalRecord.bloodType" value="O-" [disabled]="disabled">
+                        <label class="form-check-label" for="O-">O-</label>
+                    </div>
+
+
+
+
+
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Allergic Medication :
+                        <button (click)="onShowAllergicMedication()"
+                            [style.background-color]="allergicMedication=== false ? 'red' : ''">show</button>
+                    </div>
+                    <div class="col">
+                        <div class="row"></div>
+                        <div class="row" [hidden]="allergicMedication">
+                            <div class="col">#Sifra1</div>
+                            - naziv
+                            <div class="col"></div>
+
+                        </div>
+                        <div class="row" [hidden]="allergicMedication">
+                            <div class="col">#Sifra1</div>
+                            - naziv
+                            <div class="col"></div>
+
+                        </div>
+
+                    </div>
+                    <div class="col">
+                        Chronic Condition :
+                        <button (click)="onShowChronicCondition()"
+                            [style.background-color]="chronicCondition=== false ? 'red' : ''">show</button>
+                    </div>
+                    <div class="col">
+                        <div class="row"></div>
+                        <div class="row" [hidden]="chronicCondition">
+                            <div class="col">#Sifra2</div>
+                            - naziv
+                            <div class="col"></div>
+                        </div>
+                        <div class="row" [hidden]="chronicCondition">
+                            <div class="col">#Sifra2</div>
+                            - naziv
+                            <div class="col"></div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            
+
+                <div class="row">
+
+                    <div class="input-field col">
+
+                        <button class="btn-large btn-submit" [disabled]="!medicalRecordForm.valid" type="submit"> Change
+                            information</button>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+</div>

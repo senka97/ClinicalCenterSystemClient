@@ -1,9 +1,12 @@
-export class medicalRecord {
-    weight:String;
-    height:String;
-    diopter:String;
+export class MedicalRecord {
+    organDonor: boolean
+    weight:any;
+    height:any;
+    diopter:any;
     bloodType:String;
-    allergicToMedication:any;
-    chronicCondition:any;
+    allergicToMedicatios:any;
+    chronicConditions:any;
+    constructor(){   
+    }
   
 }

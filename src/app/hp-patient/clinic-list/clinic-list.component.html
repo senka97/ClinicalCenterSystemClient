@@ -1,0 +1,70 @@
+<div class="container-board">
+    Start index = {{startIndex}}
+    Numberof Clinics = {{numberOfClinics}}
+
+
+
+    <div class="row">
+        <mat-spinner class="spinner" *ngIf="showSpinner"></mat-spinner>
+
+
+        <div class="col" *ngFor="let clinic of _clinics;">
+            <div class="container-fluid">
+                <img src="https://sb-content-file.s3-ap-northeast-1.amazonaws.com/smallbridge_favicon.png"
+                    height="80px">
+                <h2>{{clinic.name}}</h2>
+                <h5>{{clinic.address}}</h5>
+                <p>{{clinic.description}} <br>
+                    Rating:
+
+                    <ng-template #t let-fill="fill">
+                        <span class="stars" [class.full]="fill === 100">
+                            <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
+                        </span>
+                    </ng-template>
+
+                    <ngb-rating [(rate)]="clinic.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating> <br>
+                    Reviews: {{clinic.numberOfReviews}}
+
+                </p>
+                <button>Read More</button>
+                <button>favorite</button>
+                <button>share</button>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="row">
+        <button *ngIf="startIndex > 3 " (click)="previousClinics()"> {{leftArrow}} </button>
+        <div class="col"></div>
+        <div class="col"></div>
+        <button *ngIf="numberOfClinics>startIndex" (click)="nextClinics()">{{rightArrow}}</button>
+
+    </div>
+
+
+</div>
+<div class="row">
+    <div class="col">
+
+    </div>
+    <div class="col">
+
+    </div>
+    <div class="col"> <input matInput [matDatepicker]="picker" placeholder="Choose a date" readonly="true">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </div>
+    <div class="col"></div>
+    <div class="col">
+
+
+
+
+    </div>
+    <div class="col">
+
+    </div>
+
+</div>
