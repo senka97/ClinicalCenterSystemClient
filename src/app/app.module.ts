@@ -59,7 +59,9 @@ import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-di
     EditInfoDialogComponent, 
     EditPasswordDialogComponent, 
     PasswordWrongDialogComponent, 
-    FirstLoginDialogComponent, EditClinicDialogComponent, 
+    FirstLoginDialogComponent,
+    EditClinicDialogComponent, 
+
   ],
   imports: [
     BrowserModule,
@@ -118,6 +120,7 @@ import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-di
     EditPasswordDialogComponent,
     FirstLoginDialogComponent,
     EditClinicDialogComponent
+    FirstLoginDialogComponent
   ], 
   bootstrap: [AppComponent]
 })

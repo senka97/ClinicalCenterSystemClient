@@ -37,6 +37,7 @@
           <a class="nav-link" href="#" >Business report</a>
         </li>
     </ul>
+
     <div *ngIf="_showInfo" style="width: 50%;margin-left: 15%;float:left;">
         <h2>Personal information</h2>
         <table class="table" style="margin-left:auto;margin-right:auto;">
@@ -77,6 +78,7 @@
         </table>
         <button style="margin-right: 15%;margin-left:15%;" class="btn btn-primary" (click)="clickedEdit()">Edit information</button> <button style="margin-right: auto;margin-left: auto;" class="btn btn-primary" (click)="clickedChangePassword()">Change password</button>      
   </div>
+
   <div *ngIf="_showClinic" style="width: 50%;margin-left: 15%;float:left;">
     <h2>General information about the clinic</h2>
     <table class="table" style="margin-left:auto;margin-right:auto;">

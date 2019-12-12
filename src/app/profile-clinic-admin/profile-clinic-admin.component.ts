@@ -15,6 +15,7 @@ import { EditClinicDialogComponent } from './edit-clinic-dialog/edit-clinic-dial
 import { ClinicAdminService } from './../service/clinic-admin.service';
 import { Clinic } from '../shared/model/Clinic';
 
+
 @Component({
   selector: 'app-profile-clinic-admin',
   templateUrl: './profile-clinic-admin.component.html',
@@ -27,6 +28,7 @@ export class ProfileClinicAdminComponent implements OnInit {
   private _currentAdmin: any;
   private _changedAdmin: any;
   private _showInfo: boolean;
+
   private _showClinic: boolean;
   private _clinic: Clinic;
   private _changedClinic: Clinic;
@@ -150,6 +152,5 @@ export class ProfileClinicAdminComponent implements OnInit {
     this._showClinic = false;
     this._showInfo = true;
   }
-
 
 }
