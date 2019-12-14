@@ -50,6 +50,19 @@ export class ClinicalCenterAdminService {
     )
    }
 
+   createClinic(clinic)
+   {
+    const registrationHeaders = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    });
+    return this._apiService.post(this._config.clcadmin_url+'/saveClinic/', JSON.stringify(clinic), registrationHeaders)
+        .pipe(map((res) => {
+          console.log(res);
+        }));
+   }
+
+
    getNewRequests()
    {
     return this._apiService.get("http://localhost:9000/api/clinicalCenterAdmin/getNewRequests").pipe(

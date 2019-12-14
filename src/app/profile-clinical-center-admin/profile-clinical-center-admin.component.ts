@@ -109,6 +109,10 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
     this._router.navigate(['/registerClinicAdmin']);
   }
 
+  clickRegisterClinic(): void {
+    this._router.navigate(['/registerClinic']);
+  }
+
   clickNewRequest() {
     this.showNewRequests=!this.showNewRequests;
   }

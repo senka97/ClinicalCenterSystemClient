@@ -22,7 +22,10 @@
 
     <ul class="nav flex-column nav-pills" style="width: 20%; color: blue; background-color: lightgreen; float:left;">   
         <li class="nav-item">
-          <a class="nav-link" href="#">Codebook</a>
+          <a class="nav-link" href="#">Medication Codebook</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Diagnosis Codebook</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="" (click)="clickRegisterClCAdmin()" >Register clinical center administrator</a>
@@ -31,15 +34,8 @@
           <a class="nav-link"  [routerLink]="" (click)="clickRegisterClinicAdmin()" >Register clinic administrator</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Register clinic</a>
+            <a class="nav-link" [routerLink]="" (click)="clickRegisterClinic()">Register clinic</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Delete administrator</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Delete clinic</a>
-        </li>
-
     </ul>
     
 

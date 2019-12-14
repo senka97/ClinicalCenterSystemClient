@@ -40,6 +40,7 @@ import { PasswordWrongDialogComponent } from './shared/dialogs/password-wrong-di
 import { FirstLoginDialogComponent } from './shared/dialogs/first-login-dialog/first-login-dialog.component';
 import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-dialog/edit-clinic-dialog.component';
 import { HpNurseComponent } from './hp-nurse/hp-nurse.component';
+import { RegisterClinicComponent } from './profile-clinical-center-admin/register-clinic.component';
 
 
 
@@ -66,6 +67,7 @@ import { HpNurseComponent } from './hp-nurse/hp-nurse.component';
     FirstLoginDialogComponent,
     EditClinicDialogComponent,
     HpNurseComponent,
+    RegisterClinicComponent,
 
   ],
   imports: [
@@ -102,6 +104,7 @@ import { HpNurseComponent } from './hp-nurse/hp-nurse.component';
       { path: 'clinicalCenterAdminProfile', component: ProfileClinicalCenterAdminComponent },
       { path: 'registerClinicalCenterAdmin', component: RegisterClinicalCenterAdminComponent },
       { path: 'registerClinicAdmin', component: RegisterClinicAdminComponent },
+      { path: 'registerClinic', component: RegisterClinicComponent },
       { path: 'medicalStaffProfile', component: ProfileMedicalStaffComponent },
       { path: 'clinicAdminProfile', component: ProfileClinicAdminComponent },
       { path: '', redirectTo: 'login', pathMatch: 'full' }
