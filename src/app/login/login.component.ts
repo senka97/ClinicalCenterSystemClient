@@ -40,9 +40,8 @@ export class LoginComponent implements OnInit {
             this._router.navigate(['/clinicalCenterAdminProfile']);
           } else if (role === 'ROLE_CLINIC_ADMIN') {
             this._router.navigate(['/clinicAdminProfile']);
-          } else {
-            alert("Medicinska sestra jos uvek nema homepage");
-
+          } else if(role === 'ROLE_NURSE'){
+            this._router.navigate(['nurseHP']);
           }
         });
 
@@ -60,8 +59,7 @@ export class LoginComponent implements OnInit {
   onRegisterClicked() {
 
 
-    // this._router.navigate(['/signup']);
-    this._router.navigate(['/patientHP']);
+     this._router.navigate(['/signup']);
   }
 
   ngOnInit() {
