@@ -6,9 +6,11 @@ import { ClinicalCenterAdministrator } from './ClinicalCenterAdministrator';
 import { ClinicalCenterAdminService } from '../service/clinical-center-admin.service';
 import { ModalService } from '../_modal';
 import { PasswordChanger } from '../shared/model/PasswordChanger';
-import { timingSafeEqual } from 'crypto';
+import { PasswordWrongDialogComponent } from '../shared/dialogs/password-wrong-dialog/password-wrong-dialog.component';
+import { EditPasswordDialogComponent } from '../shared/dialogs/edit-password-dialog/edit-password-dialog.component';
 import { FirstLoginDialogComponent } from './../shared/dialogs/first-login-dialog/first-login-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { PasswordChangedDialogComponent } from '../shared/dialogs/password-changed-dialog/password-changed-dialog.component';
 
 @Component({
   selector: 'app-profile-clinical-center-admin',
@@ -151,12 +153,39 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
     })
   }
 
-  openModal(id: string) {
+  clickedChangePassword(){
     this._passwordChanger = new PasswordChanger("","");
-    this._modalService.open(id);
+    let dialogRef = this._dialog.open(EditPasswordDialogComponent, {
+         width: '50%',
+         data: this._passwordChanger
+    });
+    dialogRef.afterClosed().subscribe(result => {
+       if(result != undefined){
+        this._passwordChanger = result;
+        this._authService.changePassoword(this._passwordChanger).subscribe(
+          res => {
+            let dialogRef1 = this._dialog.open(PasswordChangedDialogComponent, {
+              width: '50%'
+            });
+    
+            dialogRef1.afterClosed().subscribe(result => {
+             this._authService.logout(); 
+             this._router.navigate(['\login']);
+           });
+          },
+           error => {
+            let dialogRef2 = this._dialog.open(PasswordWrongDialogComponent, {
+              width: '50%'
+            }); 
+           }
+           );
+        
+       }
+    });
+
   }
 
-  closeModal(id: string) {
+  /*closeModal(id: string) {
     this._modalService.close(id); 
   }
   closeModalWithSave(id: string)
@@ -172,6 +201,6 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
       }
     )
     this._modalService.close(id); 
-  }
+  }*/
 
 }
