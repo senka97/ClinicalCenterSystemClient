@@ -39,6 +39,7 @@ import { MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule } 
 import { PasswordWrongDialogComponent } from './shared/dialogs/password-wrong-dialog/password-wrong-dialog.component';
 import { FirstLoginDialogComponent } from './shared/dialogs/first-login-dialog/first-login-dialog.component';
 import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-dialog/edit-clinic-dialog.component';
+import { HpNurseComponent } from './hp-nurse/hp-nurse.component';
 
 
 
@@ -64,6 +65,7 @@ import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-di
     PasswordWrongDialogComponent,
     FirstLoginDialogComponent,
     EditClinicDialogComponent,
+    HpNurseComponent,
 
   ],
   imports: [
@@ -85,6 +87,16 @@ import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-di
             outlet: 'hpDoctor',
           },
 
+        ]
+      },
+      {
+        path: 'nurseHP', component: HpNurseComponent,
+        children: [
+          {
+            path: 'listOfPatients',
+            component: ListPatientsComponent,
+            outlet: 'hpNurse',
+          },
         ]
       },
       { path: 'clinicalCenterAdminProfile', component: ProfileClinicalCenterAdminComponent },
