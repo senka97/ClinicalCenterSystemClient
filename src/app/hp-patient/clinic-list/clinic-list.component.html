@@ -1,9 +1,5 @@
 <div class="container-board">
-    Start index = {{startIndex}}
     Numberof Clinics = {{numberOfClinics}}
-
-
-
     <div class="row">
         <mat-spinner class="spinner" *ngIf="showSpinner"></mat-spinner>
 
@@ -27,36 +23,53 @@
                     Reviews: {{clinic.numberOfReviews}}
 
                 </p>
-                <button>Read More</button>
-                <button>favorite</button>
-                <button>share</button>
+                <button class="doctorsBtn" (click) = readMore() title="Show available doctors!">Doctors </button>
+                <button class="leftMargin20" title = "Show clinic profile!">Profile</button>
             </div>
         </div>
 
 
     </div>
     <div class="row">
-        <button *ngIf="startIndex > 3 " (click)="previousClinics()"> {{leftArrow}} </button>
+        <button class="btnNext" *ngIf="startIndex > 3 " (click)="previousClinics()" title = "Show previous clinics"> {{leftArrow}} </button>
         <div class="col"></div>
         <div class="col"></div>
-        <button *ngIf="numberOfClinics>startIndex" (click)="nextClinics()">{{rightArrow}}</button>
+        <button class="btnNext" *ngIf="numberOfClinics>startIndex" (click)="nextClinics()" title = "Show next clinics ">{{rightArrow}}</button>
 
     </div>
 
 
 </div>
-<div class="row">
+<div class="row listOfDoctors"  *ngIf="showDoctors">
+    <div><app-doctors-list ></app-doctors-list> </div> 
+
+  
+    
+</div>
+
+<div class="row" id="search" *ngIf="!showDoctors">
     <div class="col">
 
     </div>
     <div class="col">
 
     </div>
-    <div class="col"> <input matInput [matDatepicker]="picker" placeholder="Choose a date" readonly="true">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+    <div class="col">
+        <div class="ngb-dp-day ngb-dp-today">
+
+            <!-- day cell content omitted -->
+        </div>
+        <ngb-datepicker [minDate]="{year: 2010, month: 1, day: 1}" [maxDate]="{year: 2048, month: 12, day: 31}">
+
+        </ngb-datepicker>
+
+
     </div>
-    <div class="col"></div>
+    <div class="col">
+
+
+
+    </div>
     <div class="col">
 
 

@@ -16,6 +16,8 @@ export class ClinicListComponent implements OnInit {
   leftArrow : String;
   rightArrow : String;
   showSpinner : boolean;
+  showDoctors : boolean;
+  showAppointments : boolean;
   constructor(private _clinicService :ClinicService) { }
 
   ngOnInit() {
@@ -24,16 +26,22 @@ export class ClinicListComponent implements OnInit {
     this.rightArrow = "-->";
     this.numberOfClinics = 0;
     this.showSpinner = true;
-   // this._clinic = new Clinic();
+    this.showDoctors = false;
+    this.showAppointments = false;
+    this.imagePath = "https://smaller-pictures.appspot.com/images/dreamstime_xxl_65780868_small.jpg";
+    
+
+    // this._clinic = new Clinic();
     // this._clinic.name = " Neurologija";
     // this._clinic.address = "Narodnog Fronta 76";
     // this._clinic.description = "Klinika za neurologiju";
     // this._clinic.numberOfReviews = 0;
     // this._clinic.rating = 2.34;
-    this.imagePath = "https://smaller-pictures.appspot.com/images/dreamstime_xxl_65780868_small.jpg";
-    //this._allClinics = [this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic];
-
-   
+    // this._allClinics = [this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic];
+    // this.showSpinner = false;
+    // this.numberOfClinics = this._allClinics.length;
+    // this.nextClinics();
+  
     this._clinicService.getClinics().subscribe(clinics => {
      
       this._allClinics = clinics;
@@ -79,6 +87,16 @@ export class ClinicListComponent implements OnInit {
     this.startIndex =  this.startIndex - this._clinics.length;
     this.newClinics(3);
 
+  }
+  readMore(){
+    if(this.showDoctors == false){
+      this.showDoctors = true;
+    }else{
+      this.showDoctors = false;
+    }
+  }
+  showDoctorTimes(){
+    this.showAppointments = true;
   }
 
 }

@@ -39,6 +39,9 @@ import { MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule } 
 import { PasswordWrongDialogComponent } from './shared/dialogs/password-wrong-dialog/password-wrong-dialog.component';
 import { FirstLoginDialogComponent } from './shared/dialogs/first-login-dialog/first-login-dialog.component';
 import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-dialog/edit-clinic-dialog.component';
+import { DoctorsListComponent } from './hp-patient/doctors-list/doctors-list.component';
+import {MatSortModule,MatSortHeader,MatTableModule} from '@angular/material';
+import { AppointmentsListComponent } from './hp-patient/appointments-list/appointments-list.component';
 import { ExamRoomsComponent } from './profile-clinic-admin/exam-rooms/exam-rooms.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { RoomAddedDialogComponent } from './profile-clinic-admin/exam-rooms/room-added-dialog/room-added-dialog.component';
@@ -71,6 +74,8 @@ import { RegisterClinicComponent } from './profile-clinical-center-admin/registe
     PasswordWrongDialogComponent,
     FirstLoginDialogComponent,
     EditClinicDialogComponent,
+    DoctorsListComponent,
+    AppointmentsListComponent,  
     ExamRoomsComponent,
     RoomAddedDialogComponent,
     NewRoomDialogComponent,
@@ -85,6 +90,8 @@ import { RegisterClinicComponent } from './profile-clinical-center-admin/registe
     FormsModule,
     HttpClientModule,
     ModalModule,
+    MatSortModule,
+    MatTableModule,
     RouterModule.forRoot([
       { path: 'login', component: LoginComponent },
       { path: 'signup', component: SignUpComponent },
@@ -115,6 +122,7 @@ import { RegisterClinicComponent } from './profile-clinical-center-admin/registe
       { path: 'registerClinicAdmin', component: RegisterClinicAdminComponent },
       { path: 'registerClinic', component: RegisterClinicComponent },
       { path: 'medicalStaffProfile', component: ProfileMedicalStaffComponent },
+      { path: 'patientHP/:id', component: HpPatientComponent },
       { path: 'clinicAdminProfile', component: ProfileClinicAdminComponent },
       { path: 'examRooms/:id', component: ExamRoomsComponent },
       { path: '', redirectTo: 'login', pathMatch: 'full' }

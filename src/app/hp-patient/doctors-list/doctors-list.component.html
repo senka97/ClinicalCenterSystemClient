@@ -1,0 +1,38 @@
+<div class= "row">
+  <div class="col classBorder">
+
+  
+    <table matSort (matSortChange)="sortData($event)">
+        <tr>
+          <th mat-sort-header="name">Doctor</th>
+          <th mat-sort-header="surname">Surname</th>
+          <th mat-sort-header="rating">Rating</th>
+          <th mat-sort-header="numberOfReviews">Reviews</th>
+          <th mat-sort-header="examTimes">Free</th>
+        </tr>
+      
+        <tr *ngFor="let doctor of sortedDoctors" >
+         
+        
+          <td>{{doctor.name}}</td>
+          <td>{{doctor.surname}}</td>
+          <td>{{doctor.rating}}</td>
+          <td>{{doctor.numberOfReviews}}</td>
+          <td><button (click)="showDoctorTimes()" title = "Show available appointments!">{{doctor.name}} </button></td>
+     
+          
+        </tr>
+      </table>
+    </div>
+    <div *ngIf = "showTimes">Times: </div>
+    <div class="col classBorder">
+    
+      <div *ngIf = "showTimes">
+       
+        <app-appointments-list></app-appointments-list>
+      </div>
+    
+    </div>
+
+</div>
+
