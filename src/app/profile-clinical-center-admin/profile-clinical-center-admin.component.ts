@@ -11,6 +11,8 @@ import { EditPasswordDialogComponent } from '../shared/dialogs/edit-password-dia
 import { FirstLoginDialogComponent } from './../shared/dialogs/first-login-dialog/first-login-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PasswordChangedDialogComponent } from '../shared/dialogs/password-changed-dialog/password-changed-dialog.component';
+import { RejectRequestDialogComponent } from './reject-request-dialog/reject-request-dialog.component';
+import { RejectRequestObject } from './RejectRequestObject';
 
 @Component({
   selector: 'app-profile-clinical-center-admin',
@@ -25,12 +27,15 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
     private _authService:AuthService,
     private _router: Router,
     private _modalService: ModalService) {
+      
      
     }
 
+  private _rejectRequestObject: RejectRequestObject;
   private _currentAdmin: any;
   private _changedAdmin: any;
   private _passwordChanger: PasswordChanger;
+  private _message: String;
   private userRequests: any[];
   editInformation: boolean= true;
   newRequests: boolean;
@@ -40,6 +45,7 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
     this._currentAdmin = JSON.parse(localStorage.getItem('currentUser'));
     this._changedAdmin = JSON.parse(JSON.stringify(this._currentAdmin)); 
     this._passwordChanger = new PasswordChanger("","");
+    this._rejectRequestObject= new RejectRequestObject("","","","");
     this._clinicalCenterAdminService.getNewRequests().subscribe( users => {
       this.userRequests = users;
       if(users.length==0)
@@ -136,9 +142,37 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
     })
   }
 
-  clickRejectRequest(id)
+  clickRejectRequest(id,email,name,surname)
   {
-    this._clinicalCenterAdminService.rejectRequest(id).subscribe(data=>{
+    this._rejectRequestObject.email=email;
+    this._rejectRequestObject.name=name;
+    this._rejectRequestObject.surname=surname;
+    let dialogRef = this._dialog.open(RejectRequestDialogComponent, {
+      width: '50%',
+      height: '60%',
+      data: this._rejectRequestObject
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != undefined){
+        this._clinicalCenterAdminService.rejectRequest(id,this._rejectRequestObject.message).subscribe(data=>{
+          this._clinicalCenterAdminService.getNewRequests().subscribe( users => {
+            this.userRequests = users;
+            if(users.length==0)
+            {
+              this.newRequests=false;
+              this.showNewRequests=false;
+            }
+          })
+        },
+        error => {
+          alert("Something went wrong");
+        }
+        );
+      }
+   });
+
+
+    /*this._clinicalCenterAdminService.rejectRequest(id).subscribe(data=>{
       this._clinicalCenterAdminService.getNewRequests().subscribe( users => {
         this.userRequests = users;
         if(users.length==0)
@@ -150,7 +184,7 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
     },
     error=>{
       console.log("Error rejecting request");
-    })
+    })*/
   }
 
   clickedChangePassword(){

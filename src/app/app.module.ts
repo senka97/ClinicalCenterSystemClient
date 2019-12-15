@@ -49,6 +49,8 @@ import { NewRoomDialogComponent } from './profile-clinic-admin/exam-rooms/new-ro
 import { InfoDialogComponent } from './shared/dialogs/info-dialog/info-dialog.component'
 import { HpNurseComponent } from './hp-nurse/hp-nurse.component';
 import { RegisterClinicComponent } from './profile-clinical-center-admin/register-clinic.component';
+import { RejectRequestDialogComponent } from './profile-clinical-center-admin/reject-request-dialog/reject-request-dialog.component';
+
 
 
 
@@ -81,7 +83,8 @@ import { RegisterClinicComponent } from './profile-clinical-center-admin/registe
     NewRoomDialogComponent,
     InfoDialogComponent,
     HpNurseComponent,
-    RegisterClinicComponent
+    RegisterClinicComponent,
+    RejectRequestDialogComponent
 
   ],
   imports: [
@@ -167,6 +170,7 @@ import { RegisterClinicComponent } from './profile-clinical-center-admin/registe
     EditPasswordDialogComponent,
     FirstLoginDialogComponent,
     EditClinicDialogComponent,
+    RejectRequestDialogComponent,
     NewRoomDialogComponent,
     RoomAddedDialogComponent,
     InfoDialogComponent
