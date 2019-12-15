@@ -42,6 +42,14 @@ import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-di
 import { DoctorsListComponent } from './hp-patient/doctors-list/doctors-list.component';
 import {MatSortModule,MatSortHeader,MatTableModule} from '@angular/material';
 import { AppointmentsListComponent } from './hp-patient/appointments-list/appointments-list.component';
+import { ExamRoomsComponent } from './profile-clinic-admin/exam-rooms/exam-rooms.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { RoomAddedDialogComponent } from './profile-clinic-admin/exam-rooms/room-added-dialog/room-added-dialog.component';
+import { NewRoomDialogComponent } from './profile-clinic-admin/exam-rooms/new-room-dialog/new-room-dialog.component';
+import { InfoDialogComponent } from './shared/dialogs/info-dialog/info-dialog.component'
+import { HpNurseComponent } from './hp-nurse/hp-nurse.component';
+import { RegisterClinicComponent } from './profile-clinical-center-admin/register-clinic.component';
+
 
 
 @NgModule({
@@ -67,8 +75,13 @@ import { AppointmentsListComponent } from './hp-patient/appointments-list/appoin
     FirstLoginDialogComponent,
     EditClinicDialogComponent,
     DoctorsListComponent,
-    AppointmentsListComponent,
-    
+    AppointmentsListComponent,  
+    ExamRoomsComponent,
+    RoomAddedDialogComponent,
+    NewRoomDialogComponent,
+    InfoDialogComponent,
+    HpNurseComponent,
+    RegisterClinicComponent
 
   ],
   imports: [
@@ -94,12 +107,24 @@ import { AppointmentsListComponent } from './hp-patient/appointments-list/appoin
 
         ]
       },
+      {
+        path: 'nurseHP', component: HpNurseComponent,
+        children: [
+          {
+            path: 'listOfPatients',
+            component: ListPatientsComponent,
+            outlet: 'hpNurse',
+          },
+        ]
+      },
       { path: 'clinicalCenterAdminProfile', component: ProfileClinicalCenterAdminComponent },
       { path: 'registerClinicalCenterAdmin', component: RegisterClinicalCenterAdminComponent },
       { path: 'registerClinicAdmin', component: RegisterClinicAdminComponent },
+      { path: 'registerClinic', component: RegisterClinicComponent },
       { path: 'medicalStaffProfile', component: ProfileMedicalStaffComponent },
       { path: 'patientHP/:id', component: HpPatientComponent },
       { path: 'clinicAdminProfile', component: ProfileClinicAdminComponent },
+      { path: 'examRooms/:id', component: ExamRoomsComponent },
       { path: '', redirectTo: 'login', pathMatch: 'full' }
       //{path: '**', redirectTo: 'login'},
 
@@ -116,6 +141,7 @@ import { AppointmentsListComponent } from './hp-patient/appointments-list/appoin
     MatFormFieldModule,
     MatInputModule,
     MatRippleModule,
+    MatRadioModule
   ],
   providers: [
     {
@@ -140,7 +166,11 @@ import { AppointmentsListComponent } from './hp-patient/appointments-list/appoin
     PasswordWrongDialogComponent,
     EditPasswordDialogComponent,
     FirstLoginDialogComponent,
-    EditClinicDialogComponent
+    EditClinicDialogComponent,
+    NewRoomDialogComponent,
+    RoomAddedDialogComponent,
+    InfoDialogComponent
+    
   ],
   bootstrap: [AppComponent]
 })

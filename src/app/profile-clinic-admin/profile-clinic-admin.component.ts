@@ -33,8 +33,7 @@ export class ProfileClinicAdminComponent implements OnInit {
   private _clinic: Clinic;
   private _changedClinic: Clinic;
   private _passwordChanger: PasswordChanger;
-  private _confirmPassword: String;
-  private _showError: boolean;
+  
 
   ngOnInit() {
     
@@ -45,6 +44,10 @@ export class ProfileClinicAdminComponent implements OnInit {
     this._changedClinic = new Clinic();
     this._showInfo = true;
     this._showClinic = false;
+
+    this._clinicAdminService.getMyClinic().subscribe(clinic => {       
+      this._clinic = clinic;
+    });
 
     if(this._currentAdmin.passwordChanged == false){
     let ref1 = this._dialog.open(FirstLoginDialogComponent,{
@@ -118,11 +121,11 @@ export class ProfileClinicAdminComponent implements OnInit {
 
   clickedClinicProfile(){
      
-    this._clinicAdminService.getMyClinic().subscribe(clinic => {       
-           this._clinic = clinic;
+    //this._clinicAdminService.getMyClinic().subscribe(clinic => {       
+           //this._clinic = clinic;
            this._showInfo = false;
            this._showClinic = true;
-    });
+   // });
   }
 
   clickedEditClinic(){
@@ -143,8 +146,6 @@ export class ProfileClinicAdminComponent implements OnInit {
       }
     }
     });
-
-
 
   }
 
