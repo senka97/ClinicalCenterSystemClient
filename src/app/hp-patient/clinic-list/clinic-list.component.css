@@ -26,7 +26,26 @@
   overflow: hidden;
   color: red;
 }
+.btnNext{
+
+}
 .spinner{
   margin-left : 20px;
   margin-top : 20px;
+}
+
+.listOfDoctors{
+ 
+  margin-left: 290px;
+}
+.classBorder,
+{
+  border:1px solid #5645a1;
+}
+.leftMargin20{
+  margin-left : 30px;
+}
+.doctorsBtn,
+.leftMargin20{
+  background-color: #4a80a3;
 }
