@@ -44,6 +44,9 @@ import { MatRadioModule } from '@angular/material/radio';
 import { RoomAddedDialogComponent } from './profile-clinic-admin/exam-rooms/room-added-dialog/room-added-dialog.component';
 import { NewRoomDialogComponent } from './profile-clinic-admin/exam-rooms/new-room-dialog/new-room-dialog.component';
 import { InfoDialogComponent } from './shared/dialogs/info-dialog/info-dialog.component'
+import { HpNurseComponent } from './hp-nurse/hp-nurse.component';
+import { RegisterClinicComponent } from './profile-clinical-center-admin/register-clinic.component';
+
 
 
 @NgModule({
@@ -72,6 +75,8 @@ import { InfoDialogComponent } from './shared/dialogs/info-dialog/info-dialog.co
     RoomAddedDialogComponent,
     NewRoomDialogComponent,
     InfoDialogComponent,
+    HpNurseComponent,
+    RegisterClinicComponent
 
   ],
   imports: [
@@ -95,9 +100,20 @@ import { InfoDialogComponent } from './shared/dialogs/info-dialog/info-dialog.co
 
         ]
       },
+      {
+        path: 'nurseHP', component: HpNurseComponent,
+        children: [
+          {
+            path: 'listOfPatients',
+            component: ListPatientsComponent,
+            outlet: 'hpNurse',
+          },
+        ]
+      },
       { path: 'clinicalCenterAdminProfile', component: ProfileClinicalCenterAdminComponent },
       { path: 'registerClinicalCenterAdmin', component: RegisterClinicalCenterAdminComponent },
       { path: 'registerClinicAdmin', component: RegisterClinicAdminComponent },
+      { path: 'registerClinic', component: RegisterClinicComponent },
       { path: 'medicalStaffProfile', component: ProfileMedicalStaffComponent },
       { path: 'clinicAdminProfile', component: ProfileClinicAdminComponent },
       { path: 'examRooms/:id', component: ExamRoomsComponent },
