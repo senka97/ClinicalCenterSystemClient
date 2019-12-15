@@ -39,7 +39,11 @@ import { MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule } 
 import { PasswordWrongDialogComponent } from './shared/dialogs/password-wrong-dialog/password-wrong-dialog.component';
 import { FirstLoginDialogComponent } from './shared/dialogs/first-login-dialog/first-login-dialog.component';
 import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-dialog/edit-clinic-dialog.component';
-
+import { ExamRoomsComponent } from './profile-clinic-admin/exam-rooms/exam-rooms.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { RoomAddedDialogComponent } from './profile-clinic-admin/exam-rooms/room-added-dialog/room-added-dialog.component';
+import { NewRoomDialogComponent } from './profile-clinic-admin/exam-rooms/new-room-dialog/new-room-dialog.component';
+import { InfoDialogComponent } from './shared/dialogs/info-dialog/info-dialog.component'
 
 
 @NgModule({
@@ -64,6 +68,10 @@ import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-di
     PasswordWrongDialogComponent,
     FirstLoginDialogComponent,
     EditClinicDialogComponent,
+    ExamRoomsComponent,
+    RoomAddedDialogComponent,
+    NewRoomDialogComponent,
+    InfoDialogComponent,
 
   ],
   imports: [
@@ -92,6 +100,7 @@ import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-di
       { path: 'registerClinicAdmin', component: RegisterClinicAdminComponent },
       { path: 'medicalStaffProfile', component: ProfileMedicalStaffComponent },
       { path: 'clinicAdminProfile', component: ProfileClinicAdminComponent },
+      { path: 'examRooms/:id', component: ExamRoomsComponent },
       { path: '', redirectTo: 'login', pathMatch: 'full' }
       //{path: '**', redirectTo: 'login'},
 
@@ -107,7 +116,8 @@ import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-di
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatRippleModule
+    MatRippleModule,
+    MatRadioModule
   ],
   providers: [
     {
@@ -132,7 +142,11 @@ import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-di
     PasswordWrongDialogComponent,
     EditPasswordDialogComponent,
     FirstLoginDialogComponent,
-    EditClinicDialogComponent
+    EditClinicDialogComponent,
+    NewRoomDialogComponent,
+    RoomAddedDialogComponent,
+    InfoDialogComponent
+    
   ],
   bootstrap: [AppComponent]
 })

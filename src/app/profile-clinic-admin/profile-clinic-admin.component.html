@@ -22,11 +22,11 @@
             <a class="nav-link" [routerLink] = "" (click) = "clickedClinicProfile()" >Clinic's profile</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" [routerLink] = "['/examRooms', _clinic.id]" >List of exam rooms</a>
+          </li>
+        <li class="nav-item">
           <a class="nav-link" href="#">List of doctors</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" >List of exam rooms</a>
-          </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Types of medical exams</a>
         </li>
@@ -43,11 +43,11 @@
         <table class="table" style="margin-left:auto;margin-right:auto;">
             <tbody>
                 <tr>
-                    <th>Name:</th>
+                    <th>First name:</th>
                     <td>{{_currentAdmin.name}}</td>
                 </tr>
                 <tr>
-                    <th>Surname:</th>
+                    <th>Last name:</th>
                     <td>{{_currentAdmin.surname}}</td>
                 </tr>
                 <tr>
@@ -76,7 +76,7 @@
                 </tr>
             </tbody>
         </table>
-        <button style="margin-right: 15%;margin-left:15%;" class="btn btn-primary" (click)="clickedEdit()">Edit information</button> <button style="margin-right: auto;margin-left: auto;" class="btn btn-primary" (click)="clickedChangePassword()">Change password</button>      
+        <button style="margin-right: 15%;margin-left:15%;width:13em;" class="btn btn-primary" (click)="clickedEdit()">Update information</button> <button style="margin-right: auto;margin-left: auto;width:13em;" class="btn btn-primary" (click)="clickedChangePassword()">Change password</button>      
   </div>
 
   <div *ngIf="_showClinic" style="width: 50%;margin-left: 15%;float:left;">
@@ -98,7 +98,7 @@
         </tbody>
     </table>
     
-    <button style="margin-right: 15%;margin-left:15%;" class="btn btn-primary" (click)="clickedEditClinic()">Edit</button> <button style="margin-right: auto;margin-left: auto;" class="btn btn-primary" (click)="clickedBack()">Back</button>      
+    <button style="margin-right: 15%;margin-left:15%;width:6em;" class="btn btn-primary" (click)="clickedEditClinic()">Update</button> <button style="margin-right: auto;margin-left: auto;width:6em;" class="btn btn-primary" (click)="clickedBack()">Back</button>      
 </div>
 
 
