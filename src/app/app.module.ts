@@ -41,6 +41,8 @@ import { FirstLoginDialogComponent } from './shared/dialogs/first-login-dialog/f
 import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-dialog/edit-clinic-dialog.component';
 import { HpNurseComponent } from './hp-nurse/hp-nurse.component';
 import { RegisterClinicComponent } from './profile-clinical-center-admin/register-clinic.component';
+import { RejectRequestDialogComponent } from './profile-clinical-center-admin/reject-request-dialog/reject-request-dialog.component';
+
 
 
 
@@ -68,6 +70,7 @@ import { RegisterClinicComponent } from './profile-clinical-center-admin/registe
     EditClinicDialogComponent,
     HpNurseComponent,
     RegisterClinicComponent,
+    RejectRequestDialogComponent
 
   ],
   imports: [
@@ -147,7 +150,8 @@ import { RegisterClinicComponent } from './profile-clinical-center-admin/registe
     PasswordWrongDialogComponent,
     EditPasswordDialogComponent,
     FirstLoginDialogComponent,
-    EditClinicDialogComponent
+    EditClinicDialogComponent,
+    RejectRequestDialogComponent
   ],
   bootstrap: [AppComponent]
 })

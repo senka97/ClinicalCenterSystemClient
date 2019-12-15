@@ -85,13 +85,13 @@ export class ClinicalCenterAdminService {
       }));
    }
 
-   rejectRequest(id)
+   rejectRequest(id,message)
    {
     const editHeaders = new HttpHeaders({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     });
-    return this._apiService.put("http://localhost:9000/api/clinicalCenterAdmin/rejectRequest/"+id, editHeaders)
+    return this._apiService.put("http://localhost:9000/api/clinicalCenterAdmin/rejectRequest/"+id, message,editHeaders)
       .pipe(map((res) => {
         console.log(res);
       }));

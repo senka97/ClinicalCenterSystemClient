@@ -70,7 +70,7 @@
                   <tr> <th>Name</th> <th>Surname</th> <th>Email</th> <th>Address</th> <th>City</th> <th>Country</th> <th style="text-align: center;">Accept</th> <th style="text-align: center;">Reject</th> </tr> 
                   <tr *ngFor="let user of userRequests"> <td>{{user.name}}</td> <td>{{user.surname}}</td> <td>{{user.email}}</td> <td>{{user.address}}</td> <td>{{user.city}}</td> <td>{{user.country}}</td>
                     <td><button style="margin-right: 5%;margin-left:5%;background-color: green;width:8em;" type="button" class="btn btn-primary" (click)='clickAcceptRequest(user.id)' >Accept</button></td>
-                    <td><button style="margin-right: 5%;margin-left:5%;width:8em;" type="button"  class="btn btn-danger" (click)='clickRejectRequest(user.id)'>Reject</button></td>
+                    <td><button style="margin-right: 5%;margin-left:5%;width:8em;" type="button"  class="btn btn-danger" (click)='clickRejectRequest(user.id,user.email,user.name,user.surname)'>Reject</button></td>
                  </tr>
                   <tr> 
                       <td style="text-align: center; background-color: lightgreen;" > <button style="width:8em;margin-right: 5%;margin-left:5%;" type="button"  class="btn btn-primary" (click)="clickNewRequest()">Back</button></td> 
