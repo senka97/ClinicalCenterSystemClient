@@ -1,0 +1,21 @@
+<div class= "row">
+    <table matSort (matSortChange)="sortData($event)">
+        <tr>
+          <th mat-sort-header="name">Doctor</th>
+          <th mat-sort-header="date">Date</th>
+          <th mat-sort-header="time">Time</th>
+          <th mat-sort-header="type">Type</th>
+          <th mat-sort-header="reserve">Reserve</th>
+        </tr>
+      
+        <tr *ngFor="let appointment of sortedAppointments">
+          <td>{{appointment.name}}</td>
+          <td>{{appointment.date}}</td>
+          <td>{{appointment.time}}</td>
+          <td>{{appointment.type}}</td>
+          <td><button (click)="reserveAppointment()">{{appointment.time}} </button></td>
+          
+        </tr>
+      </table>
+
+</div>

@@ -9,7 +9,7 @@ import { PatientService } from './../../service/patient.service';
 })
 export class MedicalRecordComponent implements OnInit {
   @Input("_medicalRecord") _medicalRecord: MedicalRecord;
-  disabled: boolean;
+  @Input("_disabled") _disabled: boolean;
   allergicMedication: boolean;
   chronicCondition: boolean;
   constructor(private _patientService: PatientService) { }
@@ -24,7 +24,7 @@ export class MedicalRecordComponent implements OnInit {
     this.allergicMedication = true;
     this.chronicCondition = true;
 
-    this.disabled = false;
+  
   }
   //for doctors
   onChangeMedicalRecord() {

@@ -19,6 +19,7 @@
             <td>{{patient.email}}</td>
             <!--<td><a [routerLink]="[{ outlets: { hpDoctor: ['patientDetails' , patient.id] } }]">See details...</a></td>-->
             <td><a [routerLink]="" (click)="showDetails(patient.id)">See details...</a></td>
+        
           </tr>
         </tbody>
       </table>
@@ -31,6 +32,7 @@
     <p>City: {{_currentPatient.city}}</p>
     <p>Country: {{_currentPatient.country}}</p>
     <p>Phone number: {{_currentPatient.phoneNumber}}</p>
+    <button style="float: center;" type="button" class="btn btn-primary btn-sm" [routerLink] = "['/patientHP', _currentPatient.id]" >Profile</button>
     <button style="float: right;" type="button" class="btn btn-primary btn-sm" (click)="goBack()">Back</button>
   </div>
   

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { UserService } from './../service/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from "@angular/forms";
@@ -11,35 +11,60 @@ import { MedicalRecord } from './medical-record/MedicalRecord';
   styleUrls: ['./hp-patient.component.css']
 })
 export class HpPatientComponent implements OnInit {
-  private _signUpUser: any = JSON.parse(localStorage.getItem('currentUser'));
+  private _signUpUser : any = JSON.parse(localStorage.getItem('currentUser')); 
+
+
   show: boolean;
   showMedicalRecord: boolean;
   showHome: boolean;
   showClinics: boolean;
   _medicalRecord: MedicalRecord;
+  showDoctors: boolean;
+  notPatient : boolean;
+  message : any;
+  id: any;
+  _disabled : boolean;
+ 
+  
 
   constructor(private _route: ActivatedRoute,
     private _router: Router,
     private _authService: AuthService, private _userService: UserService, private _patientService: PatientService) {
-
+     
 
   }
 
   ngOnInit() {
+   
+  
+    if(this._signUpUser.authorities[0]['authority'] == 'ROLE_PATIENT'){
+      this.notPatient = false;
+      this.patientMedicalRecord(this._signUpUser.id);
+      this.message = "Home page for patient:";
+      this._disabled = true;
+    }else{
+
+      this._route.paramMap.subscribe(params => { 
+        this.id = params.get('id');
+      });
+      this.notPatient = true;
+      this.patientMedicalRecord(this.id);
+      this.message = "Patient #" + this.id + ", Doctor: ";
+      this._disabled = false;
+    }
     this.uncheckAll(false);
     this.resetForm();
 
-    console.log(this._signUpUser);
-    console.log(this._signUpUser.id);
-    this.patientMedicalRecord(this._signUpUser.id);
+    document.getElementById("hidden").hidden = this.notPatient;
+    document.getElementById("notHidden").hidden = !this.notPatient;
+    document.getElementById("hidden2").hidden = this.notPatient;
+    document.getElementById("notHidden2").hidden = !this.notPatient;
+    console.log("OVOOO")
+    console.log( this._signUpUser.authorities[0]['authority'])
+    console.log(this.id);
+  
 
     this._medicalRecord = new MedicalRecord();
-    // this._medicalRecord.height = 76;
-    // this._medicalRecord.weight = 183;
-    // this._medicalRecord.organDonor = false;
-    // this._medicalRecord.diopter = "+2:-2";
-    // this._medicalRecord.bloodType = "AB+";
-
   }
   patientMedicalRecord(id) {
     this._patientService.getPatientMedicalRecord(id).subscribe(medRecord => {
@@ -61,7 +86,11 @@ export class HpPatientComponent implements OnInit {
     this.show = this.check(this.show);
   }
   showMedicalRecordInfo() {
-    this.patientMedicalRecord(this._signUpUser.id);
+    if(this._signUpUser.authorities[0]['authority'] == 'ROLE_PATIENT'){
+      this.patientMedicalRecord(this._signUpUser.id);
+    }else{
+      this.patientMedicalRecord(this.id);
+    }
     this.showMedicalRecord = this.uncheckAll(this.showMedicalRecord);
     this.showMedicalRecord = this.check(this.showMedicalRecord);
 
@@ -70,6 +99,10 @@ export class HpPatientComponent implements OnInit {
     this.showClinics = this.uncheckAll(this.showClinics);
     this.showClinics = this.check(this.showClinics);
 
+  }
+  showMedicalExams(){
+    this.showDoctors = this.uncheckAll(this.showDoctors);
+    this.showDoctors = this.check(this.showDoctors);
   }
 
   check(check: boolean): boolean {
@@ -86,7 +119,11 @@ export class HpPatientComponent implements OnInit {
     this.showHome = false;
     this.showMedicalRecord = false;
     this.showClinics = false;
+    this.showDoctors = false;
     return check;
+  }
+  onClickedBack(){
+    this._router.navigate(['/doctorHP']);
   }
 
 

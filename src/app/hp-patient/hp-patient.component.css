@@ -19,3 +19,6 @@ button.link:focus{
 .titleMessage {
     font-size: 23px;
 }
+.mat-sort-header-container {
+    align-items: center;
+}
