@@ -34,7 +34,7 @@
       <tr><td><b>Country:</b></td><td>{{_currentPatient.country}}</td></tr>
       <tr><td><b>Phone number:</b></td><td>{{_currentPatient.phoneNumber}}</td></tr>
     </table>
-    <button style="float: left;width:5em;"" type="button" class="btn btn-primary btn-sm" [routerLink] = "['/patientHP', _currentPatient.id]" >Profile</button>
+    <button style="float: left;width:5em;" type="button" class="btn btn-primary btn-sm" [routerLink] = "['/patientHP', _currentPatient.id]" >Profile</button>
     <button style="float: right;width:5em;" type="button" class="btn btn-primary btn-sm" (click)="goBack()">Back</button>
   </div>
   
