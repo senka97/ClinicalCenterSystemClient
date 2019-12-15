@@ -69,7 +69,7 @@ export class ExamRoomsComponent implements OnInit {
                 }
               }
               if(enteredNumber){
-                 if(!room.number.toLowerCase().includes(this._searchRoom.number.toLocaleLowerCase())){
+                 if(!room.number.includes(this._searchRoom.number)){
                    continue;
                  }
                 }
