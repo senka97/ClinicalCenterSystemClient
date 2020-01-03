@@ -50,6 +50,12 @@ import { InfoDialogComponent } from './shared/dialogs/info-dialog/info-dialog.co
 import { HpNurseComponent } from './hp-nurse/hp-nurse.component';
 import { RegisterClinicComponent } from './profile-clinical-center-admin/register-clinic.component';
 import { RejectRequestDialogComponent } from './profile-clinical-center-admin/reject-request-dialog/reject-request-dialog.component';
+import { MedicationService } from './service/medication.service';
+import { DiagnosisService } from './service/diagnosis.service';
+import { NewDiagnosisDialogComponent } from './profile-clinical-center-admin/new-diagnosis-dialog/new-diagnosis-dialog.component';
+import { NewMedicationDialogComponent } from './profile-clinical-center-admin/new-medication-dialog/new-medication-dialog.component';
+import { EditDiagnosisDialogComponent } from './profile-clinical-center-admin/edit-diagnosis-dialog/edit-diagnosis-dialog.component';
+import { EditMedicationDialogComponent } from './profile-clinical-center-admin/edit-medication-dialog/edit-medication-dialog.component';
 
 
 
@@ -84,7 +90,11 @@ import { RejectRequestDialogComponent } from './profile-clinical-center-admin/re
     InfoDialogComponent,
     HpNurseComponent,
     RegisterClinicComponent,
-    RejectRequestDialogComponent
+    RejectRequestDialogComponent,
+    NewDiagnosisDialogComponent,
+    NewMedicationDialogComponent,
+    EditDiagnosisDialogComponent,
+    EditMedicationDialogComponent
 
   ],
   imports: [
@@ -161,7 +171,9 @@ import { RejectRequestDialogComponent } from './profile-clinical-center-admin/re
     ClinicService,
 
     ClinicAdminService,
-    ClinicService
+    ClinicService,
+    DiagnosisService,
+    MedicationService
   ],
   entryComponents: [ //ovo mora da se doda za dijalog
     PasswordChangedDialogComponent,
@@ -173,7 +185,11 @@ import { RejectRequestDialogComponent } from './profile-clinical-center-admin/re
     RejectRequestDialogComponent,
     NewRoomDialogComponent,
     RoomAddedDialogComponent,
-    InfoDialogComponent
+    InfoDialogComponent,
+    NewDiagnosisDialogComponent,
+    NewMedicationDialogComponent,
+    EditDiagnosisDialogComponent,
+    EditMedicationDialogComponent
     
   ],
   bootstrap: [AppComponent]
