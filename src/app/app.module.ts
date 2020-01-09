@@ -56,6 +56,8 @@ import { NewDiagnosisDialogComponent } from './profile-clinical-center-admin/new
 import { NewMedicationDialogComponent } from './profile-clinical-center-admin/new-medication-dialog/new-medication-dialog.component';
 import { EditDiagnosisDialogComponent } from './profile-clinical-center-admin/edit-diagnosis-dialog/edit-diagnosis-dialog.component';
 import { EditMedicationDialogComponent } from './profile-clinical-center-admin/edit-medication-dialog/edit-medication-dialog.component';
+import { MedicationDialogComponent } from './shared/dialogs/medication-dialog/medication-dialog.component';
+import { DiagnosisDialogComponent } from './shared/dialogs/diagnosis-dialog/diagnosis-dialog.component';
 
 
 
@@ -94,7 +96,10 @@ import { EditMedicationDialogComponent } from './profile-clinical-center-admin/e
     NewDiagnosisDialogComponent,
     NewMedicationDialogComponent,
     EditDiagnosisDialogComponent,
-    EditMedicationDialogComponent
+    EditMedicationDialogComponent,
+    MedicationDialogComponent,
+    DiagnosisDialogComponent
+    
 
   ],
   imports: [
@@ -189,7 +194,8 @@ import { EditMedicationDialogComponent } from './profile-clinical-center-admin/e
     NewDiagnosisDialogComponent,
     NewMedicationDialogComponent,
     EditDiagnosisDialogComponent,
-    EditMedicationDialogComponent
+    EditMedicationDialogComponent,
+    MedicationDialogComponent
     
   ],
   bootstrap: [AppComponent]
