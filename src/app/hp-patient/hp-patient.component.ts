@@ -40,6 +40,7 @@ export class HpPatientComponent implements OnInit {
     if(this._signUpUser.authorities[0]['authority'] == 'ROLE_PATIENT'){
       this.notPatient = false;
       this.patientMedicalRecord(this._signUpUser.id);
+      this._patientId = this._signUpUser.id;
       this.message = "Home page for patient:";
       this._disabled = true;
     }else{

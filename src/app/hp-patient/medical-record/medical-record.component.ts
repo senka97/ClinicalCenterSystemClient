@@ -3,6 +3,8 @@ import { MedicalRecord } from './MedicalRecord';
 import { PatientService } from './../../service/patient.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MedicationDialogComponent } from './../../shared/dialogs/medication-dialog/medication-dialog.component';
+import { DiagnosisDialogComponent } from './../../shared/dialogs/diagnosis-dialog/diagnosis-dialog.component';
+
 
 
 
@@ -18,6 +20,7 @@ export class MedicalRecordComponent implements OnInit {
   allergicMedication: boolean;
   allergicMedicationList : any;
   chronicCondition: boolean;
+  chronicConditionList: any;
 
   constructor(private _patientService: PatientService,private _dialog: MatDialog) { }
 
@@ -51,6 +54,12 @@ export class MedicalRecordComponent implements OnInit {
   }
   onShowChronicCondition() {
     this.chronicCondition = this.check(this.chronicCondition);
+    
+    this._patientService.getPatientChronicCon(this._patientId).subscribe(chronicCon => {
+      this.chronicConditionList = chronicCon;
+      console.log(this.chronicConditionList)
+
+    })
   }
   check(check: boolean): boolean {
     if (check == true) {
@@ -68,6 +77,13 @@ export class MedicalRecordComponent implements OnInit {
     });
     this.allergicMedication = true;
   }
+  addChronicCondition(){
+    let dialogRef = this._dialog.open(DiagnosisDialogComponent, {
+      width: '50%',
+      data: this._patientId,
+    });
+    this.chronicCondition = true;
 
+  }
 }
 

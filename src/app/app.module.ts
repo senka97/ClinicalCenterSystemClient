@@ -195,7 +195,8 @@ import { DiagnosisDialogComponent } from './shared/dialogs/diagnosis-dialog/diag
     NewMedicationDialogComponent,
     EditDiagnosisDialogComponent,
     EditMedicationDialogComponent,
-    MedicationDialogComponent
+    MedicationDialogComponent,
+    DiagnosisDialogComponent
     
   ],
   bootstrap: [AppComponent]

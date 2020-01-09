@@ -87,6 +87,7 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
     })
     this._diagnosisService.getDiagnosis().subscribe( diagnosis => {
       this._diagnosis = diagnosis;
+      console.log(this._diagnosis)
     })
     if(this._currentAdmin.passwordChanged == false){
       let ref1 = this._dialog.open(FirstLoginDialogComponent,{

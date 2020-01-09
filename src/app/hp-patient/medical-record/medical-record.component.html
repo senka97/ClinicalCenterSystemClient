@@ -89,9 +89,9 @@
                         Allergic Medication :
                         <button (click)="onShowAllergicMedication()"
                             [style.background-color]="allergicMedication=== false ? 'red' : ''">show</button>
-                        <div class="row" >
+                        <div class="row" *ngIf="!_disabled" >
                             
-                            <button class="newAllergen" (click)="addAllergenMedication()"> Add </button> 
+                            <button class="newAllergen" (click)="addAllergenMedication()" > add </button> 
                         </div>
                     </div>
                 
@@ -111,20 +111,21 @@
                         Chronic Condition :
                         <button (click)="onShowChronicCondition()"
                             [style.background-color]="chronicCondition=== false ? 'red' : ''">show</button>
+                        <div class="row" *ngIf="!_disabled" >
+                            <button class="newAllergen" (click)="addChronicCondition()"> add </button> 
+                        </div>
                     </div>
+                   
                     <div class="col">
-                        <div class="row"></div>
-                        <div class="row" [hidden]="chronicCondition">
-                            <div class="col">#003222</div>
-                            - Hiperproteinemija
-                       
-                        </div>
-                        <div class="row" [hidden]="chronicCondition">
-                            <div class="col">#042021</div>
-                            - Miokarditis
-                            <div class="col"></div>
-                        </div>
+                        <div class="row">      <div class="col"></div> </div>
+                        <table [hidden]="chronicCondition">
+                            <tr *ngFor="let diag of chronicConditionList"> <td class='item' >{{diag.code}}</td> <td  class='item'>{{diag.description}}</td> 
+                            
+                            </tr> 
+                        </table>
 
+                    
+                       
                     </div>
 
 

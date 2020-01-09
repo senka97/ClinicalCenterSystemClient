@@ -77,6 +77,28 @@ export class PatientService{
           })
         )
   }
+  addChronicCondition(id:string,diagnose)
+  {
+   
+    console.log(diagnose);
+    const editHeaders = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    });
+    return this._apiService.put("http://localhost:9000/api/patients/addChronicCondition/"+id,JSON.stringify(diagnose) ,editHeaders).pipe(
+      map(result => {
+        console.log("Add new chronic condition");
+      })
+    )
+  }
+  getPatientChronicCon(id:string){
+    return this._apiService.get("http://localhost:9000/api/patients/getPatientChronicCon/" + id).pipe(
+        map(chronicCond => {
+            console.log(chronicCond);
+            return chronicCond;
+        })
+      )
+}
     
 
 }
