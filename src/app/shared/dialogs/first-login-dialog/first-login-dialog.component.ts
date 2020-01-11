@@ -44,14 +44,14 @@ export class FirstLoginDialogComponent implements OnInit {
           this.dialogRef.close();
           this._authService.logout(); 
           this._router.navigate(['\login']);
-        }, 4000)
+        }, 2500)
       
       },
        error => {
         this._showError = true;
         setTimeout(() => {
           this._showError = false;
-        }, 4000)
+        }, 2500)
        }
        );
   }

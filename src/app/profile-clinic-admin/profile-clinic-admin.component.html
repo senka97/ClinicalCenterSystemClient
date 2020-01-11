@@ -1,9 +1,11 @@
 <div class="container-fluid">
 
-    <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightgreen;">
-        
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightgreen; padding-left: 0;">
+        <div class="navbar-header">
+            <a id="logo" class="navbar-brand" href="#"><img src="assets/img/logo5.jpg" alt="logo" width="80em" height="63em"></a>
+        </div>
         <div class="mx-auto order-0">
-            <a class="navbar-brand mx-auto disabled" href="#">Profile page for clinic administrator: {{_currentAdmin.name}} {{_currentAdmin.surname}}</a>
+            <a class="navbar-brand mx-auto disabled" href="#">Clinic administrator: {{_currentAdmin.name}} {{_currentAdmin.surname}}</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -17,21 +19,24 @@
         </div>
     </nav>
 
-    <ul class="nav flex-column nav-pills" style="width: 20%; color: blue; background-color: lightgreen; float:left;">   
+    <ul class="nav flex-column nav-pills" style="width: 20%; color: blue; background-color: lightgreen; float:left;"> 
         <li class="nav-item">
             <a class="nav-link" [routerLink] = "" (click) = "clickedClinicProfile()" >Clinic's profile</a>
+        </li>  
+        <li class="nav-item">
+            <a class="nav-link" [routerLink] = "" (click) = "clickedClinicProfile()" >General info</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" [routerLink] = "['/examRooms', _clinic.id]" >List of exam rooms</a>
+            <a class="nav-link" [routerLink] = "['/examRooms', _clinic.id]" >Managing rooms</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink] = "['/examSurgeryTypes', _clinic.id]" >Managing exam and surgery types</a>
+        </li>  
         <li class="nav-item">
-          <a class="nav-link" href="#">List of doctors</a>
+          <a class="nav-link" href="#">Managing doctors</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Types of medical exams</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Create terms for medical exams</a>
+            <a class="nav-link" href="#">Fast appointments</a>
           </li>
         <li class="nav-item">
           <a class="nav-link" href="#" >Business report</a>
@@ -39,7 +44,7 @@
     </ul>
 
     <div *ngIf="_showInfo" style="width: 50%;margin-left: 15%;float:left;">
-        <h2>Personal information</h2>
+        <h2 style="margin-top: 0.5em; margin-bottom: 0.5em">Personal information</h2>
         <table class="table" style="margin-left:auto;margin-right:auto;">
             <tbody>
                 <tr>
@@ -80,7 +85,7 @@
   </div>
 
   <div *ngIf="_showClinic" style="width: 50%;margin-left: 15%;float:left;">
-    <h2>General information about the clinic</h2>
+    <h2 style="margin-top: 0.5em; margin-bottom: 0.5em">General information about the clinic</h2>
     <table class="table" style="margin-left:auto;margin-right:auto;">
         <tbody>
             <tr>

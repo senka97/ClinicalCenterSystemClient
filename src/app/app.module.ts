@@ -1,3 +1,5 @@
+import { TypesService } from './service/types.service';
+import { RoomService } from './service/room.service';
 import { ClinicService } from './service/clinic.service';
 import { ClinicAdminService } from './service/clinic-admin.service';
 import { PatientService } from './service/patient.service';
@@ -44,12 +46,15 @@ import {MatSortModule,MatSortHeader,MatTableModule} from '@angular/material';
 import { AppointmentsListComponent } from './hp-patient/appointments-list/appointments-list.component';
 import { ExamRoomsComponent } from './profile-clinic-admin/exam-rooms/exam-rooms.component';
 import { MatRadioModule } from '@angular/material/radio';
-import { RoomAddedDialogComponent } from './profile-clinic-admin/exam-rooms/room-added-dialog/room-added-dialog.component';
 import { NewRoomDialogComponent } from './profile-clinic-admin/exam-rooms/new-room-dialog/new-room-dialog.component';
 import { InfoDialogComponent } from './shared/dialogs/info-dialog/info-dialog.component'
 import { HpNurseComponent } from './hp-nurse/hp-nurse.component';
 import { RegisterClinicComponent } from './profile-clinical-center-admin/register-clinic.component';
 import { RejectRequestDialogComponent } from './profile-clinical-center-admin/reject-request-dialog/reject-request-dialog.component';
+import { UpdateRoomDialogComponent } from './profile-clinic-admin/exam-rooms/update-room-dialog/update-room-dialog.component';
+import { ExamSurgeryTypesComponent } from './profile-clinic-admin/exam-surgery-types/exam-surgery-types.component';
+import { NewTypeDialogComponent } from './profile-clinic-admin/exam-surgery-types/new-type-dialog/new-type-dialog.component';
+import { UpdateTypeDialogComponent } from './profile-clinic-admin/exam-surgery-types/update-type-dialog/update-type-dialog.component';
 
 
 
@@ -79,12 +84,15 @@ import { RejectRequestDialogComponent } from './profile-clinical-center-admin/re
     DoctorsListComponent,
     AppointmentsListComponent,  
     ExamRoomsComponent,
-    RoomAddedDialogComponent,
     NewRoomDialogComponent,
     InfoDialogComponent,
     HpNurseComponent,
     RegisterClinicComponent,
-    RejectRequestDialogComponent
+    RejectRequestDialogComponent,
+    UpdateRoomDialogComponent,
+    ExamSurgeryTypesComponent,
+    NewTypeDialogComponent,
+    UpdateTypeDialogComponent
 
   ],
   imports: [
@@ -128,6 +136,7 @@ import { RejectRequestDialogComponent } from './profile-clinical-center-admin/re
       { path: 'patientHP/:id', component: HpPatientComponent },
       { path: 'clinicAdminProfile', component: ProfileClinicAdminComponent },
       { path: 'examRooms/:id', component: ExamRoomsComponent },
+      { path: 'examSurgeryTypes/:id', component: ExamSurgeryTypesComponent},
       { path: '', redirectTo: 'login', pathMatch: 'full' }
       //{path: '**', redirectTo: 'login'},
 
@@ -159,9 +168,9 @@ import { RejectRequestDialogComponent } from './profile-clinical-center-admin/re
     ClinicalCenterAdminService,
     PatientService,
     ClinicService,
-
     ClinicAdminService,
-    ClinicService
+    RoomService,
+    TypesService
   ],
   entryComponents: [ //ovo mora da se doda za dijalog
     PasswordChangedDialogComponent,
@@ -172,8 +181,10 @@ import { RejectRequestDialogComponent } from './profile-clinical-center-admin/re
     EditClinicDialogComponent,
     RejectRequestDialogComponent,
     NewRoomDialogComponent,
-    RoomAddedDialogComponent,
-    InfoDialogComponent
+    InfoDialogComponent,
+    UpdateRoomDialogComponent,
+    NewTypeDialogComponent,
+    UpdateTypeDialogComponent
     
   ],
   bootstrap: [AppComponent]

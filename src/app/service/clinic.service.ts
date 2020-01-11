@@ -59,4 +59,18 @@ export class ClinicService {
       })
     )
   }
+
+
+  updateRoom(clinic_id,room:Room){
+    const editHeaders = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    });
+    return this._apiService.put("http://localhost:9000/api/rooms/updateRoom/" + room.id + "/" + clinic_id, JSON.stringify(room), editHeaders).pipe(
+      map(result => {
+        console.log("Room updated.");
+
+      })
+    )
+  }
 }

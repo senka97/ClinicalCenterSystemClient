@@ -3,7 +3,7 @@ export class Room {
     name: string;
     number: string;
     roomType: string;
-    occupied: boolean;
+    removed: boolean;
 
     constructor(){}
 }

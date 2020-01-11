@@ -15,7 +15,7 @@
             </div>
             <div class="row">
                 <div class="input-field col">
-                    <input class="validate" [(ngModel)]='_newAdmin.email' type="email" name="email" placeholder="Enter email here" [pattern] = "emailPattern" required #email="ngModel">
+                    <input class="validate" [(ngModel)]='_newAdmin.email' type="email" name="email" placeholder="Enter email here" autocomplete="off" [pattern] = "emailPattern" required #email="ngModel">
                     <small id="emailHelp" class="form-text text-muted">Email is required. Pattern: something@email.com</small>
                 </div>
           
@@ -48,7 +48,7 @@
             </div>
             <div class="row">
                 <div class="input-field col">
-                    <input class="validate" [(ngModel)]='_newAdmin.serialNumber' type="text" name="serialNumber"  placeholder="Enter serial number" required #serialNumber="ngModel">
+                    <input class="validate" [(ngModel)]='_newAdmin.serialNumber' type="text" name="serialNumber"  placeholder="Enter serial number" minlength="13" required #serialNumber="ngModel">
                     <small id="serialNumberHelp" class="form-text text-muted">Serial number is required.</small>
                 </div>
                 <div class="select-field col">
