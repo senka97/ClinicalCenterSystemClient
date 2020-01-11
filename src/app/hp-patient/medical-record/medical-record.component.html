@@ -4,7 +4,7 @@
             <div class="card-content white-text">
                 <span class="card-title">Medical record</span>
             </div>
-            <form class="col white" (ngSubmit)="onChangeMedicalRecord()" #medicalRecordForm="ngForm">
+            <form class="col white" #medicalRecordForm="ngForm">
                 <div class="row">
                     <div class="input-field col">
                         <input type="text" class="validate" name="height" [disabled]="_disabled"
@@ -89,41 +89,43 @@
                         Allergic Medication :
                         <button (click)="onShowAllergicMedication()"
                             [style.background-color]="allergicMedication=== false ? 'red' : ''">show</button>
+                        <div class="row" *ngIf="!_disabled" >
+                            
+                            <button class="newAllergen" (click)="addAllergenMedication()" > add </button> 
+                        </div>
                     </div>
+                
+
                     <div class="col">
-                        <div class="row"></div>
-                        <div class="row" [hidden]="allergicMedication">
-                            <div class="col">#000012</div>
-                            - Brufen
-                            <div class="col"></div>
+                        <div class="row">      <div class="col"></div> </div>
+                        <table [hidden]="allergicMedication">
+                            <tr *ngFor="let med of allergicMedicationList"> <td class='item' >{{med.code}}</td> <td  class='item'>{{med.description}}</td> 
+                            
+                            </tr> 
+                        </table>
 
-                        </div>
-                        <div class="row" [hidden]="allergicMedication">
-                            <div class="col">#000046</div>
-                            - Penicilin
-                            <div class="col"></div>
-
-                        </div>
-
+                    
+                       
                     </div>
                     <div class="col">
                         Chronic Condition :
                         <button (click)="onShowChronicCondition()"
                             [style.background-color]="chronicCondition=== false ? 'red' : ''">show</button>
+                        <div class="row" *ngIf="!_disabled" >
+                            <button class="newAllergen" (click)="addChronicCondition()"> add </button> 
+                        </div>
                     </div>
+                   
                     <div class="col">
-                        <div class="row"></div>
-                        <div class="row" [hidden]="chronicCondition">
-                            <div class="col">#003222</div>
-                            - Hiperproteinemija
-                            <div class="col"></div>
-                        </div>
-                        <div class="row" [hidden]="chronicCondition">
-                            <div class="col">#042021</div>
-                            - Miokarditis
-                            <div class="col"></div>
-                        </div>
+                        <div class="row">      <div class="col"></div> </div>
+                        <table [hidden]="chronicCondition">
+                            <tr *ngFor="let diag of chronicConditionList"> <td class='item' >{{diag.code}}</td> <td  class='item'>{{diag.description}}</td> 
+                            
+                            </tr> 
+                        </table>
 
+                    
+                       
                     </div>
 
 
@@ -133,7 +135,7 @@
 
                     <div class="input-field col">
 
-                        <button class="btn-large btn-submit" [disabled]="!medicalRecordForm.valid" type="submit"> Change
+                        <button class="btn-large btn-submit" [disabled]="!medicalRecordForm.valid" type="submit" (click) = "onChangeMedicalRecord()" > Change
                             information</button>
                     </div>
 

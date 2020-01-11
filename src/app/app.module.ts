@@ -55,6 +55,14 @@ import { UpdateRoomDialogComponent } from './profile-clinic-admin/exam-rooms/upd
 import { ExamSurgeryTypesComponent } from './profile-clinic-admin/exam-surgery-types/exam-surgery-types.component';
 import { NewTypeDialogComponent } from './profile-clinic-admin/exam-surgery-types/new-type-dialog/new-type-dialog.component';
 import { UpdateTypeDialogComponent } from './profile-clinic-admin/exam-surgery-types/update-type-dialog/update-type-dialog.component';
+import { DiagnosisService } from './service/diagnosis.service';
+import { MedicationService } from './service/medication.service';
+import { NewDiagnosisDialogComponent } from './profile-clinical-center-admin/new-diagnosis-dialog/new-diagnosis-dialog.component';
+import { NewMedicationDialogComponent } from './profile-clinical-center-admin/new-medication-dialog/new-medication-dialog.component';
+import { EditDiagnosisDialogComponent } from './profile-clinical-center-admin/edit-diagnosis-dialog/edit-diagnosis-dialog.component';
+import { EditMedicationDialogComponent } from './profile-clinical-center-admin/edit-medication-dialog/edit-medication-dialog.component';
+import { MedicationDialogComponent } from './shared/dialogs/medication-dialog/medication-dialog.component';
+import { DiagnosisDialogComponent } from './shared/dialogs/diagnosis-dialog/diagnosis-dialog.component';
 
 
 
@@ -92,8 +100,13 @@ import { UpdateTypeDialogComponent } from './profile-clinic-admin/exam-surgery-t
     UpdateRoomDialogComponent,
     ExamSurgeryTypesComponent,
     NewTypeDialogComponent,
-    UpdateTypeDialogComponent
-
+    UpdateTypeDialogComponent,
+    NewDiagnosisDialogComponent,
+    NewMedicationDialogComponent,
+    EditDiagnosisDialogComponent,
+    EditMedicationDialogComponent,
+    MedicationDialogComponent,
+    DiagnosisDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -170,7 +183,9 @@ import { UpdateTypeDialogComponent } from './profile-clinic-admin/exam-surgery-t
     ClinicService,
     ClinicAdminService,
     RoomService,
-    TypesService
+    TypesService,
+    DiagnosisService,
+    MedicationService
   ],
   entryComponents: [ //ovo mora da se doda za dijalog
     PasswordChangedDialogComponent,
@@ -184,7 +199,13 @@ import { UpdateTypeDialogComponent } from './profile-clinic-admin/exam-surgery-t
     InfoDialogComponent,
     UpdateRoomDialogComponent,
     NewTypeDialogComponent,
-    UpdateTypeDialogComponent
+    UpdateTypeDialogComponent,
+    NewDiagnosisDialogComponent,
+    NewMedicationDialogComponent,
+    EditDiagnosisDialogComponent,
+    EditMedicationDialogComponent,
+    MedicationDialogComponent,
+    DiagnosisDialogComponent
     
   ],
   bootstrap: [AppComponent]

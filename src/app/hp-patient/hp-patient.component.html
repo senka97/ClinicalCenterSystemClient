@@ -71,7 +71,7 @@
 
     <app-form-component *ngIf="show" [showHome]="showHome" [show]="show" [_signUpUser]="_signUpUser">
     </app-form-component>
-    <app-medical-record *ngIf="showMedicalRecord" [_medicalRecord]="_medicalRecord" [_disabled]="_disabled"></app-medical-record>
+    <app-medical-record *ngIf="showMedicalRecord" [_medicalRecord]="_medicalRecord" [_disabled]="_disabled" [_patientId]="_patientId"></app-medical-record>
     <app-clinic-list *ngIf="showClinics"> </app-clinic-list>
     <app-doctors-list *ngIf="showDoctors"> </app-doctors-list>
 </div>

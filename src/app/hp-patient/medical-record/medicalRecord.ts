@@ -1,4 +1,5 @@
 export class MedicalRecord {
+    id: any
     organDonor: boolean
     weight:any;
     height:any;

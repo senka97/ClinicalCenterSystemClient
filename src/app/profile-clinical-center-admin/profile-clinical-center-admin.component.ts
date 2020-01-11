@@ -9,10 +9,20 @@ import { PasswordChanger } from '../shared/model/PasswordChanger';
 import { PasswordWrongDialogComponent } from '../shared/dialogs/password-wrong-dialog/password-wrong-dialog.component';
 import { EditPasswordDialogComponent } from '../shared/dialogs/edit-password-dialog/edit-password-dialog.component';
 import { FirstLoginDialogComponent } from './../shared/dialogs/first-login-dialog/first-login-dialog.component';
+import { EditInfoDialogComponent } from '../shared/dialogs/edit-info-dialog/edit-info-dialog.component';
+import { UserEdit } from '../shared/model/UserEdit';
 import { MatDialog } from '@angular/material/dialog';
 import { PasswordChangedDialogComponent } from '../shared/dialogs/password-changed-dialog/password-changed-dialog.component';
 import { RejectRequestDialogComponent } from './reject-request-dialog/reject-request-dialog.component';
 import { RejectRequestObject } from './RejectRequestObject';
+import { DiagnosisService } from '../service/diagnosis.service';
+import { MedicationService } from '../service/medication.service';
+import { NewMedicationDialogComponent } from './new-medication-dialog/new-medication-dialog.component';
+import { CodebookItem } from './CodebookItem';
+import { InfoDialogComponent } from '../shared/dialogs/info-dialog/info-dialog.component';
+import { NewDiagnosisDialogComponent } from './new-diagnosis-dialog/new-diagnosis-dialog.component';
+import { EditMedicationDialogComponent } from './edit-medication-dialog/edit-medication-dialog.component';
+import { EditDiagnosisDialogComponent } from './edit-diagnosis-dialog/edit-diagnosis-dialog.component';
 
 @Component({
   selector: 'app-profile-clinical-center-admin',
@@ -26,7 +36,9 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
     private _clinicalCenterAdminService: ClinicalCenterAdminService,
     private _authService:AuthService,
     private _router: Router,
-    private _modalService: ModalService) {
+    private _modalService: ModalService,
+    private _diagnosisService: DiagnosisService,
+    private _medicationService: MedicationService) {
       
      
     }
@@ -37,15 +49,29 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
   private _passwordChanger: PasswordChanger;
   private _message: String;
   private userRequests: any[];
-  editInformation: boolean= true;
-  newRequests: boolean;
-  showNewRequests: boolean=false;
+
+  private _medications: any[];
+  private _diagnosis: any[];
+  private _newDiagnosis: CodebookItem;
+  private _newMedication: CodebookItem;
+  private _currentDiagnosis: any;
+  private _currentMedication: any;
+  private _changedDiagnosis: any;
+  private _changedMedication: any;
+
+  newRequests: boolean; //da li ce prikazati dugme za nove zahteve
+  showInformation: boolean = false;
+  showNewRequests: boolean=false; //prikaz tabele sa novim zahtevima
+  showMedicationCodebook: boolean = false;
+  showDiagnosisCodebook: boolean = false;
 
   ngOnInit() {
     this._currentAdmin = JSON.parse(localStorage.getItem('currentUser'));
     this._changedAdmin = JSON.parse(JSON.stringify(this._currentAdmin)); 
     this._passwordChanger = new PasswordChanger("","");
     this._rejectRequestObject= new RejectRequestObject("","","","");
+    //this._newDiagnosis = new CodebookItem();
+    //this._newMedication = new CodebookItem();
     this._clinicalCenterAdminService.getNewRequests().subscribe( users => {
       this.userRequests = users;
       if(users.length==0)
@@ -55,6 +81,13 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
       else{
         this.newRequests=true;
       }
+    })
+    this._medicationService.getMedications().subscribe( medications => {
+      this._medications = medications;
+    })
+    this._diagnosisService.getDiagnosis().subscribe( diagnosis => {
+      this._diagnosis = diagnosis;
+      console.log(this._diagnosis)
     })
     if(this._currentAdmin.passwordChanged == false){
       let ref1 = this._dialog.open(FirstLoginDialogComponent,{
@@ -66,63 +99,78 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
     console.log(JSON.parse(localStorage.getItem('currentUser')));
   }
 
-  editInformationF(): void {
-    if(!this.editInformation) //ako je false onda treba da se sacuvaju podaci
-    {
-      //ako je neko polje ostavljeno prazno treba da ostane na ovoj formi i izbaci upozorenje
-      if(this._changedAdmin.name.length == 0 || this._changedAdmin.surname.length == 0 || this._changedAdmin.address.length== 0 ||
-      this._changedAdmin.city.length == 0 || this._changedAdmin.country.length == 0 || this._changedAdmin.phoneNumber.length == 0)
-      {
-        alert("You must fill all the fields");
-        return;
-      }
-      //ako nije promenjena nijedna informacija nece se slati zahtev
-      if(this._currentAdmin.name != this._changedAdmin.name || this._currentAdmin.surname != this._changedAdmin.surname
-        || this._currentAdmin.address != this._changedAdmin.address || this._currentAdmin.city != this._changedAdmin.city 
-        || this._currentAdmin.country != this._changedAdmin.country || this._currentAdmin.phoneNumber != this._changedAdmin.phoneNumber)
-        {
-          this._userService.editInfo(this._changedAdmin).subscribe(data=>{
-            console.log("Information changed");
-            localStorage.setItem('currentUser',JSON.stringify(this._changedAdmin)); 
-            this._currentAdmin = JSON.parse(JSON.stringify(this._changedAdmin));
-            alert("Information successfully changed!");
-         },
-          error=>{
-            this.editInformation=!this.editInformation;
-           alert("Change of information failed!");
-          })
-          
-        }
-
-        this.editInformation=!this.editInformation;
-          
-    }
-    else
-    {
-      this.editInformation=!this.editInformation;
-    }
-    
-    
+  clickEditInformation(): void 
+  {
+    let dialogRef = this._dialog.open(EditInfoDialogComponent, {
+      width: '50%',
+      data: JSON.parse(JSON.stringify(this._currentAdmin))
+    });
+    dialogRef.afterClosed().subscribe(result => {
+     console.log('The dialog was closed');
+     if(result != undefined){
+     this._changedAdmin = result;
+     if(this._currentAdmin.name != this._changedAdmin.name || this._currentAdmin.surname != this._changedAdmin.surname
+       || this._currentAdmin.address != this._changedAdmin.address || this._currentAdmin.city != this._changedAdmin.city 
+       || this._currentAdmin.country != this._changedAdmin.country || this._currentAdmin.phoneNumber != this._changedAdmin.phoneNumber){
+           let userEdit = new UserEdit(this._changedAdmin.name, this._changedAdmin.surname,this._changedAdmin.address,
+           this._changedAdmin.city, this._changedAdmin.country, this._changedAdmin.phoneNumber);
+           this._currentAdmin = JSON.parse(JSON.stringify(this._changedAdmin));
+           this._userService.editInfo(userEdit).subscribe(res => {
+             localStorage.setItem('currentUser',JSON.stringify(this._changedAdmin)); //postavim da je taj izmenjeni sada trenutno ulogovan
+   });
+     }
+   }
+   });
+  }
+  
+  clickedProfile(): void {
+    this.showInformation = !this.showInformation;
+    this.showMedicationCodebook = false;
+    this.showDiagnosisCodebook = false;
+    this.showNewRequests = false;
   }
 
   clickedLogout(): void {
     this._authService.logout();
   }
 
-  clickRegisterClCAdmin(): void {
+  clickRegisterClCAdmin(): void 
+  {
     this._router.navigate(['/registerClinicalCenterAdmin']);
   }
 
-  clickRegisterClinicAdmin(): void {
+  clickRegisterClinicAdmin(): void 
+  {
     this._router.navigate(['/registerClinicAdmin']);
   }
 
-  clickRegisterClinic(): void {
+  clickRegisterClinic(): void 
+  {
     this._router.navigate(['/registerClinic']);
   }
 
-  clickNewRequest() {
+  clickMedicationCodebook(): void 
+  {
+    this.showMedicationCodebook = !this.showMedicationCodebook;
+    this.showInformation = false;
+    this.showDiagnosisCodebook = false;
+    this.showNewRequests = false;
+  }
+
+  clickDiagnosisCodebook(): void
+  {
+    this.showDiagnosisCodebook = !this.showDiagnosisCodebook;
+    this.showInformation = false;
+    this.showMedicationCodebook = false;
+    this.showNewRequests = false;
+  }
+
+  clickNewRequest() 
+  {
     this.showNewRequests=!this.showNewRequests;
+    this.showInformation = false;
+    this.showDiagnosisCodebook = false;
+    this.showMedicationCodebook = false;
   }
 
   clickAcceptRequest(id)
@@ -170,21 +218,6 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
         );
       }
    });
-
-
-    /*this._clinicalCenterAdminService.rejectRequest(id).subscribe(data=>{
-      this._clinicalCenterAdminService.getNewRequests().subscribe( users => {
-        this.userRequests = users;
-        if(users.length==0)
-        {
-          this.newRequests=false;
-          this.showNewRequests=false;
-        }
-      })
-    },
-    error=>{
-      console.log("Error rejecting request");
-    })*/
   }
 
   clickedChangePassword(){
@@ -219,22 +252,148 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
 
   }
 
-  /*closeModal(id: string) {
-    this._modalService.close(id); 
-  }
-  closeModalWithSave(id: string)
+  clickEditMedication(medication)
   {
-    this._authService.changePassoword(this._passwordChanger).subscribe(
-      res => {
-        alert("Password successfully changed. Please log in to confirm your changes.");
-        this._authService.logout(); 
-        this._router.navigate(['\login']);
-      },
-      error => {
-        alert("Password changing failed");
-      }
-    )
-    this._modalService.close(id); 
-  }*/
+    this._currentMedication = new CodebookItem(medication.id, medication.code, medication.description);
+    this._changedMedication =  new CodebookItem(medication.id, medication.code, medication.description);
+
+    let dialogRef = this._dialog.open(EditMedicationDialogComponent, {
+      width: '40%',
+      height: '45%',
+      data: this._changedMedication
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != undefined){
+      this._changedMedication = result;
+      if( this._changedMedication.code != this._currentMedication.code || this._changedMedication.description != this._currentMedication.description){
+            this._medicationService.editMedication(this._changedMedication).subscribe(res => {
+              this._medicationService.getMedications().subscribe( medications => {
+                this._medications = medications;
+              })
+              let dialogRef1 = this._dialog.open(InfoDialogComponent, {
+                width: '50%',
+                data: "Medication successfully edited!"
+              });
+
+    },
+    error => {
+      let dialogRef1 = this._dialog.open(InfoDialogComponent, {
+        width: '50%',
+        data: "Something went wrong"
+      });
+    }
+    );
+    }
+    }
+    });
+  }
+
+  clickEditDiagnosis(diagnosis)
+  {
+    this._currentDiagnosis = new CodebookItem(diagnosis.id, diagnosis.code, diagnosis.description);
+    this._changedDiagnosis = new CodebookItem(diagnosis.id, diagnosis.code, diagnosis.description);
+    let dialogRef = this._dialog.open(EditDiagnosisDialogComponent, {
+      width: '40%',
+      height: '45%',
+      data: this._changedDiagnosis
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != undefined){
+      this._changedDiagnosis = result;
+      if( this._changedDiagnosis.code != this._currentDiagnosis.code || this._changedDiagnosis.description != this._currentDiagnosis.description){
+            this._diagnosisService.editDiagnosis(this._changedDiagnosis).subscribe(res => {
+              this._diagnosisService.getDiagnosis().subscribe( diagnosis => {
+                this._diagnosis = diagnosis;
+              })
+              let dialogRef1 = this._dialog.open(InfoDialogComponent, {
+                width: '50%',
+                data: "Diagnosis successfully edited!"
+              });
+
+    },
+    error => {
+      let dialogRef1 = this._dialog.open(InfoDialogComponent, {
+        width: '50%',
+        data: "Something went wrong"
+      });
+    });
+    }
+    }
+    });
+  }
+
+  clickNewMedication()
+  {
+    this._newMedication = new CodebookItem(0,"", "");
+    let dialogRef = this._dialog.open(NewMedicationDialogComponent, {
+      width: '40%',
+      height: '45%',
+      data: this._newMedication
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        if(result != undefined)
+        {
+          this._newMedication = result;
+          this._medicationService.addNewMedication(this._newMedication).subscribe(
+            res => {
+              this._medicationService.getMedications().subscribe( medications => {
+                this._medications = medications;
+              })
+              let dialogRef1 = this._dialog.open(InfoDialogComponent, {
+                width: '50%',
+                data: "New medication successfully added!"
+              });
+            },
+            error => {
+              let dialogRef1 = this._dialog.open(InfoDialogComponent, {
+                width: '50%',
+                data: "Something went wrong"
+              });
+            }
+            );
+        }
+    });
+  }
+  
+  clickNewDiagnosis()
+  {
+    this._newDiagnosis = new CodebookItem(0,"", "");
+    let dialogRef = this._dialog.open(NewDiagnosisDialogComponent, {
+      width: '40%',
+      height: '45%',
+      data: this._newDiagnosis
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        if(result != undefined)
+        {
+          this._newMedication = result;
+          this._diagnosisService.addNewDiagnosis(this._newDiagnosis).subscribe(
+            res => {
+              this._diagnosisService.getDiagnosis().subscribe( diagnosis => {
+                this._diagnosis = diagnosis;
+              })
+              let dialogRef1 = this._dialog.open(InfoDialogComponent, {
+                width: '50%',
+                data: "New diagnosis successfully added!"
+              });
+            },
+            error => {
+              let dialogRef1 = this._dialog.open(InfoDialogComponent, {
+                width: '50%',
+                data: "Something went wrong.."
+              });
+            }
+            );
+        }
+    });
+  }
+
+  clickBack()
+  {
+    this.showNewRequests = false;
+    this.showInformation = false;
+    this.showDiagnosisCodebook = false;
+    this.showMedicationCodebook = false;
+  }
 
 }
