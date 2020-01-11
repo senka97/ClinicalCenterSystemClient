@@ -14,6 +14,7 @@ export class DiagnosisService{
     }
 
     getDiagnosis() {
+      console.log("Diagnosis list")
         return this._apiService.get("http://localhost:9000/api/diagnosis/getDiagnosis").pipe(
           map(diagnosis => {
             return diagnosis;

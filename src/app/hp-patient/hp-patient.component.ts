@@ -22,7 +22,7 @@ export class HpPatientComponent implements OnInit {
   showDoctors: boolean;
   notPatient : boolean;
   message : any;
-  id: any;
+  _patientId: any;
   _disabled : boolean;
  
   
@@ -40,16 +40,17 @@ export class HpPatientComponent implements OnInit {
     if(this._signUpUser.authorities[0]['authority'] == 'ROLE_PATIENT'){
       this.notPatient = false;
       this.patientMedicalRecord(this._signUpUser.id);
+      this._patientId = this._signUpUser.id;
       this.message = "Home page for patient:";
       this._disabled = true;
     }else{
 
       this._route.paramMap.subscribe(params => { 
-        this.id = params.get('id');
+        this._patientId = params.get('id');
       });
       this.notPatient = true;
-      this.patientMedicalRecord(this.id);
-      this.message = "Patient #" + this.id + ", Doctor: ";
+      this.patientMedicalRecord(this._patientId);
+      this.message = "Patient #" + this._patientId + ", Doctor: ";
       this._disabled = false;
     }
     this.uncheckAll(false);
@@ -61,7 +62,7 @@ export class HpPatientComponent implements OnInit {
     document.getElementById("notHidden2").hidden = !this.notPatient;
     console.log("OVOOO")
     console.log( this._signUpUser.authorities[0]['authority'])
-    console.log(this.id);
+    console.log(this._patientId);
   
 
     this._medicalRecord = new MedicalRecord();
@@ -89,7 +90,7 @@ export class HpPatientComponent implements OnInit {
     if(this._signUpUser.authorities[0]['authority'] == 'ROLE_PATIENT'){
       this.patientMedicalRecord(this._signUpUser.id);
     }else{
-      this.patientMedicalRecord(this.id);
+      this.patientMedicalRecord(this._patientId);
     }
     this.showMedicalRecord = this.uncheckAll(this.showMedicalRecord);
     this.showMedicalRecord = this.check(this.showMedicalRecord);
