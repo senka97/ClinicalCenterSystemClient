@@ -1,3 +1,5 @@
+import { TypesService } from './service/types.service';
+import { RoomService } from './service/room.service';
 import { ClinicService } from './service/clinic.service';
 import { ClinicAdminService } from './service/clinic-admin.service';
 import { PatientService } from './service/patient.service';
@@ -44,14 +46,17 @@ import {MatSortModule,MatSortHeader,MatTableModule} from '@angular/material';
 import { AppointmentsListComponent } from './hp-patient/appointments-list/appointments-list.component';
 import { ExamRoomsComponent } from './profile-clinic-admin/exam-rooms/exam-rooms.component';
 import { MatRadioModule } from '@angular/material/radio';
-import { RoomAddedDialogComponent } from './profile-clinic-admin/exam-rooms/room-added-dialog/room-added-dialog.component';
 import { NewRoomDialogComponent } from './profile-clinic-admin/exam-rooms/new-room-dialog/new-room-dialog.component';
 import { InfoDialogComponent } from './shared/dialogs/info-dialog/info-dialog.component'
 import { HpNurseComponent } from './hp-nurse/hp-nurse.component';
 import { RegisterClinicComponent } from './profile-clinical-center-admin/register-clinic.component';
 import { RejectRequestDialogComponent } from './profile-clinical-center-admin/reject-request-dialog/reject-request-dialog.component';
-import { MedicationService } from './service/medication.service';
+import { UpdateRoomDialogComponent } from './profile-clinic-admin/exam-rooms/update-room-dialog/update-room-dialog.component';
+import { ExamSurgeryTypesComponent } from './profile-clinic-admin/exam-surgery-types/exam-surgery-types.component';
+import { NewTypeDialogComponent } from './profile-clinic-admin/exam-surgery-types/new-type-dialog/new-type-dialog.component';
+import { UpdateTypeDialogComponent } from './profile-clinic-admin/exam-surgery-types/update-type-dialog/update-type-dialog.component';
 import { DiagnosisService } from './service/diagnosis.service';
+import { MedicationService } from './service/medication.service';
 import { NewDiagnosisDialogComponent } from './profile-clinical-center-admin/new-diagnosis-dialog/new-diagnosis-dialog.component';
 import { NewMedicationDialogComponent } from './profile-clinical-center-admin/new-medication-dialog/new-medication-dialog.component';
 import { EditDiagnosisDialogComponent } from './profile-clinical-center-admin/edit-diagnosis-dialog/edit-diagnosis-dialog.component';
@@ -87,20 +92,21 @@ import { DiagnosisDialogComponent } from './shared/dialogs/diagnosis-dialog/diag
     DoctorsListComponent,
     AppointmentsListComponent,  
     ExamRoomsComponent,
-    RoomAddedDialogComponent,
     NewRoomDialogComponent,
     InfoDialogComponent,
     HpNurseComponent,
     RegisterClinicComponent,
     RejectRequestDialogComponent,
+    UpdateRoomDialogComponent,
+    ExamSurgeryTypesComponent,
+    NewTypeDialogComponent,
+    UpdateTypeDialogComponent,
     NewDiagnosisDialogComponent,
     NewMedicationDialogComponent,
     EditDiagnosisDialogComponent,
     EditMedicationDialogComponent,
     MedicationDialogComponent,
     DiagnosisDialogComponent
-    
-
   ],
   imports: [
     BrowserModule,
@@ -143,6 +149,7 @@ import { DiagnosisDialogComponent } from './shared/dialogs/diagnosis-dialog/diag
       { path: 'patientHP/:id', component: HpPatientComponent },
       { path: 'clinicAdminProfile', component: ProfileClinicAdminComponent },
       { path: 'examRooms/:id', component: ExamRoomsComponent },
+      { path: 'examSurgeryTypes/:id', component: ExamSurgeryTypesComponent},
       { path: '', redirectTo: 'login', pathMatch: 'full' }
       //{path: '**', redirectTo: 'login'},
 
@@ -174,9 +181,9 @@ import { DiagnosisDialogComponent } from './shared/dialogs/diagnosis-dialog/diag
     ClinicalCenterAdminService,
     PatientService,
     ClinicService,
-
     ClinicAdminService,
-    ClinicService,
+    RoomService,
+    TypesService,
     DiagnosisService,
     MedicationService
   ],
@@ -189,8 +196,10 @@ import { DiagnosisDialogComponent } from './shared/dialogs/diagnosis-dialog/diag
     EditClinicDialogComponent,
     RejectRequestDialogComponent,
     NewRoomDialogComponent,
-    RoomAddedDialogComponent,
     InfoDialogComponent,
+    UpdateRoomDialogComponent,
+    NewTypeDialogComponent,
+    UpdateTypeDialogComponent,
     NewDiagnosisDialogComponent,
     NewMedicationDialogComponent,
     EditDiagnosisDialogComponent,

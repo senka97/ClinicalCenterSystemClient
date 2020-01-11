@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  pageTitle = "Login"
+  pageTitle = "Log in to your account"
   _loginUser: LoginUser;
   _showError: boolean;
 

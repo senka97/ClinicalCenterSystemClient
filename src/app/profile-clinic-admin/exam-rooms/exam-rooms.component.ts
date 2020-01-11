@@ -1,4 +1,4 @@
-import { RoomAddedDialogComponent } from './room-added-dialog/room-added-dialog.component';
+import { RoomService } from './../../service/room.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ClinicService } from 'src/app/service/clinic.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { Room } from 'src/app/shared/model/Room';
 import { NewRoomDialogComponent } from './new-room-dialog/new-room-dialog.component';
 import { InfoDialogComponent } from 'src/app/shared/dialogs/info-dialog/info-dialog.component';
+import { UpdateRoomDialogComponent } from './update-room-dialog/update-room-dialog.component';
 
 
 @Component({
@@ -15,17 +16,21 @@ import { InfoDialogComponent } from 'src/app/shared/dialogs/info-dialog/info-dia
 })
 export class ExamRoomsComponent implements OnInit {
 
-  constructor(private _route: ActivatedRoute, private _clinicService: ClinicService, private _router: Router, private _dialog: MatDialog) { }
+  constructor(private _route: ActivatedRoute, private _clinicService: ClinicService, private _router: Router, private _dialog: MatDialog, private _roomService: RoomService) { }
 
   private _currentAdmin: any;
   private _clinicId: String;
   private _rooms: Room[];
   private _searchRoom: Room;
   private _newRoom: Room;
+  private _forChangeRoom: Room;
+  private _changedRoom: Room;
   private types: String[] = ['Medical exam', 'Surgery'];
   private _foundRooms: Room[];
   private _showTable: boolean;
   private _showMsg: boolean;
+  private _shownAll: boolean;
+  private _shownSearch: boolean;
 
 
   ngOnInit() {
@@ -34,8 +39,12 @@ export class ExamRoomsComponent implements OnInit {
     console.log(this._clinicId);
     this._searchRoom = new Room();
     this._newRoom = new Room();
+    this._forChangeRoom = new Room();
+    this._changedRoom = new Room();
     this._showTable = false;
     this._showMsg = false;
+    this._shownAll = false;
+    this._shownSearch = false;
   });
     this._currentAdmin = JSON.parse(localStorage.getItem('currentUser'));
   }
@@ -44,7 +53,7 @@ export class ExamRoomsComponent implements OnInit {
       this._router.navigate(["/clinicAdminProfile"]);
   }
 
-  onClickedSearch(myForm){
+  onClickedSearch(){
       this._foundRooms = [];
       this._clinicService.getRooms(this._clinicId).subscribe(
         rooms => {
@@ -64,7 +73,7 @@ export class ExamRoomsComponent implements OnInit {
                    enteredType = true;
               } 
               if(enteredName){
-                if(!room.name.toLowerCase().includes(this._searchRoom.name.toLocaleLowerCase())){
+                if(!room.name.toLowerCase().includes(this._searchRoom.name.toLowerCase())){
                   continue;
                 }
               }
@@ -91,14 +100,14 @@ export class ExamRoomsComponent implements OnInit {
                  console.log("Pronasao sobu");
                  this._showTable = true;
                  this._showMsg = false;
-                 myForm.reset();
+                 this._shownSearch = true;
+                 this._shownAll = false;
                  console.log(this._searchRoom.roomType);
                 
                  
             }else{
                  console.log("Nije pronasao sobu");
                  this._showTable = false;
-                 myForm.reset();
                  this._showMsg = true;
                  
             }
@@ -106,6 +115,8 @@ export class ExamRoomsComponent implements OnInit {
     }  
 
      addNewRoom(){
+      this._showTable = false;
+      this._showMsg = false;
       this._newRoom = new Room();
       let dialogRef = this._dialog.open(NewRoomDialogComponent, {
         width: '50%',
@@ -116,8 +127,9 @@ export class ExamRoomsComponent implements OnInit {
         this._newRoom = result;
         this._clinicService.addNewRoom(this._clinicId, this._newRoom).subscribe(
           res => {
-            let dialogRef1 = this._dialog.open(RoomAddedDialogComponent, {
-              width: '50%'
+            let dialogRef1 = this._dialog.open(InfoDialogComponent, {
+              width: '50%',
+              data: "You have successfully added a new room."
             });
           },
             error => {
@@ -131,4 +143,87 @@ export class ExamRoomsComponent implements OnInit {
         }
     });
       }
+
+    showAllRooms(){
+        this._clinicService.getRooms(this._clinicId).subscribe(
+          rooms => {
+            this._foundRooms = rooms;
+            this._showTable = true;
+            this._showMsg = false;
+            this._shownSearch = false;
+            this._shownAll = true;
+          });
+        }
+    
+    updateRoom(idRoom:number){
+      this._roomService.getRoom(idRoom).subscribe(
+        room => {
+          this._changedRoom = room;
+          this._forChangeRoom = JSON.parse(JSON.stringify(this._changedRoom)); //ostaje da se vidi jel se nesto promenilo
+          
+
+          let dialogRef = this._dialog.open(UpdateRoomDialogComponent, {
+            width: '50%',
+            data: this._changedRoom
+          });
+
+          dialogRef.afterClosed().subscribe(result => {
+            if(result != undefined){
+               this._changedRoom = result;
+               if(this._changedRoom.name != this._forChangeRoom.name || this._changedRoom.number != this._forChangeRoom.number
+                  || this._changedRoom.roomType != this._forChangeRoom.roomType){
+                  this._clinicService.updateRoom(this._clinicId, this._changedRoom).subscribe(res => {
+                    let dialogRef1 = this._dialog.open(InfoDialogComponent, {
+                      width: '50%',
+                      data: "You have successfully updated the room."
+                    });
+                    if(this._shownAll)
+                       this.showAllRooms();
+                    if(this._shownSearch)
+                       this.onClickedSearch();
+                          
+                  },
+                    error => {
+                      let dialogRef1 = this._dialog.open(InfoDialogComponent, {
+                        width: '50%',
+                        data: error.error
+                      });
+                    }
+                    );
+                  } 
+                }                     
+          });
+          });
+      }
+
+      removeRoom(idRoom:number){
+        this._roomService.removeRoom(idRoom).subscribe(
+          res => {
+            let dialogRef1 = this._dialog.open(InfoDialogComponent, {
+              width: '50%',
+              data: "You have successfully removed the room."
+            });
+            if(this._shownAll)
+              this.showAllRooms();
+            if(this._shownSearch)
+              this.onClickedSearch();
+
+          },
+          error => {
+            let dialogRef1 = this._dialog.open(InfoDialogComponent, {
+              width: '50%',
+              data: error.error
+            });
+            
+          }
+        );}
+
+        resetForm(){
+
+          this._showTable = false;
+          this._showMsg = false;
+        }
+    
+      
+
 }

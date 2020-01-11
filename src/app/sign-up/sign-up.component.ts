@@ -1,3 +1,5 @@
+import { MatDialog } from '@angular/material/dialog';
+import { InfoDialogComponent } from 'src/app/shared/dialogs/info-dialog/info-dialog.component';
 import { SignUpUser } from './SignUpUser';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
@@ -19,7 +21,7 @@ export class SignUpComponent implements OnInit {
   message: String;
   constructor(private _route: ActivatedRoute, 
     private _router: Router,
-     private _authService: AuthService) {
+     private _authService: AuthService, private _dialog: MatDialog) {
        this.show = false
        this._signUpUser = new SignUpUser();
       }
@@ -40,7 +42,14 @@ export class SignUpComponent implements OnInit {
   onClickedRegister() {
     console.log(this._signUpUser);
     this._authService.signup(this._signUpUser).subscribe(data => {
-       this._router.navigate(['/login']);
+      let dialogRef1 = this._dialog.open(InfoDialogComponent, {
+        width: '50%',
+        data: "Registration request sent. Please check your email for further instructions."
+      });
+
+      dialogRef1.afterClosed().subscribe(result => { 
+       this._router.navigate(['\login']);
+     });
     },
     error => {
       alert("Registation failed.");
@@ -61,5 +70,9 @@ export class SignUpComponent implements OnInit {
     }else{
       this.message = "changed";
     }
+  }
+
+  back(){
+    this._router.navigate(['\login']);
   }
 }

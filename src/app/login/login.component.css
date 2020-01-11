@@ -1,6 +1,7 @@
-h2{
+h1, h2{
     text-align: center;
 }
+
 form{
     width:30vw;
     margin-left: auto;
@@ -15,4 +16,22 @@ button{
 
 #pError{
     color: red;
+    width:30vw;
+    margin-left: auto;
+    margin-right:auto;
+}
+
+#div-page {
+        background-image: url('background.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        height:100vh;
+}
+
+#div-login {
+    width:40%;
+    padding:2em;
+    border-width: 0.5px;
+    border-style: solid;
 }

@@ -1,4 +1,6 @@
-<div class="container">
+<div id="div-page" class="container-fluid">
+<h1>Clinical Center System</h1>
+<div id="div-login"  class="container-fluid">
     <h2>{{pageTitle}}</h2>
 <form (ngSubmit) = "onClickedLogin()" #userForm="ngForm">
     <div class="form-group">
@@ -13,6 +15,7 @@
     </div>
     <button type="submit" class="btn btn-primary" [disabled]="!userForm.form.valid">Log in</button>
     <button type="button" (click) = 'onRegisterClicked()' class="btn btn-primary">Register</button>
-    <p id="pError" *ngIf="_showError">Incorrect email or password.</p>
   </form>
+</div>
+<p id="pError" *ngIf="_showError">Incorrect email or password.</p>
 </div>
