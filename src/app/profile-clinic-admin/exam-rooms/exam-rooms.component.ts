@@ -147,11 +147,18 @@ export class ExamRoomsComponent implements OnInit {
     showAllRooms(){
         this._clinicService.getRooms(this._clinicId).subscribe(
           rooms => {
-            this._foundRooms = rooms;
-            this._showTable = true;
-            this._showMsg = false;
-            this._shownSearch = false;
-            this._shownAll = true;
+            if(rooms.length != 0){
+              this._foundRooms = rooms;
+              this._showTable = true;
+              this._showMsg = false;
+              this._shownSearch = false;
+              this._shownAll = true;
+            }else{
+              let dialogRef1 = this._dialog.open(InfoDialogComponent, {
+                width: '50%',
+                data: "This clinic doesn't have any rooms."
+              });
+            }
           });
         }
     
