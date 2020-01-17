@@ -63,6 +63,9 @@ import { EditDiagnosisDialogComponent } from './profile-clinical-center-admin/ed
 import { EditMedicationDialogComponent } from './profile-clinical-center-admin/edit-medication-dialog/edit-medication-dialog.component';
 import { MedicationDialogComponent } from './shared/dialogs/medication-dialog/medication-dialog.component';
 import { DiagnosisDialogComponent } from './shared/dialogs/diagnosis-dialog/diagnosis-dialog.component';
+import { DoctorsComponent } from './profile-clinic-admin/doctors/doctors.component';
+import { DoctorService } from './service/doctor.service';
+import { DetailsDoctorDialogComponent } from './profile-clinic-admin/doctors/details-doctor-dialog/details-doctor-dialog.component';
 
 
 
@@ -106,7 +109,10 @@ import { DiagnosisDialogComponent } from './shared/dialogs/diagnosis-dialog/diag
     EditDiagnosisDialogComponent,
     EditMedicationDialogComponent,
     MedicationDialogComponent,
-    DiagnosisDialogComponent
+    DiagnosisDialogComponent,
+    DoctorsComponent,
+    DetailsDoctorDialogComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -150,6 +156,7 @@ import { DiagnosisDialogComponent } from './shared/dialogs/diagnosis-dialog/diag
       { path: 'clinicAdminProfile', component: ProfileClinicAdminComponent },
       { path: 'examRooms/:id', component: ExamRoomsComponent },
       { path: 'examSurgeryTypes/:id', component: ExamSurgeryTypesComponent},
+      { path: 'doctorsInClinic/:id', component: DoctorsComponent},
       { path: '', redirectTo: 'login', pathMatch: 'full' }
       //{path: '**', redirectTo: 'login'},
 
@@ -185,7 +192,8 @@ import { DiagnosisDialogComponent } from './shared/dialogs/diagnosis-dialog/diag
     RoomService,
     TypesService,
     DiagnosisService,
-    MedicationService
+    MedicationService,
+    DoctorService
   ],
   entryComponents: [ //ovo mora da se doda za dijalog
     PasswordChangedDialogComponent,
@@ -205,7 +213,8 @@ import { DiagnosisDialogComponent } from './shared/dialogs/diagnosis-dialog/diag
     EditDiagnosisDialogComponent,
     EditMedicationDialogComponent,
     MedicationDialogComponent,
-    DiagnosisDialogComponent
+    DiagnosisDialogComponent,
+    DetailsDoctorDialogComponent
     
   ],
   bootstrap: [AppComponent]

@@ -1,0 +1,81 @@
+<div class="container-fluid">
+
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightgreen; padding-left: 0;">
+        <div class="navbar-header">
+            <a id="logo" class="navbar-brand" href="#"><img src="assets/img/logo5.jpg" alt="logo" width="80em" height="63em"></a>
+        </div>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto disabled" href="#">Clinic administrator: {{_currentAdmin.name}} {{_currentAdmin.surname}} - Managing doctors</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <!--<a class="nav-link" [routerLink]="" (click)="clickedBack()">Back</a>-->
+                    <button class="btn btn-outline-success" (click)="clickedBack()"style=" margin: 4px" > Back </button>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div style="float: left; width:28%; border-right-style: solid;border-width: 1px;padding-right: 2em;">
+        <button class="btn btn-primary" style="background-color: green;width:12em;height:3.5em;margin-left:5em;margin-top:2em;margin-bottom:2em;" (click)="showForm()">Register a new doctor</button>
+        <h3 style="text-align: center;">Search doctors</h3>
+        <div>
+            <form (ngSubmit) = "onClickedSearch()" #doctorForm="ngForm">
+                <b>Name:</b> <input type="text" [(ngModel)]="_searchDoctor.name" name="name"  #name="ngModel"/>
+                <b>Surname:</b> <input type="text" [(ngModel)]="_searchDoctor.surname" name="surname"  #number="ngModel"/>
+                <b>Serial number:</b><input type="text" [(ngModel)]="_searchDoctor.serialNumber" name="serialNumber" #serialNumber="ngModel" pattern="[0-9]*" autocomplete="off">
+                <button style="width:7em;" type="submit" class="btn btn-primary" [disabled]="!doctorForm.form.valid">Search</button>
+                <button style="margin-left: 0.5em;width:7em;" type="reset" (click)="resetForm()" class="btn btn-primary">Reset</button>  
+                <button style="margin-left: 0.5em;width:7em;" type="reset" class="btn btn-primary" (click)="showAllDoctors()">Show all</button>  
+                <p *ngIf="_emptyForm" style="color:red">You have to enter at least one information for search.</p>
+            </form>
+          </div>
+        </div>
+        <div style="width:70%;float: right;">
+            <h2 style="text-align: center;margin:0.5em;">Doctors:</h2>
+            <p *ngIf="_showMsg" style="color:red;text-align: center;"><b>Your search did not match any doctors...</b></p>
+        <table *ngIf="_showTable" style="width:100%;;">
+            <thead>
+                <tr>
+                    <th style="width:30%;">Name</th>
+                    <th style="width:30%;">Surname</th>
+                    <th style="width:20%;">Serial number</th>
+                    <th style="width:15%;">Details</th>
+                    <th style="width:15%;">Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let doctor of _foundDoctors">
+                  <td>{{doctor.name}}</td>
+                  <td>{{doctor.surname}}</td>
+                  <td>{{doctor.serialNumber}}</td>
+                  <td><button class="btn btn-primary" (click)="showDetails(doctor.id)">Details</button></td>
+                  <td><button class="btn btn-danger" (click)="removeDoctor(doctor.id)">Remove</button></td>
+              </tr>  
+            </tbody>
+        </table>
+        <form *ngIf="_showForm" style="width:90%;margin:auto;" (ngSubmit) = "registerNewDoctor(newDoctorForm)" #newDoctorForm="ngForm">
+        <table id="newDoc" style="width:100%;margin: auto;">
+            <tr><td><b>Name: </b></td><td><input type="text" [(ngModel)]="_newDoctor.name" name="name"  #name="ngModel" required autocomplete="off"/></td>
+                <td><b>Surname: </b></td><td><input type="text" [(ngModel)]="_newDoctor.surname" name="surname"  #name="ngModel" required autocomplete="off"/></td></tr>
+            <tr><td><b>Email: </b></td><td><input type="email" [(ngModel)]="_newDoctor.email" name="email"  #name="ngModel" required autocomplete="off" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/></td>
+                <td><b>Password: </b></td><td><input type="password" [(ngModel)]="_newDoctor.password" name="password"  #name="ngModel" required autocomplete="off" minlength="6"/></td></tr>
+            <tr><td><b>Address: </b></td><td><input type="text" [(ngModel)]="_newDoctor.address" name="address"  #name="ngModel" required autocomplete="off"/></td>
+                <td><b>City: </b></td><td><input type="text" [(ngModel)]="_newDoctor.city" name="city"  #name="ngModel" required autocomplete="off"/></td></tr> 
+            <tr><td><b>Country: </b></td><td><input type="text" [(ngModel)]="_newDoctor.country" name="country"  #name="ngModel" required autocomplete="off"/></td>
+                <td><b>Phone number: </b></td><td><input type="text" [(ngModel)]="_newDoctor.phoneNumber" name="phoneNumber"  #name="ngModel" required autocomplete="off"/></td></tr>
+            <tr><td><b>Serial number: </b></td><td><input type="text" [(ngModel)]="_newDoctor.serialNumber" name="serialNumber"  #name="ngModel" pattern="[0-9]{13,13}" required autocomplete="off"/></td>
+                <td></td></tr>  
+            <tr><td><b>Working hours start: </b></td><td><ngb-timepicker [(ngModel)]="_workingHoursStartTemp" name="workingHoursStart" required></ngb-timepicker></td>
+                <td><b>Working hours end: </b></td><td><ngb-timepicker [(ngModel)]="_workingHoursEndTemp" name="workingHoursEnd" required></ngb-timepicker></td></tr>             
+        </table>
+        <button style="width:7em;margin-top:0.5em;margin-right:2em;"  type="submit" class="btn btn-primary" [disabled]="!newDoctorForm.form.valid">Register</button>
+        <button style="width:7em;margin-top:0.5em;margin-right:2em;" type="reset" (click)="cancelForm(newDoctorForm)" class="btn btn-danger">Cancel</button>  
+
+        </form>
+    </div>
+    </div>

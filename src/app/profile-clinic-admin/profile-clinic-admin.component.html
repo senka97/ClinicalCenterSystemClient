@@ -10,10 +10,15 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
-        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">          
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="" (click)="clickedLogout()">Log out</a>
+                    <button class="btn btn-outline-success" (click)="clickedProfile()" style=" margin: 4px"> Profile </button>
+                    
+                    </li>
+                <li class="nav-item">
+                    <button class="btn btn-outline-success" (click)="clickedLogout()"style=" margin: 4px" > Log out </button>
+                    
                 </li>
             </ul>
         </div>
@@ -27,13 +32,13 @@
             <a class="nav-link" [routerLink] = "" (click) = "clickedClinicProfile()" >General info</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" [routerLink] = "['/examRooms', _clinic.id]" >Managing rooms</a>
+            <a class="nav-link" [routerLink] = "['/examRooms', _clinic.id]" >Rooms</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink] = "['/examSurgeryTypes', _clinic.id]" >Managing exam and surgery types</a>
+            <a class="nav-link" [routerLink] = "['/examSurgeryTypes', _clinic.id]" >Exam and surgery types</a>
         </li>  
         <li class="nav-item">
-          <a class="nav-link" href="#">Managing doctors</a>
+          <a class="nav-link" [routerLink] = "['/doctorsInClinic', _clinic.id]">Doctors</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Fast appointments</a>
