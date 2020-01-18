@@ -1,4 +1,5 @@
 <div id="div-page" class="container-fluid">
+
     <div class="container-fluid"  style="padding: 1% "> 
         <nav class="navbar navbar-expand-md navbar-light" style="background-color:  lightskyblue; padding-left: 0;">
             <div class="navbar-header">
@@ -23,20 +24,62 @@
         </nav>
         <ul class="nav flex-column nav-pills" style="color: blue; background-color: lightskyblue;float:left;">
             <li class="nav-item">
-                <button class="btn btn-sm btn-outline-secondary" [routerLink]="[{ outlets: { hpNurse: ['listOfPatients'] } }]" style="width: 15em; color:darkblue;" (click)="clickAllPatients()"> All patients </button>
-              <!-- <a class="nav-link" [routerLink]="[{ outlets: { hpNurse: ['listOfPatients'] } }]">List of all patients</a>-->
+                <button class="btn btn-sm btn-outline-secondary"  style="width: 15em; color:darkblue;" (click)="showAllPatients()"> All patients </button>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" [routerLink]="['/workCalendar']">Work calendar</a>
+                <button class="btn btn-sm btn-outline-secondary"  style="width: 15em; color:darkblue;" (click)="clickedWorkCalendar()"> Work calendar </button>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Absence requests</a>
+                <button class="btn btn-sm btn-outline-secondary"  style="width: 15em; color:darkblue;" > Absence request </button>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Prescriptions</a>
+                <button class="btn btn-sm btn-outline-secondary"  style="width: 15em; color:darkblue;" > Prescriptions </button>
             </li>
         </ul>
-        <router-outlet name="hpNurse"></router-outlet>
+        <!--<router-outlet name="hpNurse"></router-outlet>-->
     </div>
 
+    <div *ngIf="_showList" style="float:left;margin-left:18%;">
+            <h3 style="text-align:center;margin-top: 0.5em; margin-bottom: 0.5em;">List of all patients: </h3>
+            <div class='table-responsive'>
+            <table class="table">
+                <thead >
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Surname</th>
+                    <th scope="col">Serial number</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let patient of _patients;let i = index">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{patient.name}}</td>
+                    <td>{{patient.surname}}</td>
+                    <td>{{patient.serialNumber}}</td>
+                    <td>{{patient.email}}</td>
+                    <td><a [routerLink]="" (click)="showDetails(patient.id)">See details...</a></td>
+                
+                  </tr>
+                </tbody>
+            </table>
+            </div>
+              <button style="width:7em;" type="button" class="btn btn-primary" (click)="clickedBack()">Back</button>
+          </div>
+
+          <div *ngIf="_showPatient" style="float:left;margin-left:18%;width:40%;">
+                <table class="table" style="width:100%">
+                  <tr> <th style="text-align: center;" colspan="2"> <b> <h4>Patient: {{_currentPatient.name}}  {{_currentPatient.surname}}</h4> </b> </th> </tr>
+                  <tr><th><b>Serial number:</b></th><td>{{_currentPatient.serialNumber}}</td></tr>
+                  <tr><th><b>Email:</b></th><td>{{_currentPatient.email}}</td></tr>
+                  <tr><th><b>Address:</b></th><td>{{_currentPatient.address}}</td></tr>
+                  <tr><th><b>City:</b></th><td>{{_currentPatient.city}}</td></tr>
+                  <tr><th><b>Country:</b></th><td>{{_currentPatient.country}}</td></tr>
+                  <tr><th><b>Phone number:</b></th><td>{{_currentPatient.phoneNumber}}</td></tr>
+                </table>
+                <button style="float: left;width:7em;" type="button" class="btn btn-primary btn-sm" [routerLink] = "['/patientHP', _currentPatient.id]" >Profile</button>
+                <button style="float: right;width:7em;" type="button" class="btn btn-primary btn-sm" (click)="goBack()">Back</button>
+              </div>
   </div>

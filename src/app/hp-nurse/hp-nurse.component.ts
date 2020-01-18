@@ -5,6 +5,8 @@ import { PatientService } from './../service/patient.service';
 import { AuthService } from './../service/auth.service';
 import { FirstLoginDialogComponent } from '../shared/dialogs/first-login-dialog/first-login-dialog.component';
 import { Router } from '@angular/router';
+
+
 @Component({
   selector: 'app-hp-nurse',
   templateUrl: './hp-nurse.component.html',
@@ -21,7 +23,11 @@ export class HpNurseComponent implements OnInit {
 
   private _currentNurse: any;
   private _currentPatient: any;
+  private _patients: any;
   private _passwordChanger: PasswordChanger;
+
+  private _showList: boolean;
+  private _showPatient: boolean;
 
   ngOnInit() {
     this._currentNurse = JSON.parse(localStorage.getItem('currentUser'));
@@ -34,6 +40,29 @@ export class HpNurseComponent implements OnInit {
           data: this._passwordChanger
       });
     }
+    this._patientService.getAllPatients().subscribe(patients => {
+      this._patients = patients;     
+     });
+    this._showList = false;
+    this._showPatient = false;
+  }
+
+  showAllPatients(){
+      this._showList = !this._showList;
+      this._showPatient = false;      
+  }
+
+  showDetails(id){
+    this._patientService.getPatient(id).subscribe(patient => {
+      this._currentPatient = patient;
+      this._showList = false;
+      this._showPatient = true;
+    })
+  }
+
+  goBack(){ //vraca na listu pacijenata
+    this._showPatient = false;
+    this._showList = true;
   }
 
   clickedLogout(){
@@ -44,7 +73,12 @@ export class HpNurseComponent implements OnInit {
     this._router.navigate(['/medicalStaffProfile']);
   }
 
-  clickAllPatients(){
-    this._router.navigate(['/nurseHP/(hpNurse:listOfPatients)']);
+  clickedWorkCalendar(){
+    this._router.navigate(['/workCalendar']);
+  }
+
+  clickedBack(){
+    this._showPatient = false;
+    this._showList = false;
   }
 }
