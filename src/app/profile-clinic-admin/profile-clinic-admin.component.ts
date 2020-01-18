@@ -14,6 +14,7 @@ import { ClinicService } from './../service/clinic.service';
 import { EditClinicDialogComponent } from './edit-clinic-dialog/edit-clinic-dialog.component';
 import { ClinicAdminService } from './../service/clinic-admin.service';
 import { Clinic } from '../shared/model/Clinic';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 @Component({
