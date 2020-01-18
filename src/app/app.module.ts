@@ -1,3 +1,5 @@
+import { AbsenceService } from './service/absence.service';
+import { MatBadgeModule } from '@angular/material/badge';
 import { TypesService } from './service/types.service';
 import { RoomService } from './service/room.service';
 import { ClinicService } from './service/clinic.service';
@@ -16,7 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { ModalModule } from './_modal';
-import { MatDatepickerModule, MatNativeDateModule, MatProgressSpinnerModule } from '@angular/material' //Date picker
+import { MatDatepickerModule, MatNativeDateModule, MatProgressSpinnerModule, MatSelectModule } from '@angular/material' //Date picker
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; //bootstrap
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -25,7 +27,6 @@ import { HpDoctorComponent } from './hp-doctor/hp-doctor.component';
 import { HpPatientComponent } from './hp-patient/hp-patient.component';
 import { ProfileClinicalCenterAdminComponent } from './profile-clinical-center-admin/profile-clinical-center-admin.component';
 import { RegisterClinicalCenterAdminComponent } from './profile-clinical-center-admin/register-clinical-center-admin.component';
-import { ListPatientsComponent } from './hp-doctor/list-patients/list-patients.component';
 import { FormComponentComponent } from './form-component/form-component.component';
 import { MedicalRecordComponent } from './hp-patient/medical-record/medical-record.component';
 import { ProfileMedicalStaffComponent } from './profile-medical-staff/profile-medical-staff.component';
@@ -79,7 +80,6 @@ import { DetailsDoctorDialogComponent } from './profile-clinic-admin/doctors/det
     HpPatientComponent,
     ProfileClinicalCenterAdminComponent,
     RegisterClinicalCenterAdminComponent,
-    ListPatientsComponent,
     FormComponentComponent,
     MedicalRecordComponent,
     ProfileMedicalStaffComponent,
@@ -126,26 +126,16 @@ import { DetailsDoctorDialogComponent } from './profile-clinic-admin/doctors/det
       { path: 'login', component: LoginComponent },
       { path: 'signup', component: SignUpComponent },
       { path: 'patientHP', component: HpPatientComponent },
+      { path: 'doctorHP', component: HpDoctorComponent},
       {
-        path: 'doctorHP', component: HpDoctorComponent,
-        children: [
-          {
-            path: 'listOfPatients',
-            component: ListPatientsComponent,
-            outlet: 'hpDoctor',
-          },
-
-        ]
-      },
-      {
-        path: 'nurseHP', component: HpNurseComponent,
+        path: 'nurseHP', component: HpNurseComponent/*,
         children: [
           {
             path: 'listOfPatients',
             component: ListPatientsComponent,
             outlet: 'hpNurse',
           },
-        ]
+        ]*/
       },
       { path: 'clinicalCenterAdminProfile', component: ProfileClinicalCenterAdminComponent },
       { path: 'registerClinicalCenterAdmin', component: RegisterClinicalCenterAdminComponent },
@@ -162,7 +152,6 @@ import { DetailsDoctorDialogComponent } from './profile-clinic-admin/doctors/det
 
     ]),
     BrowserAnimationsModule,
-    //DatePicker
     MatDatepickerModule,
     MatNativeDateModule,
     NgbModule,
@@ -173,7 +162,9 @@ import { DetailsDoctorDialogComponent } from './profile-clinic-admin/doctors/det
     MatFormFieldModule,
     MatInputModule,
     MatRippleModule,
-    MatRadioModule
+    MatRadioModule,
+    MatBadgeModule,
+    MatSelectModule
   ],
   providers: [
     {
@@ -193,7 +184,8 @@ import { DetailsDoctorDialogComponent } from './profile-clinic-admin/doctors/det
     TypesService,
     DiagnosisService,
     MedicationService,
-    DoctorService
+    DoctorService,
+    AbsenceService
   ],
   entryComponents: [ //ovo mora da se doda za dijalog
     PasswordChangedDialogComponent,
