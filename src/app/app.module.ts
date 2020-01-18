@@ -11,8 +11,9 @@ import { AuthService } from './service/auth.service';
 import { ClinicalCenterAdminService } from './service/clinical-center-admin.service';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { ModalModule } from './_modal';
@@ -63,6 +64,10 @@ import { EditDiagnosisDialogComponent } from './profile-clinical-center-admin/ed
 import { EditMedicationDialogComponent } from './profile-clinical-center-admin/edit-medication-dialog/edit-medication-dialog.component';
 import { MedicationDialogComponent } from './shared/dialogs/medication-dialog/medication-dialog.component';
 import { DiagnosisDialogComponent } from './shared/dialogs/diagnosis-dialog/diagnosis-dialog.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar'; //npm install --save angular-calendar date-fns
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { WorkCalendarComponent } from './work-calendar/work-calendar.component';
+import { CalendarHeaderComponent } from './work-calendar/calendar-header.component';
 
 
 
@@ -106,7 +111,10 @@ import { DiagnosisDialogComponent } from './shared/dialogs/diagnosis-dialog/diag
     EditDiagnosisDialogComponent,
     EditMedicationDialogComponent,
     MedicationDialogComponent,
-    DiagnosisDialogComponent
+    DiagnosisDialogComponent,
+    WorkCalendarComponent,
+    CalendarHeaderComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -150,6 +158,7 @@ import { DiagnosisDialogComponent } from './shared/dialogs/diagnosis-dialog/diag
       { path: 'clinicAdminProfile', component: ProfileClinicAdminComponent },
       { path: 'examRooms/:id', component: ExamRoomsComponent },
       { path: 'examSurgeryTypes/:id', component: ExamSurgeryTypesComponent},
+      { path: 'workCalendar', component: WorkCalendarComponent},
       { path: '', redirectTo: 'login', pathMatch: 'full' }
       //{path: '**', redirectTo: 'login'},
 
@@ -166,7 +175,12 @@ import { DiagnosisDialogComponent } from './shared/dialogs/diagnosis-dialog/diag
     MatFormFieldModule,
     MatInputModule,
     MatRippleModule,
-    MatRadioModule
+    MatRadioModule,
+    CommonModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    })
   ],
   providers: [
     {
@@ -208,6 +222,7 @@ import { DiagnosisDialogComponent } from './shared/dialogs/diagnosis-dialog/diag
     DiagnosisDialogComponent
     
   ],
+  //schemas: [NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

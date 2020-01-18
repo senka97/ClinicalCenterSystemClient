@@ -4,6 +4,7 @@ import { PasswordChanger } from './../shared/model/PasswordChanger';
 import { PatientService } from './../service/patient.service';
 import { AuthService } from './../service/auth.service';
 import { FirstLoginDialogComponent } from '../shared/dialogs/first-login-dialog/first-login-dialog.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-hp-nurse',
   templateUrl: './hp-nurse.component.html',
@@ -13,6 +14,7 @@ export class HpNurseComponent implements OnInit {
 
   constructor( private _authService: AuthService, 
     private _patientService:PatientService, 
+    private _router: Router,
     private _dialog: MatDialog) { 
 
   }
@@ -36,5 +38,13 @@ export class HpNurseComponent implements OnInit {
 
   clickedLogout(){
     this._authService.logout();
+  }
+
+  clickedProfile(){
+    this._router.navigate(['/medicalStaffProfile']);
+  }
+
+  clickAllPatients(){
+    this._router.navigate(['/nurseHP/(hpNurse:listOfPatients)']);
   }
 }

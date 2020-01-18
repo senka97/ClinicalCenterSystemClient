@@ -1,0 +1,19 @@
+#div-page{
+    content: "";
+    position: absolute;
+    margin: 0;
+    padding : 0;
+    background-image: url('nurse1.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    height:100vh;
+
+}
+th {
+    background-color: lightskyblue;
+}
+td{
+    background-color: beige;
+}
