@@ -125,10 +125,17 @@ export class ExamSurgeryTypesComponent implements OnInit {
       types => {
         this._foundTypes = types;
         console.log(this._foundTypes);
-        this._showTable = true;
-        this._showMsg = false;
-        this._shownSearch = false;
-        this._shownAll = true;
+        if(types.length != 0){
+          this._showTable = true;
+          this._showMsg = false;
+          this._shownSearch = false;
+          this._shownAll = true;
+        }else{
+          let dialogRef1 = this._dialog.open(InfoDialogComponent, {
+            width: '50%',
+            data: "This clinic doesn't have any exam types."
+          });
+        }
       },
       error => {
         alert(error.error);
@@ -144,10 +151,17 @@ export class ExamSurgeryTypesComponent implements OnInit {
     this._typesService.getSurgeryTypes(this._clinicId).subscribe(
       types => {
         this._foundTypes = types;
-        this._showTable = true;
-        this._showMsg = false;
-        this._shownSearch = false;
-        this._shownAll = true;
+        if(types.length != 0){
+          this._showTable = true;
+          this._showMsg = false;
+          this._shownSearch = false;
+          this._shownAll = true;
+        }else{
+          let dialogRef1 = this._dialog.open(InfoDialogComponent, {
+            width: '50%',
+            data: "This clinic doesn't have any surgery types."
+          });
+        }
       },
       error => {
         alert(error.error);

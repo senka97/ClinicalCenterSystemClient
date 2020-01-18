@@ -1,3 +1,5 @@
+import { AbsenceService } from './service/absence.service';
+import { MatBadgeModule } from '@angular/material/badge';
 import { TypesService } from './service/types.service';
 import { RoomService } from './service/room.service';
 import { ClinicService } from './service/clinic.service';
@@ -17,7 +19,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { ModalModule } from './_modal';
-import { MatDatepickerModule, MatNativeDateModule, MatProgressSpinnerModule } from '@angular/material' //Date picker
+import { MatDatepickerModule, MatNativeDateModule, MatProgressSpinnerModule, MatSelectModule } from '@angular/material' //Date picker
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; //bootstrap
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -26,7 +28,6 @@ import { HpDoctorComponent } from './hp-doctor/hp-doctor.component';
 import { HpPatientComponent } from './hp-patient/hp-patient.component';
 import { ProfileClinicalCenterAdminComponent } from './profile-clinical-center-admin/profile-clinical-center-admin.component';
 import { RegisterClinicalCenterAdminComponent } from './profile-clinical-center-admin/register-clinical-center-admin.component';
-import { ListPatientsComponent } from './hp-doctor/list-patients/list-patients.component';
 import { FormComponentComponent } from './form-component/form-component.component';
 import { MedicalRecordComponent } from './hp-patient/medical-record/medical-record.component';
 import { ProfileMedicalStaffComponent } from './profile-medical-staff/profile-medical-staff.component';
@@ -68,6 +69,9 @@ import { CalendarModule, DateAdapter } from 'angular-calendar'; //npm install --
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { WorkCalendarComponent } from './work-calendar/work-calendar.component';
 import { CalendarHeaderComponent } from './work-calendar/calendar-header.component';
+import { DoctorsComponent } from './profile-clinic-admin/doctors/doctors.component';
+import { DoctorService } from './service/doctor.service';
+import { DetailsDoctorDialogComponent } from './profile-clinic-admin/doctors/details-doctor-dialog/details-doctor-dialog.component';
 
 
 
@@ -81,7 +85,6 @@ import { CalendarHeaderComponent } from './work-calendar/calendar-header.compone
     HpPatientComponent,
     ProfileClinicalCenterAdminComponent,
     RegisterClinicalCenterAdminComponent,
-    ListPatientsComponent,
     FormComponentComponent,
     MedicalRecordComponent,
     ProfileMedicalStaffComponent,
@@ -113,7 +116,9 @@ import { CalendarHeaderComponent } from './work-calendar/calendar-header.compone
     MedicationDialogComponent,
     DiagnosisDialogComponent,
     WorkCalendarComponent,
-    CalendarHeaderComponent
+    CalendarHeaderComponent,
+    DoctorsComponent,
+    DetailsDoctorDialogComponent
     
   ],
   imports: [
@@ -128,26 +133,16 @@ import { CalendarHeaderComponent } from './work-calendar/calendar-header.compone
       { path: 'login', component: LoginComponent },
       { path: 'signup', component: SignUpComponent },
       { path: 'patientHP', component: HpPatientComponent },
+      { path: 'doctorHP', component: HpDoctorComponent},
       {
-        path: 'doctorHP', component: HpDoctorComponent,
-        children: [
-          {
-            path: 'listOfPatients',
-            component: ListPatientsComponent,
-            outlet: 'hpDoctor',
-          },
-
-        ]
-      },
-      {
-        path: 'nurseHP', component: HpNurseComponent,
+        path: 'nurseHP', component: HpNurseComponent/*,
         children: [
           {
             path: 'listOfPatients',
             component: ListPatientsComponent,
             outlet: 'hpNurse',
           },
-        ]
+        ]*/
       },
       { path: 'clinicalCenterAdminProfile', component: ProfileClinicalCenterAdminComponent },
       { path: 'registerClinicalCenterAdmin', component: RegisterClinicalCenterAdminComponent },
@@ -159,12 +154,12 @@ import { CalendarHeaderComponent } from './work-calendar/calendar-header.compone
       { path: 'examRooms/:id', component: ExamRoomsComponent },
       { path: 'examSurgeryTypes/:id', component: ExamSurgeryTypesComponent},
       { path: 'workCalendar', component: WorkCalendarComponent},
+      { path: 'doctorsInClinic/:id', component: DoctorsComponent},
       { path: '', redirectTo: 'login', pathMatch: 'full' }
       //{path: '**', redirectTo: 'login'},
 
     ]),
     BrowserAnimationsModule,
-    //DatePicker
     MatDatepickerModule,
     MatNativeDateModule,
     NgbModule,
@@ -180,7 +175,9 @@ import { CalendarHeaderComponent } from './work-calendar/calendar-header.compone
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
-    })
+    }),
+    MatBadgeModule,
+    MatSelectModule
   ],
   providers: [
     {
@@ -199,7 +196,9 @@ import { CalendarHeaderComponent } from './work-calendar/calendar-header.compone
     RoomService,
     TypesService,
     DiagnosisService,
-    MedicationService
+    MedicationService,
+    DoctorService,
+    AbsenceService
   ],
   entryComponents: [ //ovo mora da se doda za dijalog
     PasswordChangedDialogComponent,
@@ -219,7 +218,8 @@ import { CalendarHeaderComponent } from './work-calendar/calendar-header.compone
     EditDiagnosisDialogComponent,
     EditMedicationDialogComponent,
     MedicationDialogComponent,
-    DiagnosisDialogComponent
+    DiagnosisDialogComponent,
+    DetailsDoctorDialogComponent
     
   ],
   //schemas: [NO_ERRORS_SCHEMA],

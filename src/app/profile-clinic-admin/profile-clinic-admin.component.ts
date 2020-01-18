@@ -14,6 +14,7 @@ import { ClinicService } from './../service/clinic.service';
 import { EditClinicDialogComponent } from './edit-clinic-dialog/edit-clinic-dialog.component';
 import { ClinicAdminService } from './../service/clinic-admin.service';
 import { Clinic } from '../shared/model/Clinic';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 @Component({
@@ -42,7 +43,7 @@ export class ProfileClinicAdminComponent implements OnInit {
     this._passwordChanger = new PasswordChanger("","");
     this._clinic = new Clinic();
     this._changedClinic = new Clinic();
-    this._showInfo = true;
+    this._showInfo = false;
     this._showClinic = false;
 
     this._clinicAdminService.getMyClinic().subscribe(clinic => {       
@@ -151,7 +152,15 @@ export class ProfileClinicAdminComponent implements OnInit {
 
   clickedBack(){
     this._showClinic = false;
-    this._showInfo = true;
+  }
+
+  clickedProfile(){
+    this._showClinic = false;
+    if(this._showInfo){
+      this._showInfo = false;
+    }else{
+      this._showInfo = true;
+    }
   }
 
 }
