@@ -1,11 +1,11 @@
 <div class="container-fluid">
 
-    <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightgreen; padding-left: 0;">
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightskyblue; padding-left: 0;">
         <div class="navbar-header">
             <a id="logo" class="navbar-brand" href="#"><img src="assets/img/logo5.jpg" alt="logo" width="80em" height="63em"></a>
         </div>
         <div class="mx-auto order-0">
-            <a class="navbar-brand mx-auto disabled" href="#">Clinic administrator: {{_currentAdmin.name}} {{_currentAdmin.surname}} - Managing exam and surgery types</a>
+            <a class="navbar-brand mx-auto disabled" href="#" style="color: darkblue;">Clinic administrator: {{_currentAdmin.name}} {{_currentAdmin.surname}} - Managing exam and surgery types</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -14,15 +14,15 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <!--<a class="nav-link" [routerLink]="" (click)="clickedBack()">Back</a>-->
-                    <button class="btn btn-outline-success" (click)="clickedBack()"style=" margin: 4px" > Back </button>
+                    <button class="btn btn-outline-secondary" (click)="clickedBack()"style=" margin: 4px" > Back </button>
 
                 </li>
             </ul>
         </div>
     </nav>
     <div style="float: left; width:30%; border-right-style: solid;border-width: 1px;padding-right: 2em;">
-    <button class="btn btn-primary" style="background-color: green;width:9em;height:4em;margin:1em;margin-left: 2.6em;" (click)="addNewExamType()">Add a new exam type</button>
-    <button class="btn btn-primary" style="background-color: green;width:9em;height:4em;margin-top:0.5em;margin-bottom: 0.5em;" (click)="addNewSurgeryType()">Add a new surgery type</button>
+    <button  mat-raised-button style="width:10em;height:4em;margin:1em;margin-left: 2.6em;background-color: rgb(131, 245, 131)" (click)="addNewExamType()">New exam type</button>
+    <button mat-raised-button style="width:10em;height:4em;margin-top:0.5em;margin-bottom: 0.5em;background-color: rgb(131, 245, 131);" (click)="addNewSurgeryType()">New surgery type</button>
     <h3 style="text-align: center;">Search type of exam or surgery</h3>
     <div>
         <form (ngSubmit) = "onClickedSearch()" #typeForm="ngForm">

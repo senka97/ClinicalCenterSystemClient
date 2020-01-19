@@ -182,7 +182,8 @@ import { RejectDialogComponent } from './profile-clinic-admin/absence-request/re
       useFactory: adapterFactory
     }),
     MatBadgeModule,
-    MatSelectModule
+    MatSelectModule,
+    MatButtonModule
   ],
   providers: [
     {
