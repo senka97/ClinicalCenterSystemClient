@@ -1,3 +1,4 @@
+import { AbsenceService } from './../service/absence.service';
 import { FirstLoginDialogComponent } from './../shared/dialogs/first-login-dialog/first-login-dialog.component';
 import { PasswordWrongDialogComponent } from '../shared/dialogs/password-wrong-dialog/password-wrong-dialog.component';
 import { EditPasswordDialogComponent } from '../shared/dialogs/edit-password-dialog/edit-password-dialog.component';
@@ -24,7 +25,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 })
 export class ProfileClinicAdminComponent implements OnInit {
 
-  constructor(private _authService: AuthService, private _dialog: MatDialog, private _userService: UserService, private _router: Router, private _clinicAdminService: ClinicAdminService, private _clinicService: ClinicService) { }
+  constructor(private _authService: AuthService, private _dialog: MatDialog, private _userService: UserService, private _router: Router, private _clinicAdminService: ClinicAdminService, private _clinicService: ClinicService, private _absenceService: AbsenceService) { }
 
   private _currentAdmin: any;
   private _changedAdmin: any;
@@ -34,6 +35,7 @@ export class ProfileClinicAdminComponent implements OnInit {
   private _clinic: Clinic;
   private _changedClinic: Clinic;
   private _passwordChanger: PasswordChanger;
+  private _numOfRequests: Number;
   
 
   ngOnInit() {
@@ -48,7 +50,13 @@ export class ProfileClinicAdminComponent implements OnInit {
 
     this._clinicAdminService.getMyClinic().subscribe(clinic => {       
       this._clinic = clinic;
+      this._absenceService.getNumberOfRequests(this._clinic.id).subscribe(
+        res => {
+            this._numOfRequests = res;
+        }
+      )
     });
+    
 
     if(this._currentAdmin.passwordChanged == false){
     let ref1 = this._dialog.open(FirstLoginDialogComponent,{

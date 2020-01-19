@@ -72,6 +72,8 @@ import { CalendarHeaderComponent } from './work-calendar/calendar-header.compone
 import { DoctorsComponent } from './profile-clinic-admin/doctors/doctors.component';
 import { DoctorService } from './service/doctor.service';
 import { DetailsDoctorDialogComponent } from './profile-clinic-admin/doctors/details-doctor-dialog/details-doctor-dialog.component';
+import { AbsenceRequestComponent } from './profile-clinic-admin/absence-request/absence-request.component';
+import { RejectDialogComponent } from './profile-clinic-admin/absence-request/reject-dialog/reject-dialog.component';
 
 
 
@@ -118,7 +120,9 @@ import { DetailsDoctorDialogComponent } from './profile-clinic-admin/doctors/det
     WorkCalendarComponent,
     CalendarHeaderComponent,
     DoctorsComponent,
-    DetailsDoctorDialogComponent
+    DetailsDoctorDialogComponent,
+    AbsenceRequestComponent,
+    RejectDialogComponent
     
   ],
   imports: [
@@ -155,6 +159,7 @@ import { DetailsDoctorDialogComponent } from './profile-clinic-admin/doctors/det
       { path: 'examSurgeryTypes/:id', component: ExamSurgeryTypesComponent},
       { path: 'workCalendar', component: WorkCalendarComponent},
       { path: 'doctorsInClinic/:id', component: DoctorsComponent},
+      { path: 'absenceRequests/:id', component: AbsenceRequestComponent},
       { path: '', redirectTo: 'login', pathMatch: 'full' }
       //{path: '**', redirectTo: 'login'},
 
@@ -177,7 +182,8 @@ import { DetailsDoctorDialogComponent } from './profile-clinic-admin/doctors/det
       useFactory: adapterFactory
     }),
     MatBadgeModule,
-    MatSelectModule
+    MatSelectModule,
+    MatButtonModule
   ],
   providers: [
     {
@@ -219,7 +225,8 @@ import { DetailsDoctorDialogComponent } from './profile-clinic-admin/doctors/det
     EditMedicationDialogComponent,
     MedicationDialogComponent,
     DiagnosisDialogComponent,
-    DetailsDoctorDialogComponent
+    DetailsDoctorDialogComponent,
+    RejectDialogComponent,
     
   ],
   //schemas: [NO_ERRORS_SCHEMA],

@@ -134,7 +134,7 @@ export class HpDoctorComponent implements OnInit {
         res => {
           let dialogRef1 = this._dialog.open(InfoDialogComponent, {
             width: '50%',
-            data: "You have successfully scheduled your absence."
+            data: "You have successfully sent request for your absence."
           });
         },
         error => {

@@ -1,11 +1,11 @@
 <div class="container-fluid">
 
-    <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightgreen; padding-left: 0;">
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightskyblue; padding-left: 0;">
         <div class="navbar-header">
             <a id="logo" class="navbar-brand" href="#"><img src="assets/img/logo5.jpg" alt="logo" width="80em" height="63em"></a>
         </div>
         <div class="mx-auto order-0">
-            <a class="navbar-brand mx-auto disabled" href="#">Clinic administrator: {{_currentAdmin.name}} {{_currentAdmin.surname}} - Managing rooms</a>
+            <a class="navbar-brand mx-auto disabled" href="#" style="color: darkblue;">Clinic administrator: {{_currentAdmin.name}} {{_currentAdmin.surname}} - Managing rooms</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -14,14 +14,14 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <!--<a class="nav-link" [routerLink]="" (click)="clickedBack()">Back</a>-->
-                    <button class="btn btn-outline-success" (click)="clickedBack()"style=" margin: 4px" > Back </button>
+                    <button class="btn btn-outline-secondary" (click)="clickedBack()"style=" margin: 4px" > Back </button>
 
                 </li>
             </ul>
         </div>
     </nav>
     <div style="float: left; width:28%; border-right-style: solid;border-width: 1px;padding-right: 2em;">
-    <button class="btn btn-primary" style="background-color: green;width:12em;height:3em;margin:2em;margin-left:5.3em;" (click)="addNewRoom()">Add a new room</button>
+    <button mat-raised-button style="background-color: rgb(131, 245, 131);width:12em;height:3em;margin:2em;margin-left:6.3em;" (click)="addNewRoom()">Add a new room</button>
     <h3 style="text-align: center;">Search room</h3>
     <div>
         <form (ngSubmit) = "onClickedSearch()" #roomForm="ngForm">
