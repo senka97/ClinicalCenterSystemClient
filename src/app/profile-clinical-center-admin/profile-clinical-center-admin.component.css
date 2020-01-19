@@ -1,8 +1,28 @@
+/*#div-page {
+    position: relative;
+    z-index: 1;
+}*/
+#div-page{
+    content: "";
+    position: absolute;
+    margin: 0;
+    padding : 0;
+    background-image: url('slika2.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+   /* background-position: center;*/
+    height:100vh;
+   
+}
+body{
+    background-color: lightskyblue;
+}
 th {
-    background-color: lightgreen;
+    background-color: lightskyblue;
 }
 td{
-    background-color: lightgray;
+    background-color: beige;
 }
 td.b{
     background-color: white;
