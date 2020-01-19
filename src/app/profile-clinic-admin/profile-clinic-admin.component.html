@@ -41,7 +41,7 @@
           <a class="nav-link" [routerLink] = "['/doctorsInClinic', _clinic.id]">Doctors</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#"><span matBadge="4" matBadgeOverlap="false"  matBadgeSize="medium">Requests for vacation or absence</span></a>
+            <a class="nav-link"[routerLink] = "['/absenceRequests', _clinic.id]" ><span matBadge={{_numOfRequests}} matBadgeOverlap="false"   matBadgeSize="medium" [matBadgeHidden]="_numOfRequests == 0">Requests for vacation or absence</span></a>
           </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Fast appointments</a>

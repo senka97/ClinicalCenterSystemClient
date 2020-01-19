@@ -67,6 +67,8 @@ import { DiagnosisDialogComponent } from './shared/dialogs/diagnosis-dialog/diag
 import { DoctorsComponent } from './profile-clinic-admin/doctors/doctors.component';
 import { DoctorService } from './service/doctor.service';
 import { DetailsDoctorDialogComponent } from './profile-clinic-admin/doctors/details-doctor-dialog/details-doctor-dialog.component';
+import { AbsenceRequestComponent } from './profile-clinic-admin/absence-request/absence-request.component';
+import { RejectDialogComponent } from './profile-clinic-admin/absence-request/reject-dialog/reject-dialog.component';
 
 
 
@@ -111,7 +113,9 @@ import { DetailsDoctorDialogComponent } from './profile-clinic-admin/doctors/det
     MedicationDialogComponent,
     DiagnosisDialogComponent,
     DoctorsComponent,
-    DetailsDoctorDialogComponent
+    DetailsDoctorDialogComponent,
+    AbsenceRequestComponent,
+    RejectDialogComponent
     
   ],
   imports: [
@@ -147,6 +151,7 @@ import { DetailsDoctorDialogComponent } from './profile-clinic-admin/doctors/det
       { path: 'examRooms/:id', component: ExamRoomsComponent },
       { path: 'examSurgeryTypes/:id', component: ExamSurgeryTypesComponent},
       { path: 'doctorsInClinic/:id', component: DoctorsComponent},
+      { path: 'absenceRequests/:id', component: AbsenceRequestComponent},
       { path: '', redirectTo: 'login', pathMatch: 'full' }
       //{path: '**', redirectTo: 'login'},
 
@@ -206,7 +211,8 @@ import { DetailsDoctorDialogComponent } from './profile-clinic-admin/doctors/det
     EditMedicationDialogComponent,
     MedicationDialogComponent,
     DiagnosisDialogComponent,
-    DetailsDoctorDialogComponent
+    DetailsDoctorDialogComponent,
+    RejectDialogComponent,
     
   ],
   bootstrap: [AppComponent]
