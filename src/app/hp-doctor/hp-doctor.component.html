@@ -1,9 +1,13 @@
 <div id="div-page" class="container-fluid">
-    <div class="container-fluid">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            
+    <div class="container-fluid" style="padding: 1%">
+        <!--<nav class="navbar navbar-expand-md navbar-dark bg-dark">-->
+          <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightskyblue; padding-left: 0;">
+            <div class="navbar-header">
+              <a id="logo" class="navbar-brand" href="#"><img src="assets/img/logo5.jpg" alt="logo" width="80em" height="63em"></a>
+            </div> 
             <div class="mx-auto order-0">
-                <a class="navbar-brand mx-auto disabled" href="#">Home page for doctor: {{_currentDoctor.name}} {{_currentDoctor.surname}}</a>
+                <!--<a class="navbar-brand mx-auto disabled" href="#">Doctor: {{_currentDoctor.name}} {{_currentDoctor.surname}}</a>-->
+                <a class="navbar-brand mx-auto disabled" href="#" style="color: darkblue;">Doctor: {{_currentDoctor.name}} {{_currentDoctor.surname}}</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -11,36 +15,45 @@
             <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" [routerLink]="['/medicalStaffProfile']">Profile</a>
+                        <!--<a class="nav-link" [routerLink]="['/medicalStaffProfile']">Profile</a>-->
+                        <button class="btn btn-outline-secondary" [routerLink]="['/medicalStaffProfile']" style="color:darkblue;margin: 4px"> Profile </button>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" [routerLink]="" (click)="clickedLogout()">Log out</a>
+                        <!--<a class="nav-link" [routerLink]="" (click)="clickedLogout()">Log out</a>-->
+                        <button class="btn btn-outline-secondary" (click)="clickedLogout()" style="color:darkblue;margin: 4px">Log out</button>
                     </li>
                 </ul>
             </div>
         </nav>
-        <ul class="nav flex-column bg-dark" style="width: 20%;color: azure;float:left;">
+        <!--<ul class="nav flex-column bg-dark" style="width: 20%;color: azure;float:left;">-->
+          <ul class="nav flex-column nav-pills" style="width: 20%;color: blue; background-color: lightskyblue;float:left;">
             <li class="nav-item">
-              <a class="nav-link" [routerLink]="" (click)="showAllPatients()">All patients in the clinic</a>
+              <!--<a class="nav-link" [routerLink]="" (click)="showAllPatients()">All patients in the clinic</a>-->
+              <button class="btn btn-sm btn-outline-secondary" (click)="showAllPatients()" style="width:100%;color:darkblue;">All patients in the clinic</button>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Start a medical exam</a>
+              <!--<a class="nav-link" href="#">Start a medical exam</a>-->
+              <button class="btn btn-sm btn-outline-secondary" [routerLink]="" style="width:100%;color:darkblue;">Start a medical exam</button>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Make an appointment for an exam or surgery</a>
+                <!--<a class="nav-link" href="#">Make an appointment for an exam or surgery</a>-->
+                <button class="btn btn-sm btn-outline-secondary" [routerLink]="" style="width:100%;color:darkblue;height:fit-content">Make an appointment for an exam or surgery</button>
               </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="" (click)="showFormRequest()">Make a request for an absence or paid vacation</a>
+                <!--<a class="nav-link" [routerLink]="" (click)="showFormRequest()">Make a request for an absence or paid vacation</a>-->
+                <button class="btn btn-sm btn-outline-secondary" (click)="showFormRequest()" style="width:100%;color:darkblue;">Absence request</button>
             </li>  
             <li class="nav-item">
-              <a class="nav-link" href="#" [routerLink]= "['/workCalendar']" >Work calendar</a>
+              <!--<a class="nav-link" href="#" [routerLink]= "['/workCalendar']" >Work calendar</a>-->
+              <button class="btn btn-sm btn-outline-secondary" [routerLink]= "['/workCalendar']" style="width:100%;color:darkblue;">Work calendar</button>
+
             </li>
             
           </ul>
     
           <div *ngIf="_showFormRequest" style="width: 60%;margin-left: 15%;float:left;">
             <h3 style="text-align:center;margin-top: 0.5em; margin-bottom: 0.5em;">Request for paid vacation or absence</h3>
-            <form style="margin:auto;background-color:#36393E;width:70%;padding:1em;" #absenceForm="ngForm" (ngSubmit) = "sendRequestAbsence()">
+            <form style="margin:auto;background-color:lightskyblue;width:70%;padding:1em;" #absenceForm="ngForm" (ngSubmit) = "sendRequestAbsence()">
                 <mat-form-field style="margin-left:35%;">
                     <mat-label>Type of absence</mat-label>
                     <mat-select  [(ngModel)]="_selectedType" name="typeAbsence"  required>
@@ -69,7 +82,7 @@
       <div *ngIf="_showList" style="float:left;margin-left:18%;">
         <h3 style="text-align:center;margin-top: 0.5em; margin-bottom: 0.5em;">All patients in the clinic</h3>
         <table class="table">
-            <thead class="thead-dark">
+            <thead style="background-color:lightskyblue;">
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
@@ -81,13 +94,13 @@
             </thead>
             <tbody>
               <tr *ngFor="let patient of _patients;let i = index">
-                <th scope="row">{{i+1}}</th>
-                <td>{{patient.name}}</td>
-                <td>{{patient.surname}}</td>
-                <td>{{patient.serialNumber}}</td>
-                <td>{{patient.email}}</td>
+                <th style="background-color: lightskyblue;" scope="row">{{i+1}}</th>
+                <td style="background-color: white;">{{patient.name}}</td>
+                <td style="background-color: white;">{{patient.surname}}</td>
+                <td style="background-color: white;">{{patient.serialNumber}}</td>
+                <td style="background-color: white;">{{patient.email}}</td>
                 <!--<td><a [routerLink]="[{ outlets: { hpDoctor: ['patientDetails' , patient.id] } }]">See details...</a></td>-->
-                <td><a [routerLink]="" (click)="showDetails(patient.id)">See details...</a></td>
+                <td style="background-color: white;"><a [routerLink]="" (click)="showDetails(patient.id)">See details...</a></td>
             
               </tr>
             </tbody>
@@ -95,13 +108,13 @@
       </div>
       <div *ngIf="_showPatient" style="float:left;margin-left:18%;width:40%;">
         <h3 style="text-align: center;margin-top: 0.5em; margin-bottom: 0.5em;">Patient: {{_currentPatient.name}}  {{_currentPatient.surname}}</h3>
-        <table class="table" style="width:100%">
-          <tr><td><b>Serial number:</b></td><td>{{_currentPatient.serialNumber}}</td></tr>
-          <tr><td><b>Email:</b></td><td>{{_currentPatient.email}}</td></tr>
-          <tr><td><b>Address:</b></td><td>{{_currentPatient.address}}</td></tr>
-          <tr><td><b>City:</b></td><td>{{_currentPatient.city}}</td></tr>
-          <tr><td><b>Country:</b></td><td>{{_currentPatient.country}}</td></tr>
-          <tr><td><b>Phone number:</b></td><td>{{_currentPatient.phoneNumber}}</td></tr>
+        <table class="table" style="width:100%;border-style: solid;border-width: 0.1;border-color: darkblue;">
+          <tr><td style="background-color: lightskyblue;"><b>Serial number:</b></td><td style="background-color: white;">{{_currentPatient.serialNumber}}</td></tr>
+          <tr><td style="background-color: lightskyblue;"><b>Email:</b></td><td style="background-color: white;">{{_currentPatient.email}}</td></tr>
+          <tr><td style="background-color: lightskyblue;"><b>Address:</b></td><td style="background-color: white;">{{_currentPatient.address}}</td></tr>
+          <tr><td style="background-color: lightskyblue;"><b>City:</b></td><td style="background-color: white;">{{_currentPatient.city}}</td></tr>
+          <tr><td style="background-color: lightskyblue;"><b>Country:</b></td><td style="background-color: white;">{{_currentPatient.country}}</td></tr>
+          <tr><td style="background-color: lightskyblue;"><b>Phone number:</b></td><td style="background-color: white;">{{_currentPatient.phoneNumber}}</td></tr>
         </table>
         <button style="float: left;width:7em;" type="button" class="btn btn-primary btn-sm" [routerLink] = "['/patientHP', _currentPatient.id]" >Profile</button>
         <button style="float: right;width:7em;" type="button" class="btn btn-primary btn-sm" (click)="goBack()">Back</button>

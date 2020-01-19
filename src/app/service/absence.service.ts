@@ -36,4 +36,45 @@ import { map } from 'rxjs/operators';
           })
         )
   }
+    getAllRequestedAbsences(clinicId:String){
+      return this._apiService.get("http://localhost:9000/api/absences/getAllRequestedAbsences/" + clinicId).pipe(
+            map(absenceRequests => {
+                   return absenceRequests;      
+            })
+          )
+    }
+
+    getNumberOfRequests(clinicId:Number){
+      return this._apiService.get("http://localhost:9000/api/absences/getNumberOfRequests/" + clinicId).pipe(
+            map(requestsNumber => {
+                   return requestsNumber;      
+            })
+          )
+    }
+
+    approveAbsence(absenceId){
+          const editHeaders = new HttpHeaders({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          });
+          return this._apiService.put("http://localhost:9000/api/absences/approveAbsence/" + absenceId,editHeaders).pipe(
+            map(result => {
+              console.log("Request for absence approved.");
+      
+            })
+          )  
+        }
+
+    rejectAbsence(absenceId, message){
+      const editHeaders = new HttpHeaders({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      });
+      return this._apiService.put("http://localhost:9000/api/absences/rejectAbsence/" + absenceId, message, editHeaders).pipe(
+        map(result => {
+          console.log("Request for absence rejected.");
+  
+        })
+      )  
+    }
   }
