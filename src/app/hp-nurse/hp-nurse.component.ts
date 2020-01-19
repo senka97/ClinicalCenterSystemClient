@@ -5,6 +5,10 @@ import { PatientService } from './../service/patient.service';
 import { AuthService } from './../service/auth.service';
 import { FirstLoginDialogComponent } from '../shared/dialogs/first-login-dialog/first-login-dialog.component';
 import { Router } from '@angular/router';
+import { AbsenceService } from '../service/absence.service';
+import { NgbDate, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
+import { InfoDialogComponent } from '../shared/dialogs/info-dialog/info-dialog.component';
+import { AbsenceRequest } from '../shared/model/AbsenceRequest';
 
 
 @Component({
@@ -14,20 +18,37 @@ import { Router } from '@angular/router';
 })
 export class HpNurseComponent implements OnInit {
 
-  constructor( private _authService: AuthService, 
-    private _patientService:PatientService, 
-    private _router: Router,
-    private _dialog: MatDialog) { 
+  constructor(private _authService: AuthService, 
+              private _patientService:PatientService, 
+              private _router: Router,
+              private _dialog: MatDialog,
+              private _absenceService:AbsenceService, 
+              private _calendar: NgbCalendar) { 
+
+    //this.fromDate = _calendar.getToday();
+    //this.toDate = _calendar.getNext(_calendar.getToday(), 'd', 10);
 
   }
+
+  hoveredDate: NgbDate;
+  fromDate: NgbDate;
+  toDate: NgbDate;
 
   private _currentNurse: any;
   private _currentPatient: any;
   private _patients: any;
   private _passwordChanger: PasswordChanger;
+  private _selectedType: String;
+  private _typesAbsence = [
+   {value: 'Paid_vacation', viewValue: 'Paid vacation'},
+   {value: 'Unpaid_leave', viewValue: 'Unpaid leave'},
+   {value: 'Sick_leave', viewValue: 'Sick leave'}
+ ];
 
   private _showList: boolean;
   private _showPatient: boolean;
+  private _showFormRequest: boolean;
+  
 
   ngOnInit() {
     this._currentNurse = JSON.parse(localStorage.getItem('currentUser'));
@@ -43,13 +64,19 @@ export class HpNurseComponent implements OnInit {
     this._patientService.getAllPatients().subscribe(patients => {
       this._patients = patients;     
      });
+
+    this.fromDate = this._calendar.getToday();
+    this.toDate = this._calendar.getNext(this._calendar.getToday(), 'd', 10);
+
     this._showList = false;
     this._showPatient = false;
+    this._showFormRequest = false;
   }
 
   showAllPatients(){
       this._showList = !this._showList;
-      this._showPatient = false;      
+      this._showPatient = false;  
+      this._showFormRequest = false;    
   }
 
   showDetails(id){
@@ -58,6 +85,82 @@ export class HpNurseComponent implements OnInit {
       this._showList = false;
       this._showPatient = true;
     })
+  }
+
+  showFormRequest(){
+    this._showFormRequest = true;
+    this._showList = false;
+    this._showPatient = false;
+    this.fromDate = this._calendar.getToday();
+    this.toDate = this._calendar.getNext(this._calendar.getToday(), 'd', 10);
+    this._selectedType = "";
+  }
+
+  onDateSelection(date: NgbDate) {
+    if (!this.fromDate && !this.toDate) {
+      this.fromDate = date;
+    } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
+      this.toDate = date;
+    } else {
+      this.toDate = null;
+      this.fromDate = date;
+    }
+  }
+
+  sendRequestAbsence(){
+    
+    if(this.toDate == null){
+      let dialogRef1 = this._dialog.open(InfoDialogComponent, {
+        width: '50%',
+        data: "You have to choose end date for your absence."
+      });
+    }else{
+      let absenceRequest = new AbsenceRequest();
+      absenceRequest.startDate = [];
+      absenceRequest.endDate = [];
+      absenceRequest.typeOfAbsence = this._selectedType;
+      absenceRequest.startDate[0] = this.fromDate.year;
+      absenceRequest.startDate[1] = this.fromDate.month;
+      absenceRequest.startDate[2] = this.fromDate.day;
+      absenceRequest.endDate[0] = this.toDate.year;
+      absenceRequest.endDate[1] = this.toDate.month;
+      absenceRequest.endDate[2] = this.toDate.day;
+
+
+      this._absenceService.sendRequestNurse(absenceRequest).subscribe(
+        res => {
+          let dialogRef1 = this._dialog.open(InfoDialogComponent, {
+            width: '50%',
+            data: "Absence request sent."
+          });
+        },
+        error => {
+          let dialogRef1 = this._dialog.open(InfoDialogComponent, {
+            width: '50%',
+            data: error.error
+          });
+
+        }
+      )
+    }
+    console.log(this.fromDate);
+    console.log(this.toDate);
+  }
+
+  isHovered(date: NgbDate) {
+    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
+  }
+
+  isInside(date: NgbDate) {
+    return date.after(this.fromDate) && date.before(this.toDate);
+  }
+
+  isRange(date: NgbDate) {
+    return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
+  }
+
+  cancelAbsence(){
+    this._showFormRequest = false;
   }
 
   goBack(){ //vraca na listu pacijenata
