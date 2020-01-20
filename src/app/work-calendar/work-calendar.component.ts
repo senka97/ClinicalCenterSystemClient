@@ -38,8 +38,7 @@ export class WorkCalendarComponent implements OnInit {
     },
     {
       title: 'Appointment Today',
-      start: new Date("Sat Jan 18 2020 07:00:00 AM"),
-      end: new Date("Sat Jan 18 2020 08:00:00 AM")
+      start: new Date()
     }
   ];
 

@@ -24,6 +24,18 @@ import { map } from 'rxjs/operators';
           )
     }
 
+    sendRequestNurse(absenceRequest:AbsenceRequest){
+      const editHeaders = new HttpHeaders({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        });
+        return this._apiService.post("http://localhost:9000/api/absences/sendRequestNurse", JSON.stringify(absenceRequest), editHeaders).pipe(
+          map(result => {
+            console.log("Request for absence sent.");
+    
+          })
+        )
+  }
     getAllRequestedAbsences(clinicId:String){
       return this._apiService.get("http://localhost:9000/api/absences/getAllRequestedAbsences/" + clinicId).pipe(
             map(absenceRequests => {

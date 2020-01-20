@@ -1,7 +1,3 @@
-/*#div-page {
-    position: relative;
-    z-index: 1;
-}*/
 #div-page{
     content: "";
     position: absolute;
@@ -11,9 +7,7 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-   /* background-position: center;*/
     height:100vh;
-   
 }
 body{
     background-color: lightskyblue;
@@ -36,4 +30,13 @@ td.b{
     margin: auto;
     height: 40%;
     width: 60%;
+}
+#logo{
+    cursor:default;
+    pointer-events:none;
+}
+
+#name{
+    cursor:default;
+    pointer-events:none;
 }
