@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Details about doctor {{data.name}} {{data.surname}}</h1>
 <div mat-dialog-content>
-  <form  #clinicForm="ngForm">
+  <form  #detailsForm="ngForm">
       <table>
           <tr><td><b>Name:</b></td><td><input style="color:white" type="text" [(ngModel)] = 'data.name' name="name" disabled></td></tr>
           <tr><td><b>Surname:</b></td><td><input style="color:white" type="text" [(ngModel)] = 'data.surname' name="surname" disabled></td></tr>
