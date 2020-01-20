@@ -14,7 +14,7 @@ import { ClinicalCenterAdminService } from './service/clinical-center-admin.serv
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule} from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -183,7 +183,8 @@ import { RejectDialogComponent } from './profile-clinic-admin/absence-request/re
     }),
     MatBadgeModule,
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
+    ReactiveFormsModule
   ],
   providers: [
     {
