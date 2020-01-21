@@ -1,3 +1,5 @@
+import { TypesService } from './../../service/types.service';
+import { FormControl } from '@angular/forms';
 import { DoctorService } from './../../service/doctor.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -7,6 +9,7 @@ import { InfoDialogComponent } from 'src/app/shared/dialogs/info-dialog/info-dia
 import { Doctor } from 'src/app/shared/model/Doctor';
 import { DetailsDoctorDialogComponent } from './details-doctor-dialog/details-doctor-dialog.component';
 import { Time } from 'src/app/shared/model/Time';
+import { TypeReg } from 'src/app/shared/model/TypeReg';
 
 @Component({
   selector: 'app-doctors',
@@ -15,7 +18,7 @@ import { Time } from 'src/app/shared/model/Time';
 })
 export class DoctorsComponent implements OnInit {
 
-  constructor(private _route: ActivatedRoute, private _doctorService: DoctorService, private _router: Router, private _dialog: MatDialog) { }
+  constructor(private _route: ActivatedRoute, private _doctorService: DoctorService, private _router: Router, private _dialog: MatDialog, private _typesService: TypesService) { }
 
   private _currentAdmin: any;
   private _clinicId: String;
@@ -31,6 +34,11 @@ export class DoctorsComponent implements OnInit {
   private _newDoctor: Doctor;
   private _workingHoursStartTemp: Time;
   private _workingHoursEndTemp: Time;
+  private _examTypesId = []; //za registraciju
+  private _surgeryTypesId = [];
+  private _examTypeList: TypeReg[]; //za prikaz liste tipova u selektu kod registracije
+  private _surgeryTypeList: TypeReg[];
+  private _confirmPassword: String;
 
   ngOnInit() {
     this._route.paramMap.subscribe(params => { 
@@ -160,6 +168,14 @@ export class DoctorsComponent implements OnInit {
   }
 
   showForm(){
+    this._typesService.getTypesForReg(this._clinicId).subscribe(
+      res => {
+        this._examTypeList = res.examTypeRegs;
+        this._surgeryTypeList = res.surgeryTypeRegs;
+        
+      }
+    )
+    this._confirmPassword = "";
     this._showTable = false;
     this._showMsg = false;
     this._showForm = true;
@@ -172,6 +188,9 @@ export class DoctorsComponent implements OnInit {
       this._newDoctor.workingHoursStart[1] = this._workingHoursStartTemp.minute;
       this._newDoctor.workingHoursEnd[0] = this._workingHoursEndTemp.hour;
       this._newDoctor.workingHoursEnd[1] = this._workingHoursEndTemp.minute;
+      this._newDoctor.examTypesId = this._examTypesId;
+      this._newDoctor.surgeryTypesId = this._surgeryTypesId;
+      console.log(this._newDoctor);
 
       this._doctorService.addNewDoctor(this._newDoctor,this._clinicId).subscribe(
         res => {
@@ -180,6 +199,7 @@ export class DoctorsComponent implements OnInit {
             data: "You have successfully registered a new doctor."
           });
           form.reset();
+          this._confirmPassword = "";
         },
         error => {
           let dialogRef1 = this._dialog.open(DetailsDoctorDialogComponent, {
@@ -195,8 +215,11 @@ export class DoctorsComponent implements OnInit {
   cancelForm(form){
     this._showForm = false;
     form.reset();
+    console.log(this._examTypesId);
+    console.log(this._surgeryTypesId);
     console.log(this._workingHoursStartTemp);
     console.log(this._workingHoursEndTemp);
+    
 
   }
 

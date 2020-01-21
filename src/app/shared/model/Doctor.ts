@@ -1,3 +1,4 @@
+import { TypeReg } from 'src/app/shared/model/TypeReg';
 export class Doctor{
 
     id: Number;
@@ -12,6 +13,9 @@ export class Doctor{
     serialNumber: String;
     workingHoursStart: Number[];
     workingHoursEnd: Number[];
+    examTypesId: Number[]; //ovo za registraciju doktora
+    surgeryTypesId: Number[];
+    
 
     constructor(){}
 
