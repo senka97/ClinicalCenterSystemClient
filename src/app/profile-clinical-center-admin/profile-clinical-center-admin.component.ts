@@ -59,9 +59,9 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
   private _changedDiagnosis: any;
   private _changedMedication: any;
 
-  newRequests: boolean; //da li ce prikazati dugme za nove zahteve
-  showInformation: boolean = false;
+  numOfRequests: Number;
   showNewRequests: boolean=false; //prikaz tabele sa novim zahtevima
+  showInformation: boolean = false;
   showMedicationCodebook: boolean = false;
   showDiagnosisCodebook: boolean = false;
 
@@ -74,13 +74,7 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
     //this._newMedication = new CodebookItem();
     this._clinicalCenterAdminService.getNewRequests().subscribe( users => {
       this.userRequests = users;
-      if(users.length==0)
-      {
-        this.newRequests=false;
-      }
-      else{
-        this.newRequests=true;
-      }
+      this.numOfRequests = this.userRequests.length;
     })
     this._medicationService.getMedications().subscribe( medications => {
       this._medications = medications;
@@ -178,9 +172,9 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
     this._clinicalCenterAdminService.acceptRequest(id).subscribe(data=>{
       this._clinicalCenterAdminService.getNewRequests().subscribe( users => {
         this.userRequests = users;
-        if(users.length==0)
+        this.numOfRequests = this.userRequests.length
+        if(this.numOfRequests==0)
         {
-          this.newRequests=false;
           this.showNewRequests=false;
         }
       })
@@ -205,9 +199,9 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
         this._clinicalCenterAdminService.rejectRequest(id,this._rejectRequestObject.message).subscribe(data=>{
           this._clinicalCenterAdminService.getNewRequests().subscribe( users => {
             this.userRequests = users;
-            if(users.length==0)
+            this.numOfRequests = this.userRequests.length
+            if(this.numOfRequests==0)
             {
-              this.newRequests=false;
               this.showNewRequests=false;
             }
           })

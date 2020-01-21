@@ -13,9 +13,6 @@
             </div>
             <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item" *ngIf='newRequests'>
-                        <button class="btn btn-sm btn-outline-secondary" (click)="clickNewRequest()" style="background-color: red;  color: white; margin: 4px"> New requests </button>
-                    </li>
                     <li class="nav-item">
                         <button class="btn btn-sm btn-outline-secondary" (click)="clickedProfile()" style="color:darkblue; margin: 4px"> Profile </button>
                     </li>
@@ -28,24 +25,22 @@
     
         <ul class="nav flex-column nav-pills" style="color: blue; background-color: lightskyblue; float:left;">   
             <li class="nav-item">
+                <button class="btn btn-sm btn-outline-secondary" (click)="clickNewRequest()" style=" width: 24em; color:darkblue;"> <span matBadge={{numOfRequests}} matBadgeOverlap="false"  matBadgeSize="medium" [matBadgeHidden]="numOfRequests == 0">  Requests for registration  </span></button>
+            </li>
+            <li class="nav-item">
                 <button class="btn btn-sm btn-outline-secondary" style="width: 24em; color:darkblue;" (click)="clickMedicationCodebook()"> Medication Codebook </button>
-             <!-- <a class="nav-link" [routerLink]="" (click)="clickMedicationCodebook()" >Medication Codebook</a> -->
             </li>
             <li class="nav-item">
                 <button class="btn btn-sm btn-outline-secondary" style="width: 24em; color:darkblue" (click)="clickDiagnosisCodebook()"> Diagnosis Codebook </button>
-               <!-- <a class="nav-link" [routerLink]="" (click)="clickDiagnosisCodebook()" >Diagnosis Codebook</a>-->
             </li>
             <li class="nav-item">
                 <button class="btn btn-sm btn-outline-secondary" style="width: 24em; color:darkblue" (click)="clickRegisterClCAdmin()"> Register clinical center administrator</button>
-              <!--<a class="nav-link" [routerLink]="" (click)="clickRegisterClCAdmin()" >Register clinical center administrator</a>-->
             </li>
             <li class="nav-item">
                 <button class="btn btn-sm btn-outline-secondary" style="width: 24em; color:darkblue;" (click)="clickRegisterClinicAdmin()"> Register clinic administrator</button>
-              <!--<a class="nav-link"  [routerLink]="" (click)="clickRegisterClinicAdmin()" >Register clinic administrator</a>-->
             </li>
             <li class="nav-item">
                 <button class="btn btn-sm btn-outline-secondary" style="width: 24em; color:darkblue" (click)="clickRegisterClinic()"> Register clinic</button>
-                <!--<a class="nav-link" [routerLink]="" (click)="clickRegisterClinic()">Register clinic</a>-->
             </li>
         </ul>
         
@@ -102,10 +97,11 @@
             </div>
         </div>
     
-        <div class='panel panel-primary' *ngIf = 'showNewRequests' >
-                <div class="card" style="background: lightskyblue;  margin-top: 2%; margin-left: 2%;" >
+        <div class='panel panel-primary' *ngIf = 'showNewRequests' style="margin-left: 5%;" >
+                <div class="card" style="background: lightskyblue;  margin-top: 2%;" >
                     <div class="card-content">
-                        <span class="card-title">New requests for registration: </span>
+                        <!--<span class="card-title"> </span>-->
+                        <h3 class="card-title" style= " color: darkblue"> New requests for registration </h3>
                     </div>
                     <table class='table'>
                       <tr> <th>Name</th> <th>Surname</th> <th>Email</th> <th>Address</th> <th>City</th> <th>Country</th> <th style="text-align: center;">Accept</th> <th style="text-align: center;">Reject</th> </tr> 
