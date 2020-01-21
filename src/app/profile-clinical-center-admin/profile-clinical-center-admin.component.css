@@ -40,3 +40,7 @@ td.b{
     cursor:default;
     pointer-events:none;
 }
+.mat-badge-content {
+    background: red;
+    color: white;
+}

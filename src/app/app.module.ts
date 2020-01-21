@@ -74,6 +74,7 @@ import { DoctorService } from './service/doctor.service';
 import { DetailsDoctorDialogComponent } from './profile-clinic-admin/doctors/details-doctor-dialog/details-doctor-dialog.component';
 import { AbsenceRequestComponent } from './profile-clinic-admin/absence-request/absence-request.component';
 import { RejectDialogComponent } from './profile-clinic-admin/absence-request/reject-dialog/reject-dialog.component';
+import { PrescriptionService } from './service/prescription.service';
 
 
 
@@ -205,7 +206,8 @@ import { RejectDialogComponent } from './profile-clinic-admin/absence-request/re
     DiagnosisService,
     MedicationService,
     DoctorService,
-    AbsenceService
+    AbsenceService,
+    PrescriptionService
   ],
   entryComponents: [ //ovo mora da se doda za dijalog
     PasswordChangedDialogComponent,
