@@ -1,8 +1,8 @@
 .container-fluid{
     margin-top: 20px;
-    width: 270px;
+    width: 250px;
     height: 320px;
-    border:5px solid #cecece;
+    border:3px solid #cecece;
 }
 .container-board {
     border:3px solid #5645a1;
