@@ -42,7 +42,7 @@
                 <button class="link" (click)="showMedicalExams()"> List of medical exams </button>
             </li>
             <li class="nav-item">
-                <button class="link"> List of surgeries </button>
+                <button class="link" (click)="showSurgeries()"> List of surgeries </button>
             </li>
             <li class="nav-item">
                 <button class="link">Scheduled medical exams</button>
@@ -75,4 +75,5 @@
     <app-clinic-list *ngIf="showClinics"> </app-clinic-list>
     <!-- <app-doctors-list *ngIf="showDoctors"> </app-doctors-list> -->
     <app-medical-exams-list *ngIf="showExams" [_medicalExams] = "_medicalExams"></app-medical-exams-list>
+    <app-surgery-list *ngIf="showSurgeries" [_surgeries] = "_surgeries"></app-surgery-list>
 </div>

@@ -12,14 +12,14 @@ export class SurgeryService{
         private _config: ConfigService){
 
     }
-    // getMedicalExam(id:string){
-    //     return this._apiService.get("http://localhost:9000/api/medicalExams/getMedicalExam/" + id).pipe(
-    //         map(exam => {
-    //             console.log(exam);
-    //             return exam;
-    //         })
-    //       )
-    // }
+    getSurgeries(id:string){
+        return this._apiService.get("http://localhost:9000/api/surgery/getSurgeries/" + id).pipe(
+            map(surgery => {
+                console.log(surgery);
+                return surgery;
+            })
+          )
+    }
 
 
 }
