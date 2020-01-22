@@ -9,6 +9,8 @@ import { AbsenceService } from '../service/absence.service';
 import { NgbDate, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import { InfoDialogComponent } from '../shared/dialogs/info-dialog/info-dialog.component';
 import { AbsenceRequest } from '../shared/model/AbsenceRequest';
+import { PrescriptionService } from '../service/prescription.service';
+import { Prescription } from '../shared/model/Prescription';
 
 
 @Component({
@@ -23,7 +25,8 @@ export class HpNurseComponent implements OnInit {
               private _router: Router,
               private _dialog: MatDialog,
               private _absenceService:AbsenceService, 
-              private _calendar: NgbCalendar) { 
+              private _calendar: NgbCalendar,
+              private _prescriptionService: PrescriptionService) { 
 
     //this.fromDate = _calendar.getToday();
     //this.toDate = _calendar.getNext(_calendar.getToday(), 'd', 10);
@@ -37,6 +40,8 @@ export class HpNurseComponent implements OnInit {
   private _currentNurse: any;
   private _currentPatient: any;
   private _patients: any;
+  private _prescriptions: Prescription[];
+  private _numOfPrescriptions: number;
   private _passwordChanger: PasswordChanger;
   private _selectedType: String;
   private _typesAbsence = [
@@ -48,6 +53,7 @@ export class HpNurseComponent implements OnInit {
   private _showList: boolean;
   private _showPatient: boolean;
   private _showFormRequest: boolean;
+  private _showPrescriptions: boolean;
   
 
   ngOnInit() {
@@ -65,18 +71,25 @@ export class HpNurseComponent implements OnInit {
       this._patients = patients;     
      });
 
+    this._prescriptionService.getPrescriptions().subscribe(prescriptions => {
+      this._prescriptions = prescriptions;     
+      this._numOfPrescriptions = this._prescriptions.length;
+     });
+
     this.fromDate = this._calendar.getToday();
     this.toDate = this._calendar.getNext(this._calendar.getToday(), 'd', 10);
 
     this._showList = false;
     this._showPatient = false;
     this._showFormRequest = false;
+    this._showPrescriptions = false;
   }
 
   showAllPatients(){
       this._showList = !this._showList;
       this._showPatient = false;  
-      this._showFormRequest = false;    
+      this._showFormRequest = false;
+      this._showPrescriptions = false;    
   }
 
   showDetails(id){
@@ -87,13 +100,40 @@ export class HpNurseComponent implements OnInit {
     })
   }
 
+  
+
   showFormRequest(){
     this._showFormRequest = true;
     this._showList = false;
     this._showPatient = false;
+    this._showPrescriptions = false;  
     this.fromDate = this._calendar.getToday();
     this.toDate = this._calendar.getNext(this._calendar.getToday(), 'd', 10);
     this._selectedType = "";
+  }
+
+  showPrescriptions(){
+    this._showPrescriptions = !this._showPrescriptions;
+    this._showList = false;
+    this._showPatient = false;
+    this._showFormRequest = false;
+  }
+
+  clickVerify(prescription)
+  {
+    this._prescriptionService.verify(prescription.id).subscribe(data=>{
+      this._prescriptionService.getPrescriptions().subscribe( prescriptions => {
+        this._prescriptions = prescriptions;
+        this._numOfPrescriptions = this._prescriptions.length;
+        if(this._numOfPrescriptions == 0)
+        {
+          this._showPrescriptions = false;
+        }
+      })
+    },
+    error=>{
+      console.log("Error accepting request");
+    })
   }
 
   onDateSelection(date: NgbDate) {
@@ -183,5 +223,6 @@ export class HpNurseComponent implements OnInit {
   clickedBack(){
     this._showPatient = false;
     this._showList = false;
+    this._showPrescriptions = false;  
   }
 }

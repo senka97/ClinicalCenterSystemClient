@@ -14,7 +14,7 @@ import { ClinicalCenterAdminService } from './service/clinical-center-admin.serv
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule} from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -78,6 +78,9 @@ import { MedicalexamsListComponent } from './hp-patient/medicalexams-list/medica
 import {MedicalExamService }  from './service/medical-exam-service';
 import {SurgeryService} from './service/surgery.service';
 import { SurgeryListComponent } from './hp-patient/surgery-list/surgery-list.component';
+import { PrescriptionService } from './service/prescription.service';
+
+
 
 
 @NgModule({
@@ -187,7 +190,8 @@ import { SurgeryListComponent } from './hp-patient/surgery-list/surgery-list.com
     }),
     MatBadgeModule,
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
+    ReactiveFormsModule
   ],
   providers: [
     {
@@ -210,7 +214,8 @@ import { SurgeryListComponent } from './hp-patient/surgery-list/surgery-list.com
     DoctorService,
     AbsenceService,
     MedicalExamService,
-    SurgeryService
+    SurgeryService,
+    PrescriptionService
   ],
   entryComponents: [ //ovo mora da se doda za dijalog
     PasswordChangedDialogComponent,

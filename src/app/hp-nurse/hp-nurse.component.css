@@ -45,3 +45,18 @@ td{
     cursor:default;
     pointer-events:none;
 }
+
+.table-responsive{
+    margin: auto;
+    height: 40%;
+    
+}
+.panel-body{
+    margin: auto;
+    height: 40%;
+    
+}
+.mat-badge-content {
+    background: red;
+    color: white;
+}
