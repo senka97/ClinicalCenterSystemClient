@@ -22,3 +22,15 @@ button.link:focus{
 .mat-sort-header-container {
     align-items: center;
 }
+.background-img{
+    content: "";
+    position: absolute;
+    margin: 0;
+    padding : 0;
+    background-image: url('background-patient.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    min-height:100vh; 
+    height : auto;
+}

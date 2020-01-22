@@ -74,8 +74,10 @@ import { DoctorService } from './service/doctor.service';
 import { DetailsDoctorDialogComponent } from './profile-clinic-admin/doctors/details-doctor-dialog/details-doctor-dialog.component';
 import { AbsenceRequestComponent } from './profile-clinic-admin/absence-request/absence-request.component';
 import { RejectDialogComponent } from './profile-clinic-admin/absence-request/reject-dialog/reject-dialog.component';
-
-
+import { MedicalexamsListComponent } from './hp-patient/medicalexams-list/medicalexams-list.component';
+import {MedicalExamService }  from './service/medical-exam-service';
+import {SurgeryService} from './service/surgery.service';
+import { SurgeryListComponent } from './hp-patient/surgery-list/surgery-list.component';
 
 
 @NgModule({
@@ -122,7 +124,9 @@ import { RejectDialogComponent } from './profile-clinic-admin/absence-request/re
     DoctorsComponent,
     DetailsDoctorDialogComponent,
     AbsenceRequestComponent,
-    RejectDialogComponent
+    RejectDialogComponent,
+    MedicalexamsListComponent,
+    SurgeryListComponent
     
   ],
   imports: [
@@ -204,7 +208,9 @@ import { RejectDialogComponent } from './profile-clinic-admin/absence-request/re
     DiagnosisService,
     MedicationService,
     DoctorService,
-    AbsenceService
+    AbsenceService,
+    MedicalExamService,
+    SurgeryService
   ],
   entryComponents: [ //ovo mora da se doda za dijalog
     PasswordChangedDialogComponent,

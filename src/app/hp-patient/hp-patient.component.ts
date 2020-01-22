@@ -5,6 +5,8 @@ import { NgForm } from "@angular/forms";
 import { AuthService } from '../service/auth.service';
 import { PatientService } from '../service/patient.service';
 import { MedicalRecord } from './medical-record/MedicalRecord';
+import { MedicalExamService } from '../service/medical-exam-service';
+import { MedicalExam } from '../shared/model/MedicalExam';
 @Component({
   selector: 'app-hp-patient',
   templateUrl: './hp-patient.component.html',
@@ -19,24 +21,33 @@ export class HpPatientComponent implements OnInit {
   showHome: boolean;
   showClinics: boolean;
   _medicalRecord: MedicalRecord;
-  showDoctors: boolean;
+  showExams : boolean;
+ // _medicalExams : any;
+  _medicalExams : MedicalExam[] = [
+   {   id: '1', date: '20-02-2018', startTime: '18:00', endTime: '19:00',examType: 'Neki malo dugacak tip',doctor: 'Nikola'},
+   {   id: '1', date: '20-02-2018', startTime: '18:00', endTime: '19:00',examType: 'Neki malo dugacak tip',doctor: 'Nikola'},
+   {   id: '1', date: '20-02-2018', startTime: '18:00', endTime: '19:00',examType: 'Neki malo dugacak tip',doctor: 'Nikola'},
+   {   id: '1', date: '20-02-2018', startTime: '18:00', endTime: '19:00',examType: 'Neki malo dugacak tip',doctor: 'Nikola'}
+  ]
   notPatient : boolean;
   message : any;
   _patientId: any;
   _disabled : boolean;
+
  
   
 
   constructor(private _route: ActivatedRoute,
     private _router: Router,
-    private _authService: AuthService, private _userService: UserService, private _patientService: PatientService) {
+    private _authService: AuthService, private _userService: UserService, private _patientService: PatientService,
+    private _medicalExamsService : MedicalExamService) {
      
 
   }
 
   ngOnInit() {
    
-  
+    this.showExams = false;
     if(this._signUpUser.authorities[0]['authority'] == 'ROLE_PATIENT'){
       this.notPatient = false;
       this.patientMedicalRecord(this._signUpUser.id);
@@ -102,8 +113,20 @@ export class HpPatientComponent implements OnInit {
 
   }
   showMedicalExams(){
-    this.showDoctors = this.uncheckAll(this.showDoctors);
-    this.showDoctors = this.check(this.showDoctors);
+    this.showExams = this.uncheckAll(this.showExams);
+    this.showExams = this.check(this.showExams);
+
+    // this._medicalExamsService.getMedicalExam(this._patientId).subscribe(exams => {
+    //   console.log("medical exams" + exams);
+    //   // console.log(exams.JSON)
+    //   this._medicalExams = exams;
+    //   this.showExams = this.uncheckAll(this.showExams);
+    //   this.showExams = this.check(this.showExams);
+
+
+    // })
+
+   
   }
 
   check(check: boolean): boolean {
@@ -120,7 +143,7 @@ export class HpPatientComponent implements OnInit {
     this.showHome = false;
     this.showMedicalRecord = false;
     this.showClinics = false;
-    this.showDoctors = false;
+    this.showExams = false;
     return check;
   }
   onClickedBack(){

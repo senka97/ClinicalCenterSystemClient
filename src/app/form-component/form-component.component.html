@@ -1,14 +1,14 @@
 <div>
     <div id="patientForm" *ngIf="showHome">
         <div class="row">
-            <div class="col center-align">
+            <div class="col center-align container">
 
 
                 <div class="card-content black-text">
                     <h3 class="titleMessage"> {{changePasswordMessage}}</h3>
 
                 </div>
-                <form class="col white" (ngSubmit)="onChangeClicked()" #userRegistrationForm="ngForm">
+                <form class="col" (ngSubmit)="onChangeClicked()" #userRegistrationForm="ngForm">
                     <div class="row" *ngIf="!show">
 
 
@@ -51,37 +51,6 @@
                         </div>
 
                     </div>
-                    <!--
-
-                   
-                    <div class="row" *ngIf="show">
-                        <div class="input-field col">
-                            <input type="password" class="validate" [(ngModel)]="oldPassword" name="oldPassword"
-                                required autocomplete="off" minlength="6" />
-                            <label class="form-label" data-error="Invalid password"> Old password {{message}}</label>
-
-                        </div>
-                        <div class="input-field col">
-                            <input type="password" class="validate" name="password" (change)="onPasswordChange()"
-                                #password="ngModel" [(ngModel)]="_signUpUser.password" required autocomplete="off"
-                                minlength="6" />
-                            <label class="form-label"
-                                [attr.data-error]="password.errors != null?(password.errors.required? 'Required Field!':'Minimum 6 Characters Needed'):'' ">
-                                New password</label>
-                        </div>
-                        <div class="input-field col">
-                            <input type="password" (change)="onConfirnChange()" id="confPassword" class="validate"
-                                [(ngModel)]="confirmPassword" name="confirmPassword" required autocomplete="off"
-                                minlength="6" [pattern]="_signUpUser.password"
-                                [style.border-color]="message=== 'changed' ? 'red' : ''" />
-                            <label class="form-label" data-error="Invalid password"> Re-entry new password
-                                {{message}}</label>
-
-                        </div>
-
-
-                    </div>
-                     -->
                     <div class="row" *ngIf="!show">
                         <div class="input-field col">
                             <input type="number" class="validate" name="phoneNumber" #phoneNumber="ngModel"
