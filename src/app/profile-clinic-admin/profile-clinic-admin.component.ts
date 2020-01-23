@@ -16,6 +16,9 @@ import { EditClinicDialogComponent } from './edit-clinic-dialog/edit-clinic-dial
 import { ClinicAdminService } from './../service/clinic-admin.service';
 import { Clinic } from '../shared/model/Clinic';
 import { MatBadgeModule } from '@angular/material/badge';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { InfoDialogComponent } from '../shared/dialogs/info-dialog/info-dialog.component';
+import { NotifierService } from 'angular-notifier';
 
 
 @Component({
@@ -25,7 +28,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 })
 export class ProfileClinicAdminComponent implements OnInit {
 
-  constructor(private _authService: AuthService, private _dialog: MatDialog, private _userService: UserService, private _router: Router, private _clinicAdminService: ClinicAdminService, private _clinicService: ClinicService, private _absenceService: AbsenceService) { }
+  constructor(private _authService: AuthService, private _dialog: MatDialog, private _userService: UserService, private _router: Router, private _clinicAdminService: ClinicAdminService, private _clinicService: ClinicService, private _absenceService: AbsenceService, private _notifier: NotifierService) { }
 
   private _currentAdmin: any;
   private _changedAdmin: any;
@@ -128,13 +131,16 @@ export class ProfileClinicAdminComponent implements OnInit {
        this._authService.logout();
   }
 
-  clickedClinicProfile(){
+  clickedGeneralInfo(){
      
-    //this._clinicAdminService.getMyClinic().subscribe(clinic => {       
-           //this._clinic = clinic;
            this._showInfo = false;
            this._showClinic = true;
-   // });
+  }
+
+  clickedClinicProfile(){
+      localStorage.setItem("clinic",JSON.stringify(this._clinic));
+      localStorage.setItem("coordinates",null);
+      this._router.navigate(['/clinicProfile/', this._clinic.id]);
   }
 
   clickedEditClinic(){
@@ -146,12 +152,26 @@ export class ProfileClinicAdminComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result != undefined){
          this._changedClinic = result;
+         console.log(this._clinic);
+         console.log(this._changedClinic);
          if(this._clinic.name != this._changedClinic.name || this._clinic.description != this._changedClinic.description
             || this._clinic.address != this._changedClinic.address){
             this._clinic = JSON.parse(JSON.stringify(this._changedClinic));
-            this._clinicService.editClinicInfo(this._changedClinic).subscribe(res => {
-                 console.log("clinic updated");
-    });
+            this._clinicService.editClinicInfo(this._changedClinic).subscribe(
+              res => {
+                       this._notifier.notify("success","Clinic successfully updated.");
+                       setTimeout(() => {
+                        this._notifier.hideAll();
+                      }, 2000)
+              },
+              error => {
+                       
+                let dialogRef = this._dialog.open(InfoDialogComponent, {
+                  width: '50%',
+                  data: error.error
+                });   
+              }
+              );
       }
     }
     });
