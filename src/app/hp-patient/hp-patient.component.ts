@@ -9,6 +9,9 @@ import { MedicalExamService } from '../service/medical-exam-service';
 import { MedicalExam } from '../shared/model/MedicalExam';
 import { Surgery } from '../shared/model/Surgery';
 import { SurgeryService } from '../service/surgery.service';
+import { MatDialog } from '@angular/material';
+import { DoctorRateDialog } from '../shared/dialogs/doctor-rate-dialog/doctor-rate-dialog.component'
+import { Doctor } from './doctors-list/Doctor';
 @Component({
   selector: 'app-hp-patient',
   templateUrl: './hp-patient.component.html',
@@ -27,31 +30,25 @@ export class HpPatientComponent implements OnInit {
   _medicalExams : any;
   showSurge : boolean;
   _surgeries : any;
-  // _surgeries : Surgery[] = [
-  //   {   id: '1', date: '20-02-2018', startTime: '18:00', endTime: '19:00',surgeryType: 'Neki malo dugacak tip'},
-  //   {   id: '1', date: '20-02-2018', startTime: '18:00', endTime: '19:00',surgeryType: 'Neki malo dugacak tip'},
-  //   {   id: '1', date: '20-02-2018', startTime: '18:00', endTime: '19:00',surgeryType: 'Neki malo dugacak tip'},
-  //   {   id: '1', date: '20-02-2018', startTime: '18:00', endTime: '19:00',surgeryType: 'Neki malo dugacak tip'}
-  //  ];
-
   notPatient : boolean;
   message : any;
   _patientId: any;
   _disabled : boolean;
 
- 
-  
+  numOfReviews : Number  = 0;
+  _doctorsForRate : Doctor[];
 
   constructor(private _route: ActivatedRoute,
     private _router: Router,
     private _authService: AuthService, private _userService: UserService, private _patientService: PatientService,
-    private _medicalExamsService : MedicalExamService, private _surgeryService : SurgeryService) {
-     
+    private _medicalExamsService : MedicalExamService, private _surgeryService : SurgeryService, private _dialog: MatDialog) {
+
 
   }
 
+
   ngOnInit() {
-   
+    
     this.showExams = false;
     this.showSurge = false;
     if(this._signUpUser.authorities[0]['authority'] == 'ROLE_PATIENT'){
@@ -60,6 +57,13 @@ export class HpPatientComponent implements OnInit {
       this._patientId = this._signUpUser.id;
       this.message = "Home page for patient:";
       this._disabled = true;
+      this._patientService.getRatedDoctors(this._patientId).subscribe(doctors => {
+
+        this._doctorsForRate = doctors;
+        console.log("Found doctors : " , doctors);
+        this.numOfReviews = this._doctorsForRate.length;
+      })
+
     }else{
 
       this._route.paramMap.subscribe(params => { 
@@ -71,34 +75,33 @@ export class HpPatientComponent implements OnInit {
       this._disabled = false;
     }
     this.uncheckAll(false);
-    this.resetForm();
 
     document.getElementById("hidden").hidden = this.notPatient;
     document.getElementById("notHidden").hidden = !this.notPatient;
     document.getElementById("hidden2").hidden = this.notPatient;
     document.getElementById("notHidden2").hidden = !this.notPatient;
-    console.log("OVOOO")
-    console.log( this._signUpUser.authorities[0]['authority'])
-    console.log(this._patientId);
   
-
     this._medicalRecord = new MedicalRecord();
   }
   patientMedicalRecord(id) {
     this._patientService.getPatientMedicalRecord(id).subscribe(medRecord => {
       console.log(medRecord);
       this._medicalRecord = medRecord;
-
-
     })
-  }
-
-  resetForm(form?: NgForm) {
   }
   onClickedLogout() {
     this._authService.logout();
-
   }
+  giveReview(){
+    let dialog = this._dialog.open(DoctorRateDialog, {
+
+      width: '30%',
+      data: this._doctorsForRate,
+    });
+
+  
+  }
+
   showProfileInfo() {
     this.show = this.uncheckAll(this.show);
     this.show = this.check(this.show);
@@ -119,18 +122,13 @@ export class HpPatientComponent implements OnInit {
 
   }
   showMedicalExams(){
-
     this._medicalExamsService.getMedicalExam(this._patientId).subscribe(exams => {
       console.log("medical exams" + exams);
       // console.log(exams.JSON)
       this._medicalExams = exams;
       this.showExams = this.uncheckAll(this.showExams);
       this.showExams = this.check(this.showExams);
-
-
     })
-
-   
   }
   showSurgeries(){
 
