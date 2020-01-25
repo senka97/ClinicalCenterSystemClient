@@ -74,6 +74,10 @@ import { DoctorService } from './service/doctor.service';
 import { DetailsDoctorDialogComponent } from './profile-clinic-admin/doctors/details-doctor-dialog/details-doctor-dialog.component';
 import { AbsenceRequestComponent } from './profile-clinic-admin/absence-request/absence-request.component';
 import { RejectDialogComponent } from './profile-clinic-admin/absence-request/reject-dialog/reject-dialog.component';
+import { MedicalexamsListComponent } from './hp-patient/medicalexams-list/medicalexams-list.component';
+import {MedicalExamService }  from './service/medical-exam-service';
+import {SurgeryService} from './service/surgery.service';
+import { SurgeryListComponent } from './hp-patient/surgery-list/surgery-list.component';
 import { PrescriptionService } from './service/prescription.service';
 import { ProfileClinicComponent } from './profile-clinic/profile-clinic.component';
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
@@ -168,7 +172,9 @@ const customNotifierOptions: NotifierOptions = {
     DetailsDoctorDialogComponent,
     AbsenceRequestComponent,
     RejectDialogComponent,
-    ProfileClinicComponent
+    ProfileClinicComponent,
+    MedicalexamsListComponent,
+    SurgeryListComponent
     
   ],
   imports: [
@@ -248,6 +254,8 @@ const customNotifierOptions: NotifierOptions = {
     MedicationService,
     DoctorService,
     AbsenceService,
+    MedicalExamService,
+    SurgeryService,
     PrescriptionService
   ],
   entryComponents: [ //ovo mora da se doda za dijalog

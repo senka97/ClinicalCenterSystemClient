@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid background-img">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
 
         <div class="mx-auto order-0">
@@ -42,7 +42,7 @@
                 <button class="link" (click)="showMedicalExams()"> List of medical exams </button>
             </li>
             <li class="nav-item">
-                <button class="link"> List of surgeries </button>
+                <button class="link" (click)="showSurgeries()"> List of surgeries </button>
             </li>
             <li class="nav-item">
                 <button class="link">Scheduled medical exams</button>
@@ -73,5 +73,7 @@
     </app-form-component>
     <app-medical-record *ngIf="showMedicalRecord" [_medicalRecord]="_medicalRecord" [_disabled]="_disabled" [_patientId]="_patientId"></app-medical-record>
     <app-clinic-list *ngIf="showClinics"> </app-clinic-list>
-    <app-doctors-list *ngIf="showDoctors"> </app-doctors-list>
+    <!-- <app-doctors-list *ngIf="showDoctors"> </app-doctors-list> -->
+    <app-medical-exams-list *ngIf="showExams" [_medicalExams] = "_medicalExams"></app-medical-exams-list>
+    <app-surgery-list *ngIf="showSurge" [_surgeries] = "_surgeries"></app-surgery-list>
 </div>
