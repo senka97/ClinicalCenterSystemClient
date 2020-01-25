@@ -94,11 +94,20 @@ export class HpPatientComponent implements OnInit {
   }
   giveReview(){
     let dialog = this._dialog.open(DoctorRateDialog, {
-
+      id: this._patientId,
       width: '30%',
       data: this._doctorsForRate,
     });
+    dialog.afterClosed().subscribe(data => {
+      this._patientService.getRatedDoctors(this._patientId).subscribe(doctors => {
 
+        this._doctorsForRate = doctors;
+        console.log("Found doctors : " , doctors);
+        this.numOfReviews = this._doctorsForRate.length;
+      });
+    });
+
+   
   
   }
 

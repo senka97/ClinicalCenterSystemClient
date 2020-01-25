@@ -62,7 +62,7 @@ import { DoctorSearch } from '../shared/model/DoctorSearch';
         )
 
     }
-    rateDoctor(id:String, rate: Number){
+    rateDoctor(id:String, rate: any){
         const editHeaders = new HttpHeaders({
             'Accept': 'application/json',
             'Content-Type': 'application/json'
