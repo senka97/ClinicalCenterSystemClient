@@ -121,5 +121,22 @@ import { HttpHeaders } from '@angular/common/http';
         )
     }
 
+    getExamPrice(clinic_id){
+        return this._apiService.get("http://localhost:9000/api/examTypes/getExamPrice/" + clinic_id).pipe(
+            map(examPrice => {
+                return examPrice;
+            })
+        )
+    }
+
+    getSurgeryPrice(clinic_id){
+        return this._apiService.get("http://localhost:9000/api/surgeryTypes/getSurgeryPrice/" + clinic_id).pipe(
+            map(surgeryPrice => {
+                return surgeryPrice;
+            })
+        )
+    }
+
+
 
   }

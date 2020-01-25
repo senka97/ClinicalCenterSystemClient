@@ -16,6 +16,14 @@ export class ClinicService {
   constructor(private _apiService: ApiService, private _config: ConfigService) {
 
   }
+
+  getClinic(id) {
+    return this._apiService.get("http://localhost:9000/api/clinics/getClinic/" + id).pipe(
+      map(clinic => {
+        return clinic;
+      })
+    )
+  }
   getClinics() {
     return this._apiService.get("http://localhost:9000/api/clinics/getClinics").pipe(
       map(clinics => {
@@ -33,7 +41,8 @@ export class ClinicService {
     });
     return this._apiService.put("http://localhost:9000/api/clinics/editClinic/" + clinic.id, JSON.stringify(clinic), editHeaders).pipe(
       map(result => {
-        console.log("Clinic updated.");
+        return result;
+        //console.log("Clinic updated.");
 
       })
     )

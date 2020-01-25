@@ -50,10 +50,11 @@
     <table *ngIf="_showTable" style="width:100%;;">
         <thead>
             <tr>
-                <th style="width:28%;">Name</th>
-                <th style="width:30%;">Description</th>
+                <th style="width:26%;">Name</th>
+                <th style="width:37%;">Description</th>
                 <th style="width:10%;">Price (&euro;)</th>
                 <th style="width:12%;">Discount (%)</th>
+                <th style="width:5%">Duration</th>
                 <th style="width:10%;">Update</th>
                 <th style="width:10%;">Remove</th>
             </tr>
@@ -62,8 +63,9 @@
           <tr *ngFor="let type of _foundTypes">
               <td>{{type.name}}</td>
               <td>{{type.description}}</td>
-              <td>{{type.price}}</td>
-              <td>{{type.discount}}</td>
+              <td style="text-align: center;">{{type.price}}</td>
+              <td style="text-align: center;">{{type.discount}}</td>
+              <td style="text-align: center;">{{type.duration}}h</td>
               <td><button class="btn btn-primary" (click)="updateType(type.id, _chosenTypeOfTypes)">Update</button></td>
               <td><button class="btn btn-danger" (click)="removeType(type.id, _chosenTypeOfTypes)">Remove</button></td>
           </tr>  

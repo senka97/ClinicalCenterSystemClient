@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { ModalModule } from './_modal';
-import { MatDatepickerModule, MatNativeDateModule, MatProgressSpinnerModule, MatSelectModule } from '@angular/material' //Date picker
+import { MatDatepickerModule, MatNativeDateModule, MatProgressSpinnerModule, MatSelectModule, MatIconModule, MatMenuModule } from '@angular/material' //Date picker
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; //bootstrap
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -44,7 +44,7 @@ import { PasswordWrongDialogComponent } from './shared/dialogs/password-wrong-di
 import { FirstLoginDialogComponent } from './shared/dialogs/first-login-dialog/first-login-dialog.component';
 import { EditClinicDialogComponent } from './profile-clinic-admin/edit-clinic-dialog/edit-clinic-dialog.component';
 import { DoctorsListComponent } from './hp-patient/doctors-list/doctors-list.component';
-import {MatSortModule,MatSortHeader,MatTableModule} from '@angular/material';
+import { MatSortModule, MatTableModule} from '@angular/material';
 import { AppointmentsListComponent } from './hp-patient/appointments-list/appointments-list.component';
 import { ExamRoomsComponent } from './profile-clinic-admin/exam-rooms/exam-rooms.component';
 import { MatRadioModule } from '@angular/material/radio';
@@ -79,7 +79,51 @@ import {MedicalExamService }  from './service/medical-exam-service';
 import {SurgeryService} from './service/surgery.service';
 import { SurgeryListComponent } from './hp-patient/surgery-list/surgery-list.component';
 import { PrescriptionService } from './service/prescription.service';
+import { ProfileClinicComponent } from './profile-clinic/profile-clinic.component';
+import { AngularYandexMapsModule } from 'angular8-yandex-maps';
+import { NotifierModule, NotifierOptions } from 'angular-notifier';
 
+
+const customNotifierOptions: NotifierOptions = {
+  position: {
+		horizontal: {
+			position: 'right',
+			distance: 12
+		},
+		vertical: {
+			position: 'top',
+			distance: 100,
+			gap: 10
+		}
+	},
+  theme: 'material',
+  behaviour: {
+    autoHide: 5000,
+    onClick: 'hide',
+    onMouseover: 'pauseAutoHide',
+    showDismissButton: true,
+    stacking: 4
+  },
+  animations: {
+    enabled: true,
+    show: {
+      preset: 'slide',
+      speed: 300,
+      easing: 'ease'
+    },
+    hide: {
+      preset: 'fade',
+      speed: 300,
+      easing: 'ease',
+      offset: 50
+    },
+    shift: {
+      speed: 300,
+      easing: 'ease'
+    },
+    overlap: 150
+  }
+};
 
 
 
@@ -128,6 +172,7 @@ import { PrescriptionService } from './service/prescription.service';
     DetailsDoctorDialogComponent,
     AbsenceRequestComponent,
     RejectDialogComponent,
+    ProfileClinicComponent,
     MedicalexamsListComponent,
     SurgeryListComponent
     
@@ -145,16 +190,7 @@ import { PrescriptionService } from './service/prescription.service';
       { path: 'signup', component: SignUpComponent },
       { path: 'patientHP', component: HpPatientComponent },
       { path: 'doctorHP', component: HpDoctorComponent},
-      {
-        path: 'nurseHP', component: HpNurseComponent/*,
-        children: [
-          {
-            path: 'listOfPatients',
-            component: ListPatientsComponent,
-            outlet: 'hpNurse',
-          },
-        ]*/
-      },
+      { path: 'nurseHP', component: HpNurseComponent},
       { path: 'clinicalCenterAdminProfile', component: ProfileClinicalCenterAdminComponent },
       { path: 'registerClinicalCenterAdmin', component: RegisterClinicalCenterAdminComponent },
       { path: 'registerClinicAdmin', component: RegisterClinicAdminComponent },
@@ -167,6 +203,7 @@ import { PrescriptionService } from './service/prescription.service';
       { path: 'workCalendar', component: WorkCalendarComponent},
       { path: 'doctorsInClinic/:id', component: DoctorsComponent},
       { path: 'absenceRequests/:id', component: AbsenceRequestComponent},
+      { path: 'clinicProfile/:id', component: ProfileClinicComponent},
       { path: '', redirectTo: 'login', pathMatch: 'full' }
       //{path: '**', redirectTo: 'login'},
 
@@ -191,7 +228,11 @@ import { PrescriptionService } from './service/prescription.service';
     MatBadgeModule,
     MatSelectModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    AngularYandexMapsModule.forRoot('8c25f85c-6bc9-4294-9e6d-10fed101991f'),
+    NotifierModule.withConfig(customNotifierOptions)    
   ],
   providers: [
     {
@@ -244,3 +285,5 @@ import { PrescriptionService } from './service/prescription.service';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
