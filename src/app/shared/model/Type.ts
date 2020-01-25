@@ -4,6 +4,7 @@ export class Type {
     description: string;
     price: number;
     discount: number;
+    duration: number;
 
     constructor(){}
 }
