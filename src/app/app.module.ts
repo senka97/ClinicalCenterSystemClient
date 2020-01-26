@@ -79,6 +79,7 @@ import {MedicalExamService }  from './service/medical-exam-service';
 import {SurgeryService} from './service/surgery.service';
 import { SurgeryListComponent } from './hp-patient/surgery-list/surgery-list.component';
 import { PrescriptionService } from './service/prescription.service';
+import { DoctorRateDialog } from './shared/dialogs/doctor-rate-dialog/doctor-rate-dialog.component';
 import { ProfileClinicComponent } from './profile-clinic/profile-clinic.component';
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
@@ -174,7 +175,8 @@ const customNotifierOptions: NotifierOptions = {
     RejectDialogComponent,
     ProfileClinicComponent,
     MedicalexamsListComponent,
-    SurgeryListComponent
+    SurgeryListComponent,
+    DoctorRateDialog
     
   ],
   imports: [
@@ -279,6 +281,7 @@ const customNotifierOptions: NotifierOptions = {
     DiagnosisDialogComponent,
     DetailsDoctorDialogComponent,
     RejectDialogComponent,
+    DoctorRateDialog,
     
   ],
   //schemas: [NO_ERRORS_SCHEMA],

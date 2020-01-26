@@ -35,7 +35,7 @@ export class DiagnosisService{
       })
     )
     }
-
+    //moram zamjeniti PUT i POST
     editDiagnosis(diagnosis)
     {
       const editHeaders = new HttpHeaders({

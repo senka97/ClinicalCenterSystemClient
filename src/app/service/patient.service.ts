@@ -99,6 +99,15 @@ export class PatientService{
         })
       )
 }
+getRatedDoctors(id:string){
+  return this._apiService.get("http://localhost:9000/api/patients/getRatedDoctors/" + id).pipe(
+      map(doctors => {
+          console.log("Doctors retrieved:");
+          console.log(doctors);
+          return doctors;
+      })
+    )
+}
     
 
 }

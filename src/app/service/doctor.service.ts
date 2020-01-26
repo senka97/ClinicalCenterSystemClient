@@ -62,4 +62,16 @@ import { DoctorSearch } from '../shared/model/DoctorSearch';
         )
 
     }
+    rateDoctor(id:String, rate: any){
+        const editHeaders = new HttpHeaders({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          });
+        return this._apiService.put("http://localhost:9000/api/doctors/rateDoctor/" + id, rate, editHeaders).pipe(
+            map(updateDoc => {
+                return updateDoc;
+            })
+        )
+
+    }
   }
