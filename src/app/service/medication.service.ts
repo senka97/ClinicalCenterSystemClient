@@ -20,7 +20,7 @@ export class MedicationService{
           })
         )
     }
-
+    //Moram zamjeniti PUT i POST
     addNewMedication(medication: CodebookItem)
     {
       const editHeaders = new HttpHeaders({
