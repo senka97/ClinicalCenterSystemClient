@@ -20,6 +20,14 @@ import { map } from 'rxjs/operators';
         )
       }
 
+    getRooms(idClinic){
+        return this._apiService.get("http://localhost:9000/api/rooms/getRooms/" + idClinic).pipe(
+          map(rooms => {
+            return rooms;
+          })
+        )
+    }
+
     removeRoom(room_id){
     return this._apiService.delete("http://localhost:9000/api/rooms/removeRoom/" + room_id).pipe(
         map(res=> {

@@ -1,3 +1,5 @@
+import { TypeReg } from 'src/app/shared/model/TypeReg';
+import { DoctorService } from 'src/app/service/doctor.service';
 import { TypesService } from './../service/types.service';
 import { PriceTag } from './../shared/model/PriceTag';
 import { ClinicService } from 'src/app/service/clinic.service';
@@ -6,6 +8,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Clinic } from '../shared/model/Clinic';
 import {MatIconRegistry} from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { RoomService } from '../service/room.service';
+import { Room } from '../shared/model/Room';
+import { StarRatingComponent } from 'ng-starrating';
+import { Doctor } from '../shared/model/Doctor';
+import { DoctorRating } from '../shared/model/DoctorRating';
+import { FormControl, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-profile-clinic',
@@ -14,7 +23,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class ProfileClinicComponent implements OnInit {
 
-  constructor(private _route:ActivatedRoute, private _router: Router, private _clinicService:ClinicService, private _iconRegistry: MatIconRegistry, private _sanitizer: DomSanitizer, private _typesSerivce: TypesService) {
+  constructor(private _route:ActivatedRoute, private _router: Router, private _clinicService:ClinicService, private _iconRegistry: MatIconRegistry, private _sanitizer: DomSanitizer, private _typesSerivce: TypesService,private _roomService:RoomService,private _doctorService:DoctorService) {
 
   }
 
@@ -24,20 +33,36 @@ export class ProfileClinicComponent implements OnInit {
   private _role: String;
   private _showFA: boolean;
   private _showPriceList: boolean;
+  private _showRooms: boolean;
+  private _showDoctors: boolean;
+  private _showTableAll:boolean;
+  private _showTableSearch:boolean;
   private _showMap: boolean;
   private _coordinates: Array<Number>;
   private _surgeryPrice: PriceTag[];
   private _examPrice: PriceTag[];
+  private _rooms: Room[];
+  private _index: Number;
+  private _doctors: DoctorRating[];
+  private _examTypes: TypeReg[];
+  //form
+  private _selectedType: TypeReg;
+  private _date: any;
+  private _rating: Number;
+  private _docName: String;
+  private _docSurname: String;
 
   ngOnInit() {
-      //Jovice moras kada pacijent klikne na klinike da tada u tom trenutku svuces kliniku na osnovu id-ja
-      //i da je stavis na localStorage da bi se ovde mogla preuzeti, mora zbog mape tako
       this._clinic = JSON.parse(localStorage.getItem("clinic"));
       this._currentUser = JSON.parse(localStorage.getItem('currentUser'));
       this._role = this._currentUser.authorities[0]['authority'];
       this._showFA = false;
       this._showPriceList = false;
       this._showMap = false;
+      this._showRooms = false;
+      this._showDoctors = false;
+      this._showTableAll = true;
+      this._showTableSearch = false;
       this._coordinates = JSON.parse(localStorage.getItem("coordinates"));
 
       this._iconRegistry.addSvgIcon(
@@ -82,6 +107,8 @@ export class ProfileClinicComponent implements OnInit {
     showFA(){
       this._showFA = true;
       this._showPriceList = false;
+      this._showRooms = false;
+      this._showDoctors = false;
     }
 
     showPriceList(){
@@ -94,10 +121,86 @@ export class ProfileClinicComponent implements OnInit {
               this._surgeryPrice = res1;
               this._showPriceList = true;
               this._showFA = false;
+              this._showRooms = false;
+              this._showDoctors = false;
             }
           )
         }
       )  
+    }
+
+    showRooms(){
+        this._roomService.getRooms(this._clinic.id).subscribe(
+          res => {
+            this._rooms = res;
+            this._showRooms = true;
+            this._showFA = false;
+            this._showPriceList = false; 
+            this._showDoctors = false;
+          }
+        )
+    }
+
+    showDoctors(){
+
+      if(this._role == "ROLE_CLINIC_ADMIN"){ 
+
+        this._doctorService.getAllDoctorsRating(this._clinic.id).subscribe(
+          res => {
+             this._doctors = res;
+             console.log(this._doctors);
+
+             this._showDoctors = true;
+             this._showFA = false;
+             this._showRooms = false;
+             this._showPriceList = false;
+          }
+        )
+        
+      }else{
+
+        this._typesSerivce.getExamTypesForRes(this._clinic.id).subscribe(
+          res => {
+            this._examTypes = res;
+            this._doctorService.getAllDoctorsRating(this._clinic.id).subscribe(
+              res => {
+                 this._doctors = res;
+                 this.resetForm();
+                 this._showDoctors = true;
+                 this._showFA = false;
+                 this._showRooms = false;
+                 this._showPriceList = false;
+              }
+            )    
+          }
+        )      
+      }
+    }
+
+    searchDoctors(){
+
+      //ovde slanje parametara za pretragu doktora i prikaz tabele rezultata pretrage
+      console.log(this._selectedType);
+      console.log(this._date);
+      console.log(this._rating);
+      console.log(this._docName);
+      console.log(this._docSurname);
+      this._showTableAll = false;
+      this._showTableSearch = true;
+
+    }
+
+    reset(){
+      this._showTableSearch = false;
+      this._showTableAll = true;
+    }
+
+    resetForm(){
+      this._selectedType = null;
+      this._date = null;
+      this._rating = null;
+      this._docName = null;
+      this._docSurname = null;
     }
 
 }
