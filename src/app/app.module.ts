@@ -83,6 +83,8 @@ import { DoctorRateDialog } from './shared/dialogs/doctor-rate-dialog/doctor-rat
 import { ProfileClinicComponent } from './profile-clinic/profile-clinic.component';
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
+import { PatientProfileComponent } from './hp-doctor/patient-profile/patient-profile.component';
+import { ChangeMedicalRecordDialogComponent } from './hp-doctor/patient-profile/change-medical-record-dialog/change-medical-record-dialog.component';
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -176,6 +178,8 @@ const customNotifierOptions: NotifierOptions = {
     ProfileClinicComponent,
     MedicalexamsListComponent,
     SurgeryListComponent,
+    PatientProfileComponent,
+    ChangeMedicalRecordDialogComponent,
     DoctorRateDialog
     
   ],
@@ -206,6 +210,7 @@ const customNotifierOptions: NotifierOptions = {
       { path: 'doctorsInClinic/:id', component: DoctorsComponent},
       { path: 'absenceRequests/:id', component: AbsenceRequestComponent},
       { path: 'clinicProfile/:id', component: ProfileClinicComponent},
+      {path: 'patientProfile/:id', component: PatientProfileComponent},
       { path: '', redirectTo: 'login', pathMatch: 'full' }
       //{path: '**', redirectTo: 'login'},
 
@@ -281,6 +286,7 @@ const customNotifierOptions: NotifierOptions = {
     DiagnosisDialogComponent,
     DetailsDoctorDialogComponent,
     RejectDialogComponent,
+    ChangeMedicalRecordDialogComponent,
     DoctorRateDialog,
     
   ],

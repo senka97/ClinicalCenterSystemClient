@@ -5,7 +5,7 @@
 <form (ngSubmit) = "onClickedLogin()" #userForm="ngForm">
     <div class="form-group">
       <label for="email">Email address</label>
-      <input [(ngModel)]='_loginUser.email' type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email" required #email="ngModel" autocomplete="off">
+      <input [(ngModel)]='_loginUser.email' type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email" required #email="ngModel" >
       <small id="emailHelp" class="form-text text-muted">Email is required.</small>
     </div>
     <div class="form-group">

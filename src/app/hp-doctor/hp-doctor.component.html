@@ -116,7 +116,7 @@
           <tr><td style="background-color: lightskyblue;"><b>Country:</b></td><td style="background-color: white;">{{_currentPatient.country}}</td></tr>
           <tr><td style="background-color: lightskyblue;"><b>Phone number:</b></td><td style="background-color: white;">{{_currentPatient.phoneNumber}}</td></tr>
         </table>
-        <button style="float: left;width:7em;" type="button" class="btn btn-primary btn-sm" [routerLink] = "['/patientHP', _currentPatient.id]" >Profile</button>
+        <button style="float: left;width:7em;" type="button" class="btn btn-primary btn-sm" [routerLink] = "['/patientProfile', _currentPatient.id]" >Profile</button>
         <button style="float: right;width:7em;" type="button" class="btn btn-primary btn-sm" (click)="goBack()">Back</button>
       </div>
           

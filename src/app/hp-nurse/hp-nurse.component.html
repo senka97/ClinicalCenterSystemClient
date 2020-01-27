@@ -74,8 +74,8 @@
                 <tr><th><b>Country:</b></th><td>{{_currentPatient.country}}</td></tr>
                 <tr><th><b>Phone number:</b></th><td>{{_currentPatient.phoneNumber}}</td></tr>
             </table>
-            <button style="float: left;width:7em;" type="button" class="btn btn-primary btn-sm" [routerLink] = "['/patientHP', _currentPatient.id]" >Profile</button>
-            <button style="float: right;width:7em;" type="button" class="btn btn-primary btn-sm" (click)="goBack()">Back</button>
+            <!--<button style="float: left;width:7em;" type="button" class="btn btn-primary btn-sm" [routerLink] = "['/patientHP', _currentPatient.id]" >Profile</button>-->
+            <button style="width:7em;" type="button" class="btn btn-primary btn-sm" (click)="goBack()">Back</button>
         </div>
     
         <div class='panel panel-primary' *ngIf ='_showPrescriptions'>
