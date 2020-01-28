@@ -85,6 +85,9 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { PatientProfileComponent } from './hp-doctor/patient-profile/patient-profile.component';
 import { ChangeMedicalRecordDialogComponent } from './hp-doctor/patient-profile/change-medical-record-dialog/change-medical-record-dialog.component';
+import { RatingModule } from 'ng-starrating';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -239,7 +242,10 @@ const customNotifierOptions: NotifierOptions = {
     MatIconModule,
     MatMenuModule,
     AngularYandexMapsModule.forRoot('8c25f85c-6bc9-4294-9e6d-10fed101991f'),
-    NotifierModule.withConfig(customNotifierOptions)    
+    NotifierModule.withConfig(customNotifierOptions),
+    RatingModule,
+    NgSelectModule
+        
   ],
   providers: [
     {

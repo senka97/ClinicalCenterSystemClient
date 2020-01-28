@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Clinic } from './clinic'
 import { ClinicService } from 'src/app/service/clinic.service'
@@ -18,7 +19,7 @@ export class ClinicListComponent implements OnInit {
   showSpinner : boolean;
   showDoctors : boolean;
   showAppointments : boolean;
-  constructor(private _clinicService :ClinicService) { }
+  constructor(private _clinicService :ClinicService, private _router:Router) { }
 
   ngOnInit() {
     this.startIndex = 0;
@@ -97,6 +98,17 @@ export class ClinicListComponent implements OnInit {
   }
   showDoctorTimes(){
     this.showAppointments = true;
+  }
+
+  showClinicProfile(idClinic){
+    this._clinicService.getClinic(idClinic).subscribe(
+      clinic => {       
+           let clinicTemp:Clinic = clinic;
+           localStorage.setItem("clinic",JSON.stringify(clinicTemp));
+           localStorage.setItem("coordinates",null);
+           this._router.navigate(['/clinicProfile/', idClinic]);
+      }
+    )
   }
 
 }
