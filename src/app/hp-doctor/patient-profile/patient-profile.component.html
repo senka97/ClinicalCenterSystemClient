@@ -57,6 +57,20 @@
         </div>
     </div>
 
+    <div class='panel panel-primary' *ngIf = '_showMedicalReports' style="float:left;margin-left:15%;width:35%;">
+        <div class='panel-body'>
+            <div class='table-responsive'>
+                <table class='table' style="margin-top: 5%;">
+                    <tr><th style="text-align: center;" colspan="5"> History of medical reports </th> </tr>
+                    <tr> <th style="text-align: center;"> Date </th><th style="text-align: center;"> Time </th> <th style="text-align: center;" colspan="2"> Doctor </th> <th></th></tr>
+                    <tr *ngFor="let report of _medicalReports"> <td> {{report.date}}  </td> <td>{{report.time}}</td> <td> {{report.doctor.name}}</td> <td>{{report.doctor.surname}}</td> <td><button style="width:6em;" type="button"  class="btn btn-primary" (click)="clickedOpenReport(report)"> Open </button></td> </tr> 
+                
+                </table>
+                <button style="width:8em; margin-left:11em; margin-bottom:3%;"  type="button"  class="btn btn-primary"  (click)="clickedClose()"> Close </button> 
+            </div>
+        </div>
+    </div>
+
     <div class="card" *ngIf='_showMedicalRecord' style="background-color: lightskyblue;" >
         <div class="card-content">
                 <span class="card-title" style="color:darkblue; margin-left: 13em;"> <h3>Medical Record </h3></span>

@@ -41,6 +41,17 @@ export class PatientService{
             })
           )
     }
+
+    getMedicalReports(id:string){
+      return this._apiService.get("http://localhost:9000/api/patients/getMedicalReports/" + id).pipe(
+          map(reports => {
+              console.log("Medical reports retrieved");
+              console.log(reports);
+              return reports;
+          })
+        )
+    }
+
      editPatientMedicalRecord(id:string,medicalRecord)
     {
       console.log("DDDD");

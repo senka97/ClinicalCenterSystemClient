@@ -6,6 +6,7 @@ import { MedicationDialogComponent } from 'src/app/shared/dialogs/medication-dia
 import { DiagnosisDialogComponent } from 'src/app/shared/dialogs/diagnosis-dialog/diagnosis-dialog.component';
 import { ChangeMedicalRecordDialogComponent } from './change-medical-record-dialog/change-medical-record-dialog.component';
 import { NotifierService } from 'angular-notifier';
+import { MedicalReport } from 'src/app/shared/model/MedicalReport';
 
 @Component({
   selector: 'app-patient-profile',
@@ -26,6 +27,7 @@ export class PatientProfileComponent implements OnInit {
   private _medicalRecordChanged: any;
   private _allergicMedicationList: any[];
   private _chronicConditionList: any[];
+  private _medicalReports: MedicalReport[];
 
 
   private _showInformation: boolean;
@@ -54,6 +56,10 @@ export class PatientProfileComponent implements OnInit {
       this._chronicConditionList = chronicCon;
     });
 
+    this._patientService.getMedicalReports(this._patientId).subscribe(reports => {
+      this._medicalReports = reports;
+    });
+
     this._showInformation = false;
     this._showMedicalRecord = false;
     this._startMedicalExam = false;
@@ -77,7 +83,9 @@ export class PatientProfileComponent implements OnInit {
 
   clickedMedicalReports()
   {
-
+    this._showMedicalReports = !this._showMedicalReports;
+    this._showInformation = false;
+    this._showMedicalRecord = false;
   }
 
   clickedStartMedicalExam()
@@ -95,6 +103,11 @@ export class PatientProfileComponent implements OnInit {
   }
 
   clickedCreateMedicalReport()
+  {
+    
+  }
+
+  clickedOpenReport(report)
   {
     
   }
@@ -159,6 +172,7 @@ export class PatientProfileComponent implements OnInit {
 
   clickedClose(){
     this._showInformation = false;
+    this._showMedicalReports = false;
   }
 
 }
