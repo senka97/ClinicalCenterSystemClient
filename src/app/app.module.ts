@@ -87,6 +87,7 @@ import { PatientProfileComponent } from './hp-doctor/patient-profile/patient-pro
 import { ChangeMedicalRecordDialogComponent } from './hp-doctor/patient-profile/change-medical-record-dialog/change-medical-record-dialog.component';
 import { RatingModule } from 'ng-starrating';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ClinicRateDialogComponent } from './shared/dialogs/clinic-rate-dialog/clinic-rate-dialog.component';
 
 
 
@@ -183,7 +184,8 @@ const customNotifierOptions: NotifierOptions = {
     SurgeryListComponent,
     PatientProfileComponent,
     ChangeMedicalRecordDialogComponent,
-    DoctorRateDialog
+    DoctorRateDialog,
+    ClinicRateDialogComponent
     
   ],
   imports: [
@@ -294,6 +296,8 @@ const customNotifierOptions: NotifierOptions = {
     RejectDialogComponent,
     ChangeMedicalRecordDialogComponent,
     DoctorRateDialog,
+    ClinicRateDialogComponent,
+    
     
   ],
   //schemas: [NO_ERRORS_SCHEMA],

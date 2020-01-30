@@ -36,7 +36,6 @@ export class DoctorRateDialog implements OnInit {
 
     this._doctorService.rateDoctor(this._doctor.id,this.rate).subscribe(doctor => {
       this.dialogRef.close();
-
     })
   }
   doctorForRate(doctor){
