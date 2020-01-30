@@ -82,4 +82,16 @@ export class ClinicService {
       })
     )
   }
+  rateClinic(id:String, rate: any){
+    const editHeaders = new HttpHeaders({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      });
+    return this._apiService.put("http://localhost:9000/api/clinics/rateClinic/" + id, rate, editHeaders).pipe(
+        map(updateCl => {
+            return updateCl;
+        })
+    )
+
+}
 }
