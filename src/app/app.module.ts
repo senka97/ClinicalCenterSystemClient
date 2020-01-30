@@ -85,6 +85,10 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { PatientProfileComponent } from './hp-doctor/patient-profile/patient-profile.component';
 import { ChangeMedicalRecordDialogComponent } from './hp-doctor/patient-profile/change-medical-record-dialog/change-medical-record-dialog.component';
+import { RatingModule } from 'ng-starrating';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { ClinicRateDialogComponent } from './shared/dialogs/clinic-rate-dialog/clinic-rate-dialog.component';
+
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -180,7 +184,8 @@ const customNotifierOptions: NotifierOptions = {
     SurgeryListComponent,
     PatientProfileComponent,
     ChangeMedicalRecordDialogComponent,
-    DoctorRateDialog
+    DoctorRateDialog,
+    ClinicRateDialogComponent
     
   ],
   imports: [
@@ -239,7 +244,10 @@ const customNotifierOptions: NotifierOptions = {
     MatIconModule,
     MatMenuModule,
     AngularYandexMapsModule.forRoot('8c25f85c-6bc9-4294-9e6d-10fed101991f'),
-    NotifierModule.withConfig(customNotifierOptions)    
+    NotifierModule.withConfig(customNotifierOptions),
+    RatingModule,
+    NgSelectModule
+        
   ],
   providers: [
     {
@@ -288,6 +296,8 @@ const customNotifierOptions: NotifierOptions = {
     RejectDialogComponent,
     ChangeMedicalRecordDialogComponent,
     DoctorRateDialog,
+    ClinicRateDialogComponent,
+    
     
   ],
   //schemas: [NO_ERRORS_SCHEMA],

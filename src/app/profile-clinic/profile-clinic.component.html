@@ -16,8 +16,8 @@
                     <button mat-button [matMenuTriggerFor]="menu" style=" margin: 4px">Menu</button>
                     <mat-menu #menu="matMenu" focusFirstItem="false">
                        <button (click)="showFA()" mat-menu-item>Fast appointments</button>
-                       <button mat-menu-item>Doctors</button>
-                       <button mat-menu-item>Rooms</button>
+                       <button (click)="showDoctors()" mat-menu-item>Doctors</button>
+                       <button (click)="showRooms()" mat-menu-item>Rooms</button>
                        <button (click)="showPriceList()" mat-menu-item>Price list</button>
                     </mat-menu>    
                 </li>
@@ -62,7 +62,7 @@
                       <p class="card-text">Room:</p>
                       <p class="card-text">Price:</p>
                       <p class="card-text">Discount:</p>
-                      <a href="#" class="btn btn-primary">Reserve</a>
+                      <a *ngIf="_role=='ROLE_PATIENT'" href="#" class="btn btn-primary">Reserve</a>
                     </div>
                   </div>
                 </div>
@@ -76,7 +76,7 @@
                         <p class="card-text">Room:</p>
                         <p class="card-text">Price:</p>
                         <p class="card-text">Discount:</p>
-                        <a href="#" class="btn btn-primary">Reserve</a>
+                        <a *ngIf="_role=='ROLE_PATIENT'" href="#" class="btn btn-primary">Reserve</a>
                       </div>
                     </div>
                   </div>
@@ -90,7 +90,7 @@
                         <p class="card-text">Room:</p>
                         <p class="card-text">Price:</p>
                         <p class="card-text">Discount:</p>
-                        <a href="#" class="btn btn-primary">Reserve</a>
+                        <a *ngIf="_role=='ROLE_PATIENT'" href="#" class="btn btn-primary">Reserve</a>
                       </div>
                     </div>
                   </div>
@@ -104,7 +104,7 @@
                         <p class="card-text">Room:</p>
                         <p class="card-text">Price:</p>
                         <p class="card-text">Discount:</p>
-                        <a href="#" class="btn btn-primary">Reserve</a>
+                        <a *ngIf="_role=='ROLE_PATIENT'" href="#" class="btn btn-primary">Reserve</a>
                       </div>
                     </div>
                   </div>
@@ -113,9 +113,10 @@
         <div *ngIf="_showPriceList" class="card text-center">
             <div class="card-body">
             <h5 class="card-title">Price list</h5>
-            <table>
+            <table class="table table-striped">
               <thead>
                 <tr>
+                  <th>#</th>
                   <th>Name</th>
                   <th>Regular price(EUR)</th>
                   <th>Discount(%)</th>
@@ -123,15 +124,17 @@
                 </tr>
               </thead>
               <tbody>
-                <tr style="background-color: lightskyblue;"><td colspan="4"><b>Medical exams</b></td></tr>
-                <tr *ngFor="let examType of _examPrice">
+                <tr style="background-color: lightskyblue;"><td colspan="5"><b>Medical exams</b></td></tr>
+                <tr *ngFor="let examType of _examPrice;let i=index">
+                  <th>{{i+1}}</th>
                   <td>{{examType.name}}</td>
                   <td style="text-align: center;">{{examType.price}}</td>
                   <td style="text-align: center;">{{examType.discount}}</td>
                   <td style="text-align: center;">{{examType.currentPrice}}</td>
                 </tr>
-                <tr style="background-color: lightskyblue;"><td colspan="4"><b>Surgeries</b></td></tr>
-                <tr *ngFor="let surgeryType of _surgeryPrice">
+                <tr style="background-color: lightskyblue;"><td colspan="5"><b>Surgeries</b></td></tr>
+                <tr *ngFor="let surgeryType of _surgeryPrice;let i=index">
+                  <th>{{i+1}}</th>
                   <td>{{surgeryType.name}}</td>
                   <td style="text-align: center;">{{surgeryType.price}}</td>
                   <td style="text-align: center;">{{surgeryType.discount}}</td>
@@ -141,5 +144,156 @@
             </table>
             </div>
         </div>
+        <div *ngIf="_showRooms" class="card text-center">
+            <div class="card-body">
+            <h5 class="card-title">Rooms</h5>
+            <table class="table table-striped">
+              <thead style="background-color: lightskyblue;">
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Number</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let room of _rooms;let i = index">
+                  <th>{{i+1}}</th>
+                  <td>{{room.name}}</td>
+                  <td style="text-align: center;">{{room.number}}</td>
+                  <td style="text-align: center;">{{room.roomType}}</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+        </div>
+
+        <div *ngIf="_showDoctors" class="card text-center">
+          <div class="card-body">
+          <h5 class="card-title">Doctors</h5>   
+          <!--Kada je ulogovan admin-->     
+          <div *ngIf="_role=='ROLE_CLINIC_ADMIN'"> 
+            <table class="table table-striped">
+              <thead style="background-color: lightskyblue;">
+                <tr>
+                  <th>#</th>
+                  <th>First name</th>
+                  <th>Last name</th>
+                  <th>Rating</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let doctor of _doctors;let i = index;">
+                  <th>{{i+1}}</th>
+                  <td>{{doctor.name}}</td>
+                  <td style="text-align: center;">{{doctor.surname}}</td>
+                  <td style="text-align: center;"><star-rating value="{{doctor.rating}}" totalstars="5" checkedcolor="red" uncheckedcolor="black" size="24px" readonly="true" (rate)="onRate($event)"></star-rating></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+           <!--Kada je ulogovan pacijent-->
+          <div *ngIf="_role == 'ROLE_PATIENT'">
+          <p style="text-align: left;"><b>Search doctor for medical exam</b></p>
+          <form class="col white" style="width:100%;margin:auto;margin-bottom:1em;" (ngSubmit) = "searchDoctors()" #searchDoctorsForm="ngForm">
+            <div class="row">
+              <div class="input-field col">
+                <ng-select style="margin: 0.7em;"  [items]="_examTypes"
+                  bindLabel="name"
+                  placeholder="Select exam type"
+                  [(ngModel)]="_selectedType" name="type" required>
+                </ng-select>
+              </div>
+              <div class="input-field col">
+                <div class="input-group">
+                  <input class="form-control" placeholder="Choose a date"
+                         name="dp" [(ngModel)]="_date" ngbDatepicker #d="ngbDatepicker" autocomplete="off" required>
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div class="row">
+              <div class="input-field col">
+                <input class="form-control" type="number" placeholder="Choose a rating" [(ngModel)]="_rating" min="0" max="5" name="rating">
+              </div>
+              <div class="input-field col">
+                <input class="form-control" type="text" placeholder="Enter a doctor's name" [(ngModel)]="_docName" name="nameDoctor">
+              </div>
+              <div class="input-field col">
+                <input class="form-control" type="text" placeholder="Enter a doctor's last name" [(ngModel)]="_docSurname"  name="surnameDoctor">
+              </div>             
+            </div>
+            <button class="btn btn-primary" style="width:7em;margin-right:1em;" type="submit" [disabled]="!searchDoctorsForm.form.valid">Search</button>
+            <button class="btn btn-primary" style="width:7em;margin-right:1em;" type="reset" (click)="reset()">Reset</button>
+         </form>
+         <!--Prikaz svih doktora-->
+         <table *ngIf="_showTableAll" class="table table-striped">
+          <thead style="background-color: lightskyblue;">
+            <tr>
+              <th>#</th>
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let doctor of _doctors;let i = index;">
+              <th>{{i+1}}</th>
+              <td>{{doctor.name}}</td>
+              <td style="text-align: center;">{{doctor.surname}}</td>
+              <td style="text-align: center;"><star-rating value="{{doctor.rating}}" totalstars="5" checkedcolor="red" uncheckedcolor="black" size="24px" readonly="true" (rate)="onRate($event)"></star-rating></td>
+            </tr>
+          </tbody>
+        </table>
+        <!--Prikaz rezultata pretrage-->
+        <table *ngIf="_showTableSearch" class="table">
+          <thead style="background-color: lightskyblue;">
+            <tr>
+              <th>#</th>
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!--Ovde treba da prolazi kroz drugu listu _doctorsTerms koja pored imena,prezimena,i ocene ima i termine-->
+            <ng-container *ngFor="let doctor of _doctors;let i=index;">
+              <tr style="border-bottom: black;border-bottom-style: solid;background-color: lightgray;">
+                <th>{{i+1}}</th>
+                <td style="text-align: center;"> {{doctor.name}} </td>
+                <td style="text-align: center;"> {{doctor.surname}} </td>
+                <td style="text-align: center;"><star-rating value="{{doctor.rating}}" totalstars="5" checkedcolor="red" uncheckedcolor="black" size="24px" readonly="true" (rate)="onRate($event)"></star-rating></td>
+              </tr>
+              <!--<ng-container>
+                <tr *ngFor="let term of doctor.terms;let j=index">
+                  <th> Term {{j+1}} </th>
+                  <td style="text-align: center;"> {{term.startTime}} </td>
+                  <td style="text-align: center;"> {{term.endTime}} </td>
+                  <td style="text-align: center;"> <button (click)="reserveTerm(term.id,doctor.id)" class="btn btn-primary" style="background-color: lightgreen;">Reserve</button> </td>
+                </tr>
+              </ng-container>-->
+              <ng-container>
+                <tr>
+                  <th> Term 1 </th>
+                  <td style="text-align: center;"> 08:00 </td>
+                  <td style="text-align: center;"> 09:00 </td>
+                  <td style="text-align: center;"> <button class="btn btn-primary" style="background-color: lightgreen;">Reserve</button></td>
+                </tr>
+                <tr>
+                  <th> Term 2</th>
+                  <td style="text-align: center;"> 10:00 </td>
+                  <td style="text-align: center;"> 11:00 </td>
+                  <td style="text-align: center;"> <button class="btn btn-primary" style="background-color: lightgreen;">Reserve</button></td>
+                </tr>
+              </ng-container>
+            </ng-container>
+          </tbody>
+        </table>
+          </div>
+          </div>
+      </div>
  </div>
 </div>

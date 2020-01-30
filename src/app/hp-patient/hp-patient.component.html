@@ -53,6 +53,9 @@
             <li class="nav-item" *ngIf="numOfReviews != 0">
                 <button class="link" (click)="giveReview()"><span matBadge = {{numOfReviews}} matBadgeColor="warn"  matBadgeOverlap="false"  matBadgeSize="small">   Give review to  a doctor </span>  </button>
             </li>
+            <li class="nav-item" *ngIf="clinicsReviews != 0">
+                <button class="link" (click)="clinicReview()"><span matBadge = {{clinicsReviews}} matBadgeColor="warn"  matBadgeOverlap="false"  matBadgeSize="small">   Give review to  a clinic </span>  </button>
+            </li>
         </ul>
     </div>
     <div id="notHidden">

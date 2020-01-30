@@ -121,6 +121,14 @@ import { HttpHeaders } from '@angular/common/http';
         )
     }
 
+    getExamTypesForRes(clinic_id){
+        return this._apiService.get("http://localhost:9000/api/examTypes/getExamTypesForRes/" + clinic_id).pipe(
+            map(examTypesReg => {
+                return examTypesReg;
+            })
+        )
+    }
+
     getExamPrice(clinic_id){
         return this._apiService.get("http://localhost:9000/api/examTypes/getExamPrice/" + clinic_id).pipe(
             map(examPrice => {

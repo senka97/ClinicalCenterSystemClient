@@ -1,17 +1,16 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { UserService } from './../service/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgForm } from "@angular/forms";
 import { AuthService } from '../service/auth.service';
 import { PatientService } from '../service/patient.service';
 import { MedicalRecord } from './medical-record/MedicalRecord';
 import { MedicalExamService } from '../service/medical-exam-service';
-import { MedicalExam } from '../shared/model/MedicalExam';
-import { Surgery } from '../shared/model/Surgery';
 import { SurgeryService } from '../service/surgery.service';
 import { MatDialog } from '@angular/material';
 import { DoctorRateDialog } from '../shared/dialogs/doctor-rate-dialog/doctor-rate-dialog.component'
 import { Doctor } from './doctors-list/Doctor';
+import { Clinic } from './clinic-list/Clinic';
+import { ClinicRateDialogComponent } from '../shared/dialogs/clinic-rate-dialog/clinic-rate-dialog.component';
 @Component({
   selector: 'app-hp-patient',
   templateUrl: './hp-patient.component.html',
@@ -35,8 +34,16 @@ export class HpPatientComponent implements OnInit {
   _patientId: any;
   _disabled : boolean;
 
+  //for doctors
   numOfReviews : Number  = 0;
   _doctorsForRate : Doctor[];
+
+  //for clinics
+  clinicsReviews : Number = 0;
+  _doc : Doctor[];
+  _leftClinics : Clinic[];
+  
+
 
   constructor(private _route: ActivatedRoute,
     private _router: Router,
@@ -57,11 +64,18 @@ export class HpPatientComponent implements OnInit {
       this._patientId = this._signUpUser.id;
       this.message = "Home page for patient:";
       this._disabled = true;
-      this._patientService.getRatedDoctors(this._patientId).subscribe(doctors => {
 
+      //if we have any unrated doctors
+      this._patientService.getRatedDoctors(this._patientId).subscribe(doctors => {
         this._doctorsForRate = doctors;
         console.log("Found doctors : " , doctors);
         this.numOfReviews = this._doctorsForRate.length;
+      })
+
+      //if we have any unrated clinics 
+      this._patientService.getRatedClinics(this._patientId).subscribe(clinics => {
+        this._leftClinics = clinics;
+        this.clinicsReviews = this._leftClinics.length;
       })
 
     }else{
@@ -92,6 +106,7 @@ export class HpPatientComponent implements OnInit {
   onClickedLogout() {
     this._authService.logout();
   }
+  //Review for doctors
   giveReview(){
     let dialog = this._dialog.open(DoctorRateDialog, {
       id: this._patientId,
@@ -106,11 +121,27 @@ export class HpPatientComponent implements OnInit {
         this.numOfReviews = this._doctorsForRate.length;
       });
     });
+  }
+
+  clinicReview(){
+    let dialog = this._dialog.open(ClinicRateDialogComponent, {
+      id: this._patientId,
+      width: '30%',
+      data: this._leftClinics,
+    });
+    dialog.afterClosed().subscribe(data => {
+      this._patientService.getRatedClinics(this._patientId).subscribe(clinics => {
+
+        this._leftClinics = clinics;
+        console.log("Found doctors : " , clinics);
+        this.clinicsReviews = this._leftClinics.length;
+      });
+    });
+    
 
    
   
   }
-
   showProfileInfo() {
     this.show = this.uncheckAll(this.show);
     this.show = this.check(this.show);

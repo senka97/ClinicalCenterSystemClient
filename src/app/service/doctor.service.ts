@@ -29,6 +29,14 @@ import { DoctorSearch } from '../shared/model/DoctorSearch';
         )
     }
 
+    getAllDoctorsRating(clinic_id){
+        return this._apiService.get("http://localhost:9000/api/doctors/getAllDoctorsRating/" + clinic_id).pipe(
+            map(doctorsRating => {
+                return doctorsRating;
+            })
+        )
+    }
+
     addNewDoctor(doctor:Doctor, clinic_id: String){
         const editHeaders = new HttpHeaders({
             'Accept': 'application/json',

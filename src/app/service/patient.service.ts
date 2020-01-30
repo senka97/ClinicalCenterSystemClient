@@ -110,6 +110,16 @@ export class PatientService{
         })
       )
 }
+getRatedClinics(id:string){
+  return this._apiService.get("http://localhost:9000/api/patients/getRatedClinics/" + id).pipe(
+      map(clinics => {
+          console.log("clinics retrieved:");
+          console.log(clinics);
+          return clinics;
+      })
+    )
+}
+
 getRatedDoctors(id:string){
   return this._apiService.get("http://localhost:9000/api/patients/getRatedDoctors/" + id).pipe(
       map(doctors => {
@@ -119,6 +129,7 @@ getRatedDoctors(id:string){
       })
     )
 }
+
     
 
 }
