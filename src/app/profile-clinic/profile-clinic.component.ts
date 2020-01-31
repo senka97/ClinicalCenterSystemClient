@@ -1,3 +1,4 @@
+import { FastAppointmentService } from './../service/fastAppointment.service';
 import { TypeReg } from 'src/app/shared/model/TypeReg';
 import { DoctorService } from 'src/app/service/doctor.service';
 import { TypesService } from './../service/types.service';
@@ -14,6 +15,7 @@ import { StarRatingComponent } from 'ng-starrating';
 import { Doctor } from '../shared/model/Doctor';
 import { DoctorRating } from '../shared/model/DoctorRating';
 import { FormControl, Validators } from '@angular/forms';
+import { FastAppointment } from '../shared/model/FastAppointment';
 
 
 @Component({
@@ -23,7 +25,9 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class ProfileClinicComponent implements OnInit {
 
-  constructor(private _route:ActivatedRoute, private _router: Router, private _clinicService:ClinicService, private _iconRegistry: MatIconRegistry, private _sanitizer: DomSanitizer, private _typesSerivce: TypesService,private _roomService:RoomService,private _doctorService:DoctorService) {
+  constructor(private _route:ActivatedRoute, private _router: Router, private _clinicService:ClinicService,
+     private _iconRegistry: MatIconRegistry, private _sanitizer: DomSanitizer, private _typesSerivce: TypesService,
+     private _roomService:RoomService,private _doctorService:DoctorService, private _faService:FastAppointmentService) {
 
   }
 
@@ -45,6 +49,7 @@ export class ProfileClinicComponent implements OnInit {
   private _index: Number;
   private _doctors: DoctorRating[];
   private _examTypes: TypeReg[];
+  private _freeFA: FastAppointment[];
   //form
   private _selectedType: TypeReg;
   private _date: any;
@@ -105,10 +110,16 @@ export class ProfileClinicComponent implements OnInit {
     }
 
     showFA(){
-      this._showFA = true;
-      this._showPriceList = false;
-      this._showRooms = false;
-      this._showDoctors = false;
+
+      this._faService.getFreeFastAppointments(this._clinic.id).subscribe(
+        res => {
+            this._freeFA = res;
+            this._showFA = true;
+            this._showPriceList = false;
+            this._showRooms = false;
+            this._showDoctors = false;
+        }
+      )
     }
 
     showPriceList(){
