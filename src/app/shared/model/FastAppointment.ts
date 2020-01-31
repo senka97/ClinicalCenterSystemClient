@@ -1,5 +1,6 @@
 export class FastAppointment {
 
+    id:Number;
     date: Number[];
     time: Number[];
     nameExamType: String;

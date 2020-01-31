@@ -33,4 +33,13 @@ import { map } from 'rxjs/operators';
         )
     }
 
+    getFreeFastAppointments(clinic_id){
+      return this._apiService.get("http://localhost:9000/api/fastAppointments/getFreeFA/" + clinic_id).pipe(
+            map(fastAppointments => {
+                return fastAppointments;
+            })
+        )
+    }
+
+
   }
