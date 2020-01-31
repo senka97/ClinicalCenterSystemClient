@@ -1,10 +1,13 @@
 <div class="row" style="width: 70%;margin-left: auto;margin-right: auto;">
     <div class="col center-align">
-        <div class="card custom">
-            <div class="card-content white-text">
+        <div class="card custom ">
+            <div class="card-content white-text ">
                 <span class="card-title">Medical record</span>
             </div>
-            <form class="col white" #medicalRecordForm="ngForm">
+            <div class="recordCls">
+
+           
+            <form class="col" #medicalRecordForm="ngForm">
                 <div class="row">
                     <div class="input-field col">
                         <input type="text" class="validate" name="height" [disabled]="_disabled"
@@ -87,7 +90,7 @@
                 <div class="row">
                     <div class="col">
                         Allergic Medication :
-                        <button (click)="onShowAllergicMedication()"
+                        <button   class="btn-primary"  (click)="onShowAllergicMedication()"
                             [style.background-color]="allergicMedication=== false ? 'red' : ''">show</button>
                         <div class="row" *ngIf="!_disabled" >
                             
@@ -109,10 +112,10 @@
                     </div>
                     <div class="col">
                         Chronic Condition :
-                        <button (click)="onShowChronicCondition()"
-                            [style.background-color]="chronicCondition=== false ? 'red' : ''">show</button>
+                        <button  class="btn-primary"   (click)="onShowChronicCondition()"
+                            [style.background-color]="chronicCondition=== false ? 'red' : ''">show</button >
                         <div class="row" *ngIf="!_disabled" >
-                            <button class="newAllergen" (click)="addChronicCondition()"> add </button> 
+                            <button class="newAllergen " (click)="addChronicCondition()"> add </button> 
                         </div>
                     </div>
                    
@@ -133,15 +136,12 @@
 
                 <div class="row">
 
-                    <div class="input-field col">
-
-                        <button class="btn-large btn-submit" [disabled]="!medicalRecordForm.valid" type="submit" (click) = "onChangeMedicalRecord()" > Change
-                            information</button>
-                    </div>
+     
 
                 </div>
 
             </form>
+        </div>
         </div>
 
     </div>

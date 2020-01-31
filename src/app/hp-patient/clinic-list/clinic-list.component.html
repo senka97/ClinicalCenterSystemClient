@@ -23,18 +23,18 @@
                     Reviews: {{clinic.numberOfReviews}}
 
                 </p>
-                <button class="doctorsBtn" (click) = readMore() title="Show available doctors!">Doctors </button>
-                <button class="leftMargin20" title = "Show clinic profile!" (click)="showClinicProfile(clinic.id)">Profile</button>
+                <button class="btn btn-primary" (click) = readMore() title="Show available doctors!">Doctors </button>
+                <button class=" btn btn-primary leftMargin20" title = "Show clinic profile!" (click)="showClinicProfile(clinic.id)">Profile</button>
             </div>
         </div>
 
 
     </div>
     <div class="row">
-        <button class="btnNext" *ngIf="startIndex > 3 " (click)="previousClinics()" title = "Show previous clinics"> {{leftArrow}} </button>
+        <button class="btn btn-primary" *ngIf="startIndex > 3 " (click)="previousClinics()" title = "Show previous clinics"> {{leftArrow}} </button>
         <div class="col"></div>
         <div class="col"></div>
-        <button class="btnNext" *ngIf="numberOfClinics>startIndex" (click)="nextClinics()" title = "Show next clinics ">{{rightArrow}}</button>
+        <button class=" btn btn-primary" *ngIf="numberOfClinics>startIndex" (click)="nextClinics()" title = "Show next clinics ">{{rightArrow}}</button>
 
     </div>
 

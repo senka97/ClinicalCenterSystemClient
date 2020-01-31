@@ -17,6 +17,11 @@ export class DoctorsListComponent implements OnInit {
     {name: 'Sanja', surname: 'Sanjic', rating: 3.37, numberOfReviews: 76},
   ];
 
+ // private _selectedType: TypeReg;
+  private _date: any;
+  private _rating: Number;
+  private _docName: String;
+  private _docSurname: String;
 
   sortedDoctors : Doctor[];
   showTimes : boolean;
@@ -28,6 +33,8 @@ export class DoctorsListComponent implements OnInit {
    
   }
   showDoctorTimes(){
+
+
     if(this.showTimes == true){
       this.showTimes = false;
     }else{

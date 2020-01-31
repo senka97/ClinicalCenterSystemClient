@@ -1,6 +1,7 @@
 <div class= "row container-board" >
   <div class="col classBorder">
-
+    
+   
   
     <table matSort (matSortChange)="sortData($event)">
         <tr>
@@ -18,11 +19,49 @@
           <td>{{doctor.surname}}</td>
           <td>{{doctor.rating}}</td>
           <td>{{doctor.numberOfReviews}}</td>
-          <td><button (click)="showDoctorTimes()" title = "Show available appointments!">{{doctor.name}} </button></td>
+          <td><button class="btn btn-primary" (click)="showDoctorTimes()" title = "Show available appointments!">{{doctor.name}} </button></td>
      
           
         </tr>
       </table>
+      
+      <!-- <p style="text-align: left;"><b>Search doctor for medical exam</b></p> -->
+      <form class="col" style="width:100%;margin:auto;margin-bottom:1em;" (ngSubmit) = "searchDoctors()" #searchDoctorsForm="ngForm">
+        <!-- <div class="row">
+         <div class="input-field col">
+            <ng-select style="margin: 0.7em;"  [items]="_examTypes"
+              bindLabel="name"
+              placeholder="Select exam type"
+              [(ngModel)]="_selectedType" name="type" required>
+            </ng-select>
+          </div> 
+         <div class="input-field col">
+            <div class="input-group">
+              <input class="form-control" placeholder="Choose a date"
+                     name="dp" [(ngModel)]="_date" ngbDatepicker #d="ngbDatepicker" autocomplete="off" required>
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+              </div>
+            </div>
+          </div> 
+          
+        </div>-->
+        <div class="row">
+            <div class="input-field col">
+            <input class="form-control" type="text" placeholder="Name" [(ngModel)]="_docName" name="nameDoctor" autocomplete="off">
+          </div>
+          <div class="input-field col">
+            <input class="form-control" type="text" placeholder="Surname" [(ngModel)]="_docSurname"  name="surnameDoctor" autocomplete="off">
+          </div>    
+          <div class="input-field col">
+            <input class="form-control" type="number" placeholder="Rating" [(ngModel)]="_rating" min="0" max="5" name="rating">
+          </div>
+        
+            
+        </div>
+        <button class="btn btn-primary" style="width:7em;margin-right:1em;" type="submit" [disabled]="!searchDoctorsForm.form.valid">Search</button>
+        <button class="btn btn-primary" style="width:7em;margin-right:1em;" type="reset" (click)="reset()">Reset</button>
+     </form>
     </div>
     <div *ngIf = "showTimes">Times: </div>
     <div class="col classBorder">
