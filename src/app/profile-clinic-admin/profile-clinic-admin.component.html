@@ -48,12 +48,16 @@
             <button class="btn btn-sm btn-outline-secondary" [routerLink] = "['/doctorsInClinic', _clinic.id]" style="width:100%;color:darkblue;">Doctors</button>
         </li>
         <li class="nav-item">
-            <!--<a class="nav-link"[routerLink] = "['/absenceRequests', _clinic.id]" ><span matBadge={{_numOfRequests}} matBadgeOverlap="false"   matBadgeSize="medium" [matBadgeHidden]="_numOfRequests == 0">Requests for vacation or absence</span></a>-->
-            <button class="btn btn-sm btn-outline-secondary" [routerLink] = "['/absenceRequests', _clinic.id]" style="width:100%;color:darkblue;"><span matBadge={{_numOfRequests}} matBadgeOverlap="false"   matBadgeSize="medium" [matBadgeHidden]="_numOfRequests == 0">Requests for vacation or absence</span></button>
+            <!--<a class="nav-link" href="#">Fast appointments</a>-->
+            <button class="btn btn-sm btn-outline-secondary" [routerLink] = "['/fastAppointments', _clinic.id]" style="width:100%;color:darkblue;">Fast appointments</button>
         </li>
         <li class="nav-item">
-            <!--<a class="nav-link" href="#">Fast appointments</a>-->
-            <button class="btn btn-sm btn-outline-secondary" [routerLink] = "" style="width:100%;color:darkblue;">Fast appointments</button>
+            <!--<a class="nav-link"[routerLink] = "['/absenceRequests', _clinic.id]" ><span matBadge={{_numOfRequests}} matBadgeOverlap="false"   matBadgeSize="medium" [matBadgeHidden]="_numOfRequests == 0">Requests for vacation or absence</span></a>-->
+            <button class="btn btn-sm btn-outline-secondary" [routerLink] = "['/roomRequests', _clinic.id]" style="width:100%;color:darkblue;"><span matBadge={{_numOfRoomRequests}} matBadgeOverlap="false"   matBadgeSize="medium" [matBadgeHidden]="_numOfRoomRequests == 0">Requests for room</span></button>
+        </li>
+        <li class="nav-item">
+            <!--<a class="nav-link"[routerLink] = "['/absenceRequests', _clinic.id]" ><span matBadge={{_numOfRequests}} matBadgeOverlap="false"   matBadgeSize="medium" [matBadgeHidden]="_numOfRequests == 0">Requests for vacation or absence</span></a>-->
+            <button class="btn btn-sm btn-outline-secondary" [routerLink] = "['/absenceRequests', _clinic.id]" style="width:100%;color:darkblue;"><span matBadge={{_numOfRequests}} matBadgeOverlap="false"   matBadgeSize="medium" [matBadgeHidden]="_numOfRequests == 0">Requests for vacation or absence</span></button>
         </li>
         <li class="nav-item">
             <!--<a class="nav-link" href="#" >Business report</a>-->
