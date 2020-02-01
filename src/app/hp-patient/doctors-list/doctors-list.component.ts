@@ -22,7 +22,7 @@ export class DoctorsListComponent implements OnInit {
   private _rating: Number;
   private _docName: String;
   private _docSurname: String;
-
+  private doctor : any;
   sortedDoctors : Doctor[];
   showTimes : boolean;
   constructor() { }
@@ -32,14 +32,12 @@ export class DoctorsListComponent implements OnInit {
     this.showTimes = false;
    
   }
-  showDoctorTimes(){
+  showDoctorTimes(doctor: any){
 
+    this.doctor = doctor;
 
-    if(this.showTimes == true){
-      this.showTimes = false;
-    }else{
       this.showTimes = true;
-    }
+   
 
   }
   sortData(sort: Sort) {

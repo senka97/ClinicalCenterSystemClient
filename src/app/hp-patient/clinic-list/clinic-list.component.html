@@ -1,9 +1,39 @@
+<form class="col" (ngSubmit) = "searchClinics()" #searchDoctorsForm="ngForm">
+    <div class="row topMargin">
+
+      <div class="sel">
+        <ng-select  [items]="_examTypes" bindLabel="name" placeholder="Select exam type"
+         [(ngModel)]="_selectedType" name="type" required> </ng-select>
+      </div>
+      <div>
+        <div class="input-group">
+          <input class="form-control sel2" placeholder="Choose a date"
+                 name="dp" [(ngModel)]="_date" ngbDatepicker #d="ngbDatepicker" autocomplete="off" required>
+          <div class="input-group-append ">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <div class="leftMargin20">
+            <button class="btn btn-primary"  type="submit"
+            [disabled]="!searchDoctorsForm.form.valid">Search</button>
+          <button class="btn btn-primary"  type="reset" (click)="reset()">Reset</button>
+        </div>    
+    </div>
+    </div>
+  
+    </form>
+
 <div class="container-board">
-    Numberof Clinics = {{numberOfClinics}}
     <div class="row">
-        <mat-spinner class="spinner" *ngIf="showSpinner"></mat-spinner>
 
-
+        <mat-spinner class="spinner" *ngIf="showSpinner" > Searching </mat-spinner> 
+        <p class="searching" *ngIf="showSpinner" > <b>Searching </b> </p>
+      
+  
+  
         <div class="col" *ngFor="let clinic of _clinics;">
             <div class="container-fluid">
                 <img src="https://sb-content-file.s3-ap-northeast-1.amazonaws.com/smallbridge_favicon.png"

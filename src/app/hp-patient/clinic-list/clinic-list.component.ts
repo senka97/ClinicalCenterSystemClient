@@ -2,6 +2,8 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Clinic } from './clinic'
 import { ClinicService } from 'src/app/service/clinic.service'
+import { TypeReg } from 'src/app/shared/model/TypeReg';
+import { TypesService } from 'src/app/service/types.service';
 @Component({
   selector: 'app-clinic-list',
   templateUrl: './clinic-list.component.html',
@@ -19,7 +21,12 @@ export class ClinicListComponent implements OnInit {
   showSpinner : boolean;
   showDoctors : boolean;
   showAppointments : boolean;
-  constructor(private _clinicService :ClinicService, private _router:Router) { }
+  
+  private _examTypes: TypeReg[];
+  private _selectedType: TypeReg;
+  private _date: any;
+
+  constructor(private _clinicService :ClinicService, private _router:Router, private _typesService : TypesService) { }
 
   ngOnInit() {
     this.startIndex = 0;
@@ -30,19 +37,11 @@ export class ClinicListComponent implements OnInit {
     this.showDoctors = false;
     this.showAppointments = false;
     this.imagePath = "https://smaller-pictures.appspot.com/images/dreamstime_xxl_65780868_small.jpg";
-    
 
-    // this._clinic = new Clinic();
-    // this._clinic.name = " Neurologija";
-    // this._clinic.address = "Narodnog Fronta 76";
-    // this._clinic.description = "Klinika za neurologiju";
-    // this._clinic.numberOfReviews = 0;
-    // this._clinic.rating = 2.34;
-    // this._allClinics = [this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic];
-    // this.showSpinner = false;
-    // this.numberOfClinics = this._allClinics.length;
-    // this.nextClinics();
-  
+    this._typesService.getAllExamTypes().subscribe(
+      res => {
+        this._examTypes = res;
+      });
     this._clinicService.getClinics().subscribe(clinics => {
      
       this._allClinics = clinics;
@@ -52,6 +51,8 @@ export class ClinicListComponent implements OnInit {
 
      
     }); 
+   
+    
   
   
     

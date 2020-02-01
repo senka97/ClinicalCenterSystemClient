@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Doctor } from 'src/app/hp-patient/doctors-list/Doctor'
 import { Appointment } from 'src/app/hp-patient/appointments-list/Appointment'
 import {Sort} from '@angular/material/sort';
@@ -17,6 +17,7 @@ export class AppointmentsListComponent implements OnInit {
   ];
 
   sortedAppointments : Appointment[];
+  @Input("doctor") doctor : any;
   constructor() { }
 
   ngOnInit() {

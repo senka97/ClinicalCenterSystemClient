@@ -13,7 +13,7 @@
     border:3px solid #5645a1;
     width: auto;
     height: auto;
-    margin-left: 290px;
+    margin-left: 255px;
     margin-top: 15px;
 }
 .stars {
@@ -33,10 +33,17 @@
 }
 
 .spinner{
-  margin-left : 20px;
+  margin-left : auto;
+
   margin-top : 20px;
 }
-
+.searching{
+  color: white;
+  font-size: 20px;
+  text-shadow: -1px 0 #5645a1, 0 1px #5645a1, 1px 0 #5645a1, 0 -1px #5645a1;
+  margin-right: auto;
+  margin-top: 50px;
+}
 .listOfDoctors{
  
   margin-left: 290px;
@@ -50,4 +57,24 @@
 }
 .btnNext {
   background-color: #5645a1;
+}
+.sel{
+  margin-left : 30px;
+  margin-right : 20px;
+}
+.sel2{
+
+  width: 150px;
+  height: 35px;
+
+}
+.sel2:focus{
+  background-color: transparent;
+  
+}
+.btnSearch{
+  margin-top: 20px;
+}
+.topMargin {
+  margin-top: 20px;
 }
