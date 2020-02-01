@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { Absence } from 'src/app/shared/model/Absence';
 import { InfoDialogComponent } from 'src/app/shared/dialogs/info-dialog/info-dialog.component';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-absence-request',
@@ -13,7 +14,7 @@ import { InfoDialogComponent } from 'src/app/shared/dialogs/info-dialog/info-dia
 })
 export class AbsenceRequestComponent implements OnInit {
 
-  constructor(private _route: ActivatedRoute,private _router: Router, private _dialog: MatDialog, private _absenceService: AbsenceService) { }
+  constructor(private _route: ActivatedRoute,private _router: Router, private _dialog: MatDialog, private _absenceService: AbsenceService, private _notifier:NotifierService) { }
 
   private _currentAdmin: any;
   private _clinicId: String;
@@ -57,11 +58,17 @@ export class AbsenceRequestComponent implements OnInit {
 
     this._absenceService.approveAbsence(id).subscribe(
       res => {
+        this._notifier.notify("error","You have successfully approved the request.");
+             setTimeout(() => {
+             this._notifier.hideAll();
+        }, 3000)
+        this.showRequests();
+      },
+      error => {
         let dialogRef1 = this._dialog.open(InfoDialogComponent, {
           width: '50%',
-          data: "You have successfully approved the request."
+          data: error.error
         });
-        this.showRequests();
       }
     )
 
@@ -75,10 +82,10 @@ export class AbsenceRequestComponent implements OnInit {
          if(result != undefined){
            this._absenceService.rejectAbsence(id,result).subscribe(
              res => {
-              let dialogRef1 = this._dialog.open(InfoDialogComponent, {
-                width: '50%',
-                data: "You have successfully rejected the request."
-              });
+              this._notifier.notify("error","You have successfully rejected the request.");
+                 setTimeout(() => {
+                 this._notifier.hideAll();
+               }, 3000)
               this.showRequests();
              }
            )
