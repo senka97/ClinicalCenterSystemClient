@@ -50,17 +50,17 @@
                 <th style="width:10%;text-align: center;">Status</th> <!--Free,Scheduled,Finished-->
             </thead>
             <tbody>
-                <tr *ngFor="let finished of _finishedFA" style="background-color: rgb(255, 122, 122);">
-                    <td>{{finished.date[2]}}/{{finished.date[1]}}/{{finished.date[0]}}</td>
-                    <td>{{finished.time[0]}}:{{finished.time[1]}}0</td>
-                    <td>{{finished.nameExamType}}</td>
+                <tr *ngFor="let free of _freeFA" style="background-color: rgb(140, 245, 140)">
+                    <td>{{free.date[2]}}/{{free.date[1]}}/{{free.date[0]}}</td>
+                    <td>{{free.time[0]}}:{{free.time[1]}}0</td>
+                    <td>{{free.nameExamType}}</td>
                     <td>1h</td>
-                    <td>{{finished.nameAndNumberRoom}}</td>
-                    <td>{{finished.fullNameDoctor}}</td>
-                    <td>{{finished.price}}</td>
-                    <td>{{finished.discount}}</td>
-                    <td>{{finished.fullNamePatient}}</td>
-                    <td>FINISHED</td>
+                    <td>{{free.nameAndNumberRoom}}</td>
+                    <td>{{free.fullNameDoctor}}</td>
+                    <td>{{free.price}}</td>
+                    <td>{{free.discount}}</td>
+                    <td>{{free.fullNamePatient}}</td>
+                    <td>FREE</td>
                 </tr>
                 <tr *ngFor="let scheduled of _scheduledFA" style="background-color:rgb(253, 253, 145)">
                     <td>{{scheduled.date[2]}}/{{scheduled.date[1]}}/{{scheduled.date[0]}}</td>
@@ -74,19 +74,18 @@
                     <td>{{scheduled.fullNamePatient}}</td>
                     <td>SCHEDULED</td>
                 </tr>
-                <tr *ngFor="let free of _freeFA" style="background-color: rgb(140, 245, 140)">
-                    <td>{{free.date[2]}}/{{free.date[1]}}/{{free.date[0]}}</td>
-                    <td>{{free.time[0]}}:{{free.time[1]}}0</td>
-                    <td>{{free.nameExamType}}</td>
+                <tr *ngFor="let finished of _finishedFA" style="background-color: rgb(255, 122, 122);">
+                    <td>{{finished.date[2]}}/{{finished.date[1]}}/{{finished.date[0]}}</td>
+                    <td>{{finished.time[0]}}:{{finished.time[1]}}0</td>
+                    <td>{{finished.nameExamType}}</td>
                     <td>1h</td>
-                    <td>{{free.nameAndNumberRoom}}</td>
-                    <td>{{free.fullNameDoctor}}</td>
-                    <td>{{free.price}}</td>
-                    <td>{{free.discount}}</td>
-                    <td>{{free.fullNamePatient}}</td>
-                    <td>FREE</td>
+                    <td>{{finished.nameAndNumberRoom}}</td>
+                    <td>{{finished.fullNameDoctor}}</td>
+                    <td>{{finished.price}}</td>
+                    <td>{{finished.discount}}</td>
+                    <td>{{finished.fullNamePatient}}</td>
+                    <td>FINISHED</td>
                 </tr>
-
             </tbody>
         </table>
     </div>

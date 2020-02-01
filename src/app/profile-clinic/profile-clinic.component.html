@@ -34,8 +34,10 @@
     <div class="container-fluid">
         <div class="card" style="width:30%;float: left;margin-right: 1em;">
             <div class="card-body">
-                <h5 class="card-title">Description</h5>
-                <p class="card-text">{{_clinic.description}}</p>
+                <h5 class="card-title" style="margin-bottom: 0.3em;">Description</h5>
+                <p class="card-text" style="margin-bottom: 0.3em;">{{_clinic.description}}</p>
+                <h5 class="card-title" style="margin-bottom: 0;">Rating</h5>
+                <star-rating style="margin-top:0;padding-top:0;" value="{{_clinic.rating}}" totalstars="5" checkedcolor="red" uncheckedcolor="black" size="24px" readonly="true" (rate)="onRate($event)"></star-rating>
                 <h5 class="card-title">Address</h5>
                 <mat-icon svgIcon="location-icon" aria-hidden="false" aria-label="Clinic's address"></mat-icon>
                 <p class="card-text" style="display: inline;padding-left:0.5em;">{{_clinic.address}}</p>
@@ -62,7 +64,7 @@
                       <p class="card-text"><b>Room: </b>{{fa.nameAndNumberRoom}}</p>
                       <p class="card-text"><b>Price: </b>{{fa.price}} EUR</p>
                       <p class="card-text"><b>Discount: </b>{{fa.discount}}%</p>
-                      <a *ngIf="_role=='ROLE_PATIENT'" href="#" class="btn btn-primary">Reserve</a>
+                      <a *ngIf="_role=='ROLE_PATIENT'" (click)="reserveFA(fa.id)" class="btn btn-primary">Reserve</a>
                       <img src="assets/img/fast.png" style="width: 5em;height: 5em;float:right">
                     </div>
                   </div>
@@ -108,8 +110,8 @@
                         <a *ngIf="_role=='ROLE_PATIENT'" href="#" class="btn btn-primary">Reserve</a>
                       </div>
                     </div>
-                  </div>
-              </div>-->
+                  </div>-->
+              </div>
         </div>
         <div *ngIf="_showPriceList" class="card text-center">
             <div class="card-body">
@@ -298,3 +300,5 @@
       </div>
  </div>
 </div>
+
+<notifier-container></notifier-container>
