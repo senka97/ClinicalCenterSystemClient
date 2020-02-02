@@ -25,16 +25,20 @@
     </div>
   
     </form>
+    <div class="row">
+        <mat-spinner class="spinner" *ngIf="showSpinner" > Searching </mat-spinner> 
+        <p class="searching" *ngIf="showSpinner" > <b> Searching </b> </p>
 
-<div class="container-board">
+    </div>
+   
+<div class="container-board" *ngIf="!showSpinner"  >
     <div class="row">
 
-        <mat-spinner class="spinner" *ngIf="showSpinner" > Searching </mat-spinner> 
-        <p class="searching" *ngIf="showSpinner" > <b>Searching </b> </p>
+       
       
   
   
-        <div class="col" *ngFor="let clinic of _clinics;">
+        <div class="col" *ngFor="let clinic of _clinics;" >
             <div class="container-fluid">
                 <img src="https://sb-content-file.s3-ap-northeast-1.amazonaws.com/smallbridge_favicon.png"
                     height="80px">

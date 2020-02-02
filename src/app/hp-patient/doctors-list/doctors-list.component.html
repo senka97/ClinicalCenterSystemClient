@@ -3,7 +3,7 @@
 
     <div class="row">
 
-    <table matSort (matSortChange)="sortData($event)" class="table">
+    <table matSort (matSortChange)="sortData($event)" class="table" id="myTable">
       <tr class="startRow">
         <th mat-sort-header="name">Doctor</th>
         <th mat-sort-header="surname">Surname</th>
@@ -59,7 +59,7 @@
 
   
 
-      <app-appointments-list [appointments]="appointments" [doctor] = "doctor" ></app-appointments-list>
+      <app-appointments-list [appointments]="appointments" [doctor] = "doctor" [doctorReq] = "doctorReq" ></app-appointments-list>
   
 
   </div>

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Doctor } from 'src/app/hp-patient/doctors-list/Doctor'
 import { Appointment } from 'src/app/hp-patient/appointments-list/Appointment'
 import {Sort} from '@angular/material/sort';
+import { AvailableDoctorRequest } from 'src/app/shared/model/AvailableDoctorRequest';
 @Component({
   selector: 'app-appointments-list',
   templateUrl: './appointments-list.component.html',
@@ -14,6 +15,7 @@ export class AppointmentsListComponent implements OnInit {
 
   sortedAppointments : Appointment[];
   @Input("doctor") doctor : any;
+  @Input("doctorReq") doctorReq : AvailableDoctorRequest;
   constructor() { }
 
   ngOnInit() {

@@ -32,8 +32,8 @@ export class DoctorsListComponent implements OnInit {
     this.showTimes = false;
    
   }
-  showDoctorTimes(doctor: any){
-
+  showDoctorTimes(doctor: Doctor){
+    console.log("Doctor rating = ", doctor.rating )
     this.doctor = doctor;
     
   
@@ -50,6 +50,79 @@ export class DoctorsListComponent implements OnInit {
    
 
   }
+  searchDoctors(){
+    this.showTimes = false;
+    var filter, table, tr;
+    table = document.getElementById("myTable");
+    console.log(this._docName);
+    if(this._docName != null){
+      filter = this._docName.toUpperCase();
+      tr = table.getElementsByTagName("tr");
+      this.hideTr(tr,filter,0);
+    }
+    if(this._docSurname != null){
+      filter = this._docSurname.toUpperCase();
+      tr = table.getElementsByTagName("tr");
+      this.hideTr(tr,filter,1);
+    }
+    if(this._rating != null){
+      filter = this._rating;
+      tr = table.getElementsByTagName("tr");
+      this.hideRating(tr,filter,2);
+    }
+   
+
+    console.log(filter);
+  
+
+  }
+
+  hideTr(tr: any,filter:any, rowNum: any){
+    var i,td,txtValue;
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[rowNum];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+
+  }
+  hideRating(tr: any,filter:any, rowNum: any){
+    var i,td,txtValue;
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[rowNum];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue == filter) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+
+  }
+  reset(){
+    this._docName = null;
+    this._docSurname = null;
+    this._rating = null;
+    var table = document.getElementById("myTable");
+    var tr = table.getElementsByTagName("tr");
+    var i;
+    for (i = 0; i < tr.length; i++) {
+
+          tr[i].style.display = "";
+    }
+    this.showTimes = false;
+
+
+  }
+
   sortData(sort: Sort) {
    
     const data = this.doctors.slice();

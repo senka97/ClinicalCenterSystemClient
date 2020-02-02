@@ -17,6 +17,7 @@ import { DoctorRating } from '../shared/model/DoctorRating';
 import { FormControl, Validators } from '@angular/forms';
 import { FastAppointment } from '../shared/model/FastAppointment';
 import { NotifierService } from 'angular-notifier';
+import { AvailableDoctorRequest } from 'src/app/shared/model/AvailableDoctorRequest';
 
 
 @Component({
@@ -58,6 +59,10 @@ export class ProfileClinicComponent implements OnInit {
   private _rating: Number;
   private _docName: String;
   private _docSurname: String;
+  
+
+  private doctors: any;
+  doctorReq : any;
 
   ngOnInit() {
       this._clinic = JSON.parse(localStorage.getItem("clinic"));
@@ -68,7 +73,7 @@ export class ProfileClinicComponent implements OnInit {
       this._showMap = false;
       this._showRooms = false;
       this._showDoctors = false;
-      this._showTableAll = true;
+      this._showTableAll = false;
       this._showTableSearch = false;
       this._coordinates = JSON.parse(localStorage.getItem("coordinates"));
 
@@ -202,13 +207,28 @@ export class ProfileClinicComponent implements OnInit {
       console.log(this._docName);
       console.log(this._docSurname);
       this._showTableAll = false;
-      this._showTableSearch = true;
+ 
+
+      let date = [this._date['year'],this._date['month'],this._date['day']];
+      let doctorReq = new AvailableDoctorRequest(date,null,this._selectedType.id);
+  
+      console.log(doctorReq,date);
+      this._doctorService.getFreeDoctors(this._clinic.id,doctorReq).subscribe(
+        doctors => {       
+            this.doctors = doctors;
+            console.log(doctors);
+            this.doctorReq = doctorReq;
+            this._showTableAll = true;
+         
+        }
+      )
+      
 
     }
 
     reset(){
       this._showTableSearch = false;
-      this._showTableAll = true;
+      this._showTableAll = false;
     }
 
     resetForm(){
