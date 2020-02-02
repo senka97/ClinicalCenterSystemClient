@@ -8,20 +8,20 @@ import {Sort} from '@angular/material/sort';
   styleUrls: ['./appointments-list.component.css']
 })
 export class AppointmentsListComponent implements OnInit {
-  appointments : Appointment[] =[
-    {name: 'Petar', date: '20.12.2019.', time: '14:30', type: 'Pregled'},
-    {name: 'Petar', date: '20.12.2019.', time: '15:00', type: 'Pregled'},
-    {name: 'Petar', date: '20.12.2019.', time: '15:30', type: 'Pregled'},
-    {name: 'Petar', date: '20.12.2019.', time: '16:00', type: 'Pregled'},
-    {name: 'Petar', date: '20.12.2019.', time: '17:00', type: 'Pregled'},
-  ];
+
+  @Input("appointments") appointments;
+
 
   sortedAppointments : Appointment[];
   @Input("doctor") doctor : any;
   constructor() { }
 
   ngOnInit() {
+
+    console.log( " Procita ih" + this.appointments);
+    console.log(this.doctor);
     this.sortedAppointments = this.appointments;
+    
   }
   sortData(sort: Sort) {
    
@@ -34,7 +34,7 @@ export class AppointmentsListComponent implements OnInit {
     this.sortedAppointments = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
+      
         case 'date': return compare(a.date, b.date, isAsc);
         case 'time': return compare(a.time, b.time, isAsc);
         case 'type': return compare(a.type, b.type, isAsc);

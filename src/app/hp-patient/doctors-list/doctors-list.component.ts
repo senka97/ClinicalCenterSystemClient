@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {Sort} from '@angular/material/sort';
 import { Doctor } from 'src/app/hp-patient/doctors-list/Doctor'
+import { DoctorService } from 'src/app/service/doctor.service';
+import { AvailableDoctorRequest } from 'src/app/shared/model/AvailableDoctorRequest';
+import { Appointment } from '../appointments-list/Appointment';
 
 @Component({
   selector: 'app-doctors-list',
@@ -9,13 +12,8 @@ import { Doctor } from 'src/app/hp-patient/doctors-list/Doctor'
 })
 export class DoctorsListComponent implements OnInit {
 
-  doctors: Doctor[] = [
-    {name: 'Petar', surname: 'Peric', rating: 5, numberOfReviews: 270},
-    {name: 'Mika', surname: 'Mikic', rating: 2, numberOfReviews: 10},
-    {name: 'Zika', surname: 'Zikic', rating: 3, numberOfReviews: 2},
-    {name: 'Ana', surname: 'Anic', rating: 4, numberOfReviews: 100},
-    {name: 'Sanja', surname: 'Sanjic', rating: 3.37, numberOfReviews: 76},
-  ];
+  @Input("doctors") doctors;
+  @Input("doctorReq") doctorReq : AvailableDoctorRequest;
 
  // private _selectedType: TypeReg;
   private _date: any;
@@ -23,9 +21,11 @@ export class DoctorsListComponent implements OnInit {
   private _docName: String;
   private _docSurname: String;
   private doctor : any;
+
   sortedDoctors : Doctor[];
+  appointments : any;
   showTimes : boolean;
-  constructor() { }
+  constructor(private _doctorService : DoctorService) { }
 
   ngOnInit() {
     this.sortedDoctors = this.doctors;
@@ -35,8 +35,18 @@ export class DoctorsListComponent implements OnInit {
   showDoctorTimes(doctor: any){
 
     this.doctor = doctor;
+    
+  
+    
+  
+  
+    this._doctorService.getAvailableTerms(this.doctor.id,this.doctorReq).subscribe(terms => {
+      this.appointments = terms;
+      console.log("Terms: " + this.appointments);
 
       this.showTimes = true;
+   
+  }); 
    
 
   }

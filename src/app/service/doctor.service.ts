@@ -95,4 +95,27 @@ import { AvailableDoctorRequest } from '../shared/model/AvailableDoctorRequest';
           })
         )
       }
+
+      getFreeDoctors(idClinic,doctorReq:AvailableDoctorRequest){
+        const editHeaders = new HttpHeaders({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        });
+        return this._apiService.post("http://localhost:9000/api/doctors/getFreeDoctors/" + idClinic, JSON.stringify(doctorReq), editHeaders).pipe(
+          map(res=> {
+            return res;
+          })
+        )
+      }
+      getAvailableTerms(doctorId,doctorReq:AvailableDoctorRequest){
+        const editHeaders = new HttpHeaders({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        });
+        return this._apiService.post("http://localhost:9000/api/doctors/getAvailableTerms/" + doctorId, JSON.stringify(doctorReq), editHeaders).pipe(
+          map(res=> {
+            return res;
+          })
+        )
+      }
   }

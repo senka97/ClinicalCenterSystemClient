@@ -6,8 +6,8 @@
           <!--Ovde treba da prolazi kroz drugu listu _doctorsTerms koja pored imena,prezimena,i ocene ima i termine -->
           <ng-container>
             <tr class="startRow" >
-              <td style="text-align: center;"> {{doctor.name}} </td>
-              <td style="text-align: center;"> {{doctor.surname}} </td>
+              <td style="text-align: center;"> {{doctor.rate}} {{doctor.name}} </td>
+              <td style="text-align: center;"> {{doctor.surname}}  </td>
               <td colspan="2"><star-rating value="{{doctor.rate}}" totalstars="5" checkedcolor="red" uncheckedcolor="black" size="24px" readonly="true" (rate)="onRate($event)"></star-rating></td>
             </tr>
        

@@ -53,7 +53,7 @@
                     Reviews: {{clinic.numberOfReviews}}
 
                 </p>
-                <button class="btn btn-primary" (click) = readMore() title="Show available doctors!">Doctors </button>
+                <button class="btn btn-primary" (click) = "readMore(clinic.id)" title="Show available doctors!">Doctors </button>
                 <button class=" btn btn-primary leftMargin20" title = "Show clinic profile!" (click)="showClinicProfile(clinic.id)">Profile</button>
             </div>
         </div>
@@ -71,43 +71,8 @@
 
 </div>
 <div class="row listOfDoctors"  *ngIf="showDoctors">
-    <div><app-doctors-list ></app-doctors-list> </div> 
+    <div><app-doctors-list [doctors]="doctors" [doctorReq] = "doctorReq" ></app-doctors-list> </div> 
 
   
     
-</div>
-
-<div class="row" id="search" *ngIf="false">
-    <div class="col">
-
-    </div>
-    <div class="col">
-
-    </div>
-    <div class="col">
-        <div class="ngb-dp-day ngb-dp-today">
-
-            <!-- day cell content omitted -->
-        </div>
-        <ngb-datepicker [minDate]="{year: 2010, month: 1, day: 1}" [maxDate]="{year: 2048, month: 12, day: 31}">
-
-        </ngb-datepicker>
-
-
-    </div>
-    <div class="col">
-
-
-
-    </div>
-    <div class="col">
-
-
-
-
-    </div>
-    <div class="col">
-
-    </div>
-
 </div>

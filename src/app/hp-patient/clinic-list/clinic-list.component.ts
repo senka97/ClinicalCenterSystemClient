@@ -4,6 +4,8 @@ import { Clinic } from './clinic'
 import { ClinicService } from 'src/app/service/clinic.service'
 import { TypeReg } from 'src/app/shared/model/TypeReg';
 import { TypesService } from 'src/app/service/types.service';
+import { AvailableDoctorRequest } from 'src/app/shared/model/AvailableDoctorRequest';
+import { DoctorService } from 'src/app/service/doctor.service';
 @Component({
   selector: 'app-clinic-list',
   templateUrl: './clinic-list.component.html',
@@ -21,12 +23,15 @@ export class ClinicListComponent implements OnInit {
   showSpinner : boolean;
   showDoctors : boolean;
   showAppointments : boolean;
+  doctorReq : any;
+  
   
   private _examTypes: TypeReg[];
   private _selectedType: TypeReg;
   private _date: any;
+  private doctors: any;
 
-  constructor(private _clinicService :ClinicService, private _router:Router, private _typesService : TypesService) { }
+  constructor(private _clinicService :ClinicService, private _router:Router, private _typesService : TypesService, private _doctorService : DoctorService) { }
 
   ngOnInit() {
     this.startIndex = 0;
@@ -42,7 +47,25 @@ export class ClinicListComponent implements OnInit {
       res => {
         this._examTypes = res;
       });
-    this._clinicService.getClinics().subscribe(clinics => {
+    // this._clinicService.getClinics().subscribe(clinics => {
+     
+    //   this._allClinics = clinics;
+    //   this.numberOfClinics = this._allClinics.length;
+    //   this.nextClinics();
+    //   this.showSpinner = false;
+
+     
+    // }); 
+    
+   
+    
+  }
+  searchClinics(){
+
+      let date = [this._date['year'],this._date['month'],this._date['day']];
+      this.doctorReq = new AvailableDoctorRequest(date,null,this._selectedType.id);
+    
+      this._clinicService.getFreeClinics(this.doctorReq).subscribe(clinics => {
      
       this._allClinics = clinics;
       this.numberOfClinics = this._allClinics.length;
@@ -51,11 +74,7 @@ export class ClinicListComponent implements OnInit {
 
      
     }); 
-   
-    
-  
-  
-    
+
   }
 
  
@@ -90,12 +109,27 @@ export class ClinicListComponent implements OnInit {
     this.newClinics(3);
 
   }
-  readMore(){
-    if(this.showDoctors == false){
-      this.showDoctors = true;
-    }else{
-      this.showDoctors = false;
-    }
+  readMore(clinicId: any){
+
+    let date = [this._date['year'],this._date['month'],this._date['day']];
+    let doctorReq = new AvailableDoctorRequest(date,null,this._selectedType.id);
+
+    console.log(doctorReq);
+    this._doctorService.getFreeDoctors(clinicId,doctorReq).subscribe(
+      doctors => {       
+          this.doctors = doctors;
+          console.log(doctors);
+          this.showDoctors = true;
+      }
+    )
+    
+    
+    
+
+  }
+  reset(){
+    this._date = null;
+    this._selectedType = null;
   }
   showDoctorTimes(){
     this.showAppointments = true;
