@@ -90,6 +90,7 @@ import { RatingModule } from 'ng-starrating';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FastAppointmentsComponent } from './profile-clinic-admin/fast-appointments/fast-appointments.component';
 import { ClinicRateDialogComponent } from './shared/dialogs/clinic-rate-dialog/clinic-rate-dialog.component';
+import { TableFilterPipe } from './hp-doctor/table-filter';
 
 
 
@@ -188,7 +189,8 @@ const customNotifierOptions: NotifierOptions = {
     ChangeMedicalRecordDialogComponent,
     DoctorRateDialog,
     FastAppointmentsComponent,
-    ClinicRateDialogComponent
+    ClinicRateDialogComponent,
+    TableFilterPipe
     
   ],
   imports: [

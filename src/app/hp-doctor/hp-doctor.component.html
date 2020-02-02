@@ -79,9 +79,36 @@
                 <button class="btn btn-primary" style="background-color: red;margin-top:1em;margin-right:2em;width:6em;" type="reset" (click)="cancelAbsence()">Cancel</button>
             </form>
       </div>
-      <div *ngIf="_showList" style="float:left;margin-left:18%;">
+      <div *ngIf="_showList" style="float:left;margin-left:13%;width:60%;">
+        <h4 style="margin-top:1em;">Search patients</h4>
+        <form class="col white" (ngSubmit) = "searchPatients()" #searchPatientsForm="ngForm" style="border-style: solid;border-color: lightskyblue;">
+          <div class="row">
+            <div class="input-field col">
+              <input class="form-control" type="text" placeholder="Enter a serial number" [(ngModel)]="_patientSearch.serialNumber" pattern="[0-9]|^(?![\s\S])" maxlength="13" name="serialNumber" autocomplete="off">
+            </div>
+            <div class="input-field col">
+              <input class="form-control" type="text" placeholder="Enter a patient's name" [(ngModel)]="_patientSearch.name" name="namePatient" autocomplete="off">
+            </div>
+            <div class="input-field col">
+              <input class="form-control" type="text" placeholder="Enter a patient's last name" [(ngModel)]="_patientSearch.surname"  name="surnamePatient" autocomplete="off">
+            </div>             
+          </div>
+          <button class="btn btn-primary" style="width:7em;margin-right:1em;margin-bottom:1em;" type="submit" [disabled]="!searchPatientsForm.form.valid">Search</button>
+          <button class="btn btn-primary" style="width:7em;margin-right:1em;margin-bottom:1em;" type="button" (click)="reset()">Reset</button>
+          </form>
+          <div  *ngIf="_showFilterForm">
+          <h4 style="margin-top:1em;">Filter patients</h4>
+          <div class="form-group">
+            <strong>City</strong>
+            <select class="form-control"
+            [(ngModel)]="_city" name="city">
+              <option></option>
+              <option *ngFor="let city of _cities" value="{{city}}">{{city}}</option>      
+            </select>
+          </div>
+        </div>
         <h3 style="text-align:center;margin-top: 0.5em; margin-bottom: 0.5em;">All patients in the clinic</h3>
-        <table class="table">
+        <table class="table" style="width:90%;margin:auto;margin-top: 1em;">
             <thead style="background-color:lightskyblue;">
               <tr>
                 <th scope="col">#</th>
@@ -93,7 +120,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let patient of _patients;let i = index">
+              <tr *ngFor="let patient of _patients | tableFilter: _city;let i = index">
                 <th style="background-color: lightskyblue;" scope="row">{{i+1}}</th>
                 <td style="background-color: white;">{{patient.name}}</td>
                 <td style="background-color: white;">{{patient.surname}}</td>
@@ -124,3 +151,4 @@
     
   
 </div>
+<notifier-container></notifier-container>
