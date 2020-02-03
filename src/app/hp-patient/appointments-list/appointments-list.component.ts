@@ -3,6 +3,7 @@ import { Doctor } from 'src/app/hp-patient/doctors-list/Doctor'
 import { Appointment } from 'src/app/hp-patient/appointments-list/Appointment'
 import {Sort} from '@angular/material/sort';
 import { AvailableDoctorRequest } from 'src/app/shared/model/AvailableDoctorRequest';
+import { PatientService } from 'src/app/service/patient.service';
 @Component({
   selector: 'app-appointments-list',
   templateUrl: './appointments-list.component.html',
@@ -11,12 +12,24 @@ import { AvailableDoctorRequest } from 'src/app/shared/model/AvailableDoctorRequ
 export class AppointmentsListComponent implements OnInit {
 
   @Input("appointments") appointments;
-
+  @Input("_patientId") _patientId : any;
 
   sortedAppointments : Appointment[];
   @Input("doctor") doctor : any;
   @Input("doctorReq") doctorReq : AvailableDoctorRequest;
-  constructor() { }
+  constructor(private _patientService: PatientService) { }
+
+  reserveAppointment(appointment : Appointment){
+    this._patientService.makeAppointment(this._patientId,appointment).subscribe(appointment => {
+
+      console.log("Appoinment : " + appointment);
+      
+    
+
+     
+    }); 
+
+  }
 
   ngOnInit() {
 

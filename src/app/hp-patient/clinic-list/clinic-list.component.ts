@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Clinic } from './clinic'
 import { ClinicService } from 'src/app/service/clinic.service'
 import { TypeReg } from 'src/app/shared/model/TypeReg';
@@ -12,6 +12,7 @@ import { DoctorService } from 'src/app/service/doctor.service';
   styleUrls: ['./clinic-list.component.css']
 })
 export class ClinicListComponent implements OnInit {
+  @Input("_patientId") _patientId : any;
   _clinic : Clinic;
   _clinics : any;
   _allClinics : any;
