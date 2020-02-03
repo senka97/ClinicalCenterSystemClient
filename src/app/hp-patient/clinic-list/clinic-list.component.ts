@@ -2,6 +2,10 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Clinic } from './clinic'
 import { ClinicService } from 'src/app/service/clinic.service'
+import { TypeReg } from 'src/app/shared/model/TypeReg';
+import { TypesService } from 'src/app/service/types.service';
+import { AvailableDoctorRequest } from 'src/app/shared/model/AvailableDoctorRequest';
+import { DoctorService } from 'src/app/service/doctor.service';
 @Component({
   selector: 'app-clinic-list',
   templateUrl: './clinic-list.component.html',
@@ -19,7 +23,15 @@ export class ClinicListComponent implements OnInit {
   showSpinner : boolean;
   showDoctors : boolean;
   showAppointments : boolean;
-  constructor(private _clinicService :ClinicService, private _router:Router) { }
+  doctorReq : any;
+
+  
+  private _examTypes: TypeReg[];
+  private _selectedType: TypeReg;
+  private _date: any;
+  private doctors: any;
+
+  constructor(private _clinicService :ClinicService, private _router:Router, private _typesService : TypesService, private _doctorService : DoctorService) { }
 
   ngOnInit() {
     this.startIndex = 0;
@@ -30,31 +42,34 @@ export class ClinicListComponent implements OnInit {
     this.showDoctors = false;
     this.showAppointments = false;
     this.imagePath = "https://smaller-pictures.appspot.com/images/dreamstime_xxl_65780868_small.jpg";
-    
 
-    // this._clinic = new Clinic();
-    // this._clinic.name = " Neurologija";
-    // this._clinic.address = "Narodnog Fronta 76";
-    // this._clinic.description = "Klinika za neurologiju";
-    // this._clinic.numberOfReviews = 0;
-    // this._clinic.rating = 2.34;
-    // this._allClinics = [this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic,this._clinic];
-    // this.showSpinner = false;
-    // this.numberOfClinics = this._allClinics.length;
-    // this.nextClinics();
-  
-    this._clinicService.getClinics().subscribe(clinics => {
-     
+    this._typesService.getAllExamTypes().subscribe(
+      res => {
+        this._examTypes = res;
+      });
+   
+  }
+  searchClinics(){
+
+      let date = [this._date['year'],this._date['month'],this._date['day']];
+      let doctorReq = new AvailableDoctorRequest(date,null,this._selectedType.id);
+    
+      console.log(doctorReq,date);
+      this.showSpinner = true;
+      this._clinicService.getFreeClinics(doctorReq).subscribe(clinics => {
+
+      console.log("Clinics retrived : " + clinics);
+      this._allClinics = null;
       this._allClinics = clinics;
       this.numberOfClinics = this._allClinics.length;
-      this.nextClinics();
+      this.startIndex = 0;
       this.showSpinner = false;
+      this.nextClinics();
+    
 
      
     }); 
-  
-  
-    
+
   }
 
  
@@ -89,16 +104,35 @@ export class ClinicListComponent implements OnInit {
     this.newClinics(3);
 
   }
-  readMore(){
-    if(this.showDoctors == false){
-      this.showDoctors = true;
-    }else{
-      this.showDoctors = false;
-    }
+  readMore(clinicId: any){
+    this.showDoctors = false;
+    let date = [this._date['year'],this._date['month'],this._date['day']];
+    let doctorReq = new AvailableDoctorRequest(date,null,this._selectedType.id);
+
+    console.log(doctorReq,date);
+    this._doctorService.getFreeDoctors(clinicId,doctorReq).subscribe(
+      doctors => {       
+          this.doctors = doctors;
+          console.log(doctors);
+          this.doctorReq = doctorReq;
+          this.showDoctors = true;
+      }
+    )
+    
+    
+    
+
+  }
+  reset(){
+    this._date = null;
+    this._selectedType = null;
+    this.showDoctors = false;
+    this.showSpinner = true;
   }
   showDoctorTimes(){
     this.showAppointments = true;
   }
+ 
 
   showClinicProfile(idClinic){
     this._clinicService.getClinic(idClinic).subscribe(
@@ -112,3 +146,5 @@ export class ClinicListComponent implements OnInit {
   }
 
 }
+
+

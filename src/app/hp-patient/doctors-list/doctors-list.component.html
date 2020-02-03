@@ -1,38 +1,69 @@
-<div class= "row container-board" >
-  <div class="col classBorder">
+<div class="row ">
+  <div class="col classBorder container-board">
 
-  
-    <table matSort (matSortChange)="sortData($event)">
-        <tr>
-          <th mat-sort-header="name">Doctor</th>
-          <th mat-sort-header="surname">Surname</th>
-          <th mat-sort-header="rating">Rating</th>
-          <th mat-sort-header="numberOfReviews">Reviews</th>
-          <th mat-sort-header="examTimes">Free</th>
-        </tr>
-      
-        <tr *ngFor="let doctor of sortedDoctors" >
-         
-        
-          <td>{{doctor.name}}</td>
-          <td>{{doctor.surname}}</td>
-          <td>{{doctor.rating}}</td>
-          <td>{{doctor.numberOfReviews}}</td>
-          <td><button (click)="showDoctorTimes()" title = "Show available appointments!">{{doctor.name}} </button></td>
-     
-          
-        </tr>
-      </table>
-    </div>
-    <div *ngIf = "showTimes">Times: </div>
-    <div class="col classBorder">
-    
-      <div *ngIf = "showTimes">
-       
-        <app-appointments-list></app-appointments-list>
+    <div class="row">
+
+    <table matSort (matSortChange)="sortData($event)" class="table" id="myTable">
+      <tr class="startRow">
+        <th mat-sort-header="name">Doctor</th>
+        <th mat-sort-header="surname">Surname</th>
+        <th mat-sort-header="rating">Rating</th>
+        <th mat-sort-header="numberOfReviews">Reviews</th>
+   
+      </tr>
+
+      <tr *ngFor="let doctor of sortedDoctors"  (click)="showDoctorTimes(doctor)">
+
+
+        <td>{{doctor.name}}</td>
+        <td>{{doctor.surname}}</td>
+        <td>{{doctor.rating}}</td>
+        <td>{{doctor.numberOfReviews}}</td>
+
+
+
+      </tr>
+    </table>
+
+    <!-- <p style="text-align: left;"><b>Search doctor for medical exam</b></p> -->
+    <form class="row search"  (ngSubmit)="searchDoctors()"
+      #searchDoctorsForm="ngForm">
+
+      <div class="row">
+        <div class="input-field col">
+          <input class="form-control" type="text" placeholder="Name" [(ngModel)]="_docName" name="nameDoctor"
+            autocomplete="off">
+        </div>
+        <div class="input-field col">
+          <input class="form-control" type="text" placeholder="Surname" [(ngModel)]="_docSurname" name="surnameDoctor"
+            autocomplete="off">
+        </div>
+        <div class="input-field col">
+          <input class="form-control" type="number" placeholder="Rating" [(ngModel)]="_rating" min="0" max="5"
+            name="rating">
+        </div>
+
+
       </div>
-    
-    </div>
+      <div class="btnSearch">
+        <button class="btn btn-primary btnMargin"  type="submit"
+        [disabled]="!searchDoctorsForm.form.valid">Search</button>
+      <button class="btn btn-primary"  type="reset" (click)="reset()">Reset</button>
+      </div>
+     
+    </form>
+  </div>
 
 </div>
+  <div class="col classBorder container-board" *ngIf="showTimes">
 
+  
+
+      <app-appointments-list [appointments]="appointments" [doctor] = "doctor" [doctorReq] = "doctorReq" ></app-appointments-list>
+  
+
+  </div>
+
+
+
+</div>

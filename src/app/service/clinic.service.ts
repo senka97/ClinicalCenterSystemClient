@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { Room } from '../shared/model/Room';
+import { AvailableDoctorRequest } from '../shared/model/AvailableDoctorRequest';
 
 
 
@@ -93,5 +94,16 @@ export class ClinicService {
         })
     )
 
+}
+getFreeClinics(doctorReq:AvailableDoctorRequest){
+  const editHeaders = new HttpHeaders({
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  });
+  return this._apiService.put("http://localhost:9000/api/clinics/getFreeClinics", JSON.stringify(doctorReq), editHeaders).pipe(
+    map(res=> {
+      return res;
+    })
+  )
 }
 }

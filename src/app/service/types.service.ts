@@ -29,6 +29,13 @@ import { HttpHeaders } from '@angular/common/http';
             })
         )
     }  
+    getAllExamTypes(){
+        return this._apiService.get("http://localhost:9000/api/examTypes/getAllExamTypes").pipe(
+            map(examTypes => {
+                return examTypes;
+            })
+        )
+    }
 
     addExamType(clinic_id, type: Type){
         const editHeaders = new HttpHeaders({
@@ -41,7 +48,6 @@ import { HttpHeaders } from '@angular/common/http';
             })
         )
     }
-
     updateExamType(clinic_id, type_id, type: Type){
         const editHeaders = new HttpHeaders({
             'Accept': 'application/json',
@@ -54,7 +60,6 @@ import { HttpHeaders } from '@angular/common/http';
         )         
 
     }
-
     removeExamType(clinic_id, type_id){
         return this._apiService.delete("http://localhost:9000/api/examTypes/removeExamType/" + clinic_id + "/" + type_id).pipe(
             map(result => {
@@ -62,8 +67,6 @@ import { HttpHeaders } from '@angular/common/http';
             })
         )
     }
-
-
     getSurgeryType(surgery_type_id){
         return this._apiService.get("http://localhost:9000/api/surgeryTypes/getSurgeryType/" + surgery_type_id).pipe(
           map(surgeryType => {

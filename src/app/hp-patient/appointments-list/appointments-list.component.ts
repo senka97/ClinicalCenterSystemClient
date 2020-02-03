@@ -1,26 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Doctor } from 'src/app/hp-patient/doctors-list/Doctor'
 import { Appointment } from 'src/app/hp-patient/appointments-list/Appointment'
 import {Sort} from '@angular/material/sort';
+import { AvailableDoctorRequest } from 'src/app/shared/model/AvailableDoctorRequest';
 @Component({
   selector: 'app-appointments-list',
   templateUrl: './appointments-list.component.html',
   styleUrls: ['./appointments-list.component.css']
 })
 export class AppointmentsListComponent implements OnInit {
-  appointments : Appointment[] =[
-    {name: 'Petar', date: '20.12.2019.', time: '14:30', type: 'Pregled'},
-    {name: 'Petar', date: '20.12.2019.', time: '15:00', type: 'Pregled'},
-    {name: 'Petar', date: '20.12.2019.', time: '15:30', type: 'Pregled'},
-    {name: 'Petar', date: '20.12.2019.', time: '16:00', type: 'Pregled'},
-    {name: 'Petar', date: '20.12.2019.', time: '17:00', type: 'Pregled'},
-  ];
+
+  @Input("appointments") appointments;
+
 
   sortedAppointments : Appointment[];
+  @Input("doctor") doctor : any;
+  @Input("doctorReq") doctorReq : AvailableDoctorRequest;
   constructor() { }
 
   ngOnInit() {
+
+    console.log( " Procita ih" + this.appointments);
+    console.log(this.doctor);
     this.sortedAppointments = this.appointments;
+    
   }
   sortData(sort: Sort) {
    
@@ -33,7 +36,7 @@ export class AppointmentsListComponent implements OnInit {
     this.sortedAppointments = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
+      
         case 'date': return compare(a.date, b.date, isAsc);
         case 'time': return compare(a.time, b.time, isAsc);
         case 'type': return compare(a.type, b.type, isAsc);
