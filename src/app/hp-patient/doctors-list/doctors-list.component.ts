@@ -14,7 +14,7 @@ export class DoctorsListComponent implements OnInit {
 
   @Input("doctors") doctors;
   @Input("doctorReq") doctorReq : AvailableDoctorRequest;
-
+  @Input("_patientId") _patientId : any;
  // private _selectedType: TypeReg;
   private _date: any;
   private _rating: Number;

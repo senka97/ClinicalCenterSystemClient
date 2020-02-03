@@ -146,6 +146,18 @@ getPatientSearch(patient:PatientSearch){
     })
   )
 }
+makeAppointment(id:string,appointment)
+{
+  const editHeaders = new HttpHeaders({
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  });
+  return this._apiService.put("http://localhost:9000/api/patients/makeAppointment/"+id,JSON.stringify(appointment) ,editHeaders).pipe(
+    map(result => {
+      console.log("Appointment request send.");
+    })
+  )
+}
 
     
 
