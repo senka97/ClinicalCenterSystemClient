@@ -8,11 +8,15 @@ export class MedicalReport {
     id: number;
     description: String;
     date: any;
-    time: Time;
-    diagnosis: Diagnosis;
+    time: any;
+    diagnoses: Diagnosis[];
     medications: Medication[];
     doctor: Doctor;
 
-    constructor(){}
+    constructor(){
+        this.description="";
+        
+        
+    }
     
 }

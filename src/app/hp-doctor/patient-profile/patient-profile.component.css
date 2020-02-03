@@ -12,14 +12,15 @@
 
 }
 th {
-    background-color: lightskyblue;
+    background-color: lightsteelblue;
 }
 td{
     background-color: beige;
 }
 
 th.mr{
-    background-color: lightgray;
+    background-color: rgb(90, 87, 104);
+    color: white;
     width:25em;
 }
 .card{
@@ -43,4 +44,9 @@ th.mr{
 #name{
     cursor:default;
     pointer-events:none;
+}
+
+textarea {
+    display:block;
+    height: auto; 
 }

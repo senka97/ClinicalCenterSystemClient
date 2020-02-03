@@ -88,6 +88,13 @@ import { ChangeMedicalRecordDialogComponent } from './hp-doctor/patient-profile/
 import { RatingModule } from 'ng-starrating';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ClinicRateDialogComponent } from './shared/dialogs/clinic-rate-dialog/clinic-rate-dialog.component';
+import { ChangeMedicalReportDialogComponent } from './hp-doctor/patient-profile/change-medical-report-dialog/change-medical-report-dialog.component';
+import { MedicalReportService } from './service/medical-report-service';
+import { AddDiagnosisDialogComponent } from './hp-doctor/patient-profile/add-diagnosis-dialog/add-diagnosis-dialog.component';
+import { AddPrescriptionDialogComponent } from './hp-doctor/patient-profile/add-prescription-dialog/add-prescription-dialog.component';
+import { CreateDiagnosisDialogComponent } from './hp-doctor/patient-profile/create-diagnosis-dialog/create-diagnosis-dialog.component';
+
+
 
 
 
@@ -185,7 +192,12 @@ const customNotifierOptions: NotifierOptions = {
     PatientProfileComponent,
     ChangeMedicalRecordDialogComponent,
     DoctorRateDialog,
-    ClinicRateDialogComponent
+    ClinicRateDialogComponent,
+    ChangeMedicalReportDialogComponent,
+    AddDiagnosisDialogComponent,
+    AddPrescriptionDialogComponent,
+    CreateDiagnosisDialogComponent,
+   
     
   ],
   imports: [
@@ -271,7 +283,8 @@ const customNotifierOptions: NotifierOptions = {
     AbsenceService,
     MedicalExamService,
     SurgeryService,
-    PrescriptionService
+    PrescriptionService,
+    MedicalReportService,
   ],
   entryComponents: [ //ovo mora da se doda za dijalog
     PasswordChangedDialogComponent,
@@ -297,7 +310,10 @@ const customNotifierOptions: NotifierOptions = {
     ChangeMedicalRecordDialogComponent,
     DoctorRateDialog,
     ClinicRateDialogComponent,
-    
+    ChangeMedicalReportDialogComponent,
+    AddDiagnosisDialogComponent,
+    AddPrescriptionDialogComponent,
+    CreateDiagnosisDialogComponent,
     
   ],
   //schemas: [NO_ERRORS_SCHEMA],

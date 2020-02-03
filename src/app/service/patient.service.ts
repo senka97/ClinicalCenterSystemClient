@@ -130,6 +130,29 @@ getRatedDoctors(id:string){
     )
 }
 
+deleteChronicCondition(id:String, diagnosis)
+    {
+        const editHeaders = new HttpHeaders({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        });
+        return this._apiService.delete("http://localhost:9000/api/patients/deleteChronicCondition/"+id,JSON.stringify(diagnosis)).pipe(
+            map(result => {
+            console.log("Chronic condition deleted");
+      })
+    )}
+
+    deleteAllergicMedication(id:String, medication)
+    {
+        const editHeaders = new HttpHeaders({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        });
+        return this._apiService.delete("http://localhost:9000/api/patients/deleteAllergicMedication/"+id,JSON.stringify(medication)).pipe(
+            map(result => {
+            console.log("Allergic medication deleted");
+      })
+    )}
     
 
 }

@@ -7,6 +7,16 @@ import { DiagnosisDialogComponent } from 'src/app/shared/dialogs/diagnosis-dialo
 import { ChangeMedicalRecordDialogComponent } from './change-medical-record-dialog/change-medical-record-dialog.component';
 import { NotifierService } from 'angular-notifier';
 import { MedicalReport } from 'src/app/shared/model/MedicalReport';
+import { ChangeMedicalReportDialogComponent } from './change-medical-report-dialog/change-medical-report-dialog.component';
+import { MedicalReportService } from 'src/app/service/medical-report-service';
+import { Prescription } from 'src/app/shared/model/Prescription';
+import { DiagnosisService } from 'src/app/service/diagnosis.service';
+import { MedicationService } from 'src/app/service/medication.service';
+import { AddDiagnosisDialogComponent } from './add-diagnosis-dialog/add-diagnosis-dialog.component';
+import { AddPrescriptionDialogComponent } from './add-prescription-dialog/add-prescription-dialog.component';
+import { Medication } from 'src/app/shared/model/Medication';
+import { CreateDiagnosisDialogComponent } from './create-diagnosis-dialog/create-diagnosis-dialog.component';
+import { Diagnosis } from 'src/app/shared/model/Diagnosis';
 
 @Component({
   selector: 'app-patient-profile',
@@ -17,28 +27,53 @@ export class PatientProfileComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute,
       private _patientService: PatientService,
+      private _medicalReportService: MedicalReportService,
       private _router: Router,
       private _dialog: MatDialog,
-      private _notifier: NotifierService) { }
+      private _notifier: NotifierService,
+      private _diagnosesService: DiagnosisService,
+      private _medicationService: MedicationService) { 
+        this._newMedicalReport = new MedicalReport();
+        this._newMedications = [];
+        this._newDiagnoses = [];
+  }
 
+  private _currentDoctor: any;
   private _currentPatient: any;
   private _patientId: any;
   private _medicalRecord: any;
   private _medicalRecordChanged: any;
+  private _medicalReport: MedicalReport;
+  private _medicalReportChanged: MedicalReport;
+  private _newMedicalReport: MedicalReport;
+
   private _allergicMedicationList: any[];
   private _chronicConditionList: any[];
   private _medicalReports: MedicalReport[];
-
+  private _newDiagnoses: Diagnosis[];
+  private _newMedications: Medication[];
 
   private _showInformation: boolean;
   private _showMedicalRecord: boolean;
   private _showMedicalReports: boolean;
+  private _showNewMedicalReport: boolean;
+  private _medicalReportCreated: boolean;
   private _startMedicalExam: boolean;
+  private _canStartMedicalExam: boolean;
+  private _endMedicalExam: boolean;
+  private _canEndMedicalExam: boolean;
+  private _startedMedicalExam: boolean;
 
   ngOnInit() {
+
+    this._currentDoctor = JSON.parse(localStorage.getItem('currentUser'));
+
     this._route.paramMap.subscribe(params => { 
       this._patientId = params.get('id');
     });
+    console.log("Id pacijenta:");
+    console.log(this._patientId);
+
     this._patientService.getPatient(this._patientId).subscribe( 
       patient=> {
         this._currentPatient=patient;
@@ -56,15 +91,19 @@ export class PatientProfileComponent implements OnInit {
       this._chronicConditionList = chronicCon;
     });
 
-    this._patientService.getMedicalReports(this._patientId).subscribe(reports => {
-      this._medicalReports = reports;
-    });
-
     this._showInformation = false;
     this._showMedicalRecord = false;
-    this._startMedicalExam = false;
+    this._showNewMedicalReport = false;
     this._showMedicalReports = false;
-   
+    this._medicalReportCreated = false; 
+
+    this._startMedicalExam = true; 
+    this._canStartMedicalExam = true; // bice neki uslov
+    this._endMedicalExam = false;
+    this._canEndMedicalExam = false; // bice neki uslov;
+    this._startedMedicalExam = false;
+    
+      
   }
 
   clickedShowInformation()
@@ -72,6 +111,7 @@ export class PatientProfileComponent implements OnInit {
     this._showInformation=!this._showInformation;
     this._showMedicalRecord = false;
     this._showMedicalReports = false;
+    this._showNewMedicalReport = false;
   }
   
   clickedMedicalRecord()
@@ -79,37 +119,106 @@ export class PatientProfileComponent implements OnInit {
     this._showMedicalRecord=!this._showMedicalRecord;
     this._showMedicalReports = false;
     this._showInformation = false;
+    this._showNewMedicalReport = false;
   }
 
   clickedMedicalReports()
   {
+    this._patientService.getMedicalReports(this._patientId).subscribe(reports => {
+      this._medicalReports = reports;
+    });
     this._showMedicalReports = !this._showMedicalReports;
     this._showInformation = false;
     this._showMedicalRecord = false;
-  }
-
-  clickedStartMedicalExam()
-  {
-    if(this._startMedicalExam==false)
-    {
-      this._startMedicalExam=true;
-    }
-    else
-    {
-      //zavrsavanje pregleda
-      this._startMedicalExam=false;
-    }
-   
+    this._showNewMedicalReport = false;
   }
 
   clickedCreateMedicalReport()
   {
-    
+    this._showNewMedicalReport = true;
+    this._showMedicalReports = false;
+    this._showInformation = false;
+    this._showMedicalRecord = false;
+    //preuzimace se iz pregleda
+    this._newMedicalReport.date='2019-02-20';
+    this._newMedicalReport.time='12:00:00';
+  }
+
+  clickedStartMedicalExam()
+  {
+    this._startMedicalExam = false;
+    this._endMedicalExam = true;
+    this._medicalReportCreated = false;
+    this._startedMedicalExam = true;
+  }
+
+  clickedEndMedicalExam()
+  {
+    this._startMedicalExam = true;
+    this._canStartMedicalExam = false;
+    this._endMedicalExam = false;
+    this._canEndMedicalExam = false;
+    this._showNewMedicalReport =  false;
+    this._startedMedicalExam = false;
+  }
+
+  clickSaveMedicalReport()
+  {
+    this._newMedicalReport.diagnoses=this._newDiagnoses;
+    this._newMedicalReport.medications=this._newMedications;
+    this._newMedicalReport.doctor=this._currentDoctor;
+    this._medicalReportService.createMedicalReport(this._patientId,this._newMedicalReport).subscribe(res=> {
+      this._notifier.notify("success","Medical report created");
+              setTimeout(() => {
+                this._notifier.hideAll();
+              }, 2000)
+            },
+          error => {
+            this._notifier.notify("error","Error creating medical report.");
+              setTimeout(() => {
+            this._notifier.hideAll();
+            }, 2000)
+    });
+
+    this._canEndMedicalExam = true;
+    this._medicalReportCreated = true;
+  }
+
+  clickedNewAppointment()
+  {
+
   }
 
   clickedOpenReport(report)
   {
-    
+    this._medicalReport = report;
+    let dialogRef = this._dialog.open(ChangeMedicalReportDialogComponent, {
+      width: '50%',
+      data: JSON.parse(JSON.stringify(report))
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != undefined){
+      this._medicalReportChanged = result;
+      if(this._medicalReport.description != this._medicalReportChanged.description ){
+            this._medicalReport = JSON.parse(JSON.stringify(this._medicalReportChanged));
+            this._medicalReportService.editMedicalReport(this._medicalReport).subscribe(data => {
+              this._patientService.getMedicalReports(this._patientId).subscribe(reports => {
+                this._medicalReports = reports;
+              });
+               this._notifier.notify("success","Medical report changed");
+               setTimeout(() => {
+                 this._notifier.hideAll();
+               }, 2000)
+           },
+           error => {
+             this._notifier.notify("error","Change medical report failed");
+               setTimeout(() => {
+             this._notifier.hideAll();
+             }, 2000)
+           })
+      }
+    }
+    });
   }
 
   clickedChangeInformation()
@@ -154,6 +263,20 @@ export class PatientProfileComponent implements OnInit {
         });
       });
   }
+
+  clickDeleteAllergicMedication(med)
+  {
+    this._patientService.deleteAllergicMedication(this._patientId,med).subscribe( result =>{
+      this._patientService.getPatientAlergicMed(this._patientId).subscribe(allergicMed => {
+        this._allergicMedicationList = allergicMed;
+      });
+      this._notifier.notify("success","Allergic medication deleted");
+        setTimeout(() => {
+         this._notifier.hideAll();
+       }, 2000)
+    });
+  }
+
   addChronicCondition(){
     let dialogRef = this._dialog.open(DiagnosisDialogComponent, {
       width: '50%',
@@ -164,6 +287,44 @@ export class PatientProfileComponent implements OnInit {
         this._chronicConditionList = chronicCon;
       });
     });
+  }
+
+  clickDeleteChronicCondition(ch)
+  {
+    this._patientService.deleteChronicCondition(this._patientId,ch).subscribe( result =>{
+      this._patientService.getPatientChronicCon(this._patientId).subscribe(chronicCon => {
+        this._chronicConditionList = chronicCon;
+      });
+      this._notifier.notify("success","Chronic condition deleted");
+        setTimeout(() => {
+         this._notifier.hideAll();
+       }, 2000)
+    });
+  }
+
+  //prilikom pravljenja novog izvestaja
+  clickAddPrescription(){
+    let dialogRef = this._dialog.open(AddPrescriptionDialogComponent, {
+      width: '50%',
+      data: this._newMedications,
+    });
+    //dialogRef.afterClosed().subscribe(); 
+  }
+  //prilikom pravljenja novog izvestaja
+  clickAddDiagnosis(){
+    let dialogRef = this._dialog.open(CreateDiagnosisDialogComponent, {
+      width: '50%',
+      data: this._newDiagnoses,
+    });
+   // dialogRef.afterClosed().subscribe();
+  }
+
+  clickDeleteDiagnosis(i){
+    this._newDiagnoses.splice(i,1);
+  }
+
+  clickDeleteMedication(i){
+    this._newDiagnoses.splice(i,1);
   }
 
   onClickedBack(){
