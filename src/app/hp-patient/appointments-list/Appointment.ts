@@ -1,8 +1,9 @@
 export class Appointment {
-    name: string;
+    id: any;
     date: any;
     time: any;
     type: any;
+    doctorId: any;
 
     constructor(){}
 }

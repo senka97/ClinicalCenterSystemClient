@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { Doctor } from '../shared/model/Doctor';
 import { HttpHeaders } from '@angular/common/http';
 import { DoctorSearch } from '../shared/model/DoctorSearch';
+import { AvailableDoctorRequest } from '../shared/model/AvailableDoctorRequest';
 
 
 @Injectable({
@@ -82,4 +83,39 @@ import { DoctorSearch } from '../shared/model/DoctorSearch';
         )
 
     }
+
+    getAvailableDoctors(idClinic,doctorReq:AvailableDoctorRequest){
+        const editHeaders = new HttpHeaders({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        });
+        return this._apiService.post("http://localhost:9000/api/doctors/getAvailableDoctors/" + idClinic, JSON.stringify(doctorReq), editHeaders).pipe(
+          map(res=> {
+            return res;
+          })
+        )
+      }
+
+      getFreeDoctors(idClinic,doctorReq:AvailableDoctorRequest){
+        const editHeaders = new HttpHeaders({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        });
+        return this._apiService.post("http://localhost:9000/api/doctors/getFreeDoctors/" + idClinic, JSON.stringify(doctorReq), editHeaders).pipe(
+          map(res=> {
+            return res;
+          })
+        )
+      }
+      getAvailableTerms(doctorId,doctorReq:AvailableDoctorRequest){
+        const editHeaders = new HttpHeaders({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        });
+        return this._apiService.post("http://localhost:9000/api/doctors/getAvailableTerms/" + doctorId, JSON.stringify(doctorReq), editHeaders).pipe(
+          map(res=> {
+            return res;
+          })
+        )
+      }
   }

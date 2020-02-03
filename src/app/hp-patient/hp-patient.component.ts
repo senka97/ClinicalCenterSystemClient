@@ -58,6 +58,13 @@ export class HpPatientComponent implements OnInit {
     
     this.showExams = false;
     this.showSurge = false;
+    //
+    this.notPatient = false;
+    document.getElementById("hidden").hidden = this.notPatient;
+    document.getElementById("notHidden").hidden = !this.notPatient;
+    document.getElementById("hidden2").hidden = this.notPatient;
+    document.getElementById("notHidden2").hidden = !this.notPatient;
+    // 
     if(this._signUpUser.authorities[0]['authority'] == 'ROLE_PATIENT'){
       this.notPatient = false;
       this.patientMedicalRecord(this._signUpUser.id);

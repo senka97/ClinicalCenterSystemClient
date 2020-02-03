@@ -1,3 +1,4 @@
+import { FastAppointmentService } from './../service/fastAppointment.service';
 import { TypeReg } from 'src/app/shared/model/TypeReg';
 import { DoctorService } from 'src/app/service/doctor.service';
 import { TypesService } from './../service/types.service';
@@ -14,6 +15,9 @@ import { StarRatingComponent } from 'ng-starrating';
 import { Doctor } from '../shared/model/Doctor';
 import { DoctorRating } from '../shared/model/DoctorRating';
 import { FormControl, Validators } from '@angular/forms';
+import { FastAppointment } from '../shared/model/FastAppointment';
+import { NotifierService } from 'angular-notifier';
+import { AvailableDoctorRequest } from 'src/app/shared/model/AvailableDoctorRequest';
 
 
 @Component({
@@ -23,7 +27,10 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class ProfileClinicComponent implements OnInit {
 
-  constructor(private _route:ActivatedRoute, private _router: Router, private _clinicService:ClinicService, private _iconRegistry: MatIconRegistry, private _sanitizer: DomSanitizer, private _typesSerivce: TypesService,private _roomService:RoomService,private _doctorService:DoctorService) {
+  constructor(private _route:ActivatedRoute, private _router: Router, private _clinicService:ClinicService,
+     private _iconRegistry: MatIconRegistry, private _sanitizer: DomSanitizer, private _typesSerivce: TypesService,
+     private _roomService:RoomService,private _doctorService:DoctorService, private _faService:FastAppointmentService,
+     private _notifier:NotifierService) {
 
   }
 
@@ -45,12 +52,17 @@ export class ProfileClinicComponent implements OnInit {
   private _index: Number;
   private _doctors: DoctorRating[];
   private _examTypes: TypeReg[];
+  private _freeFA: FastAppointment[];
   //form
   private _selectedType: TypeReg;
   private _date: any;
   private _rating: Number;
   private _docName: String;
   private _docSurname: String;
+  
+
+  private doctors: any;
+  doctorReq : any;
 
   ngOnInit() {
       this._clinic = JSON.parse(localStorage.getItem("clinic"));
@@ -61,7 +73,7 @@ export class ProfileClinicComponent implements OnInit {
       this._showMap = false;
       this._showRooms = false;
       this._showDoctors = false;
-      this._showTableAll = true;
+      this._showTableAll = false;
       this._showTableSearch = false;
       this._coordinates = JSON.parse(localStorage.getItem("coordinates"));
 
@@ -105,10 +117,16 @@ export class ProfileClinicComponent implements OnInit {
     }
 
     showFA(){
-      this._showFA = true;
-      this._showPriceList = false;
-      this._showRooms = false;
-      this._showDoctors = false;
+
+      this._faService.getFreeFastAppointments(this._clinic.id).subscribe(
+        res => {
+            this._freeFA = res;
+            this._showFA = true;
+            this._showPriceList = false;
+            this._showRooms = false;
+            this._showDoctors = false;
+        }
+      )
     }
 
     showPriceList(){
@@ -116,9 +134,11 @@ export class ProfileClinicComponent implements OnInit {
       this._typesSerivce.getExamPrice(this._clinic.id).subscribe(
         res => {
           this._examPrice = res;
+          console.log(this._examPrice);
           this._typesSerivce.getSurgeryPrice(this._clinic.id).subscribe(
             res1 => {
               this._surgeryPrice = res1;
+              console.log(this._surgeryPrice);
               this._showPriceList = true;
               this._showFA = false;
               this._showRooms = false;
@@ -133,6 +153,7 @@ export class ProfileClinicComponent implements OnInit {
         this._roomService.getRooms(this._clinic.id).subscribe(
           res => {
             this._rooms = res;
+            console.log(this._rooms);
             this._showRooms = true;
             this._showFA = false;
             this._showPriceList = false; 
@@ -186,13 +207,28 @@ export class ProfileClinicComponent implements OnInit {
       console.log(this._docName);
       console.log(this._docSurname);
       this._showTableAll = false;
-      this._showTableSearch = true;
+ 
+
+      let date = [this._date['year'],this._date['month'],this._date['day']];
+      let doctorReq = new AvailableDoctorRequest(date,null,this._selectedType.id);
+  
+      console.log(doctorReq,date);
+      this._doctorService.getFreeDoctors(this._clinic.id,doctorReq).subscribe(
+        doctors => {       
+            this.doctors = doctors;
+            console.log(doctors);
+            this.doctorReq = doctorReq;
+            this._showTableAll = true;
+         
+        }
+      )
+      
 
     }
 
     reset(){
       this._showTableSearch = false;
-      this._showTableAll = true;
+      this._showTableAll = false;
     }
 
     resetForm(){
@@ -201,6 +237,27 @@ export class ProfileClinicComponent implements OnInit {
       this._rating = null;
       this._docName = null;
       this._docSurname = null;
+    }
+
+    reserveFA(id){
+
+      this._faService.reserveFA(id).subscribe(
+        res => {
+          console.log("Dodje ovde");
+          this._notifier.notify("success","You have successfully reserved the medical exam.");
+             setTimeout(() => {
+             this._notifier.hideAll();
+        }, 3000)
+          this.showFA();
+        },
+        error => {
+          this._notifier.notify("error", error.error);
+             setTimeout(() => {
+             this._notifier.hideAll();
+        }, 3000)
+        this.showFA();
+        }
+      )
     }
 
 }

@@ -1,3 +1,4 @@
+import { PatientSearch } from './../shared/model/PatientSearch';
 import { ConfigService } from './config.service';
 import { ApiService } from './api.service';
 import { Injectable } from '@angular/core';
@@ -22,6 +23,18 @@ export class PatientService{
           )
 
     }
+
+    getAllCities(){
+      return this._apiService.get("http://localhost:9000/api/patients/getAllCities").pipe(
+          map(cities => {
+             
+              return cities;
+          })
+        )
+
+  }
+
+
 
     getPatient(id:string){
         return this._apiService.get("http://localhost:9000/api/patients/patient/" + id).pipe(
@@ -153,6 +166,33 @@ deleteChronicCondition(id:String, diagnosis)
             console.log("Allergic medication deleted");
       })
     )}
+getPatientSearch(patient:PatientSearch){
+
+  const editHeaders = new HttpHeaders({
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  });
+  return this._apiService.post("http://localhost:9000/api/patients/searchPatients", JSON.stringify(patient), editHeaders).pipe(
+    map(result => {
+      return result;
+      console.log(result);
+
+    })
+  )
+}
+makeAppointment(id:string,appointment)
+{
+  const editHeaders = new HttpHeaders({
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  });
+  return this._apiService.put("http://localhost:9000/api/patients/makeAppointment/"+id,JSON.stringify(appointment) ,editHeaders).pipe(
+    map(result => {
+      console.log("Appointment request send.");
+    })
+  )
+}
+
     
 
 }

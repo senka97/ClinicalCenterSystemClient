@@ -1,3 +1,4 @@
+import { FastAppointmentService } from './service/fastAppointment.service';
 import { AbsenceService } from './service/absence.service';
 import { MatBadgeModule } from '@angular/material/badge';
 import { TypesService } from './service/types.service';
@@ -87,6 +88,7 @@ import { PatientProfileComponent } from './hp-doctor/patient-profile/patient-pro
 import { ChangeMedicalRecordDialogComponent } from './hp-doctor/patient-profile/change-medical-record-dialog/change-medical-record-dialog.component';
 import { RatingModule } from 'ng-starrating';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { FastAppointmentsComponent } from './profile-clinic-admin/fast-appointments/fast-appointments.component';
 import { ClinicRateDialogComponent } from './shared/dialogs/clinic-rate-dialog/clinic-rate-dialog.component';
 import { ChangeMedicalReportDialogComponent } from './hp-doctor/patient-profile/change-medical-report-dialog/change-medical-report-dialog.component';
 import { MedicalReportService } from './service/medical-report-service';
@@ -95,6 +97,7 @@ import { AddPrescriptionDialogComponent } from './hp-doctor/patient-profile/add-
 import { CreateDiagnosisDialogComponent } from './hp-doctor/patient-profile/create-diagnosis-dialog/create-diagnosis-dialog.component';
 
 
+import { TableFilterPipe } from './hp-doctor/table-filter';
 
 
 
@@ -197,7 +200,9 @@ const customNotifierOptions: NotifierOptions = {
     AddDiagnosisDialogComponent,
     AddPrescriptionDialogComponent,
     CreateDiagnosisDialogComponent,
-   
+    FastAppointmentsComponent,
+    ClinicRateDialogComponent,
+    TableFilterPipe
     
   ],
   imports: [
@@ -227,7 +232,8 @@ const customNotifierOptions: NotifierOptions = {
       { path: 'doctorsInClinic/:id', component: DoctorsComponent},
       { path: 'absenceRequests/:id', component: AbsenceRequestComponent},
       { path: 'clinicProfile/:id', component: ProfileClinicComponent},
-      {path: 'patientProfile/:id', component: PatientProfileComponent},
+      { path: 'patientProfile/:id', component: PatientProfileComponent},
+      { path: 'fastAppointments/:id', component: FastAppointmentsComponent},  
       { path: '', redirectTo: 'login', pathMatch: 'full' }
       //{path: '**', redirectTo: 'login'},
 
@@ -285,6 +291,7 @@ const customNotifierOptions: NotifierOptions = {
     SurgeryService,
     PrescriptionService,
     MedicalReportService,
+    FastAppointmentService
   ],
   entryComponents: [ //ovo mora da se doda za dijalog
     PasswordChangedDialogComponent,

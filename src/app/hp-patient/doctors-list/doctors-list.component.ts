@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {Sort} from '@angular/material/sort';
 import { Doctor } from 'src/app/hp-patient/doctors-list/Doctor'
+import { DoctorService } from 'src/app/service/doctor.service';
+import { AvailableDoctorRequest } from 'src/app/shared/model/AvailableDoctorRequest';
+import { Appointment } from '../appointments-list/Appointment';
 
 @Component({
   selector: 'app-doctors-list',
@@ -9,32 +12,117 @@ import { Doctor } from 'src/app/hp-patient/doctors-list/Doctor'
 })
 export class DoctorsListComponent implements OnInit {
 
-  doctors: Doctor[] = [
-    {name: 'Petar', surname: 'Peric', rating: 5, numberOfReviews: 270},
-    {name: 'Mika', surname: 'Mikic', rating: 2, numberOfReviews: 10},
-    {name: 'Zika', surname: 'Zikic', rating: 3, numberOfReviews: 2},
-    {name: 'Ana', surname: 'Anic', rating: 4, numberOfReviews: 100},
-    {name: 'Sanja', surname: 'Sanjic', rating: 3.37, numberOfReviews: 76},
-  ];
-
+  @Input("doctors") doctors;
+  @Input("doctorReq") doctorReq : AvailableDoctorRequest;
+  @Input("_patientId") _patientId : any;
+ // private _selectedType: TypeReg;
+  private _date: any;
+  private _rating: Number;
+  private _docName: String;
+  private _docSurname: String;
+  private doctor : any;
 
   sortedDoctors : Doctor[];
+  appointments : any;
   showTimes : boolean;
-  constructor() { }
+  constructor(private _doctorService : DoctorService) { }
 
   ngOnInit() {
     this.sortedDoctors = this.doctors;
     this.showTimes = false;
    
   }
-  showDoctorTimes(){
-    if(this.showTimes == true){
-      this.showTimes = false;
-    }else{
+  showDoctorTimes(doctor: Doctor){
+    console.log("Doctor rating = ", doctor.rating )
+    this.doctor = doctor;
+    
+  
+    
+  
+  
+    this._doctorService.getAvailableTerms(this.doctor.id,this.doctorReq).subscribe(terms => {
+      this.appointments = terms;
+      console.log("Terms: " + this.appointments);
+
       this.showTimes = true;
+   
+  }); 
+   
+
+  }
+  searchDoctors(){
+    this.showTimes = false;
+    var filter, table, tr;
+    table = document.getElementById("myTable");
+    console.log(this._docName);
+    if(this._docName != null){
+      filter = this._docName.toUpperCase();
+      tr = table.getElementsByTagName("tr");
+      this.hideTr(tr,filter,0);
+    }
+    if(this._docSurname != null){
+      filter = this._docSurname.toUpperCase();
+      tr = table.getElementsByTagName("tr");
+      this.hideTr(tr,filter,1);
+    }
+    if(this._rating != null){
+      filter = this._rating;
+      tr = table.getElementsByTagName("tr");
+      this.hideRating(tr,filter,2);
+    }
+   
+
+    console.log(filter);
+  
+
+  }
+
+  hideTr(tr: any,filter:any, rowNum: any){
+    var i,td,txtValue;
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[rowNum];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
     }
 
   }
+  hideRating(tr: any,filter:any, rowNum: any){
+    var i,td,txtValue;
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[rowNum];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue == filter) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+
+  }
+  reset(){
+    this._docName = null;
+    this._docSurname = null;
+    this._rating = null;
+    var table = document.getElementById("myTable");
+    var tr = table.getElementsByTagName("tr");
+    var i;
+    for (i = 0; i < tr.length; i++) {
+
+          tr[i].style.display = "";
+    }
+    this.showTimes = false;
+
+
+  }
+
   sortData(sort: Sort) {
    
     const data = this.doctors.slice();
