@@ -5,6 +5,7 @@ export class DoctorRating{
     surname: String;
     rating: Number;
     numberOfReviews: Number;
+    serialNumber: String;
 
     constructor(){}
 }
