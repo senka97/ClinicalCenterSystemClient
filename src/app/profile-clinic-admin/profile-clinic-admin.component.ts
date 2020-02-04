@@ -143,6 +143,11 @@ export class ProfileClinicAdminComponent implements OnInit {
       this._router.navigate(['/clinicProfile/', this._clinic.id]);
   }
 
+  clickedBusinessReport(){
+    localStorage.setItem("clinic",JSON.stringify(this._clinic));
+    this._router.navigate(['/businessReport/', this._clinic.id]);
+  }
+
   clickedEditClinic(){
     let dialogRef = this._dialog.open(EditClinicDialogComponent, {
       width: '50%',

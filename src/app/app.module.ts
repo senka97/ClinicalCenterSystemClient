@@ -98,6 +98,8 @@ import { CreateDiagnosisDialogComponent } from './hp-doctor/patient-profile/crea
 
 
 import { TableFilterPipe } from './hp-doctor/table-filter';
+import { BusinessReportComponent } from './profile-clinic-admin/business-report/business-report.component';
+import { jqxChartModule }   from 'jqwidgets-ng/jqxchart';
 
 
 
@@ -202,7 +204,8 @@ const customNotifierOptions: NotifierOptions = {
     CreateDiagnosisDialogComponent,
     FastAppointmentsComponent,
     ClinicRateDialogComponent,
-    TableFilterPipe
+    TableFilterPipe,
+    BusinessReportComponent
     
   ],
   imports: [
@@ -234,6 +237,7 @@ const customNotifierOptions: NotifierOptions = {
       { path: 'clinicProfile/:id', component: ProfileClinicComponent},
       { path: 'patientProfile/:id', component: PatientProfileComponent},
       { path: 'fastAppointments/:id', component: FastAppointmentsComponent},  
+      { path: 'businessReport/:id', component: BusinessReportComponent},
       { path: '', redirectTo: 'login', pathMatch: 'full' }
       //{path: '**', redirectTo: 'login'},
 
@@ -264,7 +268,8 @@ const customNotifierOptions: NotifierOptions = {
     AngularYandexMapsModule.forRoot('8c25f85c-6bc9-4294-9e6d-10fed101991f'),
     NotifierModule.withConfig(customNotifierOptions),
     RatingModule,
-    NgSelectModule
+    NgSelectModule,
+    jqxChartModule
         
   ],
   providers: [
