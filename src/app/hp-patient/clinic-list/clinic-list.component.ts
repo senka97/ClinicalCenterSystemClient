@@ -22,6 +22,7 @@ export class ClinicListComponent implements OnInit {
   leftArrow : String;
   rightArrow : String;
   showSpinner : boolean;
+  showSpinner2 : boolean;
   showDoctors : boolean;
   showAppointments : boolean;
   doctorReq : any;
@@ -31,15 +32,19 @@ export class ClinicListComponent implements OnInit {
   private _selectedType: TypeReg;
   private _date: any;
   private doctors: any;
+  private message : any;
+
 
   constructor(private _clinicService :ClinicService, private _router:Router, private _typesService : TypesService, private _doctorService : DoctorService) { }
 
   ngOnInit() {
+    this.message = " No free appointments for that date, please try with new one!";
     this.startIndex = 0;
     this.leftArrow = "<--";
     this.rightArrow = "-->";
     this.numberOfClinics = 0;
     this.showSpinner = true;
+    this.showSpinner2 = false;
     this.showDoctors = false;
     this.showAppointments = false;
     this.imagePath = "https://smaller-pictures.appspot.com/images/dreamstime_xxl_65780868_small.jpg";
@@ -51,12 +56,15 @@ export class ClinicListComponent implements OnInit {
    
   }
   searchClinics(){
-
+    this.message = " No free appointments for that date, please try with new one!";
+      this.showDoctors = false;
+      this.showSpinner = true;
       let date = [this._date['year'],this._date['month'],this._date['day']];
       let doctorReq = new AvailableDoctorRequest(date,null,this._selectedType.id);
     
       console.log(doctorReq,date);
-      this.showSpinner = true;
+      this.showSpinner2 = true;
+
       this._clinicService.getFreeClinics(doctorReq).subscribe(clinics => {
 
       console.log("Clinics retrived : " + clinics);
@@ -65,10 +73,26 @@ export class ClinicListComponent implements OnInit {
       this.numberOfClinics = this._allClinics.length;
       this.startIndex = 0;
       this.showSpinner = false;
+      this.showSpinner2 = false;
       this.nextClinics();
+ 
     
 
      
+    },
+    error => {
+      this._allClinics = null;
+      this.numberOfClinics = 0
+      this.startIndex = 0;
+      this.nextClinics();
+
+      this.message = error.error;
+      console.log(this.message);
+
+      this.showSpinner = false;
+      this.showSpinner2 = false;
+    
+
     }); 
 
   }

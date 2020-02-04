@@ -4,6 +4,7 @@ import { Doctor } from 'src/app/hp-patient/doctors-list/Doctor'
 import { DoctorService } from 'src/app/service/doctor.service';
 import { AvailableDoctorRequest } from 'src/app/shared/model/AvailableDoctorRequest';
 import { Appointment } from '../appointments-list/Appointment';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-doctors-list',
@@ -25,7 +26,7 @@ export class DoctorsListComponent implements OnInit {
   sortedDoctors : Doctor[];
   appointments : any;
   showTimes : boolean;
-  constructor(private _doctorService : DoctorService) { }
+  constructor(private _doctorService : DoctorService, private _notifier : NotifierService) { }
 
   ngOnInit() {
     this.sortedDoctors = this.doctors;
@@ -33,7 +34,7 @@ export class DoctorsListComponent implements OnInit {
    
   }
   showDoctorTimes(doctor: Doctor){
-    console.log("Doctor rating = ", doctor.rating )
+    console.log("Patient id = " + this._patientId );
     this.doctor = doctor;
     
   
@@ -105,6 +106,28 @@ export class DoctorsListComponent implements OnInit {
         }
       }
     }
+
+  }
+  resetChild(change : any){
+   
+    if(change){
+      this._notifier.notify("success","Appointment request sent! Please wait for responese!");
+      setTimeout(() => {
+      this._notifier.hideAll();
+      this.reset();
+     
+    }, 2000)
+
+    }else {
+      this._notifier.notify("error","Appointment already taken! Please wait for reloading...");
+      setTimeout(() => {
+      this._notifier.hideAll();
+      this.reset();
+     
+    }, 2000)
+    }
+ 
+
 
   }
   reset(){
