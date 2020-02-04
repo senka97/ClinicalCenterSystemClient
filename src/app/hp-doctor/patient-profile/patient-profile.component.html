@@ -6,7 +6,7 @@
                 <a id="logo" class="navbar-brand" href="#"><img src="assets/img/logo5.jpg" alt="logo" width="80em" height="63em"></a>
             </div>
             <div class="mx-auto order-0">
-                <a id="name" class="navbar-brand mx-auto disabled" style="color: darkblue;" href="#">Patient: {{_currentPatient.name}} {{_currentPatient.surname}} {{!_startMedicalExam ? '':'(Medical exam in progress)'}} </a>
+                <a id="name" class="navbar-brand mx-auto disabled" style="color: darkblue;" href="#">Patient: {{_currentPatient.name}} {{_currentPatient.surname}} {{!_endMedicalExam ? '':'(Medical exam in progress)'}} </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -29,11 +29,17 @@
             <li class="nav-item">
                 <button class="btn btn-sm btn-outline-secondary"  style="width: 18em; color:darkblue;" (click)="clickedMedicalReports()"> Medical Reports </button>
             </li>
-            <li class="nav-item">
-                <button class="btn btn-sm btn-outline-secondary"  style="width: 18em; color:darkblue;" (click)="clickedStartMedicalExam()" > {{!_startMedicalExam ? 'Start Medical Exam' : 'End Medical Exam' }}</button>
+            <li class="nav-item" *ngIf = '_startMedicalExam' >
+                <button class="btn btn-sm btn-outline-secondary" [disabled] = '!_canStartMedicalExam'  style="width: 18em; color:darkblue;" (click)="clickedStartMedicalExam()" > Start Medical Exam </button>
             </li>
-            <li class="nav-item" *ngIf = '_startMedicalExam'>
-                <button class="btn btn-sm btn-outline-secondary"  style="width: 18em; color:darkblue;" (click)="clickedCreateMedicalReport()"> Create Medical Report </button>
+            <li class="nav-item" *ngIf = '_endMedicalExam' >
+                <button class="btn btn-sm btn-outline-secondary" [disabled]= '!_canEndMedicalExam'  style="width: 18em; color:darkblue;" (click)="clickedEndMedicalExam()" > End Medical Exam </button>
+            </li>
+            <li class="nav-item" *ngIf = '_endMedicalExam'>
+                <button class="btn btn-sm btn-outline-secondary" [disabled]= '_medicalReportCreated'  style="width: 18em; color:darkblue;" (click)="clickedCreateMedicalReport()"> Create Medical Report </button>
+            </li>
+            <li class="nav-item" *ngIf = '_endMedicalExam'>
+                <button class="btn btn-sm btn-outline-secondary"  style="width: 18em; color:darkblue;" (click)="clickedNewAppointment()"> New appointment </button>
             </li>
         </ul> 
     </div>
@@ -57,9 +63,23 @@
         </div>
     </div>
 
-    <div class="card" *ngIf='_showMedicalRecord' style="background-color: lightskyblue;" >
+    <div class='panel panel-primary' *ngIf = '_showMedicalReports' style="float:left;margin-left:15%;width:35%;">
+        <div class='panel-body'>
+            <div class='table-responsive'>
+                <table class='table table-striped' style="margin-top: 2%; margin-bottom:2%">
+                    <tr><th style="text-align: center;" colspan="5"> History of medical reports </th> </tr>
+                    <tr> <th style="text-align: center;"> Date </th><th style="text-align: center;"> Time </th> <th style="text-align: center;" colspan="2"> Doctor </th> <th></th></tr>
+                    <tr *ngFor="let report of _medicalReports"> <td> {{report.date}}  </td> <td>{{report.time}}</td> <td> {{report.doctor.name}}</td> <td>{{report.doctor.surname}}</td> <td><button style="width:6em;" type="button"  class="btn btn-outline-primary btn-rounded waves-effect" (click)="clickedOpenReport(report)"> Open </button></td> </tr> 
+                
+                </table>
+                <button style="width:8em; margin-left:11em; margin-bottom:3%;"  type="button"  class="btn btn-primary"  (click)="clickedClose()"> Close </button> 
+            </div>
+        </div>
+    </div>
+
+    <div class="card" *ngIf='_showMedicalRecord' style="background-color: lightsteelblue;" >
         <div class="card-content">
-                <span class="card-title" style="color:darkblue; margin-left: 13em;"> <h3>Medical Record </h3></span>
+                <span class="card-title" style="color: rgb(90, 87, 104); margin-left: 13em;"> <h3>Medical Record </h3></span>
         </div>
         <div class="col-white"> 
             <table class='table' id="medRecTable" style="border: 0;">
@@ -70,24 +90,62 @@
                 <tr><th class="mr">Blood type:</th> <td> {{_medicalRecord.bloodType}} </td> </tr>  
                 <tr><th class="mr">Organ donor:</th> <td> {{_medicalRecord.organDonor}} </td> </tr>   
             </table>
-            <button style="width:14em; margin-left:22em; margin-bottom:3%;"  [disabled]="!_startMedicalExam"  type="button"  class="btn btn-primary"  (click)="clickedChangeInformation()"> Change Information</button> 
+            <button style="width:14em; margin-left:22em; margin-bottom:3%;"  [disabled]="!_startedMedicalExam"  type="button"  class="btn btn-primary"  (click)="clickedChangeInformation()"> Change Information</button> 
         </div>
         <div class="row"> 
             <div style="margin-left: 9.5%; margin-right:5%;">
                 <table class='table'  style="border: 0;  width:18em;">
-                    <tr><th class="mr">Allergic to medication</th> </tr> 
-                    <tr *ngFor="let med of _allergicMedicationList"> <td> {{med.description}} </td> </tr>
+                    <tr><th class="mr" colspan="2">Allergic to medication</th> </tr> 
+                    <tr *ngFor="let med of _allergicMedicationList let i = index"> <td> {{med.description}} </td> <td> <button type="button" [disabled]="!_startedMedicalExam" class="btn btn-outline-danger btn-rounded waves-effect" style="width: 4.5em; margin:0.1em; padding:0.1em"  (click)="clickDeleteAllergicMedication(med)"> Delete </button></td> </tr>
                 </table>
-                <button style="width:6em;  margin-left:6em" [disabled]="!_startMedicalExam"  type="button"  class="btn btn-primary"  (click)="addAllergicMedication()"> Add</button> 
+                <button style="width:6em;  margin-left:6em" [disabled]="!_startedMedicalExam"  type="button"  class="btn btn-outline-success btn-rounded waves-effect"  (click)="addAllergicMedication()"> Add</button> 
             </div>
             <div style="margin-left: 7%; margin-right:5%;">
                 <table class='table'  style="border: 0;   width:18em;">
-                    <tr><th class="mr">Chronical conditions </th> </tr> 
-                    <tr *ngFor="let ch of _chronicConditionList"> <td> {{ch.description}} </td> </tr>
+                    <tr><th class="mr" colspan="2">Chronical conditions </th> </tr> 
+                    <tr *ngFor="let ch of _chronicConditionList let i = index"> <td> {{ch.description}} </td> <td> <button type="button" class="btn btn-outline-danger btn-rounded waves-effect" [disabled]="!_startedMedicalExam" style="width: 4.5em; margin:0.1em; padding:0.1em"  (click)="clickDeleteChronicCondition(ch)"> Delete </button></td> </tr>
                 </table>
-                <button style="width:6em; margin-left:6em"  [disabled]="!_startMedicalExam" type="button"  class="btn btn-primary"  (click)="addChronicCondition()"> Add</button> 
+                <button style="width:6em; margin-left:6em"  [disabled]="!_startedMedicalExam" type="button"  class="btn btn-outline-success btn-rounded waves-effect" (click)="addChronicCondition()"> Add</button> 
             </div>                  
         </div>
+    </div>
+
+    <div class="card" *ngIf='_showNewMedicalReport && !_medicalReportCreated' style="background-color: lightsteelblue;">
+        <div class= "card-title" style="color: rgb(90, 87, 104); margin-left: 13em; margin-top:1em">
+            <span> <h3>Medical Report</h3></span>
+        </div>
+        <div class = "card-content">
+            <form  #medicalReportForm="ngForm" (ngSubmit) = "clickSaveMedicalReport()">
+                <table class='table table-condensed' id="medReport" >
+                    <tr><th class="mr"><b>Doctor:</b></th><td> {{_currentDoctor.name}}  {{_currentDoctor.surname}} </td></tr>
+                    <tr><th class="mr"><b>Date:</b></th><td> {{_newMedicalReport.date}} </td></tr>
+                    <tr><th class="mr"><b>Time:</b></th><td> {{_newMedicalReport.time}}  </td></tr>
+                </table>               
+                <p style="margin-left: 1em;"><b> Description: </b></p>              
+                <textarea id="medReport" rows="5" wrap="hard" name="description" [(ngModel)] = '_newMedicalReport.description' required style="background-color: beige;" > </textarea>              
+            
+            
+            <div class="panel panel-primary">
+                <div class="row"> 
+                    <div style="margin-left: 5em" >
+                        <table class='table table-condensed'  style=" width:18em; margin-top:0.8em; margin-bottom:0.8em">
+                            <tr><th class="mr" style="text-align: center;" colspan="2">Diagnoses:</th> </tr> 
+                            <tr *ngFor="let d of _newDiagnoses let i = index"> <td style="text-align: center;"> {{d.description}} </td> <td> <button type="button" class="btn btn-outline-danger btn-rounded waves-effect" style="width: 4.5em; margin:0.1em; padding:0.1em"  (click)="clickDeleteDiagnosis(i)"> Delete </button></td> </tr>
+                        </table>
+                        <button style="width:5em; margin-left:6em" type="button" class="btn btn-outline-success btn-rounded waves-effect" (click)="clickAddDiagnosis()"> Add</button> 
+                    </div>
+                    <div  style="margin-left: 12em" >
+                        <table  class='table table-condensed' style=" margin-top:0.8em; margin-bottom:0.8em;  width:18em;">
+                            <tr><th class="mr" style="text-align: center;" colspan="2">Precriptions: </th> </tr> 
+                            <tr *ngFor="let m of _newMedications let i = index"> <td style="text-align: center;"> {{m.description}} </td> <td> <button type="button" class="btn btn-outline-danger btn-rounded waves-effect" style="width: 4.5em; margin:0.1em; padding:0.1em"  (click)="clickDeleteMedication(i)"> Delete </button></td> </tr>
+                        </table>
+                        <button style="width:5em; margin-left:6em" type="button" class="btn btn-outline-success btn-rounded waves-effect" (click)="clickAddPrescription()"> Add</button> 
+                    </div>                  
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success"  style="margin-left: 1em;" [disabled]="!medicalReportForm.form.valid" >Save</button>  
+        </form>        
+        </div>       
     </div>
     <notifier-container></notifier-container>
   </div>
