@@ -1,3 +1,5 @@
+import { MedicalExamService } from './../../service/medical-exam-service';
+import { IncomeDate } from './../../shared/model/IncomeDate';
 import { DoctorService } from 'src/app/service/doctor.service';
 import { ClinicAdminService } from './../../service/clinic-admin.service';
 import { Component, OnInit } from '@angular/core';
@@ -15,7 +17,8 @@ import { DoctorRating } from 'src/app/shared/model/DoctorRating';
 export class BusinessReportComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute,private _router: Router, private _dialog: MatDialog,
-     private _notifier:NotifierService, private _clinicAdminService: ClinicAdminService, private _doctorService:DoctorService) { }
+     private _notifier:NotifierService, private _clinicAdminService: ClinicAdminService, private _doctorService:DoctorService,
+     private _medicalExamsService:MedicalExamService) { }
 
   private _currentAdmin: any;
   private _clinicId: String; 
@@ -92,10 +95,13 @@ export class BusinessReportComponent implements OnInit {
     let startDate = [this._startDate['year'],this._startDate['month'],this._startDate['day']];
     let endDate = [this._endDate['year'],this._endDate['month'],this._endDate['day']];
 
+    let incomeDate = new IncomeDate(startDate,endDate);
 
-    this._income = 50000;
-
-
+    this._medicalExamsService.getIncome(incomeDate,this._clinicId).subscribe(
+      res => {
+        this._income = res;
+      }
+    )
   }
 
   reset(){
