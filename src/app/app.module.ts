@@ -90,6 +90,13 @@ import { RatingModule } from 'ng-starrating';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FastAppointmentsComponent } from './profile-clinic-admin/fast-appointments/fast-appointments.component';
 import { ClinicRateDialogComponent } from './shared/dialogs/clinic-rate-dialog/clinic-rate-dialog.component';
+import { ChangeMedicalReportDialogComponent } from './hp-doctor/patient-profile/change-medical-report-dialog/change-medical-report-dialog.component';
+import { MedicalReportService } from './service/medical-report-service';
+import { AddDiagnosisDialogComponent } from './hp-doctor/patient-profile/add-diagnosis-dialog/add-diagnosis-dialog.component';
+import { AddPrescriptionDialogComponent } from './hp-doctor/patient-profile/add-prescription-dialog/add-prescription-dialog.component';
+import { CreateDiagnosisDialogComponent } from './hp-doctor/patient-profile/create-diagnosis-dialog/create-diagnosis-dialog.component';
+
+
 import { TableFilterPipe } from './hp-doctor/table-filter';
 import { BusinessReportComponent } from './profile-clinic-admin/business-report/business-report.component';
 import { jqxChartModule }   from 'jqwidgets-ng/jqxchart';
@@ -190,6 +197,11 @@ const customNotifierOptions: NotifierOptions = {
     PatientProfileComponent,
     ChangeMedicalRecordDialogComponent,
     DoctorRateDialog,
+    ClinicRateDialogComponent,
+    ChangeMedicalReportDialogComponent,
+    AddDiagnosisDialogComponent,
+    AddPrescriptionDialogComponent,
+    CreateDiagnosisDialogComponent,
     FastAppointmentsComponent,
     ClinicRateDialogComponent,
     TableFilterPipe,
@@ -283,6 +295,7 @@ const customNotifierOptions: NotifierOptions = {
     MedicalExamService,
     SurgeryService,
     PrescriptionService,
+    MedicalReportService,
     FastAppointmentService
   ],
   entryComponents: [ //ovo mora da se doda za dijalog
@@ -309,7 +322,10 @@ const customNotifierOptions: NotifierOptions = {
     ChangeMedicalRecordDialogComponent,
     DoctorRateDialog,
     ClinicRateDialogComponent,
-    
+    ChangeMedicalReportDialogComponent,
+    AddDiagnosisDialogComponent,
+    AddPrescriptionDialogComponent,
+    CreateDiagnosisDialogComponent,
     
   ],
   //schemas: [NO_ERRORS_SCHEMA],
