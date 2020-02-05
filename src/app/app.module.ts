@@ -100,6 +100,8 @@ import { CreateDiagnosisDialogComponent } from './hp-doctor/patient-profile/crea
 import { TableFilterPipe } from './hp-doctor/table-filter';
 import { BusinessReportComponent } from './profile-clinic-admin/business-report/business-report.component';
 import { jqxChartModule }   from 'jqwidgets-ng/jqxchart';
+import { ExamRoomRequestComponent } from './profile-clinic-admin/exam-room-request/exam-room-request.component';
+import { RoomReservationComponent } from './profile-clinic-admin/room-reservation/room-reservation.component';
 
 
 
@@ -205,7 +207,9 @@ const customNotifierOptions: NotifierOptions = {
     FastAppointmentsComponent,
     ClinicRateDialogComponent,
     TableFilterPipe,
-    BusinessReportComponent
+    BusinessReportComponent,
+    ExamRoomRequestComponent,
+    RoomReservationComponent
     
   ],
   imports: [
@@ -238,6 +242,8 @@ const customNotifierOptions: NotifierOptions = {
       { path: 'patientProfile/:id', component: PatientProfileComponent},
       { path: 'fastAppointments/:id', component: FastAppointmentsComponent},  
       { path: 'businessReport/:id', component: BusinessReportComponent},
+      { path: 'examRoomRequests/:id', component: ExamRoomRequestComponent},
+      { path: 'searchRoomForExam/:idExam/:idClinic', component: RoomReservationComponent},
       { path: '', redirectTo: 'login', pathMatch: 'full' }
       //{path: '**', redirectTo: 'login'},
 
