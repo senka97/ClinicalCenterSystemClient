@@ -69,48 +69,7 @@
                     </div>
                   </div>
                 </div>
-                <!--<div class="col-sm-6">
-                    <div class="card text-left" style="width:90%;background-color: rgb(183, 227, 255);margin-left:1.5em;">
-                      <div class="card-body">
-                        <h5 class="card-title">Exam type</h5>
-                        <p class="card-text">Date</p>
-                        <p class="card-text">Hours:</p>
-                        <p class="card-text">Doctor:</p>
-                        <p class="card-text">Room:</p>
-                        <p class="card-text">Price:</p>
-                        <p class="card-text">Discount:</p>
-                        <a *ngIf="_role=='ROLE_PATIENT'" href="#" class="btn btn-primary">Reserve</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="card text-left" style="width:90%;background-color: rgb(183, 227, 255);margin-left:1.5em;">
-                      <div class="card-body">
-                        <h5 class="card-title">Exam type</h5>
-                        <p class="card-text">Date</p>
-                        <p class="card-text">Hours:</p>
-                        <p class="card-text">Doctor:</p>
-                        <p class="card-text">Room:</p>
-                        <p class="card-text">Price:</p>
-                        <p class="card-text">Discount:</p>
-                        <a *ngIf="_role=='ROLE_PATIENT'" href="#" class="btn btn-primary">Reserve</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="card text-left" style="width:90%;background-color: rgb(183, 227, 255);margin-left:1.5em;">
-                      <div class="card-body">
-                        <h5 class="card-title">Exam type</h5>
-                        <p class="card-text">Date</p>
-                        <p class="card-text">Hours:</p>
-                        <p class="card-text">Doctor:</p>
-                        <p class="card-text">Room:</p>
-                        <p class="card-text">Price:</p>
-                        <p class="card-text">Discount:</p>
-                        <a *ngIf="_role=='ROLE_PATIENT'" href="#" class="btn btn-primary">Reserve</a>
-                      </div>
-                    </div>
-                  </div>-->
+        
               </div>
         </div>
         <div *ngIf="_showPriceList" class="card text-center">
@@ -218,89 +177,20 @@
               </div>
               
             </div>
-            <!-- <div class="row">
-              <div class="input-field col">
-                <input class="form-control" type="number" placeholder="Choose a rating" [(ngModel)]="_rating" min="0" max="5" name="rating">
-              </div>
-              <div class="input-field col">
-                <input class="form-control" type="text" placeholder="Enter a doctor's name" [(ngModel)]="_docName" name="nameDoctor">
-              </div>
-              <div class="input-field col">
-                <input class="form-control" type="text" placeholder="Enter a doctor's last name" [(ngModel)]="_docSurname"  name="surnameDoctor">
-              </div>             
-            </div> -->
             <button class="btn btn-primary" style="width:7em;margin-right:1em;" type="submit" [disabled]="!searchDoctorsForm.form.valid">Search</button>
             <button class="btn btn-primary" style="width:7em;margin-right:1em;" type="reset" (click)="reset()">Reset</button>
          </form>
+         <div class="noAppMessage" *ngIf="error" >
+          {{message}}
+         </div>
+     
+
          <div class="row listOfDoctors"  *ngIf="_showTableAll">
-          <div><app-doctors-list [doctors]="doctors" [doctorReq] = "doctorReq" ></app-doctors-list> </div> 
+          <div><app-doctors-list [doctors]="doctors" [doctorReq] = "doctorReq" [_patientId]="_patientId" ></app-doctors-list> </div> 
       
         
           
          </div>
-         <!--Prikaz svih doktora-->
-         <!-- <table *ngIf="_showTableAll" class="table table-striped">
-          <thead style="background-color: lightskyblue;">
-            <tr>
-              <th>#</th>
-              <th>First name</th>
-              <th>Last name</th>
-              <th>Rating</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let doctor of _doctors;let i = index;">
-              <th>{{i+1}}</th>
-              <td>{{doctor.name}}</td>
-              <td style="text-align: center;">{{doctor.surname}}</td>
-              <td style="text-align: center;"><star-rating value="{{doctor.rating}}" totalstars="5" checkedcolor="red" uncheckedcolor="black" size="24px" readonly="true" (rate)="onRate($event)"></star-rating></td>
-            </tr>
-          </tbody>
-        </table> -->
-        <!--Prikaz rezultata pretrage-->
-        <!-- <table *ngIf="_showTableSearch" class="table">
-          <thead style="background-color: lightskyblue;">
-            <tr>
-              <th>#</th>
-              <th>First name</th>
-              <th>Last name</th>
-              <th>Rating</th>
-            </tr>
-          </thead>
-          <tbody>
-          Ovde treba da prolazi kroz drugu listu _doctorsTerms koja pored imena,prezimena,i ocene ima i termine
-            <ng-container *ngFor="let doctor of _doctors;let i=index;">
-              <tr style="border-bottom: black;border-bottom-style: solid;background-color: lightgray;">
-                <th>{{i+1}}</th>
-                <td style="text-align: center;"> {{doctor.name}} </td>
-                <td style="text-align: center;"> {{doctor.surname}} </td>
-                <td style="text-align: center;"><star-rating value="{{doctor.rating}}" totalstars="5" checkedcolor="red" uncheckedcolor="black" size="24px" readonly="true" (rate)="onRate($event)"></star-rating></td>
-              </tr>
-              <ng-container>
-                <tr *ngFor="let term of doctor.terms;let j=index">
-                  <th> Term {{j+1}} </th>
-                  <td style="text-align: center;"> {{term.startTime}} </td>
-                  <td style="text-align: center;"> {{term.endTime}} </td>
-                  <td style="text-align: center;"> <button (click)="reserveTerm(term.id,doctor.id)" class="btn btn-primary" style="background-color: lightgreen;">Reserve</button> </td>
-                </tr>
-              </ng-container>
-              <ng-container>
-                <tr>
-                  <th> Term 1 </th>
-                  <td style="text-align: center;"> 08:00 </td>
-                  <td style="text-align: center;"> 09:00 </td>
-                  <td style="text-align: center;"> <button class="btn btn-primary" style="background-color: lightgreen;">Reserve</button></td>
-                </tr>
-                <tr>
-                  <th> Term 2</th>
-                  <td style="text-align: center;"> 10:00 </td>
-                  <td style="text-align: center;"> 11:00 </td>
-                  <td style="text-align: center;"> <button class="btn btn-primary" style="background-color: lightgreen;">Reserve</button></td>
-                </tr>
-              </ng-container>
-            </ng-container>
-          </tbody>
-        </table> -->
           </div>
           </div>
       </div>

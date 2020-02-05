@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,Output, EventEmitter } from '@angular/core';
 import { Doctor } from 'src/app/hp-patient/doctors-list/Doctor'
 import { Appointment } from 'src/app/hp-patient/appointments-list/Appointment'
 import {Sort} from '@angular/material/sort';
 import { AvailableDoctorRequest } from 'src/app/shared/model/AvailableDoctorRequest';
 import { PatientService } from 'src/app/service/patient.service';
+import { NotifierService } from 'angular-notifier';
 @Component({
   selector: 'app-appointments-list',
   templateUrl: './appointments-list.component.html',
@@ -13,22 +14,39 @@ export class AppointmentsListComponent implements OnInit {
 
   @Input("appointments") appointments;
   @Input("_patientId") _patientId : any;
-
+  show : any;
   sortedAppointments : Appointment[];
   @Input("doctor") doctor : any;
   @Input("doctorReq") doctorReq : AvailableDoctorRequest;
-  constructor(private _patientService: PatientService) { }
+  @Output() valueChange = new EventEmitter();
 
-  reserveAppointment(appointment : Appointment){
-    this._patientService.makeAppointment(this._patientId,appointment).subscribe(appointment => {
+  constructor(private _patientService: PatientService, private _notifier : NotifierService) { 
+    this.show = true;
+  }
 
-      console.log("Appoinment : " + appointment);
-      
+  reserveAppointment(appointment : any){
+    console.log("Patient : " + this._patientId + "Appointment : " + appointment);
+    this._patientService.makeAppointment(this._patientId,appointment).subscribe(ap => {
+     
+    
+      console.log("True or false?? :" + ap);
+
+    let change = true;
+    this.valueChange.emit(true);
+  
     
 
      
-    }); 
+    },
+    error => {
+  
+      this._notifier.hideAll();
+      this.valueChange.emit(false);
 
+    }
+    
+    ); 
+ 
   }
 
   ngOnInit() {

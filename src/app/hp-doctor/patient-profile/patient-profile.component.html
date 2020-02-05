@@ -76,7 +76,10 @@
             </div>
         </div>
     </div>
-
+    
+    <div *ngIf="_newAppointment">  
+        <app-new-appointment [_examTypes] = "_examTypes" [_patientId]="_patientId" [_doctor]="_doctor" > </app-new-appointment>
+    </div>
     <div class="card" *ngIf='_showMedicalRecord' style="background-color: lightsteelblue;" >
         <div class="card-content">
                 <span class="card-title" style="color: rgb(90, 87, 104); margin-left: 13em;"> <h3>Medical Record </h3></span>
@@ -89,6 +92,7 @@
                 <tr><th class="mr">Diopter:</th> <td> {{_medicalRecord.diopter}} </td> </tr>
                 <tr><th class="mr">Blood type:</th> <td> {{_medicalRecord.bloodType}} </td> </tr>  
                 <tr><th class="mr">Organ donor:</th> <td> {{_medicalRecord.organDonor}} </td> </tr>   
+                
             </table>
             <button style="width:14em; margin-left:22em; margin-bottom:3%;"  [disabled]="!_startedMedicalExam"  type="button"  class="btn btn-primary"  (click)="clickedChangeInformation()"> Change Information</button> 
         </div>

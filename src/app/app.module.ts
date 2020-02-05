@@ -100,6 +100,7 @@ import { CreateDiagnosisDialogComponent } from './hp-doctor/patient-profile/crea
 import { TableFilterPipe } from './hp-doctor/table-filter';
 import { BusinessReportComponent } from './profile-clinic-admin/business-report/business-report.component';
 import { jqxChartModule }   from 'jqwidgets-ng/jqxchart';
+import { NewAppointmentComponent } from './hp-doctor/patient-profile/new-appointment/new-appointment.component';
 
 
 
@@ -205,7 +206,8 @@ const customNotifierOptions: NotifierOptions = {
     FastAppointmentsComponent,
     ClinicRateDialogComponent,
     TableFilterPipe,
-    BusinessReportComponent
+    BusinessReportComponent,
+    NewAppointmentComponent
     
   ],
   imports: [
