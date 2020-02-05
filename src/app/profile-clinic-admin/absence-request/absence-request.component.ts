@@ -58,7 +58,7 @@ export class AbsenceRequestComponent implements OnInit {
 
     this._absenceService.approveAbsence(id).subscribe(
       res => {
-        this._notifier.notify("error","You have successfully approved the request.");
+        this._notifier.notify("success","You have successfully approved the request.");
              setTimeout(() => {
              this._notifier.hideAll();
         }, 3000)
@@ -82,7 +82,7 @@ export class AbsenceRequestComponent implements OnInit {
          if(result != undefined){
            this._absenceService.rejectAbsence(id,result).subscribe(
              res => {
-              this._notifier.notify("error","You have successfully rejected the request.");
+              this._notifier.notify("success","You have successfully rejected the request.");
                  setTimeout(() => {
                  this._notifier.hideAll();
                }, 3000)

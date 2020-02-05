@@ -104,6 +104,7 @@ import { ExamRoomRequestComponent } from './profile-clinic-admin/exam-room-reque
 import { RoomReservationComponent } from './profile-clinic-admin/room-reservation/room-reservation.component';
 import { AcceptExamReservationComponent } from './profile-clinic-admin/accept-exam-reservation/accept-exam-reservation.component';
 import { RejectExamReservationComponent } from './profile-clinic-admin/reject-exam-reservation/reject-exam-reservation.component';
+import { NewAppointmentComponent } from './hp-doctor/patient-profile/new-appointment/new-appointment.component';
 
 
 
@@ -213,7 +214,8 @@ const customNotifierOptions: NotifierOptions = {
     ExamRoomRequestComponent,
     RoomReservationComponent,
     AcceptExamReservationComponent,
-    RejectExamReservationComponent
+    RejectExamReservationComponent,
+    NewAppointmentComponent
     
   ],
   imports: [
