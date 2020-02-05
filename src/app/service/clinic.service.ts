@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { Room } from '../shared/model/Room';
 import { AvailableDoctorRequest } from '../shared/model/AvailableDoctorRequest';
+import { IncomeDate } from '../shared/model/IncomeDate';
 
 
 
@@ -106,4 +107,56 @@ getFreeClinics(doctorReq:AvailableDoctorRequest){
     })
   )
 }
+
+getIncome(incomeDate: IncomeDate, clinic_id){
+  const editHeaders = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    });
+    return this._apiService.post("http://localhost:9000/api/clinics/getIncome/" + clinic_id, JSON.stringify(incomeDate), editHeaders).pipe(
+      map(result => {
+          return result;      
+      })
+    )
+}
+
+getDailyReport(clinicId:any, day:any){
+  const editHeaders = new HttpHeaders({
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  });
+  return this._apiService.post("http://localhost:9000/api/clinics/getDailyReport/" + clinicId, JSON.stringify(day), editHeaders).pipe(
+    map(hours => {
+      console.log(hours);
+        return hours;
+    })
+  )
+}
+
+getMonthlyReport(clinicId:any, day:any){
+  const editHeaders = new HttpHeaders({
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  });
+  return this._apiService.post("http://localhost:9000/api/clinics/getMonthlyReport/" + clinicId, JSON.stringify(day), editHeaders).pipe(
+    map(weeks => {
+      
+        return weeks;
+    })
+  )
+}
+
+getAnnualReport(clinicId:any, day:any){
+  const editHeaders = new HttpHeaders({
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  });
+  return this._apiService.post("http://localhost:9000/api/clinics/getAnnualReport/" + clinicId, JSON.stringify(day), editHeaders).pipe(
+    map(months => {
+      
+        return months;
+    })
+  )
+}
+
 }
