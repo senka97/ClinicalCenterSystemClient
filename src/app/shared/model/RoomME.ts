@@ -5,6 +5,7 @@ export class RoomME {
     date: Number[];
     startTime: Number[];
     endTime: Number[];
+    roomType: String;
     
     constructor(){}
 }

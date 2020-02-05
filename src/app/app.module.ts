@@ -102,6 +102,8 @@ import { BusinessReportComponent } from './profile-clinic-admin/business-report/
 import { jqxChartModule }   from 'jqwidgets-ng/jqxchart';
 import { ExamRoomRequestComponent } from './profile-clinic-admin/exam-room-request/exam-room-request.component';
 import { RoomReservationComponent } from './profile-clinic-admin/room-reservation/room-reservation.component';
+import { AcceptExamReservationComponent } from './profile-clinic-admin/accept-exam-reservation/accept-exam-reservation.component';
+import { RejectExamReservationComponent } from './profile-clinic-admin/reject-exam-reservation/reject-exam-reservation.component';
 
 
 
@@ -209,7 +211,9 @@ const customNotifierOptions: NotifierOptions = {
     TableFilterPipe,
     BusinessReportComponent,
     ExamRoomRequestComponent,
-    RoomReservationComponent
+    RoomReservationComponent,
+    AcceptExamReservationComponent,
+    RejectExamReservationComponent
     
   ],
   imports: [
@@ -244,6 +248,9 @@ const customNotifierOptions: NotifierOptions = {
       { path: 'businessReport/:id', component: BusinessReportComponent},
       { path: 'examRoomRequests/:id', component: ExamRoomRequestComponent},
       { path: 'searchRoomForExam/:idExam/:idClinic', component: RoomReservationComponent},
+      { path: 'searchRoomForExam/:idExam/:idClinic', component: RoomReservationComponent},
+      { path: 'acceptReservation/:id', component: AcceptExamReservationComponent},
+      { path: 'rejectReservation/:id', component: RejectExamReservationComponent},
       { path: '', redirectTo: 'login', pathMatch: 'full' }
       //{path: '**', redirectTo: 'login'},
 

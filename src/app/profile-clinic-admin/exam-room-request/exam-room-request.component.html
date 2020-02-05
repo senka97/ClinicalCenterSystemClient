@@ -39,7 +39,7 @@
                    <!-- <td>{{examRequest.startTime[0]}}:{{examRequest.startTime[1]}}0</td>-->
                     <td>{{formatTime(examRequest.startTime)}}</td>
                     <td>{{examRequest.fullNamePatient}}</td>
-                    <td>{{examRequest.fullNameDoctor}}</td>
+                    <td>{{examRequest.doctor.fullName}}</td>
                     <td>{{examRequest.examTypeName}}</td>
                     <td style="padding: 0;"><button class="btn btn-primary" style="width:8em;" (click)="findRoom(examRequest.id)">Find room</button></td>
                 </tr>

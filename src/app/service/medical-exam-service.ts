@@ -74,5 +74,40 @@ export class MedicalExamService{
           )
     }
 
+    rejectExamRequest(idExam){
+        const editHeaders = new HttpHeaders({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          });
+          return this._apiService.put("http://localhost:9000/api/medicalExams/rejectExamAdmin/" + idExam, editHeaders).pipe(
+            map(result => {
+                return result;      
+            })
+          )
+    }
+
+    acceptExamReservation(idExam){
+        const editHeaders = new HttpHeaders({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          });
+          return this._apiService.put("http://localhost:9000/api/medicalExams/acceptExamPatient/" + idExam, editHeaders).pipe(
+            map(result => {
+                return result;      
+            })
+          )
+    }
+
+    rejectExamReservation(idExam){
+        const editHeaders = new HttpHeaders({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          });
+          return this._apiService.put("http://localhost:9000/api/medicalExams/rejectExamPatient/" + idExam, editHeaders).pipe(
+            map(result => {
+                return result;      
+            })
+          )
+    }
 
 }
