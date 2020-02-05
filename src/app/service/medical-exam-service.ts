@@ -22,6 +22,15 @@ export class MedicalExamService{
           )
     }
 
+    getDoctorsExams(id:string){
+        return this._apiService.get("http://localhost:9000/api/medicalExams/getDoctorsExams/" + id).pipe(
+            map(exams => {
+                //console.log(exam);
+                return exams;
+            })
+          )
+    }
+
     getIncome(incomeDate: IncomeDate, clinic_id){
         const editHeaders = new HttpHeaders({
             'Accept': 'application/json',

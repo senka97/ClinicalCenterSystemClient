@@ -44,6 +44,14 @@ import { map } from 'rxjs/operators';
           )
     }
 
+    getAllAbsences(userId:String){
+      return this._apiService.get("http://localhost:9000/api/absences/getAllAbsences/" + userId).pipe(
+            map(absenceRequests => {
+                   return absenceRequests;      
+            })
+          )
+    }
+
     getNumberOfRequests(clinicId:Number){
       return this._apiService.get("http://localhost:9000/api/absences/getNumberOfRequests/" + clinicId).pipe(
             map(requestsNumber => {
