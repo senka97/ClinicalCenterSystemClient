@@ -1,3 +1,4 @@
+import { ClinicService } from 'src/app/service/clinic.service';
 import { MedicalExamService } from './../../service/medical-exam-service';
 import { IncomeDate } from './../../shared/model/IncomeDate';
 import { DoctorService } from 'src/app/service/doctor.service';
@@ -8,6 +9,9 @@ import { NotifierService } from 'angular-notifier';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Clinic } from 'src/app/hp-patient/clinic-list/Clinic';
 import { DoctorRating } from 'src/app/shared/model/DoctorRating';
+import { Hour } from 'src/app/shared/model/Hour';
+import { Week } from 'src/app/shared/model/Week';
+import { Month } from 'src/app/shared/model/Month';
 
 @Component({
   selector: 'app-business-report',
@@ -18,7 +22,7 @@ export class BusinessReportComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute,private _router: Router, private _dialog: MatDialog,
      private _notifier:NotifierService, private _clinicAdminService: ClinicAdminService, private _doctorService:DoctorService,
-     private _medicalExamsService:MedicalExamService) { }
+     private _medicalExamsService:MedicalExamService, private _clinicService:ClinicService) { }
 
   private _currentAdmin: any;
   private _clinicId: String; 
@@ -31,6 +35,11 @@ export class BusinessReportComponent implements OnInit {
   private _income: number;
   private _startDate: any;
   private _endDate: any;
+  private _hours: Hour[];
+  private _weeks: Week[];
+  private _months: Month[];
+  private _selectedDay:any;
+  private _showAllReports:boolean;
 
   ngOnInit() {
     this._route.paramMap.subscribe(params => { 
@@ -51,6 +60,8 @@ export class BusinessReportComponent implements OnInit {
     this._showIncome = false;
     this._showCharts = false;
     this._income = 0;
+    this._showAllReports = false;
+    
     
   }
 
@@ -86,8 +97,8 @@ export class BusinessReportComponent implements OnInit {
   showCharts(){
     if(this._showCharts){
       this._showCharts = false;
-    }else{
-      this._showCharts = true;
+    }else{   
+      this._showCharts = true;   
     }
   }
 
@@ -97,7 +108,7 @@ export class BusinessReportComponent implements OnInit {
 
     let incomeDate = new IncomeDate(startDate,endDate);
 
-    this._medicalExamsService.getIncome(incomeDate,this._clinicId).subscribe(
+    this._clinicService.getIncome(incomeDate,this._clinicId).subscribe(
       res => {
         this._income = res;
       }
@@ -109,6 +120,29 @@ export class BusinessReportComponent implements OnInit {
      this._endDate = null;
      this._income = 0;
   }
+
+  getReports(){
+    let day = [];
+    day[0] = this._selectedDay["year"];
+    day[1] = this._selectedDay["month"];
+    day[2] = this._selectedDay["day"];
+    this._clinicService.getDailyReport(this._clinicId, day).subscribe(
+      res => {
+        this._hours = res;
+        this._clinicService.getMonthlyReport(this._clinicId, day).subscribe(
+          res => {
+            this._weeks = res;
+            this._clinicService.getAnnualReport(this._clinicId, day).subscribe(
+              res => {
+                this._months = res;
+                this._showAllReports = true;
+              }
+          
+        )
+      }
+    )
+  })
+}
 
 
   //charts
@@ -148,19 +182,19 @@ getWidth() : any {
   titlePadding: any = { left: 90, top: 0, right: 0, bottom: 10 };
   xAxis1: any =
   {
-      dataField: 'Day',
+      dataField: 'hour',
       showGridLines: true
   };
 
   xAxis2: any =
   {
-      dataField: 'Week',
+      dataField: 'week',
       showGridLines: true
   };
 
   xAxis3: any =
   {
-      dataField: 'Month',
+      dataField: 'month',
       showGridLines: true
   };
 
@@ -174,14 +208,14 @@ getWidth() : any {
             {
                 unitInterval: 10,
                 minValue: 0,
-                maxValue: 100,
+                maxValue: 10,
                 displayValueAxis: true,
                 description: 'Number of medical exams',
                 axisSize: 'auto',
                 tickMarksColor: '#888888'
             },
             series: [
-                { dataField: 'Number', displayText: 'Number of medical exams' }
+                { dataField: 'number', displayText: 'Number of medical exams' }
                 
             ]
         }
