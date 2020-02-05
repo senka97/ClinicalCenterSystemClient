@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from './../service/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
@@ -11,13 +11,14 @@ import { DoctorRateDialog } from '../shared/dialogs/doctor-rate-dialog/doctor-ra
 import { Doctor } from './doctors-list/Doctor';
 import { Clinic } from './clinic-list/Clinic';
 import { ClinicRateDialogComponent } from '../shared/dialogs/clinic-rate-dialog/clinic-rate-dialog.component';
+import { NotifierService } from 'angular-notifier';
 @Component({
   selector: 'app-hp-patient',
   templateUrl: './hp-patient.component.html',
   styleUrls: ['./hp-patient.component.css']
 })
 export class HpPatientComponent implements OnInit {
-  private _signUpUser : any = JSON.parse(localStorage.getItem('currentUser')); 
+  private _signUpUser: any = JSON.parse(localStorage.getItem('currentUser'));
 
 
   show: boolean;
@@ -25,37 +26,38 @@ export class HpPatientComponent implements OnInit {
   showHome: boolean;
   showClinics: boolean;
   _medicalRecord: MedicalRecord;
-  showExams : boolean;
-  _medicalExams : any;
-  showSurge : boolean;
-  _surgeries : any;
-  notPatient : boolean;
-  message : any;
+  showExams: boolean;
+  _medicalExams: any;
+  showSurge: boolean;
+  _surgeries: any;
+  notPatient: boolean;
+  message: any;
   _patientId: any;
-  _disabled : boolean;
+  _disabled: boolean;
 
   //for doctors
-  numOfReviews : Number  = 0;
-  _doctorsForRate : Doctor[];
+  numOfReviews: Number = 0;
+  _doctorsForRate: Doctor[];
 
   //for clinics
-  clinicsReviews : Number = 0;
-  _doc : Doctor[];
-  _leftClinics : Clinic[];
-  
+  clinicsReviews: Number = 0;
+  _doc: Doctor[];
+  _leftClinics: Clinic[];
+
 
 
   constructor(private _route: ActivatedRoute,
     private _router: Router,
     private _authService: AuthService, private _userService: UserService, private _patientService: PatientService,
-    private _medicalExamsService : MedicalExamService, private _surgeryService : SurgeryService, private _dialog: MatDialog) {
+    private _medicalExamsService: MedicalExamService, private _surgeryService: SurgeryService, private _dialog: MatDialog,
+    private _notifier: NotifierService) {
 
 
   }
 
 
   ngOnInit() {
-    
+
     this.showExams = false;
     this.showSurge = false;
     //
@@ -65,7 +67,7 @@ export class HpPatientComponent implements OnInit {
     document.getElementById("hidden2").hidden = this.notPatient;
     document.getElementById("notHidden2").hidden = !this.notPatient;
     // 
-    if(this._signUpUser.authorities[0]['authority'] == 'ROLE_PATIENT'){
+    if (this._signUpUser.authorities[0]['authority'] == 'ROLE_PATIENT') {
       this.notPatient = false;
       this.patientMedicalRecord(this._signUpUser.id);
       this._patientId = this._signUpUser.id;
@@ -75,7 +77,7 @@ export class HpPatientComponent implements OnInit {
       //if we have any unrated doctors
       this._patientService.getRatedDoctors(this._patientId).subscribe(doctors => {
         this._doctorsForRate = doctors;
-        console.log("Found doctors : " , doctors);
+        console.log("Found doctors : ", doctors);
         this.numOfReviews = this._doctorsForRate.length;
       })
 
@@ -85,9 +87,9 @@ export class HpPatientComponent implements OnInit {
         this.clinicsReviews = this._leftClinics.length;
       })
 
-    }else{
+    } else {
 
-      this._route.paramMap.subscribe(params => { 
+      this._route.paramMap.subscribe(params => {
         this._patientId = params.get('id');
       });
       this.notPatient = true;
@@ -101,7 +103,7 @@ export class HpPatientComponent implements OnInit {
     document.getElementById("notHidden").hidden = !this.notPatient;
     document.getElementById("hidden2").hidden = this.notPatient;
     document.getElementById("notHidden2").hidden = !this.notPatient;
-  
+
     this._medicalRecord = new MedicalRecord();
   }
   patientMedicalRecord(id) {
@@ -114,7 +116,7 @@ export class HpPatientComponent implements OnInit {
     this._authService.logout();
   }
   //Review for doctors
-  giveReview(){
+  giveReview() {
     let dialog = this._dialog.open(DoctorRateDialog, {
       id: this._patientId,
       width: '30%',
@@ -124,13 +126,15 @@ export class HpPatientComponent implements OnInit {
       this._patientService.getRatedDoctors(this._patientId).subscribe(doctors => {
 
         this._doctorsForRate = doctors;
-        console.log("Found doctors : " , doctors);
+        console.log("Found doctors : ", doctors);
         this.numOfReviews = this._doctorsForRate.length;
+
       });
+
     });
   }
 
-  clinicReview(){
+  clinicReview() {
     let dialog = this._dialog.open(ClinicRateDialogComponent, {
       id: this._patientId,
       width: '30%',
@@ -140,23 +144,27 @@ export class HpPatientComponent implements OnInit {
       this._patientService.getRatedClinics(this._patientId).subscribe(clinics => {
 
         this._leftClinics = clinics;
-        console.log("Found doctors : " , clinics);
-        this.clinicsReviews = this._leftClinics.length;
-      });
-    });
-    
 
-   
-  
+        this.clinicsReviews = this._leftClinics.length;
+
+
+
+      });
+
+    });
+
+
+
+
   }
   showProfileInfo() {
     this.show = this.uncheckAll(this.show);
     this.show = this.check(this.show);
   }
   showMedicalRecordInfo() {
-    if(this._signUpUser.authorities[0]['authority'] == 'ROLE_PATIENT'){
+    if (this._signUpUser.authorities[0]['authority'] == 'ROLE_PATIENT') {
       this.patientMedicalRecord(this._signUpUser.id);
-    }else{
+    } else {
       this.patientMedicalRecord(this._patientId);
     }
     this.showMedicalRecord = this.uncheckAll(this.showMedicalRecord);
@@ -168,7 +176,7 @@ export class HpPatientComponent implements OnInit {
     this.showClinics = this.check(this.showClinics);
 
   }
-  showMedicalExams(){
+  showMedicalExams() {
     this._medicalExamsService.getMedicalExam(this._patientId).subscribe(exams => {
       console.log("medical exams" + exams);
       // console.log(exams.JSON)
@@ -177,7 +185,7 @@ export class HpPatientComponent implements OnInit {
       this.showExams = this.check(this.showExams);
     })
   }
-  showSurgeries(){
+  showSurgeries() {
 
     this._surgeryService.getSurgeries(this._patientId).subscribe(surgeries => {
       console.log("Surgeries:" + surgeries);
@@ -206,7 +214,7 @@ export class HpPatientComponent implements OnInit {
     this.showSurge = false;
     return check;
   }
-  onClickedBack(){
+  onClickedBack() {
     this._router.navigate(['/doctorHP']);
   }
 

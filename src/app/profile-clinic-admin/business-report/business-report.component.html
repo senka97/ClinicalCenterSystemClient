@@ -91,32 +91,49 @@
             </div>
             <button  class="btn btn-primary myClass" (click)="showCharts()">Charts</button>
             <div *ngIf="_showCharts" style="margin-bottom:1em;">
-                <jqxChart style="margin-left:auto;margin-right:auto;"
-                [width]="getWidth()" [height]="400"
-                [title]="'Daily report'"
-                [description]="'Number of medical exams during the last couple of days'"
-                [showLegend]="true" [enableAnimations]="true" [padding]="padding"
-                [titlePadding]="titlePadding" [source]="days" [xAxis]="xAxis1"
-                [seriesGroups]="seriesGroups" [colorScheme]="'scheme01'"></jqxChart>
+              <h3 style="margin-bottom:1em;">Select date for reports</h3>
+              <form class="col white" style="width:90%;margin:auto;margin-bottom:1em;" (ngSubmit) = "getReports()" #getReportsForm="ngForm">
+                <div class="row">
+                  <div class="col">
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Select a day for daily report"
+                               name="dp1" [(ngModel)]="_selectedDay" ngbDatepicker #d1="ngbDatepicker" autocomplete="off" required>
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"></button>
+                        </div>                     
+                    </div>
+                </div>
+                <div class="col">
+              </div>
+                </div>
+                <button class="btn btn-primary" type="submit" style="width:8em;margin-right:2em;" [disabled]="!getReportsForm.form.valid">Get</button>
+                </form>
 
-                <jqxChart style="margin-left:auto;margin-right:auto;"
-                [width]="getWidth()" [height]="400"
-                [title]="'Weekly report'"
-                [description]="'Number of medical exams during the last couple of weeks'"
-                [showLegend]="true" [enableAnimations]="true" [padding]="padding"
-                [titlePadding]="titlePadding" [source]="weeks" [xAxis]="xAxis2"
-                [seriesGroups]="seriesGroups" [colorScheme]="'scheme01'">
-            </jqxChart>
-
-            <jqxChart style="margin-left:auto;margin-right:auto;"
-                [width]="getWidth()" [height]="400"
-                [title]="'Monthly report'"
-                [description]="'Number of medical exams during the last couple of months'"
-                [showLegend]="true" [enableAnimations]="true" [padding]="padding"
-                [titlePadding]="titlePadding" [source]="months" [xAxis]="xAxis3"
-                [seriesGroups]="seriesGroups" [colorScheme]="'scheme01'">
-            </jqxChart>
-
+                <div *ngIf="_showAllReports">
+                  <jqxChart style="margin-left:auto;margin-right:auto;"
+                    [width]="getWidth()" [height]="400"
+                    [title]="'Daily report'"
+                    [description]="'Number of medical exams during the selected day'"
+                    [showLegend]="true" [enableAnimations]="true" [padding]="padding"
+                    [titlePadding]="titlePadding" [source]="_hours" [xAxis]="xAxis1"
+                    [seriesGroups]="seriesGroups" [colorScheme]="'scheme01'"></jqxChart>                            
+                  <jqxChart style="margin-left:auto;margin-right:auto;"
+                    [width]="getWidth()" [height]="400"
+                    [title]="'Monthly report'"
+                    [description]="'Number of medical exams during the selected month'"
+                    [showLegend]="true" [enableAnimations]="true" [padding]="padding"
+                    [titlePadding]="titlePadding" [source]="_weeks" [xAxis]="xAxis2"
+                    [seriesGroups]="seriesGroups" [colorScheme]="'scheme01'">
+                  </jqxChart>    
+                  <jqxChart style="margin-left:auto;margin-right:auto;"
+                    [width]="getWidth()" [height]="400"
+                    [title]="'Annual report'"
+                    [description]="'Number of medical exams during the selected year'"
+                    [showLegend]="true" [enableAnimations]="true" [padding]="padding"
+                    [titlePadding]="titlePadding" [source]="_months" [xAxis]="xAxis3"
+                    [seriesGroups]="seriesGroups" [colorScheme]="'scheme01'">
+                  </jqxChart>
+                </div>
             </div>
         </div>
     </div>

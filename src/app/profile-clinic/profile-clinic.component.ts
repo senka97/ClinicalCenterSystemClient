@@ -63,8 +63,13 @@ export class ProfileClinicComponent implements OnInit {
 
   private doctors: any;
   doctorReq : any;
+  _patientId : any;
+  private message : any;
+  private error : boolean;
 
   ngOnInit() {
+    this.error = false;
+    this.message = " No free appointments for that date, please try with new one!";
       this._clinic = JSON.parse(localStorage.getItem("clinic"));
       this._currentUser = JSON.parse(localStorage.getItem('currentUser'));
       this._role = this._currentUser.authorities[0]['authority'];
@@ -180,6 +185,7 @@ export class ProfileClinicComponent implements OnInit {
         
       }else{
 
+        this._patientId = this._currentUser.id;
         this._typesSerivce.getExamTypesForRes(this._clinic.id).subscribe(
           res => {
             this._examTypes = res;
@@ -199,7 +205,7 @@ export class ProfileClinicComponent implements OnInit {
     }
 
     searchDoctors(){
-
+      this.error = false;
       //ovde slanje parametara za pretragu doktora i prikaz tabele rezultata pretrage
       console.log(this._selectedType);
       console.log(this._date);
@@ -217,16 +223,32 @@ export class ProfileClinicComponent implements OnInit {
         doctors => {       
             this.doctors = doctors;
             console.log(doctors);
+          
             this.doctorReq = doctorReq;
             this._showTableAll = true;
+            if(doctors.lenght == 0){
+              this.error = false;
+            }
          
-        }
-      )
+        },
+        error => {
+        
+          this.error = true;
+          this.message = error.error;
+          console.log(this.message);
+    
+       
+        
+    
+        }); 
+    
+      
       
 
     }
 
     reset(){
+      this.error = false;
       this._showTableSearch = false;
       this._showTableAll = false;
     }

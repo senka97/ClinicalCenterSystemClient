@@ -23,17 +23,7 @@ export class MedicalExamService{
           )
     }
 
-    getIncome(incomeDate: IncomeDate, clinic_id){
-        const editHeaders = new HttpHeaders({
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          });
-          return this._apiService.post("http://localhost:9000/api/medicalExams/getIncome/" + clinic_id, JSON.stringify(incomeDate), editHeaders).pipe(
-            map(result => {
-                return result;      
-            })
-          )
-    }
+    
 
     getNumExamRequests(idClinic){
         return this._apiService.get("http://localhost:9000/api/medicalExams/getNumExamRequests/" + idClinic).pipe(
