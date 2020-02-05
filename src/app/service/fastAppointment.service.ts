@@ -41,6 +41,14 @@ import { map } from 'rxjs/operators';
         )
     }
 
+    getReservedFastAppointments(doctor_id){
+      return this._apiService.get("http://localhost:9000/api/fastAppointments/getReservedFA/" + doctor_id).pipe(
+            map(fastAppointments => {
+                return fastAppointments;
+            })
+        )
+    }
+
     reserveFA(id:Number){
       const editHeaders = new HttpHeaders({
           'Accept': 'application/json',
