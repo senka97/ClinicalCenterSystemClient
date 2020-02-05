@@ -11,7 +11,7 @@ import { NotifierService } from 'angular-notifier';
 })
 export class NewAppointmentComponent implements OnInit {
 
-  // constructor(private datePipe: DatePipe) { }
+ 
   constructor(private _doctorService: DoctorService,private _notifier : NotifierService) { } 
   private minDate: any;
   private _date: any;
@@ -24,26 +24,27 @@ export class NewAppointmentComponent implements OnInit {
 
   private appointments : any;
   private message : any;
-  private showTimes;
+  private show;
   private numberOfTerms : any;
   ngOnInit() {
-    // this.minDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+    
 
     // let date = [this._date['year'],this._date['month'],this._date['day']];
     // let doctorReq = new AvailableDoctorRequest(date,null,this._selectedType.id);
     console.log("Ocita")
-    this.showTimes = false;
+    this.show = false;
     console.log(this.minDate);
     
   }
   reset(){
-    this.showTimes = false;
+  
     this._date = null;
     this._selectedType = null;
+    this.show = false;
   }
 
   resetChild(change : any){
-   
+ 
     if(change){
       this._notifier.notify("success","Appointment request sent! Please wait for responese!");
       setTimeout(() => {
@@ -68,22 +69,19 @@ export class NewAppointmentComponent implements OnInit {
   searchTerms(){
     this.message = " No free appointments for that date, please try with new one!";
     this.numberOfTerms = -1;
-    this.showTimes = false;
-    console.log("radi");
-    console.log(this.doctor);
-    console.log(this._patientId)
+    this.show = false;
+
     let date = [this._date['year'],this._date['month'],this._date['day']];
     let doctorReq = new AvailableDoctorRequest(date,null,this._selectedType.id);
     console.log(doctorReq,this.doctor.id);
 
     this._doctorService.getAvailableTerms(this.doctor.id,doctorReq).subscribe(terms => {
       this.appointments = terms;
-      console.log("Terms: " + this.appointments);
       
       this.numberOfTerms = this.appointments.length;
      
-      this.showTimes = true;
-      if(this.numberOfTerms == 0){this.showTimes = false}
+      this.show = true;
+      if(this.numberOfTerms == 0){this.show = false}
    
   }, error => {
     this.message = error.error;

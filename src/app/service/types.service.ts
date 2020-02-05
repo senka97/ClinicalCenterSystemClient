@@ -155,7 +155,13 @@ import { HttpHeaders } from '@angular/common/http';
             })
         )
     }  
-
+    getDoctorSurgeryTypes(doctor_id){
+        return this._apiService.get("http://localhost:9000/api/surgeryTypes/getDoctorSurgeryTypes/" + doctor_id).pipe(
+            map(surgeryTypes => {
+                return surgeryTypes;
+            })
+        )
+    } 
 
 
   }

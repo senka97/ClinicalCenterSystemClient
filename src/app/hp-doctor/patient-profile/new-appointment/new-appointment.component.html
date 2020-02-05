@@ -33,13 +33,7 @@
         </div>
       </div>
     </div>
-      <div class="row leftMargin2" colspan="2" *ngIf="showTimes"> 
-        
-
-    <app-appointments-list (valueChange)="resetChild($event)"  [appointments]="appointments" [doctor]="doctor" [doctorReq] = "doctorReq" [_patientId]="_patientId" ></app-appointments-list> 
-  
-    
-   </div>
+ 
    <div class="row leftMargin2" *ngIf="numberOfTerms == 0" >
     {{message}}
       </div>
@@ -51,3 +45,10 @@
  
 
 </div>
+<div class="row leftMargin2" *ngIf="show"> 
+        
+
+  <app-appointments-list (valueChange)="resetChild($event)"  [appointments]="appointments" [doctor]="doctor" [doctorReq] = "doctorReq" [_patientId]="_patientId" ></app-appointments-list> 
+
+  
+ </div>
