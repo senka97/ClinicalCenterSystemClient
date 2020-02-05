@@ -17,6 +17,7 @@ import { AddPrescriptionDialogComponent } from './add-prescription-dialog/add-pr
 import { Medication } from 'src/app/shared/model/Medication';
 import { CreateDiagnosisDialogComponent } from './create-diagnosis-dialog/create-diagnosis-dialog.component';
 import { Diagnosis } from 'src/app/shared/model/Diagnosis';
+import { TypesService } from 'src/app/service/types.service';
 
 @Component({
   selector: 'app-patient-profile',
@@ -32,7 +33,8 @@ export class PatientProfileComponent implements OnInit {
       private _dialog: MatDialog,
       private _notifier: NotifierService,
       private _diagnosesService: DiagnosisService,
-      private _medicationService: MedicationService) { 
+      private _medicationService: MedicationService,
+      private _typesService : TypesService) { 
         this._newMedicalReport = new MedicalReport();
         this._newMedications = [];
         this._newDiagnoses = [];
@@ -63,10 +65,16 @@ export class PatientProfileComponent implements OnInit {
   private _endMedicalExam: boolean;
   private _canEndMedicalExam: boolean;
   private _startedMedicalExam: boolean;
+  private _newAppointment : boolean;
+
+  private _examTypes : any;
+  private _doctor : any;
+  
 
   ngOnInit() {
-
+    this._newAppointment = false;
     this._currentDoctor = JSON.parse(localStorage.getItem('currentUser'));
+    this._doctor= this._currentDoctor;
 
     this._route.paramMap.subscribe(params => { 
       this._patientId = params.get('id');
@@ -90,7 +98,7 @@ export class PatientProfileComponent implements OnInit {
     this._patientService.getPatientChronicCon(this._patientId).subscribe(chronicCon => {
       this._chronicConditionList = chronicCon;
     });
-
+   
     this._showInformation = false;
     this._showMedicalRecord = false;
     this._showNewMedicalReport = false;
@@ -186,6 +194,17 @@ export class PatientProfileComponent implements OnInit {
 
   clickedNewAppointment()
   {
+
+   
+    console.log("ID SALJEM : " + this._patientId + "DOKTOR: "  + this._doctor);
+  
+    this._typesService.getDoctorExamTypes(this._currentDoctor.id).subscribe(
+      res => {
+        console.log(res);
+        this._examTypes = res;
+        this._newAppointment = true;
+      });
+
 
   }
 
