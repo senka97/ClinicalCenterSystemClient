@@ -21,5 +21,14 @@ export class SurgeryService{
           )
     }
 
+    getDoctorsSurgeries(id:string){
+        return this._apiService.get("http://localhost:9000/api/surgery/getDoctorsSurgeries/" + id).pipe(
+            map(surgeries => {
+               // console.log(surgeries);
+                return surgeries;
+            })
+          )
+    }
+
 
 }

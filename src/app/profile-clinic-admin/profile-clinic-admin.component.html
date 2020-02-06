@@ -53,7 +53,11 @@
         </li>
         <li class="nav-item">
             <!--<a class="nav-link"[routerLink] = "['/absenceRequests', _clinic.id]" ><span matBadge={{_numOfRequests}} matBadgeOverlap="false"   matBadgeSize="medium" [matBadgeHidden]="_numOfRequests == 0">Requests for vacation or absence</span></a>-->
-            <button class="btn btn-sm btn-outline-secondary" [routerLink] = "['/roomRequests', _clinic.id]" style="width:100%;color:darkblue;"><span matBadge={{_numOfRoomRequests}} matBadgeOverlap="false"   matBadgeSize="medium" [matBadgeHidden]="_numOfRoomRequests == 0">Requests for room</span></button>
+            <button class="btn btn-sm btn-outline-secondary" [routerLink] = "['/examRoomRequests', _clinic.id]" style="width:100%;color:darkblue;"><span matBadge={{_numOfExamRequests}} matBadgeOverlap="false"   matBadgeSize="medium" [matBadgeHidden]="_numOfExamRequests == 0">Requests for exam room</span></button>
+        </li>
+        <li class="nav-item">
+            <!--<a class="nav-link"[routerLink] = "['/absenceRequests', _clinic.id]" ><span matBadge={{_numOfRequests}} matBadgeOverlap="false"   matBadgeSize="medium" [matBadgeHidden]="_numOfRequests == 0">Requests for vacation or absence</span></a>-->
+            <button class="btn btn-sm btn-outline-secondary" [routerLink] = "['/surgeryRoomRequests', _clinic.id]" style="width:100%;color:darkblue;"><span matBadge={{_numOfSurgeryRequests}} matBadgeOverlap="false"   matBadgeSize="medium" [matBadgeHidden]="_numOfSurgeryRequests == 0">Requests for surgery room</span></button>
         </li>
         <li class="nav-item">
             <!--<a class="nav-link"[routerLink] = "['/absenceRequests', _clinic.id]" ><span matBadge={{_numOfRequests}} matBadgeOverlap="false"   matBadgeSize="medium" [matBadgeHidden]="_numOfRequests == 0">Requests for vacation or absence</span></a>-->
