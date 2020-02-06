@@ -42,13 +42,13 @@
                     </div>
      
                     <div class="input-field col">
-                        <input class="validate" [(ngModel)]='_newAdmin.phoneNumber' type="text" name="phoneNumber" placeholder="Enter phone number here" required #phoneNumber="ngModel">
+                        <input class="validate" [(ngModel)]='_newAdmin.phoneNumber' type="number" name="phoneNumber" placeholder="Enter phone number here" required #phoneNumber="ngModel">
                         <small id="phoneNumberHelp" class="form-text text-muted">Phone number is required.</small>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col">
-                        <input class="validate" [(ngModel)]='_newAdmin.serialNumber' type="text" name="serialNumber"  placeholder="Enter serial number" required #serialNumber="ngModel">
+                        <input class="validate" [(ngModel)]='_newAdmin.serialNumber' type="number" name="serialNumber" minlength="13" maxlength="13"  placeholder="Enter serial number" required #serialNumber="ngModel">
                         <small id="serialNumberHelp" class="form-text text-muted">Serial number is required.</small>
                     </div>
                 </div>

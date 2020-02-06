@@ -11,6 +11,7 @@ import { InfoDialogComponent } from '../shared/dialogs/info-dialog/info-dialog.c
 import { AbsenceRequest } from '../shared/model/AbsenceRequest';
 import { PrescriptionService } from '../service/prescription.service';
 import { Prescription } from '../shared/model/Prescription';
+import { NotifierService } from 'angular-notifier';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class HpNurseComponent implements OnInit {
               private _dialog: MatDialog,
               private _absenceService:AbsenceService, 
               private _calendar: NgbCalendar,
-              private _prescriptionService: PrescriptionService) { 
+              private _prescriptionService: PrescriptionService,
+              private _notifier: NotifierService) { 
 
     //this.fromDate = _calendar.getToday();
     //this.toDate = _calendar.getNext(_calendar.getToday(), 'd', 10);
@@ -122,17 +124,26 @@ export class HpNurseComponent implements OnInit {
   clickVerify(prescription)
   {
     this._prescriptionService.verify(prescription.id).subscribe(data=>{
-      this._prescriptionService.getPrescriptions().subscribe( prescriptions => {
-        this._prescriptions = prescriptions;
-        this._numOfPrescriptions = this._prescriptions.length;
-        if(this._numOfPrescriptions == 0)
-        {
-          this._showPrescriptions = false;
-        }
-      })
-    },
-    error=>{
-      console.log("Error accepting request");
+      
+        this._prescriptionService.getPrescriptions().subscribe( prescriptions => {
+              this._prescriptions = prescriptions;
+              this._numOfPrescriptions = this._prescriptions.length;
+            if(this._numOfPrescriptions == 0)
+            {
+              this._showPrescriptions = false;
+            }         
+        })
+        this._notifier.notify("success","Prescription successfully verified");
+              setTimeout(() => {
+                this._notifier.hideAll();
+              }, 2000)
+        },
+        error => {
+          this._notifier.notify("error","Error verifying prescriptions");
+            setTimeout(() => {
+          this._notifier.hideAll();
+          }, 2000)
+
     })
   }
 
@@ -185,6 +196,7 @@ export class HpNurseComponent implements OnInit {
     }
     console.log(this.fromDate);
     console.log(this.toDate);
+    this._showFormRequest = false;
   }
 
   isHovered(date: NgbDate) {

@@ -23,6 +23,7 @@ import { InfoDialogComponent } from '../shared/dialogs/info-dialog/info-dialog.c
 import { NewDiagnosisDialogComponent } from './new-diagnosis-dialog/new-diagnosis-dialog.component';
 import { EditMedicationDialogComponent } from './edit-medication-dialog/edit-medication-dialog.component';
 import { EditDiagnosisDialogComponent } from './edit-diagnosis-dialog/edit-diagnosis-dialog.component';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-profile-clinical-center-admin',
@@ -38,7 +39,8 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
     private _router: Router,
     private _modalService: ModalService,
     private _diagnosisService: DiagnosisService,
-    private _medicationService: MedicationService) {
+    private _medicationService: MedicationService,
+    private _notifier: NotifierService) {
       
      
     }
@@ -100,7 +102,7 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
       data: JSON.parse(JSON.stringify(this._currentAdmin))
     });
     dialogRef.afterClosed().subscribe(result => {
-     console.log('The dialog was closed');
+    // console.log('The dialog was closed');
      if(result != undefined){
      this._changedAdmin = result;
      if(this._currentAdmin.name != this._changedAdmin.name || this._currentAdmin.surname != this._changedAdmin.surname
@@ -111,9 +113,19 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
            this._currentAdmin = JSON.parse(JSON.stringify(this._changedAdmin));
            this._userService.editInfo(userEdit).subscribe(res => {
              localStorage.setItem('currentUser',JSON.stringify(this._changedAdmin)); //postavim da je taj izmenjeni sada trenutno ulogovan
-   });
+          });
      }
    }
+      this._notifier.notify("success","Information successfully changed");
+        setTimeout(() => {
+        this._notifier.hideAll();
+        }, 2000)
+      },
+      error => {
+        this._notifier.notify("error","Error changing information.");
+        setTimeout(() => {
+        this._notifier.hideAll();
+       }, 2000)
    });
   }
   
@@ -178,10 +190,18 @@ export class ProfileClinicalCenterAdminComponent implements OnInit {
           this.showNewRequests=false;
         }
       })
-    },
-    error=>{
-      console.log("Error accepting request");
+      this._notifier.notify("success","Request successfully accepted");
+        setTimeout(() => {
+        this._notifier.hideAll();
+        }, 2000)
+      },
+      error => {
+        this._notifier.notify("error","Error accepting request.");
+        setTimeout(() => {
+        this._notifier.hideAll();
+       }, 2000)
     })
+    
   }
 
   clickRejectRequest(id,email,name,surname)

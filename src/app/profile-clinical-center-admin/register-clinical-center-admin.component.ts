@@ -4,6 +4,9 @@ import { ClinicalCenterAdministrator } from './ClinicalCenterAdministrator';
 
 import { NgForm } from '@angular/forms';
 import { ClinicalCenterAdminService } from '../service/clinical-center-admin.service';
+import { MatDialog } from '@angular/material';
+import { InfoDialogComponent } from '../shared/dialogs/info-dialog/info-dialog.component';
+import { NotifierService } from 'angular-notifier';
 
 
 @Component({
@@ -13,7 +16,8 @@ import { ClinicalCenterAdminService } from '../service/clinical-center-admin.ser
 })
 export class RegisterClinicalCenterAdminComponent implements OnInit {
 
-  constructor(private _router: Router, private _clcadminService: ClinicalCenterAdminService) {
+  constructor(private _router: Router, private _clcadminService: ClinicalCenterAdminService,
+    private _notifier: NotifierService) {
     this._newAdmin=new ClinicalCenterAdministrator();
   }
   _newAdmin : ClinicalCenterAdministrator;
@@ -26,12 +30,19 @@ export class RegisterClinicalCenterAdminComponent implements OnInit {
 
   clickRegisterClCAdmin() {
     this._clcadminService.createClCAdmin(this._newAdmin).subscribe(data => {
-      alert("Admin successfully created!");
-      this._router.navigate(['/clinicalCenterAdminProfile']);
-   },
-   error => {
-     alert("Registation failed.");
+      
+      this._notifier.notify("success","Clinical center admin successfully registered.");
+        setTimeout(() => {
+        this._notifier.hideAll();
+        }, 2000)
+      },
+      error => {
+        this._notifier.notify("error","Error registering clinical center admin.");
+        setTimeout(() => {
+        this._notifier.hideAll();
+       }, 2000)
    })  
+   this._router.navigate(['/clinicalCenterAdminProfile']);
   }
 
   onBackClicked(): void {
