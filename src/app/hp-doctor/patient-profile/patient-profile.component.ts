@@ -186,7 +186,7 @@ export class PatientProfileComponent implements OnInit {
               setTimeout(() => {
             this._notifier.hideAll();
             }, 2000)
-    });
+    })
 
     this._canEndMedicalExam = true;
     this._medicalReportCreated = true;

@@ -3,6 +3,7 @@ import { Router} from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ClinicalCenterAdminService } from '../service/clinical-center-admin.service';
 import { Clinic } from './Clinic';
+import { NotifierService } from 'angular-notifier';
 
 
 @Component({
@@ -13,7 +14,8 @@ import { Clinic } from './Clinic';
 export class RegisterClinicComponent implements OnInit {
 
   constructor(private _router: Router, 
-    private _clcadminService: ClinicalCenterAdminService) {
+    private _clcadminService: ClinicalCenterAdminService,
+    private _notifier: NotifierService) {
       this._newClinic = new Clinic;
   }
 
@@ -25,12 +27,21 @@ export class RegisterClinicComponent implements OnInit {
 
   clickRegisterClinic() {
     this._clcadminService.createClinic(this._newClinic).subscribe(data => {
-      alert("Clinic successfully created!");
-      this._router.navigate(['/clinicalCenterAdminProfile']);
-   },
-   error => {
-     alert("Registation failed.");
-   })  
+      this._notifier.notify("success","Clinic successfully registered.");
+        setTimeout(() => {
+        this._notifier.hideAll();
+        }, 2000)
+      },
+      error => {
+        this._notifier.notify("error","Error registering clinic.");
+        setTimeout(() => {
+        this._notifier.hideAll();
+       }, 2000)
+      
+   })
+   
+   this._router.navigate(['/clinicalCenterAdminProfile']);
+ 
   }
 
   onBackClicked(): void {

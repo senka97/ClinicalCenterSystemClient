@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ClinicalCenterAdminService } from '../service/clinical-center-admin.service';
 import { ClinicalCenterAdministrator } from './ClinicalCenterAdministrator';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-register-clinic-admin',
@@ -12,7 +13,8 @@ import { ClinicalCenterAdministrator } from './ClinicalCenterAdministrator';
 export class RegisterClinicAdminComponent implements OnInit {
 
   constructor( private _router: Router,
-    private _clcadminService: ClinicalCenterAdminService) {
+    private _clcadminService: ClinicalCenterAdminService,
+    private _notifier: NotifierService) {
       this._newAdmin=new ClinicalCenterAdministrator();
       this._selectedClinic= 0;
     }
@@ -33,12 +35,21 @@ export class RegisterClinicAdminComponent implements OnInit {
 
   clickRegisterClinicAdmin() {
     this._clcadminService.createClinicAdmin(this._newAdmin,this._selectedClinic ).subscribe(data => {
-      alert("Admin successfully created!");
-      this._router.navigate(['/clinicalCenterAdminProfile']);
-   },
-   error => {
-     alert("Registation failed.");
-   })  
+     // alert("Admin successfully created!");
+     this._notifier.notify("success","Clinic admin successfully registered.");
+        setTimeout(() => {
+        this._notifier.hideAll();
+        }, 2000)
+      },
+      error => {
+        this._notifier.notify("error","Error registering clinic admin.");
+        setTimeout(() => {
+        this._notifier.hideAll();
+       }, 2000)
+      
+   })
+   this._router.navigate(['/clinicalCenterAdminProfile']);
+   
   }
 
   resetForm(form?: NgForm) {
