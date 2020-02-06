@@ -12,6 +12,8 @@ export class MedicalReport {
     diagnoses: Diagnosis[];
     medications: Medication[];
     doctor: Doctor;
+    examId: number;
+    type: string;
 
     constructor(){
         this.description="";

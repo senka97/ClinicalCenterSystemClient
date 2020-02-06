@@ -14,7 +14,7 @@
             <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <button class="btn btn-sm btn-outline-secondary" (click)="onClickedBack()" style="color:darkblue; margin: 4px"> Back </button>
+                        <button class="btn btn-sm btn-outline-secondary" [disabled]= '_startedMedicalExam && !_canEndMedicalExam' (click)="onClickedBack()" style="color:darkblue; margin: 4px"> Back </button>
                     </li>
                 </ul>
             </div>
@@ -29,8 +29,8 @@
             <li class="nav-item">
                 <button class="btn btn-sm btn-outline-secondary"  style="width: 18em; color:darkblue;" (click)="clickedMedicalReports()"> Medical Reports </button>
             </li>
-            <li class="nav-item" *ngIf = '_startMedicalExam' >
-                <button class="btn btn-sm btn-outline-secondary" [disabled] = '!_canStartMedicalExam'  style="width: 18em; color:darkblue;" (click)="clickedStartMedicalExam()" > Start Medical Exam </button>
+            <li class="nav-item" *ngIf = '!_endMedicalExam' >
+                <button class="btn btn-sm btn-outline-secondary"  style="width: 18em; color:darkblue;" (click)="clickedStartMedicalExam()" > Start Medical Exam </button>
             </li>
             <li class="nav-item" *ngIf = '_endMedicalExam' >
                 <button class="btn btn-sm btn-outline-secondary" [disabled]= '!_canEndMedicalExam'  style="width: 18em; color:darkblue;" (click)="clickedEndMedicalExam()" > End Medical Exam </button>
@@ -60,6 +60,20 @@
                     <tr><th>Country:</th> <td> {{_currentPatient.country}} </td> </tr> 
                     <tr><th>Phone Number:</th> <td> {{_currentPatient.phoneNumber}} </td> </tr>
                     <tr><th>Serial Number:</th> <td> {{_currentPatient.serialNumber}} </td> </tr>
+                </table>
+                <button style="width:8em; margin-left:11em; margin-bottom:3%;"  type="button"  class="btn btn-primary"  (click)="clickedClose()"> Close </button> 
+            </div>
+        </div>
+    </div>
+
+    <div class='panel panel-primary' *ngIf = '_startMedicalExam' style="float:left;margin-left:15%;width:35%;">
+        <div class='panel-body'>
+            <div class='table-responsive'>
+                <table class='table table-striped' style="margin-top: 2%; margin-bottom:2%">
+                    <tr><th style="text-align: center;" colspan="5"> Medical exams </th> </tr>
+                    <tr> <th style="text-align: center;"> Date </th><th style="text-align: center;"> Time </th> <th style="text-align: center;"> Type </th> <th></th></tr>
+                    <tr *ngFor="let e of _medicalExams"> <td> {{e.date}}  </td> <td>{{e.startTime}}</td> <td> {{e.examType}}</td> <td><button style="width:6em;" type="button"  class="btn btn-outline-primary btn-rounded waves-effect" (click)="clickStartMedicalExam(e)"> Start </button></td> </tr> 
+                    <tr *ngFor="let f of _fastExams"> <td> {{f.date}}  </td> <td>{{f.startTime}}</td> <td> {{f.examType}}</td> <td><button style="width:6em;" type="button"  class="btn btn-outline-primary btn-rounded waves-effect" (click)="clickStartFastExam(f)"> Start </button></td> </tr> 
                 </table>
                 <button style="width:8em; margin-left:11em; margin-bottom:3%;"  type="button"  class="btn btn-primary"  (click)="clickedClose()"> Close </button> 
             </div>
@@ -136,7 +150,7 @@
                     <tr><th class="mr"><b>Time:</b></th><td> {{_newMedicalReport.time}}  </td></tr>
                 </table>               
                 <p style="margin-left: 1em;"><b> Description: </b></p>              
-                <textarea id="medReport" rows="5" wrap="hard" name="description" [(ngModel)] = '_newMedicalReport.description' required style="background-color: beige;" > </textarea>              
+                <textarea id="medReport" rows="5" wrap="hard" name="description" [(ngModel)] = '_reportDescription' required style="background-color: beige;" > </textarea>              
             
             
             <div class="panel panel-primary">
