@@ -34,12 +34,13 @@ export class DoctorsListComponent implements OnInit {
    
   }
   showDoctorTimes(doctor: Doctor){
-    console.log("Patient id = " + this._patientId );
+   
     this.doctor = doctor;
-    
+    console.log("Patient id = " + this.doctor.name + this.doctor.surname + "  ID: " + this.doctor.id);
   
     
-  
+    this.showTimes = false;
+    
   
     this._doctorService.getAvailableTerms(this.doctor.id,this.doctorReq).subscribe(terms => {
       this.appointments = terms;

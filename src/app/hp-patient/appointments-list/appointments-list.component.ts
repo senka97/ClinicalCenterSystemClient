@@ -19,6 +19,7 @@ export class AppointmentsListComponent implements OnInit {
   @Input("doctor") doctor : any;
   @Input("doctorReq") doctorReq : AvailableDoctorRequest;
   @Output() valueChange = new EventEmitter();
+  @Output() valueChange2 = new EventEmitter();
 
   constructor(private _patientService: PatientService, private _notifier : NotifierService) { 
     this.show = true;
@@ -32,8 +33,9 @@ export class AppointmentsListComponent implements OnInit {
       console.log("True or false?? :" + ap);
 
     let change = true;
-    this.valueChange.emit(true);
-  
+    this.valueChange.emit(change);
+    this.valueChange2.emit(change);
+      
     
 
      
@@ -42,6 +44,7 @@ export class AppointmentsListComponent implements OnInit {
   
       this._notifier.hideAll();
       this.valueChange.emit(false);
+      this.valueChange2.emit(false);
 
     }
     
@@ -50,9 +53,6 @@ export class AppointmentsListComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    console.log( " Procita ih" + this.appointments);
-    console.log(this.doctor);
     this.sortedAppointments = this.appointments;
     
   }

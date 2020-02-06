@@ -105,6 +105,7 @@ import { RoomReservationComponent } from './profile-clinic-admin/room-reservatio
 import { AcceptExamReservationComponent } from './profile-clinic-admin/accept-exam-reservation/accept-exam-reservation.component';
 import { RejectExamReservationComponent } from './profile-clinic-admin/reject-exam-reservation/reject-exam-reservation.component';
 import { NewAppointmentComponent } from './hp-doctor/patient-profile/new-appointment/new-appointment.component';
+import { SurgeryAppointmentComponent } from './hp-doctor/patient-profile/surgery-appointment/surgery-appointment.component';
 
 
 
@@ -211,6 +212,8 @@ const customNotifierOptions: NotifierOptions = {
     ClinicRateDialogComponent,
     TableFilterPipe,
     BusinessReportComponent,
+    NewAppointmentComponent,
+    SurgeryAppointmentComponent,
     ExamRoomRequestComponent,
     RoomReservationComponent,
     AcceptExamReservationComponent,

@@ -118,6 +118,19 @@ import { AvailableDoctorRequest } from '../shared/model/AvailableDoctorRequest';
           })
         )
       }
+      makeSurgeryAppointment(id:string,appointment){
+        const editHeaders = new HttpHeaders({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        });
+        return this._apiService.put("http://localhost:9000/api/doctors/makeSurgeryAppointment/"+id,JSON.stringify(appointment) ,editHeaders).pipe(
+          map(result => {
+            console.log("Surgery request send.");
+          })
+        )
+      }
+
+      
 
       getDoctorExamTypes(idClinic,idExamType){
         return this._apiService.get("http://localhost:9000/api/doctors/getDoctorsExamType/" + idClinic + "/" + idExamType).pipe(
