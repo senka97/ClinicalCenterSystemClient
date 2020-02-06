@@ -18,8 +18,9 @@
       </div>
       <div>
         <div class="input-group">
+         
           <input class="form-control sel2" placeholder="Choose a date" name="dp" [(ngModel)]="_date" ngbDatepicker
-            #d="ngbDatepicker" autocomplete="off" [minDate]="minDate" required>
+            #d="ngbDatepicker" autocomplete="off"  required>
           <div class="input-group-append ">
             <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
           </div>

@@ -65,7 +65,7 @@ export class PatientProfileComponent implements OnInit {
   private _endMedicalExam: boolean;
   private _canEndMedicalExam: boolean;
   private _startedMedicalExam: boolean;
-
+  private patientInfo : any;
   //Appointment component  
   private _newAppointment : boolean;
 
@@ -77,6 +77,7 @@ export class PatientProfileComponent implements OnInit {
   
 
   ngOnInit() {
+    this.patientInfo = "";
     this._newAppointment = false;
     this._newSurgery = false;
     this._currentDoctor = JSON.parse(localStorage.getItem('currentUser'));
@@ -84,15 +85,16 @@ export class PatientProfileComponent implements OnInit {
 
     this._route.paramMap.subscribe(params => { 
       this._patientId = params.get('id');
+      this._patientService.getPatient(this._patientId).subscribe( 
+        patient=> {
+          this._currentPatient=patient;
+          this.patientInfo = this._currentPatient.name + " " + this._currentPatient.surname;
+        }
+      );
     });
-    console.log("Id pacijenta:");
-    console.log(this._patientId);
 
-    this._patientService.getPatient(this._patientId).subscribe( 
-      patient=> {
-        this._currentPatient=patient;
-      }
-    );
+
+ 
     this._patientService.getPatientMedicalRecord(this._patientId).subscribe(medRecord => {
       this._medicalRecord = medRecord;
     });

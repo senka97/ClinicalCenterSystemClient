@@ -4,15 +4,18 @@ import { TypeReg } from 'src/app/shared/model/TypeReg';
 import { DoctorService } from 'src/app/service/doctor.service';
 import { AvailableDoctorRequest } from 'src/app/shared/model/AvailableDoctorRequest';
 import { NotifierService } from 'angular-notifier';
+
+
 @Component({
   selector: 'app-new-appointment',
   templateUrl: './new-appointment.component.html',
-  styleUrls: ['./new-appointment.component.css']
+  styleUrls: ['./new-appointment.component.css'],
+  providers: [DatePipe]
 })
 export class NewAppointmentComponent implements OnInit {
 
  
-  constructor(private _doctorService: DoctorService,private _notifier : NotifierService) { } 
+  constructor(private _doctorService: DoctorService,private _notifier : NotifierService,private datePipe: DatePipe) { } 
   private minDate: any;
   private _date: any;
   private _selectedType: TypeReg;
@@ -28,10 +31,8 @@ export class NewAppointmentComponent implements OnInit {
   private numberOfTerms : any;
   ngOnInit() {
     
-
-    // let date = [this._date['year'],this._date['month'],this._date['day']];
-    // let doctorReq = new AvailableDoctorRequest(date,null,this._selectedType.id);
-    console.log("Ocita")
+    
+    console.log("Ocita + " +this.minDate)
     this.show = false;
     console.log(this.minDate);
     
@@ -67,6 +68,9 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   searchTerms(){
+    let d = new Date();
+    this.minDate = this.datePipe.transform(d, 'yyyy-MM-dd');
+ 
     this.message = " No free appointments for that date, please try with new one!";
     this.numberOfTerms = -1;
     this.show = false;
