@@ -65,28 +65,36 @@ export class PatientProfileComponent implements OnInit {
   private _endMedicalExam: boolean;
   private _canEndMedicalExam: boolean;
   private _startedMedicalExam: boolean;
+  private patientInfo : any;
+  //Appointment component  
   private _newAppointment : boolean;
 
   private _examTypes : any;
   private _doctor : any;
+  //Surgery component
+  private _newSurgery : boolean;
+  private _surgeryTypes : any;
   
 
   ngOnInit() {
+    this.patientInfo = "";
     this._newAppointment = false;
+    this._newSurgery = false;
     this._currentDoctor = JSON.parse(localStorage.getItem('currentUser'));
     this._doctor= this._currentDoctor;
 
     this._route.paramMap.subscribe(params => { 
       this._patientId = params.get('id');
+      this._patientService.getPatient(this._patientId).subscribe( 
+        patient=> {
+          this._currentPatient=patient;
+          this.patientInfo = this._currentPatient.name + " " + this._currentPatient.surname;
+        }
+      );
     });
-    console.log("Id pacijenta:");
-    console.log(this._patientId);
 
-    this._patientService.getPatient(this._patientId).subscribe( 
-      patient=> {
-        this._currentPatient=patient;
-      }
-    );
+
+ 
     this._patientService.getPatientMedicalRecord(this._patientId).subscribe(medRecord => {
       this._medicalRecord = medRecord;
     });
@@ -110,6 +118,7 @@ export class PatientProfileComponent implements OnInit {
     this._endMedicalExam = false;
     this._canEndMedicalExam = false; // bice neki uslov;
     this._startedMedicalExam = false;
+    this._newAppointment = false;
     
       
   }
@@ -128,6 +137,7 @@ export class PatientProfileComponent implements OnInit {
     this._showMedicalReports = false;
     this._showInformation = false;
     this._showNewMedicalReport = false;
+    this._newAppointment = false;
   }
 
   clickedMedicalReports()
@@ -139,6 +149,7 @@ export class PatientProfileComponent implements OnInit {
     this._showInformation = false;
     this._showMedicalRecord = false;
     this._showNewMedicalReport = false;
+    this._newAppointment = false;
   }
 
   clickedCreateMedicalReport()
@@ -147,6 +158,7 @@ export class PatientProfileComponent implements OnInit {
     this._showMedicalReports = false;
     this._showInformation = false;
     this._showMedicalRecord = false;
+    this._newAppointment = false;
     //preuzimace se iz pregleda
     this._newMedicalReport.date='2019-02-20';
     this._newMedicalReport.time='12:00:00';
@@ -158,6 +170,7 @@ export class PatientProfileComponent implements OnInit {
     this._endMedicalExam = true;
     this._medicalReportCreated = false;
     this._startedMedicalExam = true;
+    this._newAppointment = false;
   }
 
   clickedEndMedicalExam()
@@ -168,6 +181,7 @@ export class PatientProfileComponent implements OnInit {
     this._canEndMedicalExam = false;
     this._showNewMedicalReport =  false;
     this._startedMedicalExam = false;
+    this._newAppointment = false;
   }
 
   clickSaveMedicalReport()
@@ -196,13 +210,13 @@ export class PatientProfileComponent implements OnInit {
   {
 
    
-    console.log("ID SALJEM : " + this._patientId + "DOKTOR: "  + this._doctor);
+    // console.log("ID SALJEM : " + this._patientId + "DOKTOR: "  + this._doctor);
   
     this._typesService.getDoctorExamTypes(this._currentDoctor.id).subscribe(
       res => {
         console.log(res);
         this._examTypes = res;
-        this._newAppointment = true;
+        this._newAppointment =  this.hideAll();
       });
 
 
@@ -353,6 +367,28 @@ export class PatientProfileComponent implements OnInit {
   clickedClose(){
     this._showInformation = false;
     this._showMedicalReports = false;
+    this._newAppointment = false;
   }
 
+  clickedRequestSurgery(){
+    this._typesService.getDoctorSurgeryTypes(this._currentDoctor.id).subscribe(
+      res => {
+        console.log( "Surgery types :" + res);
+        this._surgeryTypes = res;
+        this._newSurgery = this.hideAll();
+      });
+
+  
+
+  }
+
+  hideAll():boolean{
+    this._showInformation = false;
+    this._showMedicalRecord = false;
+    this._showNewMedicalReport = false;
+    this._showMedicalReports = false;
+    this._newAppointment = false;
+    this._newSurgery = false;
+    return true;
+  }
 }

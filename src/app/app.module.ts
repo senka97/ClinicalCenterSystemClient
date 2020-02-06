@@ -100,7 +100,12 @@ import { CreateDiagnosisDialogComponent } from './hp-doctor/patient-profile/crea
 import { TableFilterPipe } from './hp-doctor/table-filter';
 import { BusinessReportComponent } from './profile-clinic-admin/business-report/business-report.component';
 import { jqxChartModule }   from 'jqwidgets-ng/jqxchart';
+import { ExamRoomRequestComponent } from './profile-clinic-admin/exam-room-request/exam-room-request.component';
+import { RoomReservationComponent } from './profile-clinic-admin/room-reservation/room-reservation.component';
+import { AcceptExamReservationComponent } from './profile-clinic-admin/accept-exam-reservation/accept-exam-reservation.component';
+import { RejectExamReservationComponent } from './profile-clinic-admin/reject-exam-reservation/reject-exam-reservation.component';
 import { NewAppointmentComponent } from './hp-doctor/patient-profile/new-appointment/new-appointment.component';
+import { SurgeryAppointmentComponent } from './hp-doctor/patient-profile/surgery-appointment/surgery-appointment.component';
 
 
 
@@ -207,6 +212,12 @@ const customNotifierOptions: NotifierOptions = {
     ClinicRateDialogComponent,
     TableFilterPipe,
     BusinessReportComponent,
+    NewAppointmentComponent,
+    SurgeryAppointmentComponent,
+    ExamRoomRequestComponent,
+    RoomReservationComponent,
+    AcceptExamReservationComponent,
+    RejectExamReservationComponent,
     NewAppointmentComponent
     
   ],
@@ -240,6 +251,11 @@ const customNotifierOptions: NotifierOptions = {
       { path: 'patientProfile/:id', component: PatientProfileComponent},
       { path: 'fastAppointments/:id', component: FastAppointmentsComponent},  
       { path: 'businessReport/:id', component: BusinessReportComponent},
+      { path: 'examRoomRequests/:id', component: ExamRoomRequestComponent},
+      { path: 'searchRoomForExam/:idExam/:idClinic', component: RoomReservationComponent},
+      { path: 'searchRoomForExam/:idExam/:idClinic', component: RoomReservationComponent},
+      { path: 'acceptReservation/:id', component: AcceptExamReservationComponent},
+      { path: 'rejectReservation/:id', component: RejectExamReservationComponent},
       { path: '', redirectTo: 'login', pathMatch: 'full' }
       //{path: '**', redirectTo: 'login'},
 

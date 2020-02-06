@@ -1,3 +1,4 @@
+import { MedicalExamService } from './../service/medical-exam-service';
 import { AbsenceService } from './../service/absence.service';
 import { FirstLoginDialogComponent } from './../shared/dialogs/first-login-dialog/first-login-dialog.component';
 import { PasswordWrongDialogComponent } from '../shared/dialogs/password-wrong-dialog/password-wrong-dialog.component';
@@ -28,7 +29,9 @@ import { NotifierService } from 'angular-notifier';
 })
 export class ProfileClinicAdminComponent implements OnInit {
 
-  constructor(private _authService: AuthService, private _dialog: MatDialog, private _userService: UserService, private _router: Router, private _clinicAdminService: ClinicAdminService, private _clinicService: ClinicService, private _absenceService: AbsenceService, private _notifier: NotifierService) { }
+  constructor(private _authService: AuthService, private _dialog: MatDialog, private _userService: UserService,
+     private _router: Router, private _clinicAdminService: ClinicAdminService, private _clinicService: ClinicService,
+     private _absenceService: AbsenceService, private _notifier: NotifierService, private _medicalExamService:MedicalExamService) { }
 
   private _currentAdmin: any;
   private _changedAdmin: any;
@@ -39,6 +42,7 @@ export class ProfileClinicAdminComponent implements OnInit {
   private _changedClinic: Clinic;
   private _passwordChanger: PasswordChanger;
   private _numOfRequests: Number;
+  private _numOfExamRequests: Number;
   
 
   ngOnInit() {
@@ -56,6 +60,11 @@ export class ProfileClinicAdminComponent implements OnInit {
       this._absenceService.getNumberOfRequests(this._clinic.id).subscribe(
         res => {
             this._numOfRequests = res;
+        }
+      )
+      this._medicalExamService.getNumExamRequests(this._clinic.id).subscribe(
+        res => {
+             this._numOfExamRequests = res;
         }
       )
     });
