@@ -118,4 +118,12 @@ import { AvailableDoctorRequest } from '../shared/model/AvailableDoctorRequest';
           })
         )
       }
+
+      getDoctorExamTypes(idClinic,idExamType){
+        return this._apiService.get("http://localhost:9000/api/doctors/getDoctorsExamType/" + idClinic + "/" + idExamType).pipe(
+          map(doctors => {
+              return doctors;
+          })
+      )
+      }
   }

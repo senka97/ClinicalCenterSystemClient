@@ -133,11 +133,26 @@
                 </div>
     
         <table id="newDoc" style="width:100%;margin: auto;">
-           
-            <tr><td><b>Working hours start: </b></td><td><ngb-timepicker [(ngModel)]="_workingHoursStartTemp" name="workingHoursStart" #workingHoursStart="ngModel" required></ngb-timepicker></td>
-                <td><b>Working hours end: </b></td><td><ngb-timepicker [(ngModel)]="_workingHoursEndTemp" name="workingHoursEnd" #workingHoursEnd="ngModel" required></ngb-timepicker></td></tr>             
+            <tr><td><b>Working hours start: </b></td><td><div class="form-group">
+                <ngb-timepicker [formControl]="ctrl" required [(ngModel)]="_workingHoursStartTemp" name="workingHoursStart"  [minuteStep]="0"></ngb-timepicker>
+                <div *ngIf="ctrl.valid" class="small form-text text-success">Good choice</div>
+                <div class="small form-text text-danger" *ngIf="!ctrl.valid">
+                  <div *ngIf="ctrl.errors['required']">Select the start of working time</div>
+                  <div *ngIf="ctrl.errors['tooLate']">It's too late</div>
+                  <div *ngIf="ctrl.errors['tooEarly']">It's too early</div>
+                </div>
+              </div></td>
+                <td><b>Working hours end: </b></td><td><div class="form-group">
+                    <ngb-timepicker [formControl]="ctrl1" required [(ngModel)]="_workingHoursEndTemp" name="workingHoursEnd"  [minuteStep]="0"></ngb-timepicker>
+                    <div *ngIf="ctrl1.valid" class="small form-text text-success">Good choice</div>
+                    <div class="small form-text text-danger" *ngIf="!ctrl1.valid">
+                      <div *ngIf="ctrl1.errors['required']">Select the end of working time</div>
+                      <div *ngIf="ctrl1.errors['tooLate']">It's too late</div>
+                      <div *ngIf="ctrl1.errors['tooEarly']">It's too early</div>
+                    </div>
+                  </div></td></tr>             
         </table>
-        <button style="width:7em;margin-top:0.5em;margin-right:2em;margin-bottom: 1em;"  type="submit" class="btn btn-primary" [disabled]="!newDoctorForm.form.valid">Register</button>
+        <button style="width:7em;margin-top:0.5em;margin-right:2em;margin-bottom: 1em;"  type="submit" class="btn btn-primary" [disabled]="!newDoctorForm.form.valid || !ctrl1.valid || !ctrl.valid">Register</button>
         <button style="width:7em;margin-top:0.5em;margin-right:2em;margin-bottom: 1em;" type="reset" (click)="cancelForm(newDoctorForm)" class="btn btn-danger">Cancel</button>  
 
         </form>

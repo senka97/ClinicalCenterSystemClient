@@ -179,6 +179,8 @@ export class DoctorsComponent implements OnInit {
     this._showTable = false;
     this._showMsg = false;
     this._showForm = true;
+    this._workingHoursEndTemp = null;
+    this._workingHoursStartTemp = null;
   }
 
   registerNewDoctor(form){
@@ -200,6 +202,8 @@ export class DoctorsComponent implements OnInit {
           });
           form.reset();
           this._confirmPassword = "";
+          this._workingHoursEndTemp = null;
+          this._workingHoursStartTemp = null;
         },
         error => {
           let dialogRef1 = this._dialog.open(DetailsDoctorDialogComponent, {
@@ -233,7 +237,40 @@ export class DoctorsComponent implements OnInit {
     this._showTable = false;
     this._showMsg = false;
     
-
   }
+
+  ctrl = new FormControl('', (control: FormControl) => {
+    const value = control.value;
+
+    if (!value) {
+      return null;
+    }
+
+    if (value.hour < 6) {
+      return {tooEarly: true};
+    }
+    if (value.hour > 21) {
+      return {tooLate: true};
+    }
+
+    return null;
+  });
+
+  ctrl1 = new FormControl('', (control: FormControl) => {
+    const value = control.value;
+
+    if (!value) {
+      return null;
+    }
+
+    if (value.hour < 7) {
+      return {tooEarly: true};
+    }
+    if (value.hour > 22) {
+      return {tooLate: true};
+    }
+
+    return null;
+  });
 
 }
