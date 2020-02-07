@@ -139,4 +139,16 @@ import { AvailableDoctorRequest } from '../shared/model/AvailableDoctorRequest';
           })
       )
       }
+
+      getFreeDoctorsForThisTerm(data,id){
+        const editHeaders = new HttpHeaders({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        });
+        return this._apiService.put("http://localhost:9000/api/doctors/getFreeDoctorsForThisTerm/"+id,JSON.stringify(data), editHeaders).pipe(
+          map(doctors => {
+              return doctors;
+          })
+      )
+      }
   }
