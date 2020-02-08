@@ -37,13 +37,13 @@
         <p>So if you can't find any free term for room and doctors who can perform this type of exam,
             you should reject the patient's request for medical exam.
         </p>
-        <button class="btn btn-danger" (click)="rejectExam()">Reject</button>
+        <button id="btn-reject" class="btn btn-danger" (click)="rejectExam()">Reject</button>
         </div>
     </div>
     <div *ngIf="_showAvailable" class="card" style="width:60%;margin-left: 2em;">
        <div class="card-body">
            <h4 class="card-title" style="color: green;">There are available rooms for the requested date and time:</h4>
-           <table class="table table-striped">
+           <table id="table-exam-rooms-success" class="table table-striped">
                 <thead>
                     <tr>
                         <th style="width:20%;">Name</th>
@@ -60,7 +60,7 @@
                         <td>{{room.number}}</td>
                         <td>{{room.date[2]}}/{{room.date[1]}}/{{room.date[0]}}</td>
                         <td>{{formatTime(room.startTime)}}-{{formatTime(room.endTime)}}</td>
-                        <td><button class="btn btn-primary" style="background-color: green;" (click)="reserveRoom(room)">Reserve</button></td>
+                        <td><button id="btn-reserve" class="btn btn-primary" style="background-color: green;" (click)="reserveRoom(room)">Reserve</button></td>
                         <td><button class="btn btn-primary" (click)="seeCalenar(room)">Calendar</button></td>
                     </tr>
                 </tbody>  
