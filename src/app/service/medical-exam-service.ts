@@ -32,6 +32,16 @@ export class MedicalExamService{
           )
     }
 
+    getDoctorPatientExams(id:string)
+    {
+        return this._apiService.get("http://localhost:9000/api/medicalExams/getDoctorPatientExams/" + id).pipe(
+            map(exams => {
+                //console.log(exam);
+                return exams;
+            })
+          )
+    }
+
 
     getNumExamRequests(idClinic){
         return this._apiService.get("http://localhost:9000/api/medicalExams/getNumExamRequests/" + idClinic).pipe(

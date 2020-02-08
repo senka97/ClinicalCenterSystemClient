@@ -20,6 +20,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { InfoDialogComponent } from '../shared/dialogs/info-dialog/info-dialog.component';
 import { NotifierService } from 'angular-notifier';
+import { SurgeryService } from '../service/surgery.service';
 
 
 @Component({
@@ -31,7 +32,8 @@ export class ProfileClinicAdminComponent implements OnInit {
 
   constructor(private _authService: AuthService, private _dialog: MatDialog, private _userService: UserService,
      private _router: Router, private _clinicAdminService: ClinicAdminService, private _clinicService: ClinicService,
-     private _absenceService: AbsenceService, private _notifier: NotifierService, private _medicalExamService:MedicalExamService) { }
+     private _absenceService: AbsenceService, private _notifier: NotifierService, private _medicalExamService:MedicalExamService,
+     private _surgeryService: SurgeryService) { }
 
   private _currentAdmin: any;
   private _changedAdmin: any;
@@ -43,6 +45,7 @@ export class ProfileClinicAdminComponent implements OnInit {
   private _passwordChanger: PasswordChanger;
   private _numOfRequests: Number;
   private _numOfExamRequests: Number;
+  private _numOfSurgeryRequests: Number;
   
 
   ngOnInit() {
@@ -65,6 +68,11 @@ export class ProfileClinicAdminComponent implements OnInit {
       this._medicalExamService.getNumExamRequests(this._clinic.id).subscribe(
         res => {
              this._numOfExamRequests = res;
+        }
+      )
+      this._surgeryService.getNumSurgeryRequests(this._clinic.id).subscribe(
+        res => {
+             this._numOfSurgeryRequests = res;
         }
       )
     });

@@ -18,6 +18,8 @@ import { Medication } from 'src/app/shared/model/Medication';
 import { CreateDiagnosisDialogComponent } from './create-diagnosis-dialog/create-diagnosis-dialog.component';
 import { Diagnosis } from 'src/app/shared/model/Diagnosis';
 import { TypesService } from 'src/app/service/types.service';
+import { MedicalExamService } from 'src/app/service/medical-exam-service';
+import { FastAppointmentService } from 'src/app/service/fastAppointment.service';
 
 @Component({
   selector: 'app-patient-profile',
@@ -34,10 +36,14 @@ export class PatientProfileComponent implements OnInit {
       private _notifier: NotifierService,
       private _diagnosesService: DiagnosisService,
       private _medicationService: MedicationService,
-      private _typesService : TypesService) { 
+      private _typesService : TypesService,
+      private _fAService: FastAppointmentService,
+      private _medicalExamService: MedicalExamService) { 
         this._newMedicalReport = new MedicalReport();
         this._newMedications = [];
         this._newDiagnoses = [];
+        this._reportDescription = "";
+        this._currentExamType = "";
   }
 
   private _currentDoctor: any;
@@ -48,12 +54,17 @@ export class PatientProfileComponent implements OnInit {
   private _medicalReport: MedicalReport;
   private _medicalReportChanged: MedicalReport;
   private _newMedicalReport: MedicalReport;
+  private _currentExam: any;
+  private _reportDescription: string;
+  private _currentExamType: string;
 
   private _allergicMedicationList: any[];
   private _chronicConditionList: any[];
   private _medicalReports: MedicalReport[];
   private _newDiagnoses: Diagnosis[];
   private _newMedications: Medication[];
+  private _medicalExams: any[];
+  private _fastExams: any[];
 
   private _showInformation: boolean;
   private _showMedicalRecord: boolean;
@@ -61,7 +72,7 @@ export class PatientProfileComponent implements OnInit {
   private _showNewMedicalReport: boolean;
   private _medicalReportCreated: boolean;
   private _startMedicalExam: boolean;
-  private _canStartMedicalExam: boolean;
+  //private _canStartMedicalExam: boolean;
   private _endMedicalExam: boolean;
   private _canEndMedicalExam: boolean;
   private _startedMedicalExam: boolean;
@@ -109,17 +120,17 @@ export class PatientProfileComponent implements OnInit {
    
     this._showInformation = false;
     this._showMedicalRecord = false;
-    this._showNewMedicalReport = false;
     this._showMedicalReports = false;
-    this._medicalReportCreated = false; 
+    this._startMedicalExam = false; 
 
-    this._startMedicalExam = true; 
-    this._canStartMedicalExam = true; // bice neki uslov
+    this._medicalReportCreated = false; 
+    //this._canStartMedicalExam = true; // bice neki uslov
     this._endMedicalExam = false;
     this._canEndMedicalExam = false; // bice neki uslov;
     this._startedMedicalExam = false;
+    this._showNewMedicalReport = false;
     this._newAppointment = false;
-    
+    this._newSurgery = false;
       
   }
 
@@ -129,6 +140,9 @@ export class PatientProfileComponent implements OnInit {
     this._showMedicalRecord = false;
     this._showMedicalReports = false;
     this._showNewMedicalReport = false;
+    this._newAppointment = false;
+    this._newSurgery = false;
+    this._startMedicalExam = false; 
   }
   
   clickedMedicalRecord()
@@ -138,6 +152,8 @@ export class PatientProfileComponent implements OnInit {
     this._showInformation = false;
     this._showNewMedicalReport = false;
     this._newAppointment = false;
+    this._newSurgery = false;
+    this._startMedicalExam = false; 
   }
 
   clickedMedicalReports()
@@ -150,6 +166,8 @@ export class PatientProfileComponent implements OnInit {
     this._showMedicalRecord = false;
     this._showNewMedicalReport = false;
     this._newAppointment = false;
+    this._newSurgery = false;
+    this._startMedicalExam = false; 
   }
 
   clickedCreateMedicalReport()
@@ -159,36 +177,81 @@ export class PatientProfileComponent implements OnInit {
     this._showInformation = false;
     this._showMedicalRecord = false;
     this._newAppointment = false;
-    //preuzimace se iz pregleda
-    this._newMedicalReport.date='2019-02-20';
-    this._newMedicalReport.time='12:00:00';
+    this._newSurgery = false;
+    
+    this._newMedicalReport.date=this._currentExam.date;
+    this._newMedicalReport.time=this._currentExam.startTime;
   }
 
   clickedStartMedicalExam()
   {
-    this._startMedicalExam = false;
-    this._endMedicalExam = true;
-    this._medicalReportCreated = false;
-    this._startedMedicalExam = true;
-    this._newAppointment = false;
+    if(this._startMedicalExam == false)
+    {
+      this._showInformation = false;
+      this._showMedicalRecord = false;
+      this._showMedicalReports = false;
+
+      this._medicalExamService.getDoctorPatientExams(this._currentPatient.id.toString()).subscribe( res=>
+        this._medicalExams = res
+      )
+
+      this._fAService.getDoctorPatientFastAppointments(this._currentPatient.id.toString()).subscribe( res=>
+        this._fastExams = res
+      )
+
+      this._startMedicalExam = true;
+    }
+    else{
+      this._startMedicalExam = false;
+    }
+       
   }
 
   clickedEndMedicalExam()
   {
-    this._startMedicalExam = true;
-    this._canStartMedicalExam = false;
+    this._startMedicalExam = false;
+    //this._canStartMedicalExam = false;
     this._endMedicalExam = false;
     this._canEndMedicalExam = false;
     this._showNewMedicalReport =  false;
     this._startedMedicalExam = false;
     this._newAppointment = false;
+    this._newSurgery = false;
+  }
+
+  clickStartMedicalExam(e){
+    this._currentExam = e;
+    this._currentExamType = "EXAM";
+    this._startMedicalExam = false;
+    this._endMedicalExam = true;
+    this._medicalReportCreated = false;
+    this._startedMedicalExam = true;
+
+    
+  }
+
+  clickStartFastExam(e){
+    this._currentExam = e;
+    this._currentExamType= "FAST";
+    this._startMedicalExam = false;
+    this._endMedicalExam = true;
+    this._medicalReportCreated = false;
+    this._startedMedicalExam = true;
   }
 
   clickSaveMedicalReport()
   {
+    this._newMedicalReport = new MedicalReport();
+    this._newMedicalReport.description = this._reportDescription;
+    this._reportDescription = "";
+    this._newMedicalReport.type = this._currentExamType;
+    this._currentExamType = "";
+    this._newMedicalReport.date=this._currentExam.date;
+    this._newMedicalReport.time=this._currentExam.startTime;
     this._newMedicalReport.diagnoses=this._newDiagnoses;
     this._newMedicalReport.medications=this._newMedications;
     this._newMedicalReport.doctor=this._currentDoctor;
+    this._newMedicalReport.examId = this._currentExam.id;
     this._medicalReportService.createMedicalReport(this._patientId,this._newMedicalReport).subscribe(res=> {
       this._notifier.notify("success","Medical report created");
               setTimeout(() => {
@@ -368,6 +431,7 @@ export class PatientProfileComponent implements OnInit {
     this._showInformation = false;
     this._showMedicalReports = false;
     this._newAppointment = false;
+    this._startMedicalExam = false;
   }
 
   clickedRequestSurgery(){

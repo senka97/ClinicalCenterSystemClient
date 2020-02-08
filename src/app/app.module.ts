@@ -106,6 +106,9 @@ import { AcceptExamReservationComponent } from './profile-clinic-admin/accept-ex
 import { RejectExamReservationComponent } from './profile-clinic-admin/reject-exam-reservation/reject-exam-reservation.component';
 import { NewAppointmentComponent } from './hp-doctor/patient-profile/new-appointment/new-appointment.component';
 import { SurgeryAppointmentComponent } from './hp-doctor/patient-profile/surgery-appointment/surgery-appointment.component';
+import { SurgeryRoomRequestComponent } from './profile-clinic-admin/surgery-room-request/surgery-room-request.component';
+import { SurgeryRoomReservationComponent } from './profile-clinic-admin/surgery-room-reservation/surgery-room-reservation.component';
+import { ReserveDoctorsDialogComponent } from './profile-clinic-admin/surgery-room-reservation/reserve-doctors-dialog/reserve-doctors-dialog.component';
 
 
 
@@ -218,7 +221,10 @@ const customNotifierOptions: NotifierOptions = {
     RoomReservationComponent,
     AcceptExamReservationComponent,
     RejectExamReservationComponent,
-    NewAppointmentComponent
+    NewAppointmentComponent,
+    SurgeryRoomRequestComponent,
+    SurgeryRoomReservationComponent,
+    ReserveDoctorsDialogComponent
     
   ],
   imports: [
@@ -252,8 +258,9 @@ const customNotifierOptions: NotifierOptions = {
       { path: 'fastAppointments/:id', component: FastAppointmentsComponent},  
       { path: 'businessReport/:id', component: BusinessReportComponent},
       { path: 'examRoomRequests/:id', component: ExamRoomRequestComponent},
+      { path: 'surgeryRoomRequests/:id', component: SurgeryRoomRequestComponent},
       { path: 'searchRoomForExam/:idExam/:idClinic', component: RoomReservationComponent},
-      { path: 'searchRoomForExam/:idExam/:idClinic', component: RoomReservationComponent},
+      { path: 'searchRoomForSurgery/:idSurgery/:idClinic', component: SurgeryRoomReservationComponent},
       { path: 'acceptReservation/:id', component: AcceptExamReservationComponent},
       { path: 'rejectReservation/:id', component: RejectExamReservationComponent},
       { path: '', redirectTo: 'login', pathMatch: 'full' }
@@ -344,7 +351,7 @@ const customNotifierOptions: NotifierOptions = {
     AddDiagnosisDialogComponent,
     AddPrescriptionDialogComponent,
     CreateDiagnosisDialogComponent,
-    
+    ReserveDoctorsDialogComponent,
   ],
   //schemas: [NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent]
