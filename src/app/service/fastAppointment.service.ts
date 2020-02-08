@@ -49,6 +49,7 @@ import { map } from 'rxjs/operators';
         )
     }
 
+    
     getDoctorPatientFastAppointments(id:string){
       return this._apiService.get("http://localhost:9000/api/fastAppointments/getDoctorPatientFA/" + id).pipe(
             map(fastAppointments => {
@@ -57,13 +58,14 @@ import { map } from 'rxjs/operators';
             })
         )
     }
+    
 
-    reserveFA(id:Number){
+    reserveFA(id:Number,idP:any){
       const editHeaders = new HttpHeaders({
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         });
-      return this._apiService.put("http://localhost:9000/api/fastAppointments/reserveFA/" + id, editHeaders).pipe(
+      return this._apiService.put("http://localhost:9000/api/fastAppointments/reserveFA/" + id + "/" + idP, editHeaders).pipe(
           map(result => {
               console.log("Fast appointment reserved.");
           })
