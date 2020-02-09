@@ -17,7 +17,7 @@
                 <td>{{appointment.type}}</td>
                 <td>{{appointment.date[2]}}/{{appointment.date[1]}}/{{appointment.date[0]}}</td>
                 <td>{{formatTime(appointment.time)}}</td>
-                <td style="text-align: center;"> <button id="{{appointment.id}}"  class="btn btn-primary" style="background-color: lightgreen;" (click)="reserveAppointment(appointment)">Reserve</button></td>
+                <td style="text-align: center;"> <button id="{{appointment.id}}"  name="appointment-buttons" class="btn btn-primary" style="background-color: lightgreen;" (click)="reserveAppointment(appointment)">Reserve</button></td>
                 
                 
               </tr>

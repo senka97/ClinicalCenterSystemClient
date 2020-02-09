@@ -60,7 +60,7 @@
                         <td>{{room.number}}</td>
                         <td>{{room.date[2]}}/{{room.date[1]}}/{{room.date[0]}}</td>
                         <td>{{formatTime(room.startTime)}}-{{formatTime(room.endTime)}}</td>
-                        <td><button id="btn-reserve"  class="btn btn-primary" style="background-color: green;" (click)="reserveRoom(room)">Reserve</button></td>
+                        <td><button name="btn-reserve" class="btn btn-primary" style="background-color: green;" (click)="reserveRoom(room)">Reserve</button></td>
                         <td><button class="btn btn-primary" (click)="seeCalendar(room)">Calendar</button></td>
                     </tr>
                 </tbody>  
@@ -118,7 +118,7 @@
                          <td>{{room.number}}</td>
                          <td>{{room.date[2]}}/{{room.date[1]}}/{{room.date[0]}}</td>
                          <td>{{formatTime(room.startTime)}}-{{formatTime(room.endTime)}}</td>
-                         <td><button class="btn btn-primary" style="background-color: green;" (click)="reserveRoom(room)">Reserve</button></td>
+                         <td><button  class="btn btn-primary" style="background-color: green;" (click)="reserveRoom(room)">Reserve</button></td>
                          <td><button class="btn btn-primary" (click)="seeCalendar(room)">Calendar</button></td>
                      </tr>
                  </tbody>  
