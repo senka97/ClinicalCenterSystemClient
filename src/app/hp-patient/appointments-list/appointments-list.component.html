@@ -1,6 +1,6 @@
 <div class= "row" >
 
-      <table class="table">
+      <table id="table-appointments" class="table">
    
         <tbody>
           <ng-container>
@@ -13,11 +13,11 @@
 
            
             <ng-container>
-              <tr *ngFor="let appointment of sortedAppointments">
+              <tr name="counting-appointments" *ngFor="let appointment of sortedAppointments">
                 <td>{{appointment.type}}</td>
                 <td>{{appointment.date[2]}}/{{appointment.date[1]}}/{{appointment.date[0]}}</td>
                 <td>{{formatTime(appointment.time)}}</td>
-                <td style="text-align: center;"> <button class="btn btn-primary" style="background-color: lightgreen;" (click)="reserveAppointment(appointment)">Reserve</button></td>
+                <td style="text-align: center;"> <button id="{{appointment.id}}"  class="btn btn-primary" style="background-color: lightgreen;" (click)="reserveAppointment(appointment)">Reserve</button></td>
                 
                 
               </tr>

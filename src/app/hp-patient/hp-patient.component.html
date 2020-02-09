@@ -16,7 +16,7 @@
                     <a class="nav-link" (click)="showProfileInfo()">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" (click)="onClickedLogout()">Log out</a>
+                    <a class="nav-link" id="btn-patient-logout" (click)="onClickedLogout()">Log out</a>
                 </li>
                  </div>
                  <div id="notHidden2">
@@ -36,7 +36,7 @@
                 <button class="link" (click)="showMedicalRecordInfo()"> Medical record </button>
             </li>
             <li class="nav-item">
-                <button class="link" (click)="showListOfClinics()"> List of clinics </button>
+                <button id="btn-list-of-clinics" class="link" (click)="showListOfClinics()"> List of clinics </button>
             </li>
             <li class="nav-item">
                 <button class="link" (click)="showMedicalExams()"> List of medical exams </button>

@@ -13,7 +13,7 @@
       <input [(ngModel)]='_loginUser.password' type="password" class="form-control" name = "password" id="password" placeholder="Enter Password" required #password="ngModel">
       <small id="emailHelp" class="form-text text-muted">Password is required.</small>
     </div>
-    <button type="submit" class="btn btn-primary" [disabled]="!userForm.form.valid">Log in</button>
+    <button id="btn-login" type="submit" class="btn btn-primary" [disabled]="!userForm.form.valid">Log in</button>
     <button type="button" (click) = 'onRegisterClicked()' class="btn btn-primary">Register</button>
   </form>
 </div>

@@ -22,7 +22,7 @@
     </nav>
     <div class="container-fluid">
         <h3 style="text-align: center;margin: 1em;">Requests for exam rooms</h3>   
-        <table *ngIf="_showTable" class="table table-striped">
+        <table id="table-exam-requests" *ngIf="_showTable" class="table table-striped">
             <thead style="background-color: lightskyblue;">
                 <tr>
                     <th style="width: 10%;">Date</th>
@@ -34,14 +34,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let examRequest of _examRequests">
+                <tr name="exam-request-row"  *ngFor="let examRequest of _examRequests">
                     <td>{{examRequest.date[2]}}/{{examRequest.date[1]}}/{{examRequest.date[0]}}</td>
                    <!-- <td>{{examRequest.startTime[0]}}:{{examRequest.startTime[1]}}0</td>-->
                     <td>{{formatTime(examRequest.startTime)}}</td>
                     <td>{{examRequest.fullNamePatient}}</td>
                     <td>{{examRequest.doctor.fullName}}</td>
                     <td>{{examRequest.examTypeName}}</td>
-                    <td style="padding: 0;"><button class="btn btn-primary" style="width:8em;" (click)="findRoom(examRequest.id)">Find room</button></td>
+                    <td style="padding: 0;"><button id="{{examRequest.id}}" class="btn btn-primary" style="width:8em;" (click)="findRoom(examRequest.id)">Find room</button></td>
                 </tr>
             </tbody>
         </table>    
