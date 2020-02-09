@@ -109,6 +109,7 @@ import { SurgeryAppointmentComponent } from './hp-doctor/patient-profile/surgery
 import { SurgeryRoomRequestComponent } from './profile-clinic-admin/surgery-room-request/surgery-room-request.component';
 import { SurgeryRoomReservationComponent } from './profile-clinic-admin/surgery-room-reservation/surgery-room-reservation.component';
 import { ReserveDoctorsDialogComponent } from './profile-clinic-admin/surgery-room-reservation/reserve-doctors-dialog/reserve-doctors-dialog.component';
+import { WorkCalendarRoomComponent } from './work-calendar-room/work-calendar-room.component';
 
 
 
@@ -224,7 +225,8 @@ const customNotifierOptions: NotifierOptions = {
     NewAppointmentComponent,
     SurgeryRoomRequestComponent,
     SurgeryRoomReservationComponent,
-    ReserveDoctorsDialogComponent
+    ReserveDoctorsDialogComponent,
+    WorkCalendarRoomComponent
     
   ],
   imports: [
@@ -263,6 +265,7 @@ const customNotifierOptions: NotifierOptions = {
       { path: 'searchRoomForSurgery/:idSurgery/:idClinic', component: SurgeryRoomReservationComponent},
       { path: 'acceptReservation/:id', component: AcceptExamReservationComponent},
       { path: 'rejectReservation/:id', component: RejectExamReservationComponent},
+      { path: 'workCalendarRoom/:idRoom/:idExam/:idClinic', component: WorkCalendarRoomComponent},
       { path: '', redirectTo: 'login', pathMatch: 'full' }
       //{path: '**', redirectTo: 'login'},
 
