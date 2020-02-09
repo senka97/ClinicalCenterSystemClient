@@ -263,7 +263,7 @@ export class ProfileClinicComponent implements OnInit {
 
     reserveFA(id){
 
-      this._faService.reserveFA(id).subscribe(
+      this._faService.reserveFA(id,this._currentUser.id).subscribe(
         res => {
           console.log("Dodje ovde");
           this._notifier.notify("success","You have successfully reserved the medical exam.");

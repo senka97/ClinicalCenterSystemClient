@@ -25,19 +25,21 @@
                 </ul>
             </div>
         </nav>
-        <!--<ul class="nav flex-column bg-dark" style="width: 20%;color: azure;float:left;">-->
           <ul class="nav flex-column nav-pills" style="width: 20%;color: blue; background-color: lightskyblue;float:left;">
             <li class="nav-item">
-              <!--<a class="nav-link" [routerLink]="" (click)="showAllPatients()">All patients in the clinic</a>-->
               <button class="btn btn-sm btn-outline-secondary" (click)="showAllPatients()" style="width:100%;color:darkblue;">All patients in the clinic</button>
             </li>
+            <!--<li class="nav-item">
+              <button class="btn btn-sm btn-outline-secondary" [routerLink]="" style="width:100%;color:darkblue;">Start a medical exam</button>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-sm btn-outline-secondary" [routerLink]="" style="width:100%;color:darkblue;height:fit-content">Make an appointment for an exam or surgery</button>
+              </li>-->
             
             <li class="nav-item">
-                <!--<a class="nav-link" [routerLink]="" (click)="showFormRequest()">Make a request for an absence or paid vacation</a>-->
                 <button class="btn btn-sm btn-outline-secondary" (click)="showFormRequest()" style="width:100%;color:darkblue;">Absence request</button>
             </li>  
             <li class="nav-item">
-              <!--<a class="nav-link" href="#" [routerLink]= "['/workCalendar']" >Work calendar</a>-->
               <button class="btn btn-sm btn-outline-secondary" [routerLink]= "['/workCalendar']" style="width:100%;color:darkblue;">Work calendar</button>
 
             </li>
