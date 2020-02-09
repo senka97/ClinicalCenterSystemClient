@@ -174,7 +174,7 @@ export class RoomReservationComponent implements OnInit {
   }
 
   seeCalendar(room){
-       
-         
+               
+        this._router.navigate(["/workCalendarRoom",room.id,this._examId,this._clinicId]); 
   }
 }

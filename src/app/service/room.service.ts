@@ -63,5 +63,13 @@ import { HttpHeaders } from '@angular/common/http';
       )
     }
 
+    getReservedRoomTerms(idRoom:any){
+      return this._apiService.get("http://localhost:9000/api/rooms/getReservedRoomTerms/" + idRoom).pipe(
+          map(roomTerms => {
+            return roomTerms;
+          })
+        )
+    }
+
 
 }
