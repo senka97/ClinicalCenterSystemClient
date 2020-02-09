@@ -1,4 +1,5 @@
 .container-fluid{
+    margin-left : 50px;
     margin-top: 20px;
     width: 250px;
     height: 320px;
@@ -92,8 +93,4 @@
   margin-top: 30px;
   margin-left: 260px;
   margin-right:auto;
-}
-.sel{
-  margin-left : 30px;
-  margin-right : 20px;
 }
