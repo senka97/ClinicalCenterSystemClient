@@ -20,6 +20,8 @@ export class SurgeryRoomRequestComponent implements OnInit {
   private _showMsg: boolean;
 
   ngOnInit() {
+    this._showMsg = false;
+    this._showTable = false;
     this._route.paramMap.subscribe(params => { 
       this._clinicId = params.get('id'); 
     });
@@ -44,8 +46,9 @@ export class SurgeryRoomRequestComponent implements OnInit {
   }
 
   findRoom(id:any){
-
+    this.showRequests();
     this._router.navigate(["/searchRoomForSurgery",id,this._clinicId]);
+    
   }
 
   clickedBack(){
