@@ -13,9 +13,9 @@
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <button mat-button [matMenuTriggerFor]="menu" style=" margin: 4px">Menu</button>
+                    <button id="btn-menu" mat-button [matMenuTriggerFor]="menu" style=" margin: 4px">Menu</button>
                     <mat-menu #menu="matMenu" focusFirstItem="false">
-                       <button (click)="showFA()" mat-menu-item>Fast appointments</button>
+                       <button id="btn-fast-exams" (click)="showFA()" mat-menu-item>Fast appointments</button>
                        <button (click)="showDoctors()" mat-menu-item>Doctors</button>
                        <button (click)="showRooms()" mat-menu-item>Rooms</button>
                        <button (click)="showPriceList()" mat-menu-item>Price list</button>
@@ -49,14 +49,14 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="_showFA" class="card text-center">
+        <div id="table-fast-exams" *ngIf="_showFA" class="card text-center">
             <div class="card-body">
             <h5 class="card-title">Fast appointments</h5>
             </div>
             <div class="row">
-                <div class="col-sm-6" *ngFor="let fa of _freeFA">
-                  <div class="card text-left" style="width:90%;background-color: rgb(183, 227, 255);margin-left:1.5em;">
-                    <div class="card-body">
+                <div  name="counting-fast-exams"  class="col-sm-6" *ngFor="let fa of _freeFA">
+                  <div  class="card text-left" style="width:90%;background-color: rgb(183, 227, 255);margin-left:1.5em;">
+                    <div   class="card-body">
                       <h5 class="card-title"><b>{{fa.nameExamType}}</b></h5>
                       <p class="card-text"><b>Date: </b>{{fa.date[2]}}/{{fa.date[1]}}/{{fa.date[0]}}</p>
                       <p class="card-text"><b>Time: </b>{{fa.time[0]}}:{{fa.time[1]}}0 - {{fa.time[0]+1}}:{{fa.time[1]}}0</p>
@@ -64,7 +64,7 @@
                       <p class="card-text"><b>Room: </b>{{fa.nameAndNumberRoom}}</p>
                       <p class="card-text"><b>Price: </b>{{fa.price}} EUR</p>
                       <p class="card-text"><b>Discount: </b>{{fa.discount}}%</p>
-                      <a *ngIf="_role=='ROLE_PATIENT'" (click)="reserveFA(fa.id)" class="btn btn-primary">Reserve</a>
+                      <a *ngIf="_role=='ROLE_PATIENT'" name="btn-reserve-fast-exam" (click)="reserveFA(fa.id)" class="btn btn-primary">Reserve</a>
                       <img src="assets/img/fast.png" style="width: 5em;height: 5em;float:right">
                     </div>
                   </div>
