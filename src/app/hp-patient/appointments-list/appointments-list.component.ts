@@ -75,6 +75,18 @@ export class AppointmentsListComponent implements OnInit {
       }
     });
   }
+
+  formatTime(time:Number[]){
+    let timeStr: String = "";
+    if(time[0]<10){
+      timeStr += '0' + time[0];
+    }else{
+      timeStr += '' + time[0];
+    }
+
+    timeStr += ':' + time[1] + '0';
+    return timeStr; 
+  }
 }
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {
