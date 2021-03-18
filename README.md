@@ -2,6 +2,8 @@
 
 Frontend aplikacija informacionog sistema kliničkog centra.
 
+Predmetni projekat iz predmeta "Internet softverske arhitekture".
+
 Backend aplikacija: https://github.com/senka97/ClinicalCenterSystemServer
 
 Korišćene tehnologije:
